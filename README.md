@@ -23,6 +23,7 @@
 | 11 | **[Thực hành] Tạo form cơ bản** | `simpleform.html` / `simpleform/` | HTML5 Form (`form`, `select`, `radio`, `text`, `button`, CSS Font) | Hoàn thành |
 | 12 | **[Thực hành] Quản lý đơn đặt hàng** | `erd-order-management/` | Sơ đồ ERD Ký pháp Chen, Mô hình quan hệ 3NF Crow's Foot, SQL DDL | Hoàn thành |
 | 13 | **[Thực hành] Tạo bảng trong CSDL** | `sql-create-table-practice/` | SQL DDL (`CREATE DATABASE`, `TABLE`, `ALTER TABLE`), ERD | Hoàn thành |
+| 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
 
 ---
 
@@ -212,9 +213,25 @@ Sử dụng các câu lệnh DDL để khởi tạo và liên kết 4 bảng cơ
 - Sơ đồ quan hệ ERD: `sql-create-table-practice/erd_quanly_diemthi.png`
 - Giao diện web trực quan: `sql-create-table-practice/index.html`
 
+## 14. Bài tập 14: [Bài tập] Chuyển đổi ERD sang mô hình quan hệ (Quản lý Vật tư)
+
+### 14.1. Mục tiêu
+Thực hiện chuyển đổi toàn diện từ mô hình thực thể kết hợp (ERD) sang lược đồ dữ liệu quan hệ chuẩn 3NF:
+- Bước 1: Xác định 5 thực thể chính: `PHIEUXUAT`, `VATTU`, `PHIEUNHAP`, `DONDH`, `NHACC`.
+- Bước 2: Chuyển đổi quan hệ 1 - n (`CUNG_CAP` sinh khóa ngoại `MaNCC` trong `DONDH`) và các quan hệ n - m (`XUAT`, `NHAP`, `DAT_HANG` sinh các bảng chi tiết trung gian).
+- Bước 3: Tách thuộc tính đa trị `SDT` của `NHACC` thành bảng độc lập `NHACC_SDT(MaNCC, SDT)` để chuẩn hóa về 1NF.
+- Bước 4: Liệt kê danh sách 8 bảng quan hệ hoàn chỉnh với đầy đủ khóa chính và khóa ngoại.
+
+### 14.2. Tài liệu và Mã nguồn
+- Sơ đồ ERD đầu vào: `erd-to-relational/erd_input_model.png`
+- Lược đồ quan hệ sau chuyển đổi: `erd-to-relational/erd_relational_schema.png`
+- Ảnh tổng hợp nộp bài: `erd-to-relational/erd_conversion_overview.png`
+- Kịch bản SQL DDL: `erd-to-relational/create_tables.sql`
+- Giao diện web trực quan: `erd-to-relational/index.html`
+
 ---
 
-## 14. Hướng dẫn mở và kiểm tra trực tiếp
+## 15. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -229,3 +246,4 @@ Sử dụng các câu lệnh DDL để khởi tạo và liên kết 4 bảng cơ
 11. **Mở Thực hành Tạo form cơ bản**: Mở file `simpleform.html` hoặc `simpleform/index.html` trong trình duyệt.
 12. **Mở Thực hành Quản lý đơn đặt hàng (ERD)**: Mở file `erd-order-management/index.html` trong trình duyệt.
 13. **Mở Thực hành Tạo bảng trong CSDL**: Mở file `sql-create-table-practice/index.html` trong trình duyệt.
+14. **Mở Bài tập Chuyển đổi ERD sang mô hình quan hệ**: Mở file `erd-to-relational/index.html` trong trình duyệt.

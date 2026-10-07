@@ -1,0 +1,150 @@
+-- =============================================================================
+-- [Bai tap] Chuyen doi ERD sang mo hinh quan he - Quan Ly Vat Tu
+-- =============================================================================
+
+CREATE DATABASE IF NOT EXISTS QuanLyVatTu;
+USE QuanLyVatTu;
+
+-- 1. BANG THUC THE MANH (STRONG ENTITIES)
+-- Bang Phieu xuat
+CREATE TABLE IF NOT EXISTS PHIEUXUAT (
+    SoPX VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayXuat DATE NOT NULL
+);
+
+-- Bang Vat tu
+CREATE TABLE IF NOT EXISTS VATTU (
+    MaVTU VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenVTU NVARCHAR(100) NOT NULL
+);
+
+-- Bang Phieu nhap
+CREATE TABLE IF NOT EXISTS PHIEUNHAP (
+    SoPN VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayNhap DATE NOT NULL
+);
+
+-- Bang Nha cung cap
+CREATE TABLE IF NOT EXISTS NHACC (
+    MaNCC VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenNCC NVARCHAR(100) NOT NULL,
+    DiaChi NVARCHAR(200)
+);
+
+-- 2. BANG TACH TU THUOC TINH DA TRI (MULTIVALUED ATTRIBUTE)
+-- Thuoc tinh SDT cua NHACC la da tri nen tach thanh 1 bang rieng
+CREATE TABLE IF NOT EXISTS NHACC_SDT (
+    MaNCC VARCHAR(20) NOT NULL,
+    SDT VARCHAR(15) NOT NULL,
+    PRIMARY KEY (MaNCC, SDT),
+    CONSTRAINT FK_SDT_NhaCungCap FOREIGN KEY (MaNCC) 
+        REFERENCES NHACC(MaNCC) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- 3. BANG CHUYEN DOI TU QUAN HE 1 - N (ONE-TO-MANY RELATIONSHIP)
+-- Quan he CUNG_CAP giua NHACC (1) va DONDH (N): Khoa ngoai MaNCC duoc them vao DONDH
+CREATE TABLE IF NOT EXISTS DONDH (
+    SoDH VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayDH DATE NOT NULL,
+    MaNCC VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_DonDH_NhaCungCap FOREIGN KEY (MaNCC) 
+        REFERENCES NHACC(MaNCC) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+-- 4. BANG CHUYEN DOI TU QUAN HE N - M (MANY-TO-MANY RELATIONSHIPS)
+-- Quan he XUAT giua PHIEUXUAT va VATTU (kem thuoc tinh DGXuat, SLXuat)
+CREATE TABLE IF NOT EXISTS CHI_TIET_PHIEU_XUAT (
+    SoPX VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    DGXuat DECIMAL(18, 2) NOT NULL CHECK (DGXuat >= 0),
+    SLXuat INT NOT NULL CHECK (SLXuat > 0),
+    PRIMARY KEY (SoPX, MaVTU),
+    CONSTRAINT FK_CTPX_PhieuXuat FOREIGN KEY (SoPX) 
+        REFERENCES PHIEUXUAT(SoPX) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_CTPX_VatTu FOREIGN KEY (MaVTU) 
+        REFERENCES VATTU(MaVTU) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+-- Quan he NHAP giua PHIEUNHAP va VATTU (kem thuoc tinh DGNhap, SLNhap)
+CREATE TABLE IF NOT EXISTS CHI_TIET_PHIEU_NHAP (
+    SoPN VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    DGNhap DECIMAL(18, 2) NOT NULL CHECK (DGNhap >= 0),
+    SLNhap INT NOT NULL CHECK (SLNhap > 0),
+    PRIMARY KEY (SoPN, MaVTU),
+    CONSTRAINT FK_CTPN_PhieuNhap FOREIGN KEY (SoPN) 
+        REFERENCES PHIEUNHAP(SoPN) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_CTPN_VatTu FOREIGN KEY (MaVTU) 
+        REFERENCES VATTU(MaVTU) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+-- Quan he DAT_HANG giua DONDH va VATTU
+CREATE TABLE IF NOT EXISTS CHI_TIET_DON_DAT_HANG (
+    SoDH VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    PRIMARY KEY (SoDH, MaVTU),
+    CONSTRAINT FK_CTDH_DonDH FOREIGN KEY (SoDH) 
+        REFERENCES DONDH(SoDH) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_CTDH_VatTu FOREIGN KEY (MaVTU) 
+        REFERENCES VATTU(MaVTU) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+-- =============================================================================
+-- DU LIEU MAU THU NGHIEM (SAMPLE DATA)
+-- =============================================================================
+
+INSERT INTO NHACC (MaNCC, TenNCC, DiaChi) VALUES
+('NCC01', 'Cong ty TNHH Thep Hoa Phat', 'Ha Noi'),
+('NCC02', 'Tong Cong ty Xi Mang Vicem', 'Hai Phong');
+
+-- Chen so dien thoai (1 nha cung cap co nhieu so dien thoai)
+INSERT INTO NHACC_SDT (MaNCC, SDT) VALUES
+('NCC01', '02431234567'),
+('NCC01', '0912345678'),
+('NCC02', '02253876543'),
+('NCC02', '0987654321');
+
+INSERT INTO VATTU (MaVTU, TenVTU) VALUES
+('VT01', 'Thep cuon phi 10'),
+('VT02', 'Thep thanh phi 18'),
+('VT03', 'Xi mang PCB40');
+
+INSERT INTO DONDH (SoDH, NgayDH, MaNCC) VALUES
+('DH01', '2026-10-01', 'NCC01'),
+('DH02', '2026-10-02', 'NCC02');
+
+INSERT INTO CHI_TIET_DON_DAT_HANG (SoDH, MaVTU) VALUES
+('DH01', 'VT01'),
+('DH01', 'VT02'),
+('DH02', 'VT03');
+
+INSERT INTO PHIEUNHAP (SoPN, NgayNhap) VALUES
+('PN01', '2026-10-03');
+
+INSERT INTO CHI_TIET_PHIEU_NHAP (SoPN, MaVTU, DGNhap, SLNhap) VALUES
+('PN01', 'VT01', 15000000, 10),
+('PN01', 'VT02', 16500000, 8);
+
+INSERT INTO PHIEUXUAT (SoPX, NgayXuat) VALUES
+('PX01', '2026-10-05');
+
+INSERT INTO CHI_TIET_PHIEU_XUAT (SoPX, MaVTU, DGXuat, SLXuat) VALUES
+('PX01', 'VT01', 16000000, 5),
+('PX01', 'VT02', 17800000, 4);
+
+-- =============================================================================
+-- TRUY VAN KIEM TRA (VERIFICATION QUERY)
+-- =============================================================================
+SELECT 
+    ncc.MaNCC,
+    ncc.TenNCC,
+    GROUP_CONCAT(sdt.SDT SEPARATOR ', ') AS DanhSachSDT,
+    dh.SoDH,
+    dh.NgayDH,
+    vt.TenVTU
+FROM NHACC ncc
+LEFT JOIN NHACC_SDT sdt ON ncc.MaNCC = sdt.MaNCC
+LEFT JOIN DONDH dh ON ncc.MaNCC = dh.MaNCC
+LEFT JOIN CHI_TIET_DON_DAT_HANG ctdh ON dh.SoDH = ctdh.SoDH
+LEFT JOIN VATTU vt ON ctdh.MaVTU = vt.MaVTU
+GROUP BY ncc.MaNCC, ncc.TenNCC, dh.SoDH, dh.NgayDH, vt.TenVTU;

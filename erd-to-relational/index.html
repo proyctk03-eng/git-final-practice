@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Chuyển đổi ERD sang mô hình quan hệ</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #6D28D9;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #DBEAFE;
+            max-width: 850px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        .diagram-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .diagram-caption {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        .step-box {
+            background: #F8FAFC;
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .step-box h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+        }
+
+        pre {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        .btn-link {
+            display: inline-block;
+            background: var(--primary);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-link:hover {
+            background: var(--accent);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header-bar">
+        <span class="badge-tag">Thiết kế Cơ sở dữ liệu &bull; Chuẩn hóa 3NF</span>
+        <h1>Chuyển đổi ERD sang mô hình quan hệ</h1>
+        <p>Phân tích quy trình 4 bước chuyển đổi mô hình thực thể kết hợp (ERD) sang mô hình dữ liệu quan hệ, xử lý quan hệ 1-n, quan hệ n-m và thuộc tính đa trị.</p>
+    </header>
+
+    <!-- Images Section -->
+    <div class="card">
+        <h2>1. Hình ảnh Sơ đồ ERD & Lược đồ Quan hệ</h2>
+
+        <div class="diagram-container">
+            <h3>Sơ đồ ERD đầu vào (Ký pháp Chen)</h3>
+            <img src="erd_input_model.png" alt="Sơ đồ ERD Ký pháp Chen">
+            <div class="diagram-caption">Hình 1: Mô hình thực thể kết hợp ERD bài toán Quản lý vật tư</div>
+            <a href="erd_input_model.png" target="_blank" class="btn-link">Xem ảnh kích thước gốc (300 DPI)</a>
+        </div>
+
+        <div class="diagram-container">
+            <h3>Lược đồ Cơ sở dữ liệu Quan hệ sau chuyển đổi (3NF)</h3>
+            <img src="erd_relational_schema.png" alt="Lược đồ quan hệ sau chuyển đổi">
+            <div class="diagram-caption">Hình 2: Mô hình dữ liệu quan hệ gồm 8 bảng với các khóa chính và khóa ngoại</div>
+            <a href="erd_relational_schema.png" target="_blank" class="btn-link">Xem ảnh kích thước gốc (300 DPI)</a>
+        </div>
+
+        <div class="diagram-container">
+            <h3>Ảnh tổng hợp nộp bài</h3>
+            <img src="erd_conversion_overview.png" alt="Ảnh tổng hợp phân tích chuyển đổi">
+            <div class="diagram-caption">Hình 3: Tổng hợp Sơ đồ ERD và Lược đồ quan hệ</div>
+            <a href="erd_conversion_overview.png" target="_blank" class="btn-link">Tải ảnh tổng hợp nộp bài</a>
+        </div>
+    </div>
+
+    <!-- 4 Steps Section -->
+    <div class="card">
+        <h2>2. Phân tích chi tiết quy trình 4 bước chuyển đổi</h2>
+
+        <div class="step-box">
+            <h4>Bước 1: Xác định các thực thể có trong mô hình ERD</h4>
+            <p>Mô hình ERD bao gồm 5 thực thể chính:</p>
+            <ul>
+                <li><strong>PHIEUXUAT</strong>: Thuộc tính khóa <code>SoPX</code>, thuộc tính mô tả <code>NgayXuat</code>.</li>
+                <li><strong>VATTU</strong>: Thuộc tính khóa <code>MaVTU</code>, thuộc tính mô tả <code>TenVTU</code>.</li>
+                <li><strong>PHIEUNHAP</strong>: Thuộc tính khóa <code>SoPN</code>, thuộc tính mô tả <code>NgayNhap</code>.</li>
+                <li><strong>DONDH</strong>: Thuộc tính khóa <code>SoDH</code>, thuộc tính mô tả <code>NgayDH</code>.</li>
+                <li><strong>NHACC</strong>: Thuộc tính khóa <code>MaNCC</code>, thuộc tính mô tả <code>TenNCC</code>, <code>DiaChi</code>, và thuộc tính đa trị <code>SDT</code>.</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h4>Bước 2: Xác định các mối quan hệ (1 - 1, 1 - n, n - m)</h4>
+            <ul>
+                <li>
+                    <strong>Mối quan hệ 1 - n (NHACC CUNG CẤP DONDH)</strong>:<br>
+                    Một nhà cung cấp có thể cung cấp nhiều đơn đặt hàng (1 - n). Theo quy tắc chuyển đổi, khóa chính <code>MaNCC</code> của thực thể một (NHACC) được đưa vào thực thể nhiều (DONDH) làm khóa ngoại.
+                </li>
+                <li>
+                    <strong>Mối quan hệ n - m (PHIEUXUAT XUẤT VATTU)</strong>:<br>
+                    Một phiếu xuất chứa nhiều vật tư, một vật tư có thể xuất trong nhiều phiếu xuất (n - m). Mối quan hệ có các thuộc tính kết hợp: <code>DGXuat</code>, <code>SLXuat</code>.<br>
+                    Sinh ra bảng trung gian: <code>CHI_TIET_PHIEU_XUAT(SoPX, MaVTU, DGXuat, SLXuat)</code> với khóa chính kết hợp <code>(SoPX, MaVTU)</code>.
+                </li>
+                <li>
+                    <strong>Mối quan hệ n - m (PHIEUNHAP NHẬP VATTU)</strong>:<br>
+                    Mối quan hệ n - m có các thuộc tính kết hợp: <code>DGNhap</code>, <code>SLNhap</code>.<br>
+                    Sinh ra bảng trung gian: <code>CHI_TIET_PHIEU_NHAP(SoPN, MaVTU, DGNhap, SLNhap)</code> với khóa chính kết hợp <code>(SoPN, MaVTU)</code>.
+                </li>
+                <li>
+                    <strong>Mối quan hệ n - m (DONDH ĐẶT HÀNG VATTU)</strong>:<br>
+                    Một đơn hàng đặt nhiều vật tư, một vật tư nằm trong nhiều đơn hàng (n - m).<br>
+                    Sinh ra bảng trung gian: <code>CHI_TIET_DON_DAT_HANG(SoDH, MaVTU)</code> với khóa chính kết hợp <code>(SoDH, MaVTU)</code>.
+                </li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h4>Bước 3: Xác định các thuộc tính đa trị và tạo thành 1 bảng mới</h4>
+            <p>Trong thực thể <strong>NHACC</strong>, thuộc tính <strong>Số điện thoại (SDT)</strong> là thuộc tính đa trị (vẽ bằng hai hình elip lồng nhau) do một nhà cung cấp có thể đăng ký nhiều số điện thoại liên lạc.</p>
+            <p>Để đạt chuẩn hóa dữ liệu bậc 1 (1NF), ta tách thuộc tính đa trị này thành một bảng riêng biệt:</p>
+            <ul>
+                <li>Tên bảng: <strong>NHACC_SDT</strong> (hoặc <code>SO_DIEN_THOAI_NCC</code>).</li>
+                <li>Các trường: <code>MaNCC</code> (khóa ngoại tham chiếu đến <code>NHACC(MaNCC)</code>) và <code>SDT</code>.</li>
+                <li>Khóa chính của bảng: Khóa kết hợp <code>(MaNCC, SDT)</code>.</li>
+            </ul>
+        </div>
+
+        <div class="step-box">
+            <h4>Bước 4: Liệt kê lại danh sách các bảng sau khi chuyển đổi xong</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên Bảng (Quan hệ)</th>
+                        <th>Khóa chính (PK)</th>
+                        <th>Khóa ngoại (FK)</th>
+                        <th>Các thuộc tính còn lại</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td><strong>PHIEUXUAT</strong></td>
+                        <td>SoPX</td>
+                        <td>Không có</td>
+                        <td>NgayXuat</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td><strong>VATTU</strong></td>
+                        <td>MaVTU</td>
+                        <td>Không có</td>
+                        <td>TenVTU</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td><strong>CHI_TIET_PHIEU_XUAT</strong></td>
+                        <td>(SoPX, MaVTU)</td>
+                        <td>SoPX &rarr; PHIEUXUAT<br>MaVTU &rarr; VATTU</td>
+                        <td>DGXuat, SLXuat</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td><strong>PHIEUNHAP</strong></td>
+                        <td>SoPN</td>
+                        <td>Không có</td>
+                        <td>NgayNhap</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td><strong>CHI_TIET_PHIEU_NHAP</strong></td>
+                        <td>(SoPN, MaVTU)</td>
+                        <td>SoPN &rarr; PHIEUNHAP<br>MaVTU &rarr; VATTU</td>
+                        <td>DGNhap, SLNhap</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td><strong>DONDH</strong></td>
+                        <td>SoDH</td>
+                        <td>MaNCC &rarr; NHACC</td>
+                        <td>NgayDH</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td><strong>CHI_TIET_DON_DAT_HANG</strong></td>
+                        <td>(SoDH, MaVTU)</td>
+                        <td>SoDH &rarr; DONDH<br>MaVTU &rarr; VATTU</td>
+                        <td>Không có</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td><strong>NHACC</strong></td>
+                        <td>MaNCC</td>
+                        <td>Không có</td>
+                        <td>TenNCC, DiaChi</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td><strong>NHACC_SDT</strong></td>
+                        <td>(MaNCC, SDT)</td>
+                        <td>MaNCC &rarr; NHACC</td>
+                        <td>SDT</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- SQL DDL Script -->
+    <div class="card">
+        <h2>3. Kịch bản SQL DDL khởi tạo (create_tables.sql)</h2>
+        <pre><code>CREATE DATABASE IF NOT EXISTS QuanLyVatTu;
+USE QuanLyVatTu;
+
+CREATE TABLE PHIEUXUAT (
+    SoPX VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayXuat DATE NOT NULL
+);
+
+CREATE TABLE VATTU (
+    MaVTU VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenVTU NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE PHIEUNHAP (
+    SoPN VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayNhap DATE NOT NULL
+);
+
+CREATE TABLE NHACC (
+    MaNCC VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenNCC NVARCHAR(100) NOT NULL,
+    DiaChi NVARCHAR(200)
+);
+
+-- Bảng tách từ thuộc tính đa trị SDT
+CREATE TABLE NHACC_SDT (
+    MaNCC VARCHAR(20) NOT NULL,
+    SDT VARCHAR(15) NOT NULL,
+    PRIMARY KEY (MaNCC, SDT),
+    CONSTRAINT FK_SDT_NhaCungCap FOREIGN KEY (MaNCC) REFERENCES NHACC(MaNCC)
+);
+
+-- Bảng chuyển đổi từ quan hệ 1 - n
+CREATE TABLE DONDH (
+    SoDH VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayDH DATE NOT NULL,
+    MaNCC VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_DonDH_NhaCungCap FOREIGN KEY (MaNCC) REFERENCES NHACC(MaNCC)
+);
+
+-- Bảng chuyển đổi từ các quan hệ n - m
+CREATE TABLE CHI_TIET_PHIEU_XUAT (
+    SoPX VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    DGXuat DECIMAL(18, 2) NOT NULL,
+    SLXuat INT NOT NULL,
+    PRIMARY KEY (SoPX, MaVTU),
+    CONSTRAINT FK_CTPX_PhieuXuat FOREIGN KEY (SoPX) REFERENCES PHIEUXUAT(SoPX),
+    CONSTRAINT FK_CTPX_VatTu FOREIGN KEY (MaVTU) REFERENCES VATTU(MaVTU)
+);
+
+CREATE TABLE CHI_TIET_PHIEU_NHAP (
+    SoPN VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    DGNhap DECIMAL(18, 2) NOT NULL,
+    SLNhap INT NOT NULL,
+    PRIMARY KEY (SoPN, MaVTU),
+    CONSTRAINT FK_CTPN_PhieuNhap FOREIGN KEY (SoPN) REFERENCES PHIEUNHAP(SoPN),
+    CONSTRAINT FK_CTPN_VatTu FOREIGN KEY (MaVTU) REFERENCES VATTU(MaVTU)
+);
+
+CREATE TABLE CHI_TIET_DON_DAT_HANG (
+    SoDH VARCHAR(20) NOT NULL,
+    MaVTU VARCHAR(20) NOT NULL,
+    PRIMARY KEY (SoDH, MaVTU),
+    CONSTRAINT FK_CTDH_DonDH FOREIGN KEY (SoDH) REFERENCES DONDH(SoDH),
+    CONSTRAINT FK_CTDH_VatTu FOREIGN KEY (MaVTU) REFERENCES VATTU(MaVTU)
+);</code></pre>
+    </div>
+
+    <footer class="footer">
+        <p>Báo cáo Bài tập Chuyển đổi ERD sang mô hình quan hệ - CodeGym &bull; Học viên: Nguyễn Tuấn Đạt</p>
+    </footer>
+</div>
+
+</body>
+</html>
