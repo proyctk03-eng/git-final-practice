@@ -16,6 +16,7 @@
 | 4 | **[Thực hành] Định dạng văn bản với HTML Styles** | `text_formatting.html` | HTML5, CSS Inline Styles | Hoàn thành |
 | 5 | **[Thực hành] Tạo danh sách trong HTML** | `html_lists.html` | HTML5 (`ul`, `ol`, `li`, nested list) | Hoàn thành |
 | 6 | **[Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn** | `headings-paragraphs/index.html` | HTML5 (`h1`, `h2`, `p`) | Hoàn thành |
+| 7 | **[Bài tập] Sử dụng danh sách trong HTML** | `html-lists-exercise/index.html` | HTML5 (`h1`, `h2`, `ul`, `ol`) | Hoàn thành |
 
 ---
 
@@ -110,9 +111,21 @@ Luyện tập sử dụng các thẻ tiêu đề và đoạn văn trong HTML:
 ### 6.2. Mã nguồn
 - File thực hành: `headings-paragraphs/index.html`
 
+## 7. Bài tập 7: [Bài tập] Sử dụng danh sách trong HTML
+
+### 7.1. Mục tiêu
+Luyện tập sử dụng danh sách có thứ tự (`<ol>`) và danh sách không có thứ tự (`<ul>`):
+- `<h1>`: "Những món ăn yêu thích của tôi".
+- `<ul>`: Liệt kê 5 món ăn yêu thích.
+- `<h2>`: "Các bước chuẩn bị cho một chuyến du lịch".
+- `<ol>`: Liệt kê 5 bước chuẩn bị trước khi đi du lịch.
+
+### 7.2. Mã nguồn
+- File thực hành: `html-lists-exercise/index.html`
+
 ---
 
-## 7. Hướng dẫn mở và kiểm tra trực tiếp
+## 8. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -120,3 +133,4 @@ Luyện tập sử dụng các thẻ tiêu đề và đoạn văn trong HTML:
 4. **Mở Thực hành Định dạng văn bản với HTML Styles**: Mở file `text_formatting.html` trong trình duyệt.
 5. **Mở Thực hành Tạo danh sách trong HTML**: Mở file `html_lists.html` trong trình duyệt.
 6. **Mở Bài tập Sử dụng các thẻ tiêu đề và đoạn văn**: Mở file `headings-paragraphs/index.html` trong trình duyệt.
+7. **Mở Bài tập Sử dụng danh sách trong HTML**: Mở file `html-lists-exercise/index.html` trong trình duyệt.
