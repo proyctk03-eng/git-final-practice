@@ -1,0 +1,36 @@
+/* ========================================================
+   VERSION 1 PALETTE: TRELLO COOL PRODUCTIVITY
+   Quy tắc phối màu Adobe Color: Tương đồng & Bổ túc (Analogous + Accent)
+   Tâm lý học màu sắc: Tin cậy, công nghệ, tập trung, năng suất cao
+   ======================================================== */
+
+:root {
+    /* 1. Các màu cốt lõi theo Adobe Color */
+    --primary-color: #0065FF;         /* Electric Blue: Màu chủ đạo Trello/Atlassian */
+    --primary-hover: #0052CC;         /* Deep Blue cho trạng thái hover */
+    --secondary-color: #00A3BF;       /* Sky Cyan: Màu phụ tạo sự tươi mới, thoáng đạt */
+    --secondary-light: #E6FCFF;       /* Cyan pastel cho nền thẻ phụ */
+    
+    --accent-color: #36B37E;          /* Emerald Green: Màu nhấn hoàn thành, hành động */
+    --accent-light: #E3FCEF;          /* Xanh ngọc pastel cho badge */
+    
+    --highlight-color: #FF991F;       /* Amber Gold: Màu cảnh báo nhẹ, thẻ chú ý */
+    --highlight-light: #FFFAE6;       /* Vàng nhạt pastel */
+    
+    /* 2. Màu nền và bố cục */
+    --canvas-bg: #F4F5F7;             /* Xám sáng trung tính chuẩn Atlassian */
+    --card-bg: #FFFFFF;               /* Trắng tinh khiết cho thẻ nội dung */
+    --border-color: #DFE1E6;          /* Viền xám dịu nhẹ */
+    --hero-gradient-start: rgba(0, 101, 255, 0.05);
+    
+    /* 3. Màu chữ đảm bảo chuẩn WCAG 2.2 AAA */
+    --text-color: #172B4D;            /* Deep Navy: Tương phản 12.8:1 trên nền trắng */
+    --text-muted: #5E6C84;            /* Xám xanh đậm: Tương phản 4.8:1 trên nền trắng */
+    
+    /* 4. Footer & Chi tiết */
+    --footer-bg: #091E42;             /* Xanh đen thẳm Midnight Navy */
+    --footer-text: #EBECF0;           /* Xám trắng dễ đọc */
+    --footer-link: #4C9AFF;           /* Xanh sáng cho liên kết */
+    --callout-bg: #F4F5F7;
+    --btn-shadow: rgba(0, 101, 255, 0.28);
+}

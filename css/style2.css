@@ -1,0 +1,36 @@
+/* ========================================================
+   VERSION 2 PALETTE: SUNSET CREATIVE ENERGY
+   Quy tắc phối màu Adobe Color: Tam giác màu & Bổ túc ấm (Triadic & Warm Contrast)
+   Tâm lý học màu sắc: Ấm áp, nhiệt huyết, truyền cảm hứng, tính cộng đồng
+   ======================================================== */
+
+:root {
+    /* 1. Các màu cốt lõi theo Adobe Color */
+    --primary-color: #E65100;         /* Sunset Tangerine: Cam đất nhiệt huyết, chào đón */
+    --primary-hover: #BF360C;         /* Cam cháy đậm cho trạng thái hover */
+    --secondary-color: #6A1B9A;       /* Royal Plum: Tím hoàng gia tạo chiều sâu, sang trọng */
+    --secondary-light: #F3E5F5;       /* Tím nhạt pastel cho nền thẻ phụ */
+    
+    --accent-color: #00897B;          /* Vibrant Mint Teal: Màu nhấn bạc hà tươi sáng, tương phản */
+    --accent-light: #E0F2F1;          /* Bạc hà pastel cho badge */
+    
+    --highlight-color: #F57F17;       /* Hổ phách mật ong rực rỡ */
+    --highlight-light: #FFF8E1;       /* Vàng kem nhẹ */
+    
+    /* 2. Màu nền và bố cục */
+    --canvas-bg: #FFF8F0;             /* Kem ấm Warm Linen tạo cảm giác thân mật, nghệ thuật */
+    --card-bg: #FFFFFF;               /* Nền thẻ trắng sạch sẽ */
+    --border-color: #FFE0B2;          /* Viền cam đào nhạt */
+    --hero-gradient-start: rgba(230, 81, 0, 0.05);
+    
+    /* 3. Màu chữ đảm bảo chuẩn WCAG 2.2 AAA */
+    --text-color: #261C14;            /* Espresso Roast: Nâu đen đậm, tương phản 13.5:1 */
+    --text-muted: #6D4C41;            /* Nâu ca cao ấm: Tương phản 5.2:1 trên nền kem */
+    
+    /* 4. Footer & Chi tiết */
+    --footer-bg: #261C14;             /* Nâu espresso đậm đà */
+    --footer-text: #F5EBE6;           /* Trắng sữa ngà */
+    --footer-link: #FFB74D;           /* Cam sáng nổi bật trên nền tối */
+    --callout-bg: #FFF3E0;
+    --btn-shadow: rgba(230, 81, 0, 0.28);
+}

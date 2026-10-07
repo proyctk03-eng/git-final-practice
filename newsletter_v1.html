@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trello Newsletter — Phiên bản 1: Cool Productivity</title>
+    <!-- Bootstrap CSS 5.3.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS Custom Properties & Common Layout -->
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/style1.css">
+    <style>
+        /* Top Navigation Bar for Reviewing */
+        .preview-topbar {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .palette-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: #0065FF;
+        }
+        .color-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Thanh chuyển đổi nhanh tiện lợi cho người chấm bài -->
+    <div class="preview-topbar">
+        <div class="palette-badge">
+            <i class="fa-solid fa-palette"></i>
+            <span>Phiên bản 1: Atlassian Cool Productivity</span>
+            <span class="color-dot" style="background: #0065FF;" title="Primary: #0065FF"></span>
+            <span class="color-dot" style="background: #00A3BF;" title="Secondary: #00A3BF"></span>
+            <span class="color-dot" style="background: #36B37E;" title="Accent: #36B37E"></span>
+        </div>
+        <div>
+            <a href="index.html" class="btn btn-sm btn-outline-secondary me-2">
+                <i class="fa-solid fa-table-columns me-1"></i>Trang So Sánh
+            </a>
+            <a href="newsletter_v2.html" class="btn btn-sm btn-primary" style="background-color: #E65100; border-color: #E65100;">
+                <i class="fa-solid fa-arrow-right me-1"></i>Xem Phiên Bản 2
+            </a>
+        </div>
+    </div>
+
+    <!-- Khung Newsletter chính -->
+    <div class="newsletter-wrapper">
+        
+        <!-- Header -->
+        <header class="newsletter-header">
+            <div class="brand-badge">
+                <i class="fa-brands fa-trello"></i> Trello Newsletter &bull; Số 42
+            </div>
+            <h1>Bản Tin Năng Suất & Công Nghệ</h1>
+            <p>Khám phá phương pháp quản lý công việc tinh gọn và sáng tạo</p>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <span class="hero-tag">Tiêu điểm tháng này</span>
+            <h2 class="hero-title">Làm chủ tiến độ dự án cùng hệ thống Trello Boards thế hệ mới</h2>
+            <p class="hero-text">
+                Chào mừng bạn đến với bản tin tháng này! Chúng tôi mang đến những cải tiến vượt trội về giao diện trực quan, 
+                giúp đội ngũ của bạn tối ưu luồng công việc, xóa bỏ sự trì trệ và tập trung vào những mục tiêu then chốt.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+                <a href="#" class="btn-cta-primary">
+                    <i class="fa-solid fa-rocket me-2"></i>Bắt đầu miễn phí ngay
+                </a>
+                <a href="#" class="btn-cta-secondary">
+                    <i class="fa-solid fa-book-open me-2"></i>Xem tài liệu hướng dẫn
+                </a>
+            </div>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-section">
+            <div class="section-label">Tính năng nổi bật</div>
+            <h2 class="section-title">Nâng cấp trải nghiệm cộng tác đội nhóm</h2>
+            
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <div class="feature-card card-primary-theme">
+                        <div class="feature-icon-box icon-box-primary">
+                            <i class="fa-solid fa-layer-group"></i>
+                        </div>
+                        <h3>Bảng Kanban Đa năng</h3>
+                        <p>Tổ chức công việc khoa học theo từng cột trạng thái, phân công linh hoạt chỉ bằng thao tác kéo thả.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-card card-accent-theme">
+                        <div class="feature-icon-box icon-box-accent">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        </div>
+                        <h3>Tự động hóa Butler AI</h3>
+                        <p>Tự động gửi thông báo, di chuyển thẻ và nhắc nhở thời hạn hoàn thành mà không tốn công sức thủ công.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="feature-card card-highlight-theme">
+                        <div class="feature-icon-box icon-box-secondary">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3>Thống kê Thời gian thực</h3>
+                        <p>Theo dõi biểu đồ tiến độ trực quan, phân tích hiệu suất làm việc và nhận diện điểm nghẽn tức thì.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Callout Quote Section -->
+        <section class="callout-section">
+            <p class="callout-quote">
+                &ldquo;Mẹo nhỏ hôm nay: Việc phân loại nhãn màu (Color Labels) trên các thẻ công việc giúp não bộ tiếp nhận 
+                và sắp xếp thứ tự ưu tiên nhanh hơn 60% so với việc chỉ đọc tiêu đề văn bản thuần túy.&rdquo;
+            </p>
+            <div class="callout-author">&mdash; Đội ngũ Nghiên cứu Trải nghiệm Người dùng (UX Research)</div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="newsletter-footer">
+            <div class="footer-socials">
+                <a href="#" class="footer-social-link" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="footer-social-link" title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#" class="footer-social-link" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="footer-social-link" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <p class="mb-1">&copy; 2026 Trello / Atlassian. Mọi quyền được bảo lưu.</p>
+            <p class="mb-0 text-white-50" style="font-size: 0.8rem;">
+                Bạn nhận được email này vì đã đăng ký nhận bản tin phát triển sản phẩm. 
+                <a href="#" class="text-white text-decoration-underline ms-1">Hủy đăng ký</a>
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

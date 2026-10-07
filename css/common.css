@@ -1,0 +1,292 @@
+/* ========================================================
+   COMMON STYLESHEET — NEWSLETTER BASE & TYPOGRAPHY
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--canvas-bg, #f4f5f7);
+    color: var(--text-color, #172b4d);
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* Wrapper container */
+.newsletter-wrapper {
+    max-width: 680px;
+    margin: 30px auto;
+    background-color: var(--card-bg, #ffffff);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-color, rgba(0, 0, 0, 0.06));
+    transition: all 0.3s ease;
+}
+
+/* Header */
+.newsletter-header {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 40px 32px 32px;
+    text-align: center;
+    position: relative;
+}
+
+.brand-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(8px);
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.newsletter-header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.newsletter-header p {
+    font-size: 1.05rem;
+    opacity: 0.92;
+    margin-bottom: 0;
+}
+
+/* Hero Section */
+.hero-section {
+    padding: 36px 32px 28px;
+    background: linear-gradient(180deg, var(--hero-gradient-start, rgba(0,0,0,0.02)) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border-color, rgba(0, 0, 0, 0.06));
+}
+
+.hero-tag {
+    display: inline-block;
+    background-color: var(--accent-light, rgba(0,0,0,0.05));
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 12px;
+    line-height: 1.35;
+}
+
+.hero-text {
+    font-size: 1rem;
+    color: var(--text-muted, #5e6c84);
+    margin-bottom: 24px;
+}
+
+/* Custom Buttons */
+.btn-cta-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px var(--btn-shadow, rgba(0,0,0,0.15));
+}
+
+.btn-cta-primary:hover {
+    background-color: var(--primary-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px var(--btn-shadow, rgba(0,0,0,0.2));
+}
+
+.btn-cta-secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 11px 24px;
+    border-radius: 8px;
+    border: 2px solid var(--primary-color);
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-cta-secondary:hover {
+    background-color: var(--secondary-light, rgba(0,0,0,0.05));
+    color: var(--primary-hover);
+}
+
+/* Features Grid */
+.features-section {
+    padding: 32px;
+}
+
+.section-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--text-color);
+}
+
+.feature-card {
+    border-radius: 12px;
+    padding: 24px;
+    height: 100%;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--border-color, rgba(0,0,0,0.06));
+}
+
+.feature-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+}
+
+.card-primary-theme {
+    background-color: var(--secondary-light, #f0f7ff);
+    border-color: var(--secondary-color);
+}
+
+.card-accent-theme {
+    background-color: var(--accent-light, #f0fdf4);
+    border-color: var(--accent-color);
+}
+
+.card-highlight-theme {
+    background-color: var(--highlight-light, #fffbeb);
+    border-color: var(--highlight-color);
+}
+
+.feature-icon-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+}
+
+.icon-box-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.icon-box-secondary {
+    background-color: var(--secondary-color);
+    color: #ffffff;
+}
+
+.icon-box-accent {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.feature-card h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+.feature-card p {
+    font-size: 0.92rem;
+    color: var(--text-muted, #5e6c84);
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+/* Callout Quote Section */
+.callout-section {
+    margin: 0 32px 32px;
+    padding: 24px;
+    border-radius: 12px;
+    background-color: var(--callout-bg, rgba(0,0,0,0.03));
+    border-left: 5px solid var(--accent-color);
+}
+
+.callout-quote {
+    font-size: 0.98rem;
+    font-style: italic;
+    color: var(--text-color);
+    margin-bottom: 8px;
+}
+
+.callout-author {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+/* Footer */
+.newsletter-footer {
+    background-color: var(--footer-bg, #091e42);
+    color: var(--footer-text, #ffffff);
+    padding: 32px;
+    text-align: center;
+    font-size: 0.88rem;
+}
+
+.newsletter-footer a {
+    color: var(--footer-link, #ffffff);
+    text-decoration: underline;
+    opacity: 0.85;
+}
+
+.newsletter-footer a:hover {
+    opacity: 1;
+}
+
+.footer-socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.footer-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff !important;
+    text-decoration: none !important;
+    transition: background 0.2s ease;
+}
+
+.footer-social-link:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
