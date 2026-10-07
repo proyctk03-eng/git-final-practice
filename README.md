@@ -12,6 +12,7 @@
 |:---:|---|---|---|:---:|
 | 1 | **[Bài tập] Phối màu cho newsletter** | Gốc repository (`./`) | HTML5, CSS3 Variables, Bootstrap 5.3.3, Adobe Color | Hoàn thành |
 | 2 | **[Bài tập] Xây dựng Landing Page (CodeGym Career)** | `landing-page/` | Bootstrap Material Design (MDBootstrap 4.19.1), Bootstrap 4.5.0, jQuery, Font Awesome | Hoàn thành |
+| 3 | **[Thực hành] Sử dụng thẻ HTML cơ bản** | `halong_bay.html` | HTML5 (`h1`, `p`, `img`, `a`) | Hoàn thành |
 
 ---
 
@@ -60,9 +61,22 @@ landing-page/
 10. **Form đăng ký tư vấn & Nhận tài liệu (Material Floating Form)**: Nhãn nổi `.md-form`, kiểm tra hợp lệ dữ liệu và câu hỏi bảo mật `15 + 7 = 22`.
 11. **Footer chuẩn Material Design**: Đầy đủ thông tin pháp lý, cơ sở Hà Nội, Đà Nẵng, hotline và mạng xã hội.
 
+## 3. Bài tập 3: [Thực hành] Sử dụng thẻ HTML cơ bản (Vịnh Hạ Long)
+
+### 3.1. Mục tiêu
+Luyện tập xây dựng tài liệu HTML5 hoàn chỉnh, sử dụng các thẻ HTML cơ bản:
+- `<h1>`: Định nghĩa tiêu đề chính của trang.
+- `<p>`: Tạo các đoạn văn bản giới thiệu và mô tả.
+- `<img>`: Chèn hình ảnh Vịnh Hạ Long kèm các thuộc tính `src`, `alt`, `width="600"`.
+- `<a>`: Tạo siêu liên kết dẫn đến trang Wikipedia của Vịnh Hạ Long.
+
+### 3.2. Mã nguồn
+- File thực hành: `halong_bay.html`
+
 ---
 
-## 3. Hướng dẫn mở và kiểm tra trực tiếp
+## 4. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
+3. **Mở Thực hành Thẻ HTML cơ bản**: Mở file `halong_bay.html` trong trình duyệt.
