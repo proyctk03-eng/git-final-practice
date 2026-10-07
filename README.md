@@ -1,76 +1,68 @@
-# [Bài Tập] Phối Màu Cho Newsletter — Trello Sample
+# Bài Tập Thực Hành Thiết Kế Web & UX/UI
 
 > **Khoá học**: Thiết kế Trải nghiệm Người dùng (UX) & Giao diện Người dùng (UI)  
 > **Sinh viên thực hiện**: Nguyễn Tuấn Đạt  
-> **Công nghệ sử dụng**: HTML5, CSS3 Custom Properties (`:root`), Bootstrap 5.3.3, Adobe Color Wheels, Font Awesome 6.
+> **Kho lưu trữ (Repository)**: `https://github.com/proyctk03-eng/git-final-practice`
 
 ---
 
-## 1. Giới thiệu Bài tập
-Mục tiêu của bài tập là ứng dụng công cụ **Adobe Color** để nghiên cứu và lựa chọn 2 bộ màu sắc hài hòa, sau đó áp dụng vào khung mẫu **Trello Newsletter** được xây dựng trên nền tảng **Bootstrap 5.3.3**. Qua đó, tạo ra hai phiên bản newsletter mang hai sắc thái cảm xúc, tâm lý học và thông điệp thị giác hoàn toàn khác biệt.
+## Danh mục Bài tập hoàn thành
+
+| STT | Tên bài tập | Thư mục mã nguồn | Công nghệ sử dụng | Trạng thái |
+|:---:|---|---|---|:---:|
+| 1 | **[Bài tập] Phối màu cho newsletter** | Gốc repository (`./`) | HTML5, CSS3 Variables, Bootstrap 5.3.3, Adobe Color | Hoàn thành |
+| 2 | **[Bài tập] Xây dựng Landing Page (CodeGym Career)** | `landing-page/` | Bootstrap Material Design (MDBootstrap 4.19.1), Bootstrap 4.5.0, jQuery, Font Awesome | Hoàn thành |
 
 ---
 
-## 2. Bảng Phân Tích Màu Sắc Adobe Color
+## 1. Bài tập 1: Phối màu cho newsletter (Trello Sample)
 
-### Phiên bản 1: "Atlassian Trello Cool Productivity"
-- **Quy tắc phối màu (Color Harmony Rule)**: Tương đồng & Bổ túc (Analogous with Accent Complementary).
-- **Ý nghĩa tâm lý**: Tông xanh dương mang lại cảm giác tin cậy, an toàn, ổn định và tập trung cao độ; kết hợp xanh ngọc và vàng hổ phách thúc đẩy động lực hoàn thành nhiệm vụ.
+### 1.1. Mục tiêu
+Ứng dụng công cụ **Adobe Color** để nghiên cứu và lựa chọn 2 bộ màu sắc hài hòa, sau đó áp dụng vào khung mẫu **Trello Newsletter** trên nền tảng **Bootstrap 5.3.3**.
 
-| Thành phần UI | Tên màu | Mã HEX | Mã RGB | Tỷ lệ phối | Tiêu chuẩn WCAG 2.2 |
-|---|---|---|---|---|---|
-| **Primary** | Electric Blue | `#0065FF` | `rgb(0, 101, 255)` | 30% | Tương phản nút: 4.6:1 (AA Pass) |
-| **Secondary** | Sky Cyan | `#00A3BF` | `rgb(0, 163, 191)` | 20% | Nền thẻ phụ dịu mát |
-| **Accent / CTA** | Emerald Green | `#36B37E` | `rgb(54, 179, 126)` | 10% | Badge thành công, điểm nhấn |
-| **Highlight** | Amber Gold | `#FF991F` | `rgb(255, 153, 31)` | 5% | Thẻ cảnh báo/sao đánh giá |
-| **Text Dark** | Deep Navy | `#172B4D` | `rgb(23, 43, 77)` | - | **12.8:1 trên nền trắng (AAA Pass)** |
-| **Canvas Nền** | Light Soft Gray | `#F4F5F7` | `rgb(244, 245, 247)` | 35% | Nền trung tính chuẩn Atlassian |
-
----
-
-### Phiên bản 2: "Sunset Terracotta & Creative Energy"
-- **Quy tắc phối màu (Color Harmony Rule)**: Tam giác màu & Bổ túc ấm (Triadic & Warm Split-Complementary).
-- **Ý nghĩa tâm lý**: Tông cam đất nồng ấm kết hợp tím hoàng gia và xanh bạc hà kích thích tư duy sáng tạo, cảm giác thân mật, nhiệt huyết và gắn kết cộng đồng.
-
-| Thành phần UI | Tên màu | Mã HEX | Mã RGB | Tỷ lệ phối | Tiêu chuẩn WCAG 2.2 |
-|---|---|---|---|---|---|
-| **Primary** | Sunset Tangerine | `#E65100` | `rgb(230, 81, 0)` | 30% | Nút & Header nhiệt huyết |
-| **Secondary** | Royal Plum | `#6A1B9A` | `rgb(106, 27, 154)` | 20% | Thẻ tính năng có chiều sâu |
-| **Accent / CTA** | Vibrant Mint Teal | `#00897B` | `rgb(0, 137, 123)` | 10% | Nổi bật trên tông ấm (4.9:1) |
-| **Highlight** | Warm Honey | `#F57F17` | `rgb(245, 127, 23)` | 5% | Viền và điểm nhấn ấm |
-| **Text Dark** | Espresso Roast | `#261C14` | `rgb(38, 28, 20)` | - | **13.5:1 trên nền kem (AAA Pass)** |
-| **Canvas Nền** | Warm Linen Cream| `#FFF8F0` | `rgb(255, 248, 240)` | 35% | Nền giấy mỹ thuật cao cấp |
+### 1.2. Hai phiên bản phối màu
+- **Phiên bản 1 ("Atlassian Trello Cool Productivity")**:
+  - Mã nguồn: `newsletter_v1.html`, `css/style1.css`
+  - Bảng màu: Primary `#0065FF`, Secondary `#00A3BF`, Accent `#36B37E`, Text `#172B4D` (WCAG AAA 12.8:1), Canvas `#F4F5F7`.
+- **Phiên bản 2 ("Sunset Terracotta & Creative Energy")**:
+  - Mã nguồn: `newsletter_v2.html`, `css/style2.css`
+  - Bảng màu: Primary `#E65100`, Secondary `#6A1B9A`, Accent `#00897B`, Text `#261C14` (WCAG AAA 13.5:1), Canvas `#FFF8F0`.
+- **Trang Hub so sánh**: `index.html` tích hợp bộ chuyển đổi bảng màu trực tiếp và bảng phân tích thông số màu.
 
 ---
 
-## 3. Cấu trúc Thư mục Mã Nguồn
+## 2. Bài tập 2: Xây dựng Landing Page CodeGym Career
 
+### 2.1. Mục tiêu
+Chuyển đổi toàn bộ nội dung từ trang chính thức `https://codegym.vn/codegym-career/` sang giao diện chuẩn **Material Design** sử dụng thư viện **Bootstrap Material Design (MDBootstrap 4.19.1)**.
+
+### 2.2. Cấu trúc thư mục (`landing-page/`)
 ```
-newsletter-color-practice/
-├── index.html                 # Trang Hub trung tâm: So sánh song song & chuyển đổi màu trực tiếp
-├── newsletter_v1.html         # Phiên bản 1: Cool Productivity
-├── newsletter_v2.html         # Phiên bản 2: Sunset Creative Energy
+landing-page/
+├── index.html          # Giao diện Landing Page hoàn chỉnh
 ├── css/
-│   ├── common.css             # Khung bố cục chung, Typography, responsive styles
-│   ├── style1.css             # Định nghĩa biến CSS (:root) cho Phiên bản 1
-│   └── style2.css             # Định nghĩa biến CSS (:root) cho Phiên bản 2
-└── README.md                  # Báo cáo thực hành & hướng dẫn nộp bài
+│   └── style.css       # Tùy biến kiểu dáng Material Design, màu sắc thương hiệu CodeGym
+├── js/
+│   └── script.js       # Xử lý cuộn mượt, kiểm tra form đăng ký, hiệu ứng navbar
+└── README.md           # Thuyết minh kỹ thuật chi tiết
 ```
 
+### 2.3. Các khối chức năng chuẩn Material Design
+1. **Thanh điều hướng (Navbar)**: `fixed-top scrolling-navbar` với menu liên kết cuộn mượt và nút CTA tư vấn.
+2. **Hero Intro Section (Jumbotron Material)**: Tiêu đề bứt phá 5 tháng (20 tuần), huy hiệu cam kết việc làm 100% trong 45 ngày hoặc hoàn 100% học phí.
+3. **Thanh chỉ số ấn tượng (Stats Impact Bar)**: 4 thẻ card đổ bóng `z-depth-2` minh chứng kết quả đào tạo.
+4. **6 Trụ cột đào tạo thực chiến (Material Cards Grid)**: Thẻ card nâng cao (`transform: translateY(-6px)`), icon gradient và hiệu ứng waves.
+5. **Lộ trình đào tạo Coding Bootcamp (Material Stepper Timeline)**: Trục dòng thời gian 5 giai đoạn từ số 0 đến lập trình viên full-stack.
+6. **Hai khóa học chuyên sâu (Material Tabs System)**: CGC Java Full-Stack và CGC PHP Full-Stack.
+7. **Dịch vụ việc làm & Cam kết hợp đồng**: Quy trình 5 bước ứng tuyển nhận việc và cam kết hoàn học phí.
+8. **Hệ thống phần mềm hỗ trợ đào tạo**: Nền tảng LMS, Bob chấm code tự động, Agile Scrum Tracker, E-Portfolio.
+9. **Mạng lưới đối tác & Lời chứng thực học viên**: Viettel, FPT Software, VNPT, VNPAY, NashTech, Rikkeisoft, CMC Global,...
+10. **Form đăng ký tư vấn & Nhận tài liệu (Material Floating Form)**: Nhãn nổi `.md-form`, kiểm tra hợp lệ dữ liệu và câu hỏi bảo mật `15 + 7 = 22`.
+11. **Footer chuẩn Material Design**: Đầy đủ thông tin pháp lý, cơ sở Hà Nội, Đà Nẵng, hotline và mạng xã hội.
+
 ---
 
-## 4. Đặc điểm Kỹ thuật Nổi bật
-1. **Kiến trúc biến CSS động (`var(--...)`)**: Toàn bộ màu sắc được quản lý tập trung ở thẻ `:root` trong từng file CSS (`style1.css`, `style2.css`). Việc thay đổi toàn bộ nhận diện màu sắc của newsletter chỉ cần cập nhật một vài dòng mã HEX mà không cần chạm vào cấu trúc HTML.
-2. **Khung Responsive Bootstrap 5.3.3**:
-   - Sử dụng layout container `max-width: 680px` chuẩn tỷ lệ email newsletter quốc tế.
-   - Grid 3 cột (`col-md-4`) tự động chuyển thành 1 cột trên điện thoại di động giúp trải nghiệm đọc mượt mà.
-3. **Tuân thủ chuẩn tiếp cận người dùng (Accessibility - WCAG 2.2)**:
-   - Cả 2 phiên bản đều vượt ngưỡng tương phản tối thiểu của W3C (độ tương phản chữ đạt > 12:1, vượt xa yêu cầu 4.5:1 của chuẩn AA).
-4. **Bảng điều khiển so sánh `index.html`**:
-   - Tích hợp tính năng xem trực tiếp 2 phiên bản qua iframe độc lập, hỗ trợ phóng to toàn màn hình hoặc xem song song (Side-by-Side).
+## 3. Hướng dẫn mở và kiểm tra trực tiếp
 
----
-
-## 5. Hướng dẫn Xem và Nộp Bài
-- Mở tệp `index.html` trên bất kỳ trình duyệt nào để trải nghiệm bảng điều khiển so sánh và chuyển đổi giữa 2 phiên bản.
-- Hoặc mở trực tiếp `newsletter_v1.html` và `newsletter_v2.html` để kiểm tra từng giao diện riêng lẻ.
+1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
+2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
