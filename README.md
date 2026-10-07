@@ -13,6 +13,7 @@
 | 1 | **[Bài tập] Phối màu cho newsletter** | Gốc repository (`./`) | HTML5, CSS3 Variables, Bootstrap 5.3.3, Adobe Color | Hoàn thành |
 | 2 | **[Bài tập] Xây dựng Landing Page (CodeGym Career)** | `landing-page/` | Bootstrap Material Design (MDBootstrap 4.19.1), Bootstrap 4.5.0, jQuery, Font Awesome | Hoàn thành |
 | 3 | **[Thực hành] Sử dụng thẻ HTML cơ bản** | `halong_bay.html` | HTML5 (`h1`, `p`, `img`, `a`) | Hoàn thành |
+| 4 | **[Thực hành] Định dạng văn bản với HTML Styles** | `text_formatting.html` | HTML5, CSS Inline Styles | Hoàn thành |
 
 ---
 
@@ -73,10 +74,21 @@ Luyện tập xây dựng tài liệu HTML5 hoàn chỉnh, sử dụng các th�
 ### 3.2. Mã nguồn
 - File thực hành: `halong_bay.html`
 
+## 4. Bài tập 4: [Thực hành] Định dạng văn bản với HTML Styles
+
+### 4.1. Mục tiêu
+Luyện tập sử dụng các thẻ định dạng văn bản và thuộc tính CSS nội tuyến (inline style):
+- Các thẻ định dạng: `<b>` (chữ in đậm), `<i>` (chữ in nghiêng), `<u>` (chữ gạch chân).
+- Các thuộc tính CSS nội tuyến (`style`): `color`, `font-size`, `text-align`, `font-family`, `font-weight`.
+
+### 4.2. Mã nguồn
+- File thực hành: `text_formatting.html`
+
 ---
 
-## 4. Hướng dẫn mở và kiểm tra trực tiếp
+## 5. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
 3. **Mở Thực hành Thẻ HTML cơ bản**: Mở file `halong_bay.html` trong trình duyệt.
+4. **Mở Thực hành Định dạng văn bản với HTML Styles**: Mở file `text_formatting.html` trong trình duyệt.
