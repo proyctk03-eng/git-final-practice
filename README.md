@@ -19,6 +19,7 @@
 | 7 | **[Bài tập] Sử dụng danh sách trong HTML** | `html-lists-exercise/index.html` | HTML5 (`h1`, `h2`, `ul`, `ol`) | Hoàn thành |
 | 8 | **[Bài tập] Tạo liên kết trong HTML** | `html-links-exercise/index.html` | HTML5 (`a`, `target="_blank"`, `mailto:`, internal link) | Hoàn thành |
 | 9 | **[Bài tập] Định dạng văn bản với HTML Styles** | `html-styles-exercise/index.html` | HTML5, CSS Inline Styles | Hoàn thành |
+| 10 | **[Bài tập] Sử dụng thẻ hình ảnh** | `html-images-exercise/index.html` | HTML5 (`img`, `src`, `alt`, `width`) | Hoàn thành |
 
 ---
 
@@ -150,9 +151,21 @@ Luyện tập sử dụng CSS nội tuyến (`style`) để định dạng văn 
 ### 9.2. Mã nguồn
 - File thực hành: `html-styles-exercise/index.html`
 
+## 10. Bài tập 10: [Bài tập] Sử dụng thẻ hình ảnh
+
+### 10.1. Mục tiêu
+Luyện tập sử dụng thẻ hiển thị hình ảnh (`<img>`) trong trang web HTML:
+- Sử dụng thẻ `<img>` bên trong `<body>` để hiển thị hình ảnh phong cảnh.
+- Chọn hình ảnh độ nét cao với thuộc tính `src`.
+- Sử dụng thuộc tính `alt` mô tả hình ảnh đầy đủ ("Phong cảnh núi non hùng vĩ soi bóng xuống mặt hồ nước phẳng lặng").
+- Thuộc tính `width="600"` để tối ưu hiển thị.
+
+### 10.2. Mã nguồn
+- File thực hành: `html-images-exercise/index.html`
+
 ---
 
-## 10. Hướng dẫn mở và kiểm tra trực tiếp
+## 11. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -163,3 +176,4 @@ Luyện tập sử dụng CSS nội tuyến (`style`) để định dạng văn 
 7. **Mở Bài tập Sử dụng danh sách trong HTML**: Mở file `html-lists-exercise/index.html` trong trình duyệt.
 8. **Mở Bài tập Tạo liên kết trong HTML**: Mở file `html-links-exercise/index.html` trong trình duyệt.
 9. **Mở Bài tập Định dạng văn bản với HTML Styles**: Mở file `html-styles-exercise/index.html` trong trình duyệt.
+10. **Mở Bài tập Sử dụng thẻ hình ảnh**: Mở file `html-images-exercise/index.html` trong trình duyệt.
