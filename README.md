@@ -14,6 +14,7 @@
 | 2 | **[Bài tập] Xây dựng Landing Page (CodeGym Career)** | `landing-page/` | Bootstrap Material Design (MDBootstrap 4.19.1), Bootstrap 4.5.0, jQuery, Font Awesome | Hoàn thành |
 | 3 | **[Thực hành] Sử dụng thẻ HTML cơ bản** | `halong_bay.html` | HTML5 (`h1`, `p`, `img`, `a`) | Hoàn thành |
 | 4 | **[Thực hành] Định dạng văn bản với HTML Styles** | `text_formatting.html` | HTML5, CSS Inline Styles | Hoàn thành |
+| 5 | **[Thực hành] Tạo danh sách trong HTML** | `html_lists.html` | HTML5 (`ul`, `ol`, `li`, nested list) | Hoàn thành |
 
 ---
 
@@ -84,11 +85,24 @@ Luyện tập sử dụng các thẻ định dạng văn bản và thuộc tính
 ### 4.2. Mã nguồn
 - File thực hành: `text_formatting.html`
 
+## 5. Bài tập 5: [Thực hành] Tạo danh sách trong HTML
+
+### 5.1. Mục tiêu
+Luyện tập sử dụng các thẻ danh sách trong HTML:
+- `<ul>`: Danh sách không có thứ tự (hiển thị dấu chấm tròn bullet).
+- `<ol>`: Danh sách có thứ tự (đánh số tự động 1, 2, 3...).
+- `<li>`: Phần tử danh sách.
+- Danh sách lồng nhau (Nested List): Kết hợp `<ul>` bên trong `<li>` của `<ol>`.
+
+### 5.2. Mã nguồn
+- File thực hành: `html_lists.html`
+
 ---
 
-## 5. Hướng dẫn mở và kiểm tra trực tiếp
+## 6. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
 3. **Mở Thực hành Thẻ HTML cơ bản**: Mở file `halong_bay.html` trong trình duyệt.
 4. **Mở Thực hành Định dạng văn bản với HTML Styles**: Mở file `text_formatting.html` trong trình duyệt.
+5. **Mở Thực hành Tạo danh sách trong HTML**: Mở file `html_lists.html` trong trình duyệt.
