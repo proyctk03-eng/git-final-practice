@@ -22,6 +22,7 @@
 | 10 | **[Bài tập] Sử dụng thẻ hình ảnh** | `html-images-exercise/index.html` | HTML5 (`img`, `src`, `alt`, `width`) | Hoàn thành |
 | 11 | **[Thực hành] Tạo form cơ bản** | `simpleform.html` / `simpleform/` | HTML5 Form (`form`, `select`, `radio`, `text`, `button`, CSS Font) | Hoàn thành |
 | 12 | **[Thực hành] Quản lý đơn đặt hàng** | `erd-order-management/` | Sơ đồ ERD Ký pháp Chen, Mô hình quan hệ 3NF Crow's Foot, SQL DDL | Hoàn thành |
+| 13 | **[Thực hành] Tạo bảng trong CSDL** | `sql-create-table-practice/` | SQL DDL (`CREATE DATABASE`, `TABLE`, `ALTER TABLE`), ERD | Hoàn thành |
 
 ---
 
@@ -196,9 +197,24 @@ Thiết kế mô hình dữ liệu thực thể liên kết (ERD) và lược đ
 - Mã nguồn SQL DDL: `erd-order-management/schema.sql`
 - Giao diện web trực quan: `erd-order-management/index.html`
 
+## 13. Bài thực hành 13: [Thực hành] Tạo bảng trong CSDL (QuanLyDiemThi)
+
+### 13.1. Mục tiêu
+Sử dụng các câu lệnh DDL để khởi tạo và liên kết 4 bảng cơ sở dữ liệu `QuanLyDiemThi`:
+- Bảng `HocSinh`: Quản lý thông tin học sinh (`MaHS` [PK], `TenHS`, `NgaySinh`, `Lop`, `GT`).
+- Bảng `MonHoc`: Quản lý danh mục môn học (`MaMH` [PK], `TenMH`, `MaGV` [FK]).
+- Bảng `BangDiem`: Bảng trung gian giải quyết quan hệ n - n giữa học sinh và môn học (`MaHS` [PK, FK], `MaMH` [PK, FK], `DiemThi`, `NgayKT`).
+- Bảng `GiaoVien`: Quản lý thông tin giáo viên phụ trách (`MaGV` [PK], `TenGV`, `SDT`).
+- Ràng buộc khóa ngoại liên kết giữa `MonHoc` và `GiaoVien`.
+
+### 13.2. Tài liệu và Mã nguồn
+- Kịch bản SQL hoàn chỉnh: `sql-create-table-practice/create_database.sql`
+- Sơ đồ quan hệ ERD: `sql-create-table-practice/erd_quanly_diemthi.png`
+- Giao diện web trực quan: `sql-create-table-practice/index.html`
+
 ---
 
-## 13. Hướng dẫn mở và kiểm tra trực tiếp
+## 14. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -212,3 +228,4 @@ Thiết kế mô hình dữ liệu thực thể liên kết (ERD) và lược đ
 10. **Mở Bài tập Sử dụng thẻ hình ảnh**: Mở file `html-images-exercise/index.html` trong trình duyệt.
 11. **Mở Thực hành Tạo form cơ bản**: Mở file `simpleform.html` hoặc `simpleform/index.html` trong trình duyệt.
 12. **Mở Thực hành Quản lý đơn đặt hàng (ERD)**: Mở file `erd-order-management/index.html` trong trình duyệt.
+13. **Mở Thực hành Tạo bảng trong CSDL**: Mở file `sql-create-table-practice/index.html` trong trình duyệt.

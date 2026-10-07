@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Tạo bảng trong CSDL - QuanLyDiemThi</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #DBEAFE;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        .diagram-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        pre {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        .step-block {
+            margin-bottom: 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header-bar">
+        <span class="badge-tag">Thực hành SQL & Cơ sở dữ liệu</span>
+        <h1>Tạo bảng trong CSDL (QuanLyDiemThi)</h1>
+        <p>Thiết lập cơ sở dữ liệu QuanLyDiemThi gồm 4 bảng: HocSinh, MonHoc, BangDiem, GiaoVien với đầy đủ ràng buộc khóa chính và khóa ngoại.</p>
+    </header>
+
+    <div class="card">
+        <h2>1. Sơ đồ thực thể liên kết (ERD)</h2>
+        <div class="diagram-container">
+            <img src="erd_quanly_diemthi.png" alt="Sơ đồ quan hệ CSDL QuanLyDiemThi">
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Cấu trúc 4 Bảng trong CSDL</h2>
+        
+        <h3>Bảng 1: HocSinh</h3>
+        <table>
+            <thead>
+                <tr><th>STT</th><th>Tên trường</th><th>Kiểu dữ liệu</th><th>Độ dài</th><th>Ràng buộc</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>MaHS</td><td>VARCHAR</td><td>20</td><td>Primary Key</td></tr>
+                <tr><td>2</td><td>TenHS</td><td>VARCHAR</td><td>50</td><td></td></tr>
+                <tr><td>3</td><td>NgaySinh</td><td>DATETIME</td><td></td><td></td></tr>
+                <tr><td>4</td><td>Lop</td><td>VARCHAR</td><td>20</td><td></td></tr>
+                <tr><td>5</td><td>GT</td><td>VARCHAR</td><td>20</td><td></td></tr>
+            </tbody>
+        </table>
+
+        <h3>Bảng 2: MonHoc</h3>
+        <table>
+            <thead>
+                <tr><th>STT</th><th>Tên trường</th><th>Kiểu dữ liệu</th><th>Độ dài</th><th>Ràng buộc</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>MaMH</td><td>VARCHAR</td><td>50</td><td>Primary Key</td></tr>
+                <tr><td>2</td><td>TenMH</td><td>VARCHAR</td><td>50</td><td></td></tr>
+                <tr><td>3</td><td>MaGV</td><td>VARCHAR</td><td>20</td><td>Foreign Key (tham chiếu GiaoVien)</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Bảng 3: BangDiem</h3>
+        <table>
+            <thead>
+                <tr><th>STT</th><th>Tên trường</th><th>Kiểu dữ liệu</th><th>Độ dài</th><th>Ràng buộc</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>MaHS</td><td>VARCHAR</td><td>20</td><td>Primary Key, Foreign Key (tham chiếu HocSinh)</td></tr>
+                <tr><td>2</td><td>MaMH</td><td>VARCHAR</td><td>50</td><td>Primary Key, Foreign Key (tham chiếu MonHoc)</td></tr>
+                <tr><td>3</td><td>DiemThi</td><td>INT</td><td></td><td></td></tr>
+                <tr><td>4</td><td>NgayKT</td><td>DATETIME</td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+        <h3>Bảng 4: GiaoVien</h3>
+        <table>
+            <thead>
+                <tr><th>STT</th><th>Tên trường</th><th>Kiểu dữ liệu</th><th>Độ dài</th><th>Ràng buộc</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>MaGV</td><td>VARCHAR</td><td>20</td><td>Primary Key</td></tr>
+                <tr><td>2</td><td>TenGV</td><td>VARCHAR</td><td>50</td><td></td></tr>
+                <tr><td>3</td><td>SDT</td><td>VARCHAR</td><td>10</td><td></td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>3. Quy trình 7 bước thực hiện bằng câu lệnh SQL</h2>
+
+        <div class="step-block">
+            <div class="step-title">Bước 1: Tạo cơ sở dữ liệu QuanLyDiemThi</div>
+            <pre><code>CREATE DATABASE QuanLyDiemThi;</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 2: Chọn cơ sở dữ liệu để thao tác</div>
+            <pre><code>USE QuanLyDiemThi;</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 3: Tạo bảng HocSinh</div>
+            <pre><code>CREATE TABLE HocSinh (
+    MaHS VARCHAR(20) PRIMARY KEY,
+    TenHS VARCHAR(50),
+    NgaySinh DATETIME,
+    Lop VARCHAR(20),
+    GT VARCHAR(20)
+);</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 4: Tạo bảng MonHoc</div>
+            <pre><code>CREATE TABLE MonHoc (
+    MaMH VARCHAR(50) PRIMARY KEY,
+    TenMH VARCHAR(50),
+    MaGV VARCHAR(20)
+);</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 5: Tạo bảng BangDiem (Bảng trung gian n - n)</div>
+            <pre><code>CREATE TABLE BangDiem (
+    MaHS VARCHAR(20),
+    MaMH VARCHAR(50),
+    DiemThi INT,
+    NgayKT DATETIME,
+    PRIMARY KEY (MaHS, MaMH),
+    FOREIGN KEY (MaHS) REFERENCES HocSinh(MaHS),
+    FOREIGN KEY (MaMH) REFERENCES MonHoc(MaMH)
+);</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 6: Tạo bảng GiaoVien</div>
+            <pre><code>CREATE TABLE GiaoVien (
+    MaGV VARCHAR(20) PRIMARY KEY,
+    TenGV VARCHAR(50),
+    SDT VARCHAR(10)
+);</code></pre>
+        </div>
+
+        <div class="step-block">
+            <div class="step-title">Bước 7: Bổ sung ràng buộc khóa ngoại cho bảng MonHoc</div>
+            <pre><code>ALTER TABLE MonHoc 
+ADD CONSTRAINT FK_MaGV FOREIGN KEY (MaGV) REFERENCES GiaoVien(MaGV);</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Báo cáo Thực hành Tạo bảng trong CSDL - CodeGym &bull; Học viên: Nguyễn Tuấn Đạt</p>
+    </footer>
+</div>
+
+</body>
+</html>
