@@ -21,6 +21,7 @@
 | 9 | **[Bài tập] Định dạng văn bản với HTML Styles** | `html-styles-exercise/index.html` | HTML5, CSS Inline Styles | Hoàn thành |
 | 10 | **[Bài tập] Sử dụng thẻ hình ảnh** | `html-images-exercise/index.html` | HTML5 (`img`, `src`, `alt`, `width`) | Hoàn thành |
 | 11 | **[Thực hành] Tạo form cơ bản** | `simpleform.html` / `simpleform/` | HTML5 Form (`form`, `select`, `radio`, `text`, `button`, CSS Font) | Hoàn thành |
+| 12 | **[Thực hành] Quản lý đơn đặt hàng** | `erd-order-management/` | Sơ đồ ERD Ký pháp Chen, Mô hình quan hệ 3NF Crow's Foot, SQL DDL | Hoàn thành |
 
 ---
 
@@ -178,9 +179,26 @@ Luyện tập tạo biểu mẫu (form) trong HTML với các phần tử giao d
 ### 11.2. Mã nguồn
 - File thực hành: `simpleform.html` và `simpleform/index.html`
 
+## 12. Bài thực hành 12: [Thực hành] Quản lý đơn đặt hàng
+
+### 12.1. Mục tiêu
+Thiết kế mô hình dữ liệu thực thể liên kết (ERD) và lược đồ cơ sở dữ liệu quan hệ chuẩn hóa 3NF cho bài toán Quản lý đơn đặt hàng và Phiếu giao hàng:
+- Phân tích và chọn lọc thuộc tính của Đơn đặt hàng và Phiếu giao hàng.
+- Xác định các thực thể: `ĐƠN VỊ KHÁCH`, `NGƯỜI ĐẶT`, `NGƯỜI NHẬN`, `NGƯỜI GIAO`, `NƠI GIAO`, `HÀNG`.
+- Xác định các mối quan hệ: `THUỘC` (1 - N), `ĐẶT` (N - N), `GIAO` (N - N - N - N).
+- Chuẩn hóa gộp `Đơn vị đặt hàng` và `Đơn vị khách hàng` thành thực thể `ĐƠN VỊ KHÁCH`.
+- Chuyển đổi thành mô hình quan hệ 3NF với 10 bảng dữ liệu chuẩn hóa, đầy đủ khóa chính (PK) và khóa ngoại (FK).
+
+### 12.2. Tài liệu và Mã nguồn
+- Sơ đồ ERD ký pháp Chen: `erd-order-management/erd_chen_model.png`
+- Mô hình quan hệ 3NF Crow's Foot: `erd-order-management/erd_relational_3nf.png`
+- Ảnh tổng hợp nộp bài: `erd-order-management/erd_diagram.png`
+- Mã nguồn SQL DDL: `erd-order-management/schema.sql`
+- Giao diện web trực quan: `erd-order-management/index.html`
+
 ---
 
-## 12. Hướng dẫn mở và kiểm tra trực tiếp
+## 13. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -193,3 +211,4 @@ Luyện tập tạo biểu mẫu (form) trong HTML với các phần tử giao d
 9. **Mở Bài tập Định dạng văn bản với HTML Styles**: Mở file `html-styles-exercise/index.html` trong trình duyệt.
 10. **Mở Bài tập Sử dụng thẻ hình ảnh**: Mở file `html-images-exercise/index.html` trong trình duyệt.
 11. **Mở Thực hành Tạo form cơ bản**: Mở file `simpleform.html` hoặc `simpleform/index.html` trong trình duyệt.
+12. **Mở Thực hành Quản lý đơn đặt hàng (ERD)**: Mở file `erd-order-management/index.html` trong trình duyệt.

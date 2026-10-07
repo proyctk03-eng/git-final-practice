@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Quản lý đơn đặt hàng - Sơ đồ ERD & Mô hình CSDL</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #6D28D9;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --border-hover: #CBD5E1;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #1E40AF 50%, #3B82F6 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #DBEAFE;
+            max-width: 800px;
+        }
+
+        .author-meta {
+            margin-top: 1.25rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            color: #BFDBFE;
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Navigation Tabs */
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem 0;
+            border-radius: 0.75rem 0.75rem 0 0;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Card Section */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        /* Grid Layout */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .box-info {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+        }
+
+        .box-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+            color: var(--text-muted);
+        }
+
+        li {
+            margin-bottom: 0.35rem;
+        }
+
+        /* Image Display Box */
+        .diagram-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease;
+        }
+
+        .diagram-caption {
+            margin-top: 0.75rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .btn-download {
+            display: inline-block;
+            background: var(--primary);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.6rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-download:hover {
+            background: var(--accent);
+        }
+
+        /* Code Block */
+        pre {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        /* Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <span class="badge-tag">Thực hành Thiết kế Cơ sở dữ liệu</span>
+        <h1>Quản lý Đơn đặt hàng & Phiếu giao hàng</h1>
+        <p>Phân tích thực thể, xác định mối quan hệ, thiết kế sơ đồ ERD ký pháp Chen và mô hình quan hệ chuẩn hóa 3NF.</p>
+        <div class="author-meta">
+            <div><strong>Học viên:</strong> Nguyễn Tuấn Đạt</div>
+            <div><strong>Kho lưu trữ:</strong> git-final-practice</div>
+            <div><strong>Môn học:</strong> Thiết kế CSDL & Hệ quản trị CSDL</div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-diagrams')">Sơ đồ ERD & Mô hình quan hệ</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-steps')">Nội dung 5 bước thực hiện</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-sql')">Mã nguồn SQL DDL (3NF)</button>
+    </div>
+
+    <!-- Tab 1: Sơ đồ ERD -->
+    <div id="tab-diagrams" class="tab-content active">
+        <!-- Chen ERD -->
+        <div class="card">
+            <h2>1. Sơ đồ Thực thể Liên kết (ERD) - Ký pháp Chen</h2>
+            <p>Mô hình biểu diễn trực quan các thực thể (hình chữ nhật), thuộc tính (hình elip) và mối quan hệ (hình thoi) sau khi đã chuẩn hóa gộp Đơn vị khách.</p>
+            <div class="diagram-container">
+                <img src="erd_chen_model.png" alt="Sơ đồ ERD Ký pháp Chen">
+                <div class="diagram-caption">Hình 1: Sơ đồ ERD Ký pháp Chen - Quản lý Đơn đặt hàng</div>
+                <a href="erd_chen_model.png" target="_blank" class="btn-download">Xem ảnh kích thước gốc (300 DPI)</a>
+            </div>
+        </div>
+
+        <!-- Relational 3NF -->
+        <div class="card">
+            <h2>2. Mô hình Thực thể Quan hệ Chuẩn hóa 3NF (Relational Schema)</h2>
+            <p>Mô hình chi tiết các bảng dữ liệu, khóa chính (PK), khóa ngoại (FK), kiểu dữ liệu và bản số quan hệ (1 - N) theo ký pháp Crow's Foot.</p>
+            <div class="diagram-container">
+                <img src="erd_relational_3nf.png" alt="Mô hình Quan hệ Chuẩn hóa 3NF">
+                <div class="diagram-caption">Hình 2: Mô hình Cơ sở dữ liệu chuẩn hóa bậc 3 (3NF)</div>
+                <a href="erd_relational_3nf.png" target="_blank" class="btn-download">Xem ảnh kích thước gốc (300 DPI)</a>
+            </div>
+        </div>
+
+        <!-- Combined Overview -->
+        <div class="card">
+            <h2>3. Bản tổng hợp đầy đủ (Combined Overview)</h2>
+            <p>Bản ghép đầy đủ 2 sơ đồ kèm thuyết minh phục vụ việc in ấn hoặc nộp bài.</p>
+            <div class="diagram-container">
+                <img src="erd_diagram.png" alt="Sơ đồ ERD tổng hợp">
+                <div class="diagram-caption">Hình 3: Tổng hợp Sơ đồ ERD Chen và Mô hình quan hệ 3NF</div>
+                <a href="erd_diagram.png" target="_blank" class="btn-download">Tải ảnh tổng hợp erd_diagram.png</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: 5 Bước thực hiện -->
+    <div id="tab-steps" class="tab-content">
+        <div class="card">
+            <h2>Bước 1: Liệt kê, chọn lọc thông tin</h2>
+            <div class="grid-2">
+                <div class="box-info">
+                    <h4>Thông tin Đơn đặt hàng</h4>
+                    <ul>
+                        <li><strong>Số đơn hàng (Số ĐH)</strong>: Khóa nhận diện đơn</li>
+                        <li><strong>Tên đơn vị đặt hàng (Tên ĐV)</strong></li>
+                        <li><strong>Địa chỉ, Điện thoại</strong></li>
+                        <li><strong>Ngày đặt</strong></li>
+                        <li><strong>Tên hàng, Mô tả, Đơn vị tính (Đv tính)</strong></li>
+                        <li><strong>Số lượng đặt</strong></li>
+                        <li><strong>Người đặt hàng (Họ tên NĐ)</strong></li>
+                    </ul>
+                </div>
+                <div class="box-info">
+                    <h4>Thông tin Phiếu giao hàng</h4>
+                    <ul>
+                        <li><strong>Số phiếu giao hàng (Số PG)</strong>: Khóa nhận diện phiếu giao</li>
+                        <li><strong>Tên đơn vị đặt hàng, Địa chỉ</strong></li>
+                        <li><strong>Nơi giao hàng (Tên nơi GH)</strong></li>
+                        <li><strong>Ngày giao</strong></li>
+                        <li><strong>Tên hàng, Đv tính, Số lượng</strong></li>
+                        <li><strong>Đơn giá, Thành tiền</strong></li>
+                        <li><strong>Tên người nhận (Họ tên NN), Người giao (Họ tên NG)</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Bước 2: Xác định thực thể và thuộc tính ban đầu</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên thực thể</th>
+                        <th>Thuộc tính khóa (PK)</th>
+                        <th>Các thuộc tính mô tả</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>ĐƠN VỊ ĐH</strong></td>
+                        <td>Mã ĐV</td>
+                        <td>Tên ĐV, Địa chỉ, Điện thoại</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ĐƠN VỊ KH</strong></td>
+                        <td>Mã ĐV</td>
+                        <td>Tên ĐV, Địa chỉ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HÀNG</strong></td>
+                        <td>Mã hàng</td>
+                        <td>Tên hàng, Đv tính, Mô tả hàng</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NGƯỜI ĐẶT</strong></td>
+                        <td>Mã số NĐ</td>
+                        <td>Họ tên NĐ</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NƠI GIAO</strong></td>
+                        <td>Mã số ĐĐG</td>
+                        <td>Tên nơi giao</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NGƯỜI NHẬN</strong></td>
+                        <td>Mã số NN</td>
+                        <td>Họ tên NN</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NGƯỜI GIAO</strong></td>
+                        <td>Mã số NG</td>
+                        <td>Họ tên NG</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Bước 3: Xác định các mối quan hệ</h2>
+            <ul>
+                <li><strong>Quan hệ THUỘC (1 - N)</strong>: Người đặt hàng THUỘC Đơn vị đặt hàng.</li>
+                <li><strong>Quan hệ THUỘC (1 - N)</strong>: Người nhận hàng THUỘC Đơn vị khách hàng.</li>
+                <li><strong>Quan hệ ĐẶT</strong>: Người đặt hàng tiến hành ĐẶT các mặt Hàng (chứa các thuộc tính: Số ĐH, Ngày đặt, Số lượng).</li>
+                <li><strong>Quan hệ GIAO</strong>: Người giao tiến hành GIAO Hàng cho Người nhận tại Nơi giao (chứa các thuộc tính: Số PG, Ngày giao, Số lượng, Đơn giá, Thành tiền).</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Bước 4: Vẽ biểu đồ mô hình thực thể ERD</h2>
+            <p>Vẽ sơ đồ ERD dựa trên tập thực thể và mối quan hệ xác định ở Bước 2 và Bước 3.</p>
+        </div>
+
+        <div class="card">
+            <h2>Bước 5: Chuẩn hóa, rút gọn mô hình thực thể ERD</h2>
+            <p>Do <strong>Đơn vị đặt hàng</strong> và <strong>Đơn vị khách hàng</strong> đều là các đối tác bên ngoài giao dịch với cửa hàng, ta hợp nhất thành một thực thể duy nhất: <strong>ĐƠN VỊ KHÁCH</strong> gồm các thuộc tính:</p>
+            <ul>
+                <li><strong>Mã ĐV (PK)</strong>: Mã định danh đơn vị</li>
+                <li><strong>Tên ĐV</strong>: Tên đơn vị khách hàng</li>
+                <li><strong>Địa chỉ</strong>: Địa chỉ trụ sở</li>
+                <li><strong>Điện thoại</strong>: Số điện thoại liên hệ</li>
+            </ul>
+            <p style="margin-top: 1rem;">Cả <strong>NGƯỜI ĐẶT</strong> và <strong>NGƯỜI NHẬN</strong> đều trực thuộc thực thể <strong>ĐƠN VỊ KHÁCH</strong> qua khóa ngoại <code>MaDV</code>.</p>
+        </div>
+    </div>
+
+    <!-- Tab 3: SQL Script -->
+    <div id="tab-sql" class="tab-content">
+        <div class="card">
+            <h2>Mã nguồn DDL khởi tạo Cơ sở dữ liệu chuẩn hóa (schema.sql)</h2>
+            <p>Tương thích hoàn toàn với hệ quản trị cơ sở dữ liệu MySQL, PostgreSQL và Microsoft SQL Server:</p>
+            <pre><code>-- 1. BANG DANH MUC (MASTER TABLES)
+CREATE TABLE DON_VI_KHACH (
+    MaDV VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenDV NVARCHAR(100) NOT NULL,
+    DiaChi NVARCHAR(200),
+    DienThoai VARCHAR(20)
+);
+
+CREATE TABLE NGUOI_DAT (
+    MaND VARCHAR(20) NOT NULL PRIMARY KEY,
+    HoTenND NVARCHAR(100) NOT NULL,
+    MaDV VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_NguoiDat_DonViKhach FOREIGN KEY (MaDV) REFERENCES DON_VI_KHACH(MaDV)
+);
+
+CREATE TABLE NGUOI_NHAN (
+    MaNN VARCHAR(20) NOT NULL PRIMARY KEY,
+    HoTenNN NVARCHAR(100) NOT NULL,
+    MaDV VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_NguoiNhan_DonViKhach FOREIGN KEY (MaDV) REFERENCES DON_VI_KHACH(MaDV)
+);
+
+CREATE TABLE NGUOI_GIAO (
+    MaNG VARCHAR(20) NOT NULL PRIMARY KEY,
+    HoTenNG NVARCHAR(100) NOT NULL
+);
+
+CREATE TABLE NOI_GIAO (
+    MaDDG VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenNoiGiao NVARCHAR(200) NOT NULL
+);
+
+CREATE TABLE HANG_HOA (
+    MaHang VARCHAR(20) NOT NULL PRIMARY KEY,
+    TenHang NVARCHAR(100) NOT NULL,
+    DvTinh NVARCHAR(50) NOT NULL,
+    MoTaHang NVARCHAR(MAX)
+);
+
+-- 2. BANG GIAO DICH (TRANSACTION TABLES)
+CREATE TABLE DON_DAT_HANG (
+    SoDH VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayDat DATE NOT NULL,
+    MaND VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_DonDatHang_NguoiDat FOREIGN KEY (MaND) REFERENCES NGUOI_DAT(MaND)
+);
+
+CREATE TABLE CHI_TIET_DAT_HANG (
+    SoDH VARCHAR(20) NOT NULL,
+    MaHang VARCHAR(20) NOT NULL,
+    SoLuongDat INT NOT NULL CHECK (SoLuongDat > 0),
+    PRIMARY KEY (SoDH, MaHang),
+    CONSTRAINT FK_CTDH_DonDatHang FOREIGN KEY (SoDH) REFERENCES DON_DAT_HANG(SoDH),
+    CONSTRAINT FK_CTDH_HangHoa FOREIGN KEY (MaHang) REFERENCES HANG_HOA(MaHang)
+);
+
+CREATE TABLE PHIEU_GIAO_HANG (
+    SoPG VARCHAR(20) NOT NULL PRIMARY KEY,
+    NgayGiao DATE NOT NULL,
+    SoDH VARCHAR(20) NOT NULL,
+    MaNG VARCHAR(20) NOT NULL,
+    MaNN VARCHAR(20) NOT NULL,
+    MaDDG VARCHAR(20) NOT NULL,
+    CONSTRAINT FK_PhieuGiao_DonDatHang FOREIGN KEY (SoDH) REFERENCES DON_DAT_HANG(SoDH),
+    CONSTRAINT FK_PhieuGiao_NguoiGiao FOREIGN KEY (MaNG) REFERENCES NGUOI_GIAO(MaNG),
+    CONSTRAINT FK_PhieuGiao_NguoiNhan FOREIGN KEY (MaNN) REFERENCES NGUOI_NHAN(MaNN),
+    CONSTRAINT FK_PhieuGiao_NoiGiao FOREIGN KEY (MaDDG) REFERENCES NOI_GIAO(MaDDG)
+);
+
+CREATE TABLE CHI_TIET_GIAO_HANG (
+    SoPG VARCHAR(20) NOT NULL,
+    MaHang VARCHAR(20) NOT NULL,
+    SoLuongGiao INT NOT NULL CHECK (SoLuongGiao > 0),
+    DonGiaGiao DECIMAL(18, 2) NOT NULL CHECK (DonGiaGiao >= 0),
+    ThanhTien DECIMAL(18, 2) NOT NULL,
+    PRIMARY KEY (SoPG, MaHang),
+    CONSTRAINT FK_CTGH_PhieuGiao FOREIGN KEY (SoPG) REFERENCES PHIEU_GIAO_HANG(SoPG),
+    CONSTRAINT FK_CTGH_HangHoa FOREIGN KEY (MaHang) REFERENCES HANG_HOA(MaHang)
+);</code></pre>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Báo cáo Thực hành Quản lý đơn đặt hàng - CodeGym &bull; Sinh viên: Nguyễn Tuấn Đạt</p>
+    </footer>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        var tabBtns = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
