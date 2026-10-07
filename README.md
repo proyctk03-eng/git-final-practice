@@ -15,6 +15,7 @@
 | 3 | **[Thực hành] Sử dụng thẻ HTML cơ bản** | `halong_bay.html` | HTML5 (`h1`, `p`, `img`, `a`) | Hoàn thành |
 | 4 | **[Thực hành] Định dạng văn bản với HTML Styles** | `text_formatting.html` | HTML5, CSS Inline Styles | Hoàn thành |
 | 5 | **[Thực hành] Tạo danh sách trong HTML** | `html_lists.html` | HTML5 (`ul`, `ol`, `li`, nested list) | Hoàn thành |
+| 6 | **[Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn** | `headings-paragraphs/index.html` | HTML5 (`h1`, `h2`, `p`) | Hoàn thành |
 
 ---
 
@@ -97,12 +98,25 @@ Luyện tập sử dụng các thẻ danh sách trong HTML:
 ### 5.2. Mã nguồn
 - File thực hành: `html_lists.html`
 
+## 6. Bài tập 6: [Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn
+
+### 6.1. Mục tiêu
+Luyện tập sử dụng các thẻ tiêu đề và đoạn văn trong HTML:
+- `<h1>`: "Chào mừng đến với trang web của tôi"
+- `<h2>`: "Giới thiệu bản thân"
+- `<p>` (Đoạn 1): Mô tả sở thích cá nhân.
+- `<p>` (Đoạn 2): Mô tả mục tiêu học lập trình.
+
+### 6.2. Mã nguồn
+- File thực hành: `headings-paragraphs/index.html`
+
 ---
 
-## 6. Hướng dẫn mở và kiểm tra trực tiếp
+## 7. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
 3. **Mở Thực hành Thẻ HTML cơ bản**: Mở file `halong_bay.html` trong trình duyệt.
 4. **Mở Thực hành Định dạng văn bản với HTML Styles**: Mở file `text_formatting.html` trong trình duyệt.
 5. **Mở Thực hành Tạo danh sách trong HTML**: Mở file `html_lists.html` trong trình duyệt.
+6. **Mở Bài tập Sử dụng các thẻ tiêu đề và đoạn văn**: Mở file `headings-paragraphs/index.html` trong trình duyệt.
