@@ -20,6 +20,7 @@
 | 8 | **[Bài tập] Tạo liên kết trong HTML** | `html-links-exercise/index.html` | HTML5 (`a`, `target="_blank"`, `mailto:`, internal link) | Hoàn thành |
 | 9 | **[Bài tập] Định dạng văn bản với HTML Styles** | `html-styles-exercise/index.html` | HTML5, CSS Inline Styles | Hoàn thành |
 | 10 | **[Bài tập] Sử dụng thẻ hình ảnh** | `html-images-exercise/index.html` | HTML5 (`img`, `src`, `alt`, `width`) | Hoàn thành |
+| 11 | **[Thực hành] Tạo form cơ bản** | `simpleform.html` / `simpleform/` | HTML5 Form (`form`, `select`, `radio`, `text`, `button`, CSS Font) | Hoàn thành |
 
 ---
 
@@ -163,9 +164,23 @@ Luyện tập sử dụng thẻ hiển thị hình ảnh (`<img>`) trong trang w
 ### 10.2. Mã nguồn
 - File thực hành: `html-images-exercise/index.html`
 
+## 11. Bài thực hành 11: [Thực hành] Tạo form cơ bản
+
+### 11.1. Mục tiêu
+Luyện tập tạo biểu mẫu (form) trong HTML với các phần tử giao diện cơ bản:
+- Thẻ form sử dụng phương thức GET: `<form method="get" action="simpleform.html" class="wufoo">`.
+- Định dạng kiểu chữ với CSS lớp `.wufoo`: `font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif`.
+- Thẻ chọn thả xuống (`<select>`, `<option>`) để lựa chọn sản phẩm mua.
+- Nút chọn một (`<input type="radio" name="rd">`) để chọn số lượng và mức giá.
+- Ô nhập dữ liệu (`<input type="text">`) cho Họ và tên (`firstname`, `lastname`), `email`, `phone` kèm dấu bắt buộc (`*`).
+- Nút gửi dữ liệu (`<input type="button" name="btSubmit" value="Submit">`).
+
+### 11.2. Mã nguồn
+- File thực hành: `simpleform.html` và `simpleform/index.html`
+
 ---
 
-## 11. Hướng dẫn mở và kiểm tra trực tiếp
+## 12. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -177,3 +192,4 @@ Luyện tập sử dụng thẻ hiển thị hình ảnh (`<img>`) trong trang w
 8. **Mở Bài tập Tạo liên kết trong HTML**: Mở file `html-links-exercise/index.html` trong trình duyệt.
 9. **Mở Bài tập Định dạng văn bản với HTML Styles**: Mở file `html-styles-exercise/index.html` trong trình duyệt.
 10. **Mở Bài tập Sử dụng thẻ hình ảnh**: Mở file `html-images-exercise/index.html` trong trình duyệt.
+11. **Mở Thực hành Tạo form cơ bản**: Mở file `simpleform.html` hoặc `simpleform/index.html` trong trình duyệt.
