@@ -17,6 +17,7 @@
 | 5 | **[Thực hành] Tạo danh sách trong HTML** | `html_lists.html` | HTML5 (`ul`, `ol`, `li`, nested list) | Hoàn thành |
 | 6 | **[Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn** | `headings-paragraphs/index.html` | HTML5 (`h1`, `h2`, `p`) | Hoàn thành |
 | 7 | **[Bài tập] Sử dụng danh sách trong HTML** | `html-lists-exercise/index.html` | HTML5 (`h1`, `h2`, `ul`, `ol`) | Hoàn thành |
+| 8 | **[Bài tập] Tạo liên kết trong HTML** | `html-links-exercise/index.html` | HTML5 (`a`, `target="_blank"`, `mailto:`, internal link) | Hoàn thành |
 
 ---
 
@@ -123,9 +124,22 @@ Luyện tập sử dụng danh sách có thứ tự (`<ol>`) và danh sách khô
 ### 7.2. Mã nguồn
 - File thực hành: `html-lists-exercise/index.html`
 
+## 8. Bài tập 8: [Bài tập] Tạo liên kết trong HTML
+
+### 8.1. Mục tiêu
+Luyện tập sử dụng thẻ liên kết (`<a>`) để điều hướng giữa các trang web:
+- `<h1>`: "Liên kết yêu thích của tôi".
+- `<ul>`: Chứa 3 liên kết ngoài (Google, GitHub, Wikipedia).
+- Mở tab mới: Thuộc tính `target="_blank"`.
+- Liên kết nội bộ: Dẫn đến tệp `about.html` trong cùng thư mục.
+- Liên kết gửi email: `mailto:proyctk03@gmail.com`.
+
+### 8.2. Mã nguồn
+- File thực hành: `html-links-exercise/index.html` và `html-links-exercise/about.html`
+
 ---
 
-## 8. Hướng dẫn mở và kiểm tra trực tiếp
+## 9. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -134,3 +148,4 @@ Luyện tập sử dụng danh sách có thứ tự (`<ol>`) và danh sách khô
 5. **Mở Thực hành Tạo danh sách trong HTML**: Mở file `html_lists.html` trong trình duyệt.
 6. **Mở Bài tập Sử dụng các thẻ tiêu đề và đoạn văn**: Mở file `headings-paragraphs/index.html` trong trình duyệt.
 7. **Mở Bài tập Sử dụng danh sách trong HTML**: Mở file `html-lists-exercise/index.html` trong trình duyệt.
+8. **Mở Bài tập Tạo liên kết trong HTML**: Mở file `html-links-exercise/index.html` trong trình duyệt.
