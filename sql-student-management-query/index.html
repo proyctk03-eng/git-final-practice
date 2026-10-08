@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #0F766E;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #CCFBF1;
+            max-width: 850px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+        }
+
+        .meta-info span strong {
+            color: #FFFFFF;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .erd-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .erd-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card.teal { border-top-color: #0F766E; }
+        .stat-card.amber { border-top-color: #B45309; }
+        .stat-card.purple { border-top-color: #6D28D9; }
+
+        .stat-card h4 {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .val {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-card p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+        }
+
+        /* Tabs UI */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0.75rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background-color: var(--primary-light);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Code Block */
+        .code-container {
+            background-color: #0F172A;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #1E293B;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background-color: #334155;
+            color: #F8FAFC;
+            border: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            color: #F8FAFC;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sql-kw { color: #38BDF8; font-weight: 600; }
+        .sql-str { color: #A7F3D0; }
+        .sql-fn { color: #FBBF24; }
+        .sql-com { color: #64748B; font-style: italic; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #F8FAFC;
+        }
+
+        tr:hover td {
+            background-color: #F1F5F9;
+        }
+
+        .badge-active {
+            display: inline-block;
+            background: #DCFCE7;
+            color: #15803D;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-inactive {
+            display: inline-block;
+            background: #FEE2E2;
+            color: #B91C1C;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .callout-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #1E3A8A;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <span class="badge-tag">CodeGym MySQL Module</span>
+        <h1>[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</h1>
+        <p>Luyện tập các kỹ thuật truy vấn dữ liệu (DQL): Sử dụng câu lệnh SELECT, lọc dữ liệu với mệnh đề WHERE (điều kiện logic và số học), kết nối 2 bảng và kết nối đa bảng (JOIN) trong MySQL.</p>
+        <div class="meta-info">
+            <span>Học viên: <strong>Nguyễn Tuấn Đạt</strong></span>
+            <span>Kho lưu trữ: <strong>git-final-practice</strong></span>
+            <span>Thư mục: <strong>sql-student-management-query/</strong></span>
+            <span>Trạng thái: <strong>Hoàn thành</strong></span>
+        </div>
+    </header>
+
+    <!-- Key Statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>Bước 2: Tất cả học viên</h4>
+            <div class="val">3 Bản ghi</div>
+            <p>SELECT * FROM Student;</p>
+        </div>
+        <div class="stat-card teal">
+            <h4>Bước 3: Học viên đang học</h4>
+            <div class="val">2 Bản ghi</div>
+            <p>WHERE Status = true;</p>
+        </div>
+        <div class="stat-card amber">
+            <h4>Bước 4: Môn học tín chỉ &lt; 10</h4>
+            <div class="val">3 Bản ghi</div>
+            <p>WHERE Credit &lt; 10;</p>
+        </div>
+        <div class="stat-card purple">
+            <h4>Bước 5: Học viên lớp A1</h4>
+            <div class="val">2 Bản ghi</div>
+            <p>JOIN Class ON ClassId = ClassID</p>
+        </div>
+        <div class="stat-card">
+            <h4>Bước 6: Điểm môn CF</h4>
+            <div class="val">2 Bản ghi</div>
+            <p>JOIN Mark + Subject (CF)</p>
+        </div>
+    </div>
+
+    <!-- ERD Section -->
+    <section class="card">
+        <h2 class="card-title">Sơ đồ thực thể và cơ chế JOIN truy vấn CSDL</h2>
+        <div class="erd-container">
+            <img src="erd_quanly_sinhvien_queries.png" alt="Sơ đồ ERD và luồng JOIN truy vấn CSDL Quản lý sinh viên">
+        </div>
+    </section>
+
+    <!-- Tabbed Query Viewer -->
+    <section class="card">
+        <h2 class="card-title">Chi tiết các câu lệnh truy vấn & kết quả thực thi</h2>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab2')">Bước 2: Tất cả học viên</button>
+            <button class="tab-btn" onclick="switchTab('tab3')">Bước 3: Học viên đang học</button>
+            <button class="tab-btn" onclick="switchTab('tab4')">Bước 4: Môn học tín chỉ &lt; 10</button>
+            <button class="tab-btn" onclick="switchTab('tab5')">Bước 5: Học viên lớp A1</button>
+            <button class="tab-btn" onclick="switchTab('tab6')">Bước 6: Điểm môn CF</button>
+            <button class="tab-btn" onclick="switchTab('tab-all')">Toàn bộ Script SQL</button>
+        </div>
+
+        <!-- Tab 2: All Students -->
+        <div id="tab2" class="tab-pane active">
+            <div class="callout-box">
+                <strong>Mục tiêu Bước 2:</strong> Lấy toàn bộ danh sách học viên hiện có trong bảng Student không qua bộ lọc.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Bước 2</span>
+                    <button class="copy-btn" onclick="copyText('q2')">Sao chép</button>
+                </div>
+                <pre id="q2"><span class="sql-kw">USE</span> QuanLySinhVien;
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student;</pre>
+            </div>
+            <h4>Kết quả trả về từ bảng Student (3 bản ghi):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>StudentName</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>ClassId</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Hung</strong></td>
+                            <td>Ha Noi</td>
+                            <td>0912113113</td>
+                            <td><span class="badge-active">1 (Đang học)</span></td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Hoa</strong></td>
+                            <td>Hai phong</td>
+                            <td><em>NULL</em></td>
+                            <td><span class="badge-active">1 (Đang học)</span></td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>Manh</strong></td>
+                            <td>HCM</td>
+                            <td>0123123123</td>
+                            <td><span class="badge-inactive">0 (Đã nghỉ)</span></td>
+                            <td>2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Active Students -->
+        <div id="tab3" class="tab-pane">
+            <div class="callout-box">
+                <strong>Mục tiêu Bước 3:</strong> Sử dụng mệnh đề WHERE lọc các học viên có thuộc tính Status bằng true (hoặc 1).
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Bước 3</span>
+                    <button class="copy-btn" onclick="copyText('q3')">Sao chép</button>
+                </div>
+                <pre id="q3"><span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student 
+<span class="sql-kw">WHERE</span> Status = <span class="sql-kw">true</span>;</pre>
+            </div>
+            <h4>Kết quả trả về (2 bản ghi):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>StudentName</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>ClassId</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Hung</strong></td>
+                            <td>Ha Noi</td>
+                            <td>0912113113</td>
+                            <td><span class="badge-active">1 (Đang học)</span></td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Hoa</strong></td>
+                            <td>Hai phong</td>
+                            <td><em>NULL</em></td>
+                            <td><span class="badge-active">1 (Đang học)</span></td>
+                            <td>1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: Subject Credit < 10 -->
+        <div id="tab4" class="tab-pane">
+            <div class="callout-box">
+                <strong>Mục tiêu Bước 4:</strong> Sử dụng mệnh đề so sánh số học Credit &lt; 10 để lọc các môn học ngắn hạn hoặc môn có số tín chỉ dưới 10.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Bước 4</span>
+                    <button class="copy-btn" onclick="copyText('q4')">Sao chép</button>
+                </div>
+                <pre id="q4"><span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject 
+<span class="sql-kw">WHERE</span> Credit &lt; 10;</pre>
+            </div>
+            <h4>Kết quả trả về (3 bản ghi môn học):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>SubId</th>
+                            <th>SubName</th>
+                            <th>Credit</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>CF</strong></td>
+                            <td>5</td>
+                            <td><span class="badge-active">1 (Hoạt động)</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>C</strong></td>
+                            <td>6</td>
+                            <td><span class="badge-active">1 (Hoạt động)</span></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>HDJ</strong></td>
+                            <td>5</td>
+                            <td><span class="badge-active">1 (Hoạt động)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
+                * Môn học <strong>RDBMS</strong> có Credit = 10 nên không thỏa mãn điều kiện nghiêm ngặt &lt; 10.
+            </p>
+        </div>
+
+        <!-- Tab 5: Students in Class A1 -->
+        <div id="tab5" class="tab-pane">
+            <div class="callout-box">
+                <strong>Mục tiêu Bước 5:</strong> Kết nối (JOIN) giữa bảng Student và bảng Class qua khóa ngoại ClassId = ClassID, kết hợp điều kiện lọc lớp A1.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Bước 5</span>
+                    <button class="copy-btn" onclick="copyText('q5')">Sao chép</button>
+                </div>
+                <pre id="q5"><span class="sql-kw">SELECT</span> 
+    S.StudentId, 
+    S.StudentName, 
+    C.ClassName 
+<span class="sql-kw">FROM</span> Student S 
+<span class="sql-kw">JOIN</span> Class C <span class="sql-kw">ON</span> S.ClassId = C.ClassID 
+<span class="sql-kw">WHERE</span> C.ClassName = <span class="sql-str">'A1'</span>;</pre>
+            </div>
+            <h4>Kết quả trả về (2 học viên lớp A1):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>StudentName</th>
+                            <th>ClassName</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Hung</strong></td>
+                            <td>A1</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Hoa</strong></td>
+                            <td>A1</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 6: Marks for CF -->
+        <div id="tab6" class="tab-pane">
+            <div class="callout-box">
+                <strong>Mục tiêu Bước 6:</strong> Ghép nối 3 bảng (Student, Mark, Subject) để tra cứu điểm thi môn CF của các học viên.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Bước 6.2 (Lọc môn CF)</span>
+                    <button class="copy-btn" onclick="copyText('q6')">Sao chép</button>
+                </div>
+                <pre id="q6"><span class="sql-kw">SELECT</span> 
+    S.StudentId, 
+    S.StudentName, 
+    Sub.SubName, 
+    M.Mark 
+<span class="sql-kw">FROM</span> Student S 
+<span class="sql-kw">JOIN</span> Mark M <span class="sql-kw">ON</span> S.StudentId = M.StudentId 
+<span class="sql-kw">JOIN</span> Subject Sub <span class="sql-kw">ON</span> M.SubId = Sub.SubId 
+<span class="sql-kw">WHERE</span> Sub.SubName = <span class="sql-str">'CF'</span>;</pre>
+            </div>
+            <h4>Kết quả trả về (Điểm thi môn CF):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>StudentId</th>
+                            <th>StudentName</th>
+                            <th>SubName</th>
+                            <th>Mark</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Hung</strong></td>
+                            <td>CF</td>
+                            <td><strong>8.0</strong></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Hoa</strong></td>
+                            <td>CF</td>
+                            <td><strong>10.0</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab All: Complete SQL Script -->
+        <div id="tab-all" class="tab-pane">
+            <div class="callout-box">
+                <strong>Tập lệnh hoàn chỉnh:</strong> Đầy đủ khởi tạo CSDL, nạp dữ liệu mẫu và toàn bộ 6 bước truy vấn. Chạy độc lập mọi lúc trên MySQL 8.0+.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>student_management_query.sql</span>
+                    <button class="copy-btn" onclick="copyText('qall')">Sao chép toàn bộ</button>
+                </div>
+                <pre id="qall"><span class="sql-com">-- 1. KHOI TAO CSDL VA DU LIEU MAU</span>
+<span class="sql-kw">CREATE DATABASE IF NOT EXISTS</span> QuanLySinhVien;
+<span class="sql-kw">USE</span> QuanLySinhVien;
+
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> Class (
+    ClassID <span class="sql-kw">INT NOT NULL AUTO_INCREMENT PRIMARY KEY</span>,
+    ClassName <span class="sql-kw">VARCHAR</span>(60) <span class="sql-kw">NOT NULL</span>,
+    StartDate <span class="sql-kw">DATETIME NOT NULL</span>,
+    Status <span class="sql-kw">BIT</span>
+);
+
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> Student (
+    StudentId <span class="sql-kw">INT NOT NULL AUTO_INCREMENT PRIMARY KEY</span>,
+    StudentName <span class="sql-kw">VARCHAR</span>(30) <span class="sql-kw">NOT NULL</span>,
+    Address <span class="sql-kw">VARCHAR</span>(50),
+    Phone <span class="sql-kw">VARCHAR</span>(20),
+    Status <span class="sql-kw">BIT</span>,
+    ClassId <span class="sql-kw">INT NOT NULL</span>,
+    <span class="sql-kw">CONSTRAINT</span> FK_Student_Class <span class="sql-kw">FOREIGN KEY</span> (ClassId) <span class="sql-kw">REFERENCES</span> Class (ClassID)
+);
+
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> Subject (
+    SubId <span class="sql-kw">INT NOT NULL AUTO_INCREMENT PRIMARY KEY</span>,
+    SubName <span class="sql-kw">VARCHAR</span>(30) <span class="sql-kw">NOT NULL</span>,
+    Credit <span class="sql-kw">TINYINT NOT NULL DEFAULT</span> 1 <span class="sql-kw">CHECK</span> (Credit >= 1),
+    Status <span class="sql-kw">BIT DEFAULT</span> 1
+);
+
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> Mark (
+    MarkId <span class="sql-kw">INT NOT NULL AUTO_INCREMENT PRIMARY KEY</span>,
+    SubId <span class="sql-kw">INT NOT NULL</span>,
+    StudentId <span class="sql-kw">INT NOT NULL</span>,
+    Mark <span class="sql-kw">FLOAT DEFAULT</span> 0 <span class="sql-kw">CHECK</span> (Mark <span class="sql-kw">BETWEEN</span> 0 <span class="sql-kw">AND</span> 100),
+    ExamTimes <span class="sql-kw">TINYINT DEFAULT</span> 1,
+    <span class="sql-kw">UNIQUE</span> (SubId, StudentId),
+    <span class="sql-kw">CONSTRAINT</span> FK_Mark_Subject <span class="sql-kw">FOREIGN KEY</span> (SubId) <span class="sql-kw">REFERENCES</span> Subject (SubId),
+    <span class="sql-kw">CONSTRAINT</span> FK_Mark_Student <span class="sql-kw">FOREIGN KEY</span> (StudentId) <span class="sql-kw">REFERENCES</span> Student (StudentId)
+);
+
+<span class="sql-kw">INSERT IGNORE INTO</span> Class (ClassID, ClassName, StartDate, Status) <span class="sql-kw">VALUES</span>
+(1, <span class="sql-str">'A1'</span>, <span class="sql-str">'2008-12-20'</span>, 1),
+(2, <span class="sql-str">'A2'</span>, <span class="sql-str">'2008-12-22'</span>, 1),
+(3, <span class="sql-str">'B3'</span>, <span class="sql-fn">CURRENT_DATE</span>, 0);
+
+<span class="sql-kw">INSERT IGNORE INTO</span> Student (StudentId, StudentName, Address, Phone, Status, ClassId) <span class="sql-kw">VALUES</span>
+(1, <span class="sql-str">'Hung'</span>, <span class="sql-str">'Ha Noi'</span>, <span class="sql-str">'0912113113'</span>, 1, 1),
+(2, <span class="sql-str">'Hoa'</span>, <span class="sql-str">'Hai phong'</span>, <span class="sql-kw">NULL</span>, 1, 1),
+(3, <span class="sql-str">'Manh'</span>, <span class="sql-str">'HCM'</span>, <span class="sql-str">'0123123123'</span>, 0, 2);
+
+<span class="sql-kw">INSERT IGNORE INTO</span> Subject (SubId, SubName, Credit, Status) <span class="sql-kw">VALUES</span>
+(1, <span class="sql-str">'CF'</span>, 5, 1),
+(2, <span class="sql-str">'C'</span>, 6, 1),
+(3, <span class="sql-str">'HDJ'</span>, 5, 1),
+(4, <span class="sql-str">'RDBMS'</span>, 10, 1);
+
+<span class="sql-kw">INSERT IGNORE INTO</span> Mark (MarkId, SubId, StudentId, Mark, ExamTimes) <span class="sql-kw">VALUES</span>
+(1, 1, 1, 8, 1),
+(2, 1, 2, 10, 2),
+(3, 2, 1, 12, 1);
+
+<span class="sql-com">-- 2. CAC CAU TRUY VAN DU LIEU</span>
+<span class="sql-kw">USE</span> QuanLySinhVien;
+
+<span class="sql-com">-- Buoc 2: Tat ca hoc vien</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student;
+
+<span class="sql-com">-- Buoc 3: Hoc vien dang theo hoc</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student <span class="sql-kw">WHERE</span> Status = <span class="sql-kw">true</span>;
+
+<span class="sql-com">-- Buoc 4: Mon hoc co tin chi &lt; 10</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject <span class="sql-kw">WHERE</span> Credit &lt; 10;
+
+<span class="sql-com">-- Buoc 5: Hoc vien lop A1</span>
+<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, C.ClassName 
+<span class="sql-kw">FROM</span> Student S 
+<span class="sql-kw">JOIN</span> Class C <span class="sql-kw">ON</span> S.ClassId = C.ClassID 
+<span class="sql-kw">WHERE</span> C.ClassName = <span class="sql-str">'A1'</span>;
+
+<span class="sql-com">-- Buoc 6: Diem mon CF</span>
+<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, Sub.SubName, M.Mark 
+<span class="sql-kw">FROM</span> Student S 
+<span class="sql-kw">JOIN</span> Mark M <span class="sql-kw">ON</span> S.StudentId = M.StudentId 
+<span class="sql-kw">JOIN</span> Subject Sub <span class="sql-kw">ON</span> M.SubId = Sub.SubId 
+<span class="sql-kw">WHERE</span> Sub.SubName = <span class="sql-str">'CF'</span>;</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CodeGym Vietnam - Khoá học Cơ sở dữ liệu MySQL. Thực hiện: Nguyễn Tuấn Đạt.</p>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        const target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function copyText(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Đã sao chép câu lệnh SQL vào bộ nhớ đệm!');
+        }).catch(err => {
+            console.error('Không thể sao chép: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>

@@ -26,6 +26,7 @@
 | 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
 | 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
 | 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
+| 17 | **[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL (`SELECT`, `WHERE`, `JOIN` 2 & 3 bảng), ERD | Hoàn thành |
 
 ---
 
@@ -265,9 +266,25 @@ Thực hành các kỹ thuật chèn dữ liệu bằng câu lệnh `INSERT INTO
 - Giao diện web tra cứu: `sql-student-management-insert-data/index.html`
 - Thuyết minh chi tiết: `sql-student-management-insert-data/README.md`
 
+## 17. Bài thực hành 17: [Thực hành] Truy Vấn Dữ Liệu Với CSDL Quản Lý Sinh Viên
+
+### 17.1. Mục tiêu
+Thực hành các kỹ thuật truy vấn dữ liệu (DQL - Data Query Language) trên hệ CSDL Quản lý sinh viên:
+- Lấy toàn bộ danh sách học viên từ bảng `Student` (`SELECT * FROM Student`).
+- Lọc học viên đang theo học thông qua mệnh đề `WHERE` với điều kiện logic (`Status = true`).
+- Lọc danh mục môn học có số giờ / tín chỉ nhỏ hơn 10 (`WHERE Credit < 10`).
+- Kết nối (JOIN) 2 bảng `Student` và `Class` qua khóa ngoại `ClassId = ClassID` để hiển thị học viên lớp A1.
+- Kết nối đa bảng (JOIN 3 bảng `Student`, `Mark`, `Subject`) tra cứu điểm thi môn CF.
+
+### 17.2. Tài liệu và Mã nguồn
+- Kịch bản SQL DDL, DML & DQL hoàn chỉnh: `sql-student-management-query/student_management_query.sql`
+- Sơ đồ ERD & luồng JOIN truy vấn: `sql-student-management-query/erd_quanly_sinhvien_queries.png`
+- Giao diện web tra cứu: `sql-student-management-query/index.html`
+- Thuyết minh chi tiết: `sql-student-management-query/README.md`
+
 ---
 
-## 17. Hướng dẫn mở và kiểm tra trực tiếp
+## 18. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -285,3 +302,4 @@ Thực hành các kỹ thuật chèn dữ liệu bằng câu lệnh `INSERT INTO
 14. **Mở Bài tập Chuyển đổi ERD sang mô hình quan hệ**: Mở file `erd-to-relational/index.html` trong trình duyệt.
 15. **Mở Bài tập Sự cố AutoRide**: Mở file `autoride-profit-leak-fix/index.html` trong trình duyệt.
 16. **Mở Thực hành Thêm dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-insert-data/index.html` trong trình duyệt.
+17. **Mở Thực hành Truy vấn dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-query/index.html` trong trình duyệt.
