@@ -24,6 +24,7 @@
 | 12 | **[Thực hành] Quản lý đơn đặt hàng** | `erd-order-management/` | Sơ đồ ERD Ký pháp Chen, Mô hình quan hệ 3NF Crow's Foot, SQL DDL | Hoàn thành |
 | 13 | **[Thực hành] Tạo bảng trong CSDL** | `sql-create-table-practice/` | SQL DDL (`CREATE DATABASE`, `TABLE`, `ALTER TABLE`), ERD | Hoàn thành |
 | 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
+| 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
 
 ---
 
@@ -229,9 +230,27 @@ Thực hiện chuyển đổi toàn diện từ mô hình thực thể kết h�
 - Kịch bản SQL DDL: `erd-to-relational/create_tables.sql`
 - Giao diện web trực quan: `erd-to-relational/index.html`
 
+## 15. Bài tập 15: [Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide - Khắc Phục Data Gaps
+
+### 15.1. Mục tiêu
+Giải quyết sự cố bốc hơi lợi nhuận do dữ liệu "lệch pha" với UML Activity Diagram:
+- Chẩn đoán 4 khoảng trống dữ liệu (Data Gaps) nghiêm trọng trong Legacy Database.
+- Tái cấu trúc bảng `Rentals`: Khóa chặt trạng thái bằng `ENUM('BOOKED', 'ACTIVE', 'COMPLETED', 'CANCELLED')`, bổ sung các cột tài chính `security_deposit`, `late_fee`, `damage_fee` với kiểu `DECIMAL(12, 2)` tránh sai số dấu phẩy động.
+- Tạo bảng mới `Inspections` (quan hệ 1 - N) lưu vết biên bản kiểm tra xe kèm ràng buộc `ON DELETE RESTRICT`.
+- Viết Trigger `BEFORE INSERT` trên `Inspections` chặn lập biên bản khi hợp đồng đang ở trạng thái `BOOKED`.
+- Mô phỏng kịch bản thực tế khách "Nguyen Van A" vỡ đèn pha và tính toán quyết toán hoàn cọc chính xác 8.000.000 VNĐ.
+
+### 15.2. Tài liệu và Mã nguồn
+- Kịch bản SQL DDL & DML hoàn chỉnh: `autoride-profit-leak-fix/autoride_db.sql`
+- Báo cáo đối chiếu nghiệp vụ (< 200 từ): `autoride-profit-leak-fix/er_activity_mapping.md`
+- Nhật ký tương tác kỹ thuật AI: `autoride-profit-leak-fix/ai_prompt_log.md`
+- Sơ đồ ERD tối ưu hóa: `autoride-profit-leak-fix/erd_autoride.png`
+- Giao diện web mô phỏng & máy tính hoàn cọc: `autoride-profit-leak-fix/index.html`
+- Thuyết minh chi tiết & trả lời 3 câu hỏi vấn đáp: `autoride-profit-leak-fix/README.md`
+
 ---
 
-## 15. Hướng dẫn mở và kiểm tra trực tiếp
+## 16. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -247,3 +266,4 @@ Thực hiện chuyển đổi toàn diện từ mô hình thực thể kết h�
 12. **Mở Thực hành Quản lý đơn đặt hàng (ERD)**: Mở file `erd-order-management/index.html` trong trình duyệt.
 13. **Mở Thực hành Tạo bảng trong CSDL**: Mở file `sql-create-table-practice/index.html` trong trình duyệt.
 14. **Mở Bài tập Chuyển đổi ERD sang mô hình quan hệ**: Mở file `erd-to-relational/index.html` trong trình duyệt.
+15. **Mở Bài tập Sự cố AutoRide**: Mở file `autoride-profit-leak-fix/index.html` trong trình duyệt.

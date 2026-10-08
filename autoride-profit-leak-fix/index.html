@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoRide - Khắc Phục Sự Cố Bốc Hơi Lợi Nhuận</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --accent-hover: #1D4ED8;
+            --secondary: #0F766E;
+            --danger: #DC2626;
+            --success: #16A34A;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #2563EB 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #DBEAFE;
+            max-width: 900px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem 0;
+            border-radius: 0.75rem 0.75rem 0 0;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        .diagram-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        /* Calculator Styles */
+        .calc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .calc-input-group {
+            margin-bottom: 1rem;
+        }
+
+        .calc-input-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.35rem;
+        }
+
+        .calc-input-group input, .calc-input-group select, .calc-input-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .calc-input-group input:focus, .calc-input-group select:focus, .calc-input-group textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .calc-result-box {
+            background: #F8FAFC;
+            border: 2px dashed var(--accent);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .result-row.total {
+            border-top: 2px solid var(--border-color);
+            padding-top: 0.75rem;
+            margin-top: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .btn-calc {
+            background: var(--accent);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            border-radius: 0.5rem;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            width: 100%;
+        }
+
+        .btn-calc:hover {
+            background: var(--accent-hover);
+        }
+
+        .qa-item {
+            background: #F8FAFC;
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+
+        .qa-item h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        pre {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header-bar">
+        <span class="badge-tag">Hệ Thống Cho Thuê Xe AutoRide &bull; Data Architecture</span>
+        <h1>Khắc Phục Sự Cố Bốc Hơi Lợi Nhuận</h1>
+        <p>Đồng bộ mô hình dữ liệu ERD với Lưu đồ hoạt động (UML Activity Diagram) - Chuẩn hóa MySQL Schema, tích hợp biên bản giám định xe và công thức quyết toán cọc tự động.</p>
+    </header>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-erd')">Sơ đồ ERD & Schema</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-calc')">Mô phỏng Quyết toán Cọc</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-gaps')">Chẩn đoán 4 Data Gaps</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-qa')">Bảo vệ Thiết kế (Vấn đáp)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-sql')">Mã nguồn SQL (DDL & DML)</button>
+    </div>
+
+    <!-- Tab 1: ERD -->
+    <div id="tab-erd" class="tab-content active">
+        <div class="card">
+            <h2>1. Sơ đồ Thực thể Liên kết (ERD) Sau Tối Ưu</h2>
+            <div class="diagram-container">
+                <img src="erd_autoride.png" alt="Sơ đồ ERD AutoRide">
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>2. Cấu trúc Các Bảng Dữ Liệu</h2>
+            <table>
+                <thead>
+                    <tr><th>Tên Bảng</th><th>Trường Dữ Liệu</th><th>Kiểu Dữ Liệu</th><th>Ràng Buộc & Ý Nghĩa Nghiệp Vụ</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Cars</strong></td>
+                        <td>car_id<br>model_name<br>license_plate</td>
+                        <td>INT<br>VARCHAR(100)<br>VARCHAR(20)</td>
+                        <td>PRIMARY KEY AUTO_INCREMENT<br>NOT NULL (Tên mẫu xe)<br>UNIQUE NOT NULL (Biển số xe duy nhất)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rentals</strong></td>
+                        <td>rental_id<br>car_id<br>customer_name<br>rent_date<br>return_date<br>status<br>security_deposit<br>late_fee<br>damage_fee</td>
+                        <td>INT<br>INT<br>VARCHAR(100)<br>DATETIME<br>DATETIME<br>ENUM<br>DECIMAL(12,2)<br>DECIMAL(12,2)<br>DECIMAL(12,2)</td>
+                        <td>PRIMARY KEY AUTO_INCREMENT<br>FOREIGN KEY tham chiếu Cars(car_id)<br>NOT NULL (Họ tên khách)<br>NOT NULL (Ngày giờ nhận xe)<br>Ngày giờ trả xe thực tế<br>ENUM('BOOKED','ACTIVE','COMPLETED','CANCELLED')<br>Tiền cọc nhận trước (NOT NULL DEFAULT 0.00)<br>Phí quá giờ phát sinh lúc trả xe<br>Phí hư hại khấu trừ vào cọc</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inspections</strong></td>
+                        <td>inspection_id<br>rental_id<br>inspection_date<br>damage_description<br>inspector_name</td>
+                        <td>INT<br>INT<br>DATETIME<br>TEXT<br>VARCHAR(100)</td>
+                        <td>PRIMARY KEY AUTO_INCREMENT<br>FOREIGN KEY tham chiếu Rentals(rental_id) ON DELETE RESTRICT<br>Thời điểm giám định hiện trường<br>Mô tả chi tiết vị trí xước/vỡ linh kiện<br>Nhân viên chịu trách nhiệm kiểm định</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab 2: Calculator -->
+    <div id="tab-calc" class="tab-content">
+        <div class="card">
+            <h2>Mô phỏng Nghiệp vụ Trả xe & Quyết toán Tiền cọc</h2>
+            <p>Trải nghiệm công cụ quyết toán tự động theo đúng công thức: <code>Tiền hoàn trả = Tiền cọc - Phí phạt trễ - Phí sửa chữa</code>.</p>
+            
+            <div class="calc-grid">
+                <div>
+                    <div class="calc-input-group">
+                        <label>Khách hàng & Hợp đồng:</label>
+                        <input type="text" id="custName" value="Nguyen Van A - VinFast VF8 (30K-888.88)">
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Tiền cọc ban đầu (VNĐ):</label>
+                        <input type="number" id="deposit" value="10000000" step="500000">
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Phí phạt quá giờ (Late Fee - VNĐ):</label>
+                        <input type="number" id="lateFee" value="0" step="100000">
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Phí sửa chữa hư hại (Damage Fee - VNĐ):</label>
+                        <input type="number" id="damageFee" value="2000000" step="100000">
+                    </div>
+                    <div class="calc-input-group">
+                        <label>Biên bản kiểm tra xe:</label>
+                        <textarea id="inspectNotes" rows="2">Vỡ đèn pha trái phía trước do va chạm, trầy xước cản trước.</textarea>
+                    </div>
+                    <button class="btn-calc" onclick="calculateRefund()">Quyết toán Hoàn tiền Cọc</button>
+                </div>
+
+                <div class="calc-result-box">
+                    <h3 style="margin-top:0;">Hóa Đơn Quyết Toán Hoàn Cọc</h3>
+                    <div class="result-row">
+                        <span>Tiền cọc đã thu:</span>
+                        <strong id="dispDeposit">10,000,000 VNĐ</strong>
+                    </div>
+                    <div class="result-row" style="color: var(--danger);">
+                        <span>Khấu trừ phí phạt trễ:</span>
+                        <span id="dispLate">- 0 VNĐ</span>
+                    </div>
+                    <div class="result-row" style="color: var(--danger);">
+                        <span>Khấu trừ phí sửa chữa:</span>
+                        <span id="dispDamage">- 2,000,000 VNĐ</span>
+                    </div>
+                    <div class="result-row total">
+                        <span>TIỀN HOÀN TRẢ KHÁCH:</span>
+                        <span id="dispTotal">8,000,000 VNĐ</span>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                        Trạng thái hợp đồng sau quyết toán: <strong style="color: var(--success);">COMPLETED</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: Data Gaps -->
+    <div id="tab-gaps" class="tab-content">
+        <div class="card">
+            <h2>Chẩn đoán 4 Khoảng Trống Dữ Liệu (Data Gaps)</h2>
+            <table>
+                <thead>
+                    <tr><th>STT</th><th>Nghiệp vụ UML Activity Diagram</th><th>Hiện trạng Legacy Database</th><th>Hậu quả tại AutoRide</th><th>Giải pháp Schema Mới</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Khách đóng tiền cọc khi đặt xe</td>
+                        <td>Thiếu cột lưu tiền cọc</td>
+                        <td>Thu ngân không có căn cứ đối soát, dễ nhầm lẫn hoặc thất thoát</td>
+                        <td>Thêm <code>security_deposit DECIMAL(12,2)</code></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Phạt trễ giờ và bồi thường hư hại</td>
+                        <td>Không có cột lưu late_fee, damage_fee</td>
+                        <td>Kế toán không tính được tiền hoàn cọc, đành trả 100% tiền cọc dù xe vỡ hỏng</td>
+                        <td>Thêm <code>late_fee</code> và <code>damage_fee DECIMAL(12,2)</code></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Kiểm tra xe lúc nhận và trả</td>
+                        <td>Thiếu hoàn toàn bảng Inspections</td>
+                        <td>Phải ghi sổ tay, khi tranh chấp không có bằng chứng giám định lưu vết</td>
+                        <td>Tạo bảng mới <code>Inspections</code> (1-N)</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Kiểm soát trạng thái hợp đồng</td>
+                        <td>status dùng VARCHAR(50) lỏng lẻo</td>
+                        <td>Nhân viên gõ sai chính tả gây lỗi luồng xử lý ứng dụng</td>
+                        <td>Chuẩn hóa <code>ENUM('BOOKED','ACTIVE','COMPLETED','CANCELLED')</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab 4: Q&A -->
+    <div id="tab-qa" class="tab-content">
+        <div class="card">
+            <h2>Bảo Vệ Thiết Kế - Giải Đáp 3 Câu Hỏi Vấn Đáp Giảng Viên</h2>
+
+            <div class="qa-item">
+                <h4>Câu hỏi 1: Tại sao tách Inspections ra bảng riêng lại tốt hơn việc nhồi nhét cột damage_description trực tiếp vào bảng Rentals?</h4>
+                <p><strong>Trả lời:</strong><br>
+                1. <em>Chuẩn hóa dữ liệu:</em> Tránh lãng phí dung lượng lưu trữ các trường NULL khi xe trả nguyên vẹn.<br>
+                2. <em>Lưu vết đa thời điểm (1-N):</em> Một vòng đời thuê xe có ít nhất 2 mốc kiểm tra (lúc nhận xe và lúc trả xe). Nếu chỉ có 1 cột trong Rentals, kết quả kiểm tra lần sau sẽ ghi đè lên lần trước, xóa mất bằng chứng pháp lý ban đầu.<br>
+                3. <em>Khả năng mở rộng:</em> Bảng riêng cho phép lưu trữ nhiều ảnh giám định, nhiều hạng mục lỗi độc lập và ghi nhận danh tính từng kỹ thuật viên giám định.</p>
+            </div>
+
+            <div class="qa-item">
+                <h4>Câu hỏi 2: Làm sao để ngăn chặn không cho ai insert vào Inspections khi hợp đồng đang ở trạng thái BOOKED?</h4>
+                <p><strong>Trả lời:</strong><br>
+                Sử dụng <strong>Trigger BEFORE INSERT trên bảng Inspections</strong> kết hợp lệnh <code>SIGNAL SQLSTATE '45000'</code>.<br>
+                Do ràng buộc CHECK của MySQL không hỗ trợ kiểm tra chéo bảng (cross-table check), Trigger là cơ chế phía máy chủ duy nhất bảo đảm 100% toàn vẹn dữ liệu ngay cả khi ứng dụng bị lỗi logic.</p>
+            </div>
+
+            <div class="qa-item">
+                <h4>Câu hỏi 3: Sự thiếu đồng bộ giữa Activity Diagram và ERD dẫn đến những hậu quả gì về UX trên ứng dụng?</h4>
+                <p><strong>Trả lời:</strong><br>
+                1. <em>Mất lòng tin:</em> Ứng dụng không hiển thị được bảng phân rã chi tiết khấu trừ (khách không biết vì sao bị trừ 2 triệu, trừ vì lỗi gì).<br>
+                2. <em>Gãy luồng trải nghiệm:</em> Nhân viên phải lấy giấy bút ghi sổ, gọi điện xin số tài khoản kế toán, giữ chân khách tại bãi xe hàng giờ.<br>
+                3. <em>Tranh chấp bùng nổ:</em> Thiếu email biên bản kiểm tra tức thời khiến khách khiếu nại ngân hàng (chargeback) và đánh giá 1 sao phá hủy danh tiếng ứng dụng.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 5: SQL -->
+    <div id="tab-sql" class="tab-content">
+        <div class="card">
+            <h2>Mã Nguồn SQL Hoàn Chỉnh (autoride_db.sql)</h2>
+            <pre><code>-- CREATE DATABASE & TABLES
+CREATE DATABASE IF NOT EXISTS autoride_db;
+USE autoride_db;
+
+CREATE TABLE Cars (
+    car_id INT AUTO_INCREMENT PRIMARY KEY,
+    model_name VARCHAR(100) NOT NULL,
+    license_plate VARCHAR(20) UNIQUE NOT NULL
+);
+
+CREATE TABLE Rentals (
+    rental_id INT AUTO_INCREMENT PRIMARY KEY,
+    car_id INT NOT NULL,
+    customer_name VARCHAR(100) NOT NULL,
+    rent_date DATETIME NOT NULL,
+    return_date DATETIME,
+    status ENUM('BOOKED', 'ACTIVE', 'COMPLETED', 'CANCELLED') NOT NULL DEFAULT 'BOOKED',
+    security_deposit DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    late_fee DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    damage_fee DECIMAL(12, 2) NOT NULL DEFAULT 0.00,
+    CONSTRAINT FK_Rentals_Cars FOREIGN KEY (car_id) REFERENCES Cars(car_id) ON DELETE RESTRICT
+);
+
+CREATE TABLE Inspections (
+    inspection_id INT AUTO_INCREMENT PRIMARY KEY,
+    rental_id INT NOT NULL,
+    inspection_date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    damage_description TEXT,
+    inspector_name VARCHAR(100) NOT NULL,
+    CONSTRAINT FK_Inspections_Rentals FOREIGN KEY (rental_id) REFERENCES Rentals(rental_id) ON DELETE RESTRICT
+);
+
+-- TRIGGER CHẶN INSERT KHI STATUS = BOOKED
+DELIMITER //
+CREATE TRIGGER before_insert_inspections
+BEFORE INSERT ON Inspections
+FOR EACH ROW
+BEGIN
+    DECLARE current_status ENUM('BOOKED', 'ACTIVE', 'COMPLETED', 'CANCELLED');
+    SELECT status INTO current_status FROM Rentals WHERE rental_id = NEW.rental_id;
+    IF current_status = 'BOOKED' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Loi: Khong the tao bien ban kiem tra xe khi hop dong dang o trang thai BOOKED.';
+    END IF;
+END //
+DELIMITER ;
+
+-- DML SIMULATION: NGUYEN VAN A
+INSERT INTO Cars (model_name, license_plate) VALUES ('VinFast VF8 Plus', '30K-888.88');
+INSERT INTO Rentals (car_id, customer_name, rent_date, status, security_deposit, late_fee, damage_fee)
+VALUES (1, 'Nguyen Van A', '2026-10-06 08:00:00', 'ACTIVE', 10000000.00, 0.00, 0.00);
+
+SET @current_rental_id = LAST_INSERT_ID();
+
+INSERT INTO Inspections (rental_id, inspection_date, damage_description, inspector_name)
+VALUES (@current_rental_id, '2026-10-08 17:00:00', 'Vo den pha trai phia truoc', 'Nhan vien Nguyen Van Kiem');
+
+UPDATE Rentals
+SET return_date = '2026-10-08 17:00:00',
+    status = 'COMPLETED',
+    damage_fee = 2000000.00
+WHERE rental_id = @current_rental_id;
+
+-- SELECT QUYẾT TOÁN HOÀN TIỀN
+SELECT 
+    r.rental_id, r.customer_name, c.model_name, c.license_plate, r.status,
+    i.damage_description,
+    FORMAT(r.security_deposit, 0) AS Tien_Coc,
+    FORMAT(r.damage_fee, 0) AS Phat_Hu_Hong,
+    FORMAT(r.security_deposit - r.late_fee - r.damage_fee, 0) AS Tien_Hoan_Tra
+FROM Rentals r
+JOIN Cars c ON r.car_id = c.car_id
+LEFT JOIN Inspections i ON r.rental_id = i.rental_id
+WHERE r.rental_id = @current_rental_id;</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Báo cáo Bài tập AutoRide - CodeGym &bull; Data Architect: Nguyễn Tuấn Đạt</p>
+    </footer>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        var tabBtns = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+
+    function calculateRefund() {
+        const deposit = parseFloat(document.getElementById('deposit').value) || 0;
+        const late = parseFloat(document.getElementById('lateFee').value) || 0;
+        const damage = parseFloat(document.getElementById('damageFee').value) || 0;
+        const refund = deposit - late - damage;
+
+        document.getElementById('dispDeposit').innerText = deposit.toLocaleString('vi-VN') + ' VNĐ';
+        document.getElementById('dispLate').innerText = '- ' + late.toLocaleString('vi-VN') + ' VNĐ';
+        document.getElementById('dispDamage').innerText = '- ' + damage.toLocaleString('vi-VN') + ' VNĐ';
+        document.getElementById('dispTotal').innerText = refund.toLocaleString('vi-VN') + ' VNĐ';
+    }
+</script>
+
+</body>
+</html>
