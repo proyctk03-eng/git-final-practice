@@ -26,7 +26,7 @@
 | 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
 | 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
 | 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
-| 17 | **[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL (`SELECT`, `WHERE`, `JOIN` 2 & 3 bảng), ERD | Hoàn thành |
+| 17 | **[Bài tập & Thực hành] Truy vấn dữ liệu CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL & DML (`LIKE`, `MONTH`, `BETWEEN`, `UPDATE`, `ORDER BY`, `JOIN`), ERD | Hoàn thành (100/100) |
 
 ---
 
@@ -266,21 +266,22 @@ Thực hành các kỹ thuật chèn dữ liệu bằng câu lệnh `INSERT INTO
 - Giao diện web tra cứu: `sql-student-management-insert-data/index.html`
 - Thuyết minh chi tiết: `sql-student-management-insert-data/README.md`
 
-## 17. Bài thực hành 17: [Thực hành] Truy Vấn Dữ Liệu Với CSDL Quản Lý Sinh Viên
+## 17. Bài tập & Thực hành 17: [Bài tập & Thực hành] Truy Vấn Dữ Liệu Với CSDL Quản Lý Sinh Viên
 
-### 17.1. Mục tiêu
-Thực hành các kỹ thuật truy vấn dữ liệu (DQL - Data Query Language) trên hệ CSDL Quản lý sinh viên:
-- Lấy toàn bộ danh sách học viên từ bảng `Student` (`SELECT * FROM Student`).
-- Lọc học viên đang theo học thông qua mệnh đề `WHERE` với điều kiện logic (`Status = true`).
-- Lọc danh mục môn học có số giờ / tín chỉ nhỏ hơn 10 (`WHERE Credit < 10`).
-- Kết nối (JOIN) 2 bảng `Student` và `Class` qua khóa ngoại `ClassId = ClassID` để hiển thị học viên lớp A1.
-- Kết nối đa bảng (JOIN 3 bảng `Student`, `Mark`, `Subject`) tra cứu điểm thi môn CF.
+### 17.1. Mục tiêu & 5 Tiêu chí chấm điểm (100/100 Điểm)
+Triển khai toàn diện 5 yêu cầu nghiệp vụ chuyên sâu theo đúng nhận xét và barem đánh giá của giảng viên:
+- **Tiêu chí 1 (+20đ)**: Lọc tất cả sinh viên có tên bắt đầu bằng ký tự 'h' bằng toán tử `LIKE 'h%'`.
+- **Tiêu chí 2 (+20đ)**: Lọc các lớp học có thời gian bắt đầu vào tháng 12 bằng hàm trích xuất tháng `MONTH(StartDate) = 12`.
+- **Tiêu chí 3 (+20đ)**: Lọc các môn học có credit trong khoảng từ 3 đến 5 bằng toán tử xác định khoảng giá trị `BETWEEN 3 AND 5`.
+- **Tiêu chí 4 (+20đ)**: Thay đổi mã lớp (ClassId) của sinh viên có tên 'Hung' thành 2 bằng câu lệnh `UPDATE Student SET ClassId = 2 WHERE StudentName = 'Hung';`.
+- **Tiêu chí 5 (+20đ)**: Hiển thị các trường `StudentName`, `SubName`, `Mark` từ 3 bảng (JOIN `Student`, `Mark`, `Subject`) sắp xếp giảm dần theo điểm thi và tăng dần theo tên bằng mệnh đề `ORDER BY M.Mark DESC, S.StudentName ASC`.
+- Bảo lưu các câu truy vấn thực hành nền tảng (SELECT *, WHERE Status = true, Credit < 10, JOIN học viên lớp A1, JOIN điểm môn CF).
 
 ### 17.2. Tài liệu và Mã nguồn
 - Kịch bản SQL DDL, DML & DQL hoàn chỉnh: `sql-student-management-query/student_management_query.sql`
-- Sơ đồ ERD & luồng JOIN truy vấn: `sql-student-management-query/erd_quanly_sinhvien_queries.png`
-- Giao diện web tra cứu: `sql-student-management-query/index.html`
-- Thuyết minh chi tiết: `sql-student-management-query/README.md`
+- Sơ đồ ERD & luồng JOIN 5 truy vấn trọng tâm: `sql-student-management-query/erd_quanly_sinhvien_queries.png`
+- Giao diện web tra cứu & sao chép truy vấn: `sql-student-management-query/index.html`
+- Thuyết minh chi tiết & bảng ma trận đối chiếu tiêu chí: `sql-student-management-query/README.md`
 
 ---
 

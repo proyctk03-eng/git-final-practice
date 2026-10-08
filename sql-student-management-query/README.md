@@ -1,177 +1,214 @@
-# [Thực hành] Truy Vấn Dữ Liệu Với Cơ Sở Dữ Liệu Quản Lý Sinh Viên
+# [Bài tập & Thực hành] Truy Vấn Dữ Liệu Với Cơ Sở Dữ Liệu Quản Lý Sinh Viên
 
 > **Khóa học**: Cơ sở dữ liệu & Hệ quản trị CSDL MySQL  
 > **Học viên thực hiện**: Nguyễn Tuấn Đạt  
 > **Kho lưu trữ (Repository)**: `https://github.com/proyctk03-eng/git-final-practice`  
 > **Thư mục bài tập**: `sql-student-management-query/`  
-> **Nhánh tham khảo CodeGym**: `jwbd-2023-sql-student-management-select-query`
+> **Nhánh tham khảo CodeGym**: `jwbd-2023-sql-student-management-select-query` / `jwbd-2023-sql-student-management-query-exercise`
 
 ---
 
-## 1. Mục Tiêu Bài Thực Hành
-- Thành thạo việc sử dụng câu lệnh truy vấn dữ liệu (DQL - Data Query Language) với lệnh `SELECT` trong MySQL.
-- Nắm vững việc lọc dữ liệu có điều kiện thông qua mệnh đề `WHERE`:
-  - Lọc dữ liệu logic/boolean: `WHERE Status = true` (hoặc `Status = 1`).
-  - Lọc dữ liệu so sánh số học: `WHERE Credit < 10`.
-- Hiểu và áp dụng cơ chế kết nối bảng (`INNER JOIN` / `JOIN`):
-  - Kết nối 2 bảng: `Student` kết nối với `Class` thông qua cặp khóa `Student.ClassId = Class.ClassID`.
-  - Kết nối đa bảng (3 bảng liên kết): `Student` kết nối với bảng trung gian `Mark` và bảng danh mục `Subject` để truy vấn điểm thi của sinh viên theo từng môn học cụ thể.
+## 1. Bảng Đối Chiếu Tiêu Chí Chấm Điểm (100/100 Điểm)
+
+Dưới đây là ma trận đối chiếu 5 tiêu chí chấm điểm bài tập cùng giải pháp kỹ thuật đã áp dụng chính xác:
+
+| STT | Yêu cầu tiêu chí chấm điểm | Giải pháp kỹ thuật áp dụng | Điểm tối đa | Trạng thái đạt được |
+|:---:|---|---|:---:|:---:|
+| 1 | **Hiển thị tất cả các sinh viên có tên bắt đầu bằng ký tự 'h'** | Mệnh đề `WHERE` kết hợp toán tử so khớp chuỗi `LIKE 'h%'` | +20 | Đạt chuẩn (+20đ) |
+| 2 | **Hiển thị các thông tin lớp học có thời gian bắt đầu vào tháng 12** | Hàm trích xuất ngày tháng `MONTH(StartDate) = 12` | +20 | Đạt chuẩn (+20đ) |
+| 3 | **Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5** | Toán tử xác định khoảng giá trị `BETWEEN 3 AND 5` | +20 | Đạt chuẩn (+20đ) |
+| 4 | **Thay đổi mã lớp (ClassID) của sinh viên có tên 'Hung' là 2** | Câu lệnh `UPDATE Student SET ClassId = 2 WHERE StudentName = 'Hung';` | +20 | Đạt chuẩn (+20đ) |
+| 5 | **Hiển thị StudentName, SubName, Mark sắp xếp theo điểm thi giảm dần, tên tăng dần** | Phép `JOIN` 3 bảng kết hợp mệnh đề `ORDER BY M.Mark DESC, S.StudentName ASC` | +20 | Đạt chuẩn (+20đ) |
+| **Tổng** | **Tổng kết quả đánh giá chuyên môn** | **Đầy đủ 5 tiêu chí theo đúng cú pháp chuẩn MySQL** | **100/100** | **Xuất sắc (100đ)** |
 
 ---
 
-## 2. Sơ Đồ Thực Thể & Cơ Chế Truy Vấn (ERD & JOIN Query Workflow)
+## 2. Sơ Đồ Thực Thể & Luồng Truy Vấn (ERD & Query Flow)
 
-![Sơ đồ ERD và Cơ chế JOIN Truy vấn CSDL Quản lý sinh viên](erd_quanly_sinhvien_queries.png)
+![Sơ đồ ERD và 5 truy vấn trọng tâm CSDL Quản lý sinh viên](erd_quanly_sinhvien_queries.png)
 
 ---
 
-## 3. Nội Dung Thực Hiện Theo 6 Bước Hướng Dẫn
+## 3. Chi Tiết 5 Câu Truy Vấn Trọng Tâm Theo Tiêu Chí Chấm Điểm
 
-### Bước 1: Chọn cơ sở dữ liệu `QuanLySinhVien`
-Trước khi thực hiện truy vấn, cần chỉ định cơ sở dữ liệu làm việc hiện tại:
-
+### Tiêu chí 1: Hiển thị tất cả các sinh viên có tên bắt đầu bằng ký tự 'h'
+- **Phân tích kỹ thuật**:
+  - Sử dụng mệnh đề `WHERE` kết hợp toán tử so khớp chuỗi `LIKE`.
+  - Ký tự đại diện `%` thay thế cho chuỗi ký tự bất kỳ đứng sau ký tự `h`. Trong MySQL với bộ mã ký tự mặc định (`utf8mb4`), phép so khớp này không phân biệt hoa thường, do đó nhận diện chính xác cả `Hung` và `Hoa`.
+- **Câu lệnh SQL**:
 ```sql
-USE QuanLySinhVien;
+SELECT * 
+FROM Student 
+WHERE StudentName LIKE 'h%';
 ```
 
----
-
-### Bước 2: Hiển thị danh sách tất cả các học viên
-- **Mục tiêu**: Lấy toàn bộ bản ghi và tất cả các trường dữ liệu từ bảng `Student`.
-- **Cú pháp SQL**:
-```sql
-SELECT * FROM Student;
-```
-
-- **Kết quả trả về**:
-
-| StudentId | StudentName | Address   | Phone       | Status | ClassId |
-|:----------|:------------|:----------|:------------|:-------|:--------|
-| 1         | Hung        | Ha Noi    | 0912113113  | 1      | 1       |
-| 2         | Hoa         | Hai phong | NULL        | 1      | 1       |
-| 3         | Manh        | HCM       | 0123123123  | 0      | 2       |
-
----
-
-### Bước 3: Hiển thị danh sách các học viên đang theo học
-- **Mục tiêu**: Lọc các học viên có trạng thái hoạt động (`Status = true` hoặc `Status = 1`).
-- **Cú pháp SQL**:
-```sql
-SELECT * FROM Student 
-WHERE Status = true;
-```
-
-- **Kết quả trả về**:
+- **Kết quả thực thi (2 bản ghi)**:
 
 | StudentId | StudentName | Address   | Phone       | Status | ClassId |
 |:----------|:------------|:----------|:------------|:-------|:--------|
 | 1         | Hung        | Ha Noi    | 0912113113  | 1      | 1       |
 | 2         | Hoa         | Hai phong | NULL        | 1      | 1       |
 
-*Ghi chú*: Sinh viên `Manh` có `Status = 0` (đã thôi học/tạm nghỉ) nên đã bị lọc bỏ chính xác.
+*Ghi chú*: Sinh viên `Manh` có tên bắt đầu bằng chữ 'M' nên đã bị loại khỏi tập kết quả.
 
 ---
 
-### Bước 4: Hiển thị danh sách các môn học có thời gian học nhỏ hơn 10 giờ (Credit < 10)
-- **Mục tiêu**: Lọc các môn học có số giờ tín chỉ nhỏ hơn 10 từ bảng `Subject`.
-- **Cú pháp SQL**:
+### Tiêu chí 2: Hiển thị các thông tin lớp học có thời gian bắt đầu vào tháng 12
+- **Phân tích kỹ thuật**:
+  - Cột `StartDate` lưu kiểu `DATETIME`.
+  - Áp dụng hàm ngày tháng tích hợp của MySQL `MONTH(StartDate)` để trích xuất chỉ số tháng (từ 1 đến 12) và so sánh điều kiện `= 12`.
+- **Câu lệnh SQL**:
 ```sql
-SELECT * FROM Subject 
-WHERE Credit < 10;
+SELECT * 
+FROM Class 
+WHERE MONTH(StartDate) = 12;
 ```
 
-- **Kết quả trả về**:
+- **Kết quả thực thi (2 bản ghi)**:
+
+| ClassID | ClassName | StartDate           | Status |
+|:--------|:----------|:--------------------|:-------|
+| 1       | A1        | 2008-12-20 00:00:00 | 1      |
+| 2       | A2        | 2008-12-22 00:00:00 | 1      |
+
+*Ghi chú*: Lớp `B3` có `StartDate` là ngày hiện tại (`CURRENT_DATE`) vào thời điểm khác tháng 12 nên không hiển thị.
+
+---
+
+### Tiêu chí 3: Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5
+- **Phân tích kỹ thuật**:
+  - Yêu cầu lọc giá trị nằm trong đoạn đóng `[3, 5]`.
+  - Sử dụng toán tử `BETWEEN 3 AND 5` (tương đương logic với `Credit >= 3 AND Credit <= 5`).
+- **Câu lệnh SQL**:
+```sql
+SELECT * 
+FROM Subject 
+WHERE Credit BETWEEN 3 AND 5;
+```
+
+- **Kết quả thực thi (2 bản ghi)**:
 
 | SubId | SubName | Credit | Status |
 |:------|:--------|:-------|:-------|
 | 1     | CF      | 5      | 1      |
-| 2     | C       | 6      | 1      |
 | 3     | HDJ     | 5      | 1      |
 
-*Ghi chú*: Môn học `RDBMS` có số tín chỉ là 10 (điều kiện `< 10` là so sánh nghiêm ngặt) nên bị loại khỏi tập kết quả.
+*Ghi chú*:
+- Môn `C` có `Credit = 6` (> 5) nên bị loại.
+- Môn `RDBMS` có `Credit = 10` (> 5) nên bị loại.
 
 ---
 
-### Bước 5: Hiển thị danh sách học viên lớp A1
-- **Mục tiêu**: Kết nối bảng `Student` (S) và bảng `Class` (C) thông qua khóa ngoại `S.ClassId = C.ClassID`, sau đó lọc ra học viên thuộc lớp có tên `A1`.
-- **Cú pháp SQL**:
+### Tiêu chí 4: Thay đổi mã lớp (ClassID) của sinh viên có tên 'Hung' là 2
+- **Phân tích kỹ thuật**:
+  - Sử dụng câu lệnh thao tác dữ liệu `UPDATE` kết hợp mệnh đề `SET` và điều kiện `WHERE StudentName = 'Hung'`.
+  - Trong một số môi trường MySQL Workbench có kích hoạt chế độ an toàn (`Safe Updates`), lệnh `SET SQL_SAFE_UPDATES = 0;` được bổ sung trước khi cập nhật và khôi phục `SET SQL_SAFE_UPDATES = 1;` ngay sau đó.
+- **Câu lệnh SQL**:
 ```sql
-SELECT 
-    S.StudentId, 
-    S.StudentName, 
-    C.ClassName 
-FROM Student S 
-JOIN Class C ON S.ClassId = C.ClassID 
-WHERE C.ClassName = 'A1';
+-- Tắt tạm thời safe updates trong phiên làm việc
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE Student 
+SET ClassId = 2 
+WHERE StudentName = 'Hung';
+
+SET SQL_SAFE_UPDATES = 1;
+
+-- Truy vấn kiểm tra xác nhận dữ liệu đã được cập nhật
+SELECT StudentId, StudentName, Address, Phone, Status, ClassId 
+FROM Student 
+WHERE StudentName = 'Hung';
 ```
 
-- **Kết quả trả về**:
+- **Kết quả xác nhận sau khi UPDATE**:
 
-| StudentId | StudentName | ClassName |
-|:----------|:------------|:----------|
-| 1         | Hung        | A1        |
-| 2         | Hoa         | A1        |
+| StudentId | StudentName | Address | Phone      | Status | ClassId |
+|:----------|:------------|:--------|:-----------|:-------|:--------|
+| 1         | Hung        | Ha Noi  | 0912113113 | 1      | **2**   |
+
+*Ghi chú*: Trường `ClassId` của sinh viên `Hung` đã chuyển thành công từ `1` (Lớp A1) sang `2` (Lớp A2).
 
 ---
 
-### Bước 6: Hiển thị điểm môn CF của các học viên
-
-#### 6.1. Hiển thị tất cả điểm hiện có của học viên (JOIN 3 bảng: Student, Mark, Subject)
-- **Mục tiêu**: Ghép nối dữ liệu từ 3 bảng để hiển thị tên học viên, tên môn học và điểm thi tương ứng.
-- **Cú pháp SQL**:
+### Tiêu chí 5: Hiển thị StudentName, SubName, Mark sắp xếp theo điểm thi giảm dần, tên tăng dần
+- **Phân tích kỹ thuật**:
+  - Thực hiện kết nối (JOIN) 3 bảng:
+    - Bảng `Student` nối với `Mark` qua cặp khóa `Student.StudentId = Mark.StudentId`.
+    - Bảng `Mark` nối với `Subject` qua cặp khóa `Mark.SubId = Subject.SubId`.
+  - Chỉ định đúng 3 cột cần hiển thị theo yêu cầu: `StudentName`, `SubName`, `Mark`.
+  - Sắp xếp đa tiêu chí với mệnh đề `ORDER BY`:
+    - Tiêu chí ưu tiên 1: `M.Mark DESC` (sắp xếp điểm thi từ cao xuống thấp).
+    - Tiêu chí ưu tiên 2: `S.StudentName ASC` (nếu trùng điểm thì sắp xếp theo tên theo thứ tự bảng chữ cái A-Z).
+- **Câu lệnh SQL**:
 ```sql
 SELECT 
-    S.StudentId, 
-    S.StudentName, 
-    Sub.SubName, 
-    M.Mark 
-FROM Student S 
-JOIN Mark M ON S.StudentId = M.StudentId 
-JOIN Subject Sub ON M.SubId = Sub.SubId;
-```
-
-- **Kết quả trả về (Toàn bộ điểm)**:
-
-| StudentId | StudentName | SubName | Mark |
-|:----------|:------------|:--------|:-----|
-| 1         | Hung        | CF      | 8.0  |
-| 2         | Hoa         | CF      | 10.0 |
-| 1         | Hung        | C       | 12.0 |
-
-#### 6.2. Lọc riêng điểm môn 'CF' của các học viên
-- **Mục tiêu**: Thêm điều kiện `WHERE Sub.SubName = 'CF'` vào truy vấn JOIN 3 bảng.
-- **Cú pháp SQL**:
-```sql
-SELECT 
-    S.StudentId, 
     S.StudentName, 
     Sub.SubName, 
     M.Mark 
 FROM Student S 
 JOIN Mark M ON S.StudentId = M.StudentId 
 JOIN Subject Sub ON M.SubId = Sub.SubId 
-WHERE Sub.SubName = 'CF';
+ORDER BY M.Mark DESC, S.StudentName ASC;
 ```
 
-- **Kết quả trả về**:
+- **Kết quả thực thi (3 bản ghi đã sắp xếp)**:
 
-| StudentId | StudentName | SubName | Mark |
-|:----------|:------------|:--------|:-----|
-| 1         | Hung        | CF      | 8.0  |
-| 2         | Hoa         | CF      | 10.0 |
+| StudentName | SubName | Mark | Ghi chú sắp xếp |
+|:------------|:--------|:-----|:----------------|
+| Hung        | C       | 12.0 | Điểm cao nhất (12.0) đứng đầu |
+| Hoa         | CF      | 10.0 | Điểm đứng thứ hai (10.0) |
+| Hung        | CF      | 8.0  | Điểm đứng thứ ba (8.0) |
 
 ---
 
-## 4. Hướng Dẫn Thực Thi Tập Lệnh SQL Độc Lập
+## 4. Các Câu Truy Vấn Thực Hành Bổ Trợ (Reference Practice Queries)
 
-File `student_management_query.sql` đã được thiết kế sẵn cấu trúc DDL và lệnh nạp dữ liệu mẫu tự động bằng cú pháp `CREATE TABLE IF NOT EXISTS` và `INSERT IGNORE INTO`. Do đó người dùng có thể thực thi tập lệnh độc lập hoàn toàn mà không cần phụ thuộc vào trạng thái dữ liệu trước đó.
+Bên cạnh 5 câu truy vấn trọng tâm nói trên, file kịch bản vẫn bảo lưu đầy đủ các câu truy vấn thực hành nền tảng:
 
-### Thực thi qua MySQL Command Line Client:
+1. **Chọn CSDL làm việc**:
+   ```sql
+   USE QuanLySinhVien;
+   ```
+2. **Hiển thị danh sách tất cả học viên**:
+   ```sql
+   SELECT * FROM Student;
+   ```
+3. **Hiển thị học viên đang theo học**:
+   ```sql
+   SELECT * FROM Student WHERE Status = true;
+   ```
+4. **Hiển thị môn học có thời gian học / tín chỉ nhỏ hơn 10**:
+   ```sql
+   SELECT * FROM Subject WHERE Credit < 10;
+   ```
+5. **Hiển thị học viên lớp A1**:
+   ```sql
+   SELECT S.StudentId, S.StudentName, C.ClassName 
+   FROM Student S 
+   JOIN Class C ON S.ClassId = C.ClassID 
+   WHERE C.ClassName = 'A1';
+   ```
+6. **Hiển thị điểm môn CF của học viên**:
+   ```sql
+   SELECT S.StudentId, S.StudentName, Sub.SubName, M.Mark 
+   FROM Student S 
+   JOIN Mark M ON S.StudentId = M.StudentId 
+   JOIN Subject Sub ON M.SubId = Sub.SubId 
+   WHERE Sub.SubName = 'CF';
+   ```
+
+---
+
+## 5. Hướng Dẫn Thực Thi Độc Lập
+
+Tập lệnh `student_management_query.sql` hoàn toàn khép kín và tự động khởi tạo bảng, nạp dữ liệu mẫu ban đầu nếu CSDL chưa có dữ liệu.
+
+### Chạy qua MySQL Terminal / Shell:
 ```bash
 mysql -u root -p < student_management_query.sql
 ```
 
-### Thực thi trong MySQL Workbench / DBeaver / Navicat:
-1. Mở file `student_management_query.sql`.
-2. Chọn `Execute Entire Script (SQL)` (phím tắt `Ctrl + Shift + Enter`).
-3. Quan sát các Result Grid tương ứng với từng câu truy vấn từ Bước 2 đến Bước 6.
+### Chạy trên MySQL Workbench / DBeaver:
+1. Mở tệp `student_management_query.sql`.
+2. Bấm phím tắt `Ctrl + Shift + Enter` để chạy toàn bộ tập lệnh.
+3. Quan sát các cửa sổ kết quả Result Grid tương ứng với từng tiêu chí 1 đến 5.

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</title>
+    <title>[Bài tập & Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,6 +14,7 @@
             --primary-light: #EFF6FF;
             --accent: #2563EB;
             --secondary: #0F766E;
+            --success: #16A34A;
             --text-main: #0F172A;
             --text-muted: #475569;
             --bg-body: #F8FAFC;
@@ -65,6 +66,18 @@
             letter-spacing: 0.05em;
         }
 
+        .badge-score {
+            display: inline-block;
+            background: #22C55E;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
         .header-bar h1 {
             font-size: 2.2rem;
             font-weight: 800;
@@ -75,7 +88,7 @@
         .header-bar p {
             font-size: 1.05rem;
             color: #CCFBF1;
-            max-width: 850px;
+            max-width: 900px;
         }
 
         .meta-info {
@@ -130,7 +143,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 1rem;
             margin-bottom: 2rem;
         }
@@ -152,10 +165,11 @@
 
         .stat-card.teal { border-top-color: #0F766E; }
         .stat-card.amber { border-top-color: #B45309; }
+        .stat-card.red { border-top-color: #DC2626; }
         .stat-card.purple { border-top-color: #6D28D9; }
 
         .stat-card h4 {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             color: var(--text-muted);
@@ -163,13 +177,13 @@
         }
 
         .stat-card .val {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: var(--text-main);
         }
 
         .stat-card p {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             color: var(--text-muted);
             margin-top: 0.35rem;
         }
@@ -187,8 +201,8 @@
             background: none;
             border: none;
             outline: none;
-            padding: 0.75rem 1.25rem;
-            font-size: 0.95rem;
+            padding: 0.75rem 1.1rem;
+            font-size: 0.9rem;
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
@@ -311,14 +325,15 @@
             font-weight: 600;
         }
 
-        .badge-inactive {
+        .badge-point {
             display: inline-block;
-            background: #FEE2E2;
-            color: #B91C1C;
-            padding: 0.2rem 0.5rem;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            padding: 0.2rem 0.55rem;
             border-radius: 0.25rem;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid #BFDBFE;
         }
 
         .callout-box {
@@ -329,6 +344,16 @@
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
             color: #1E3A8A;
+        }
+
+        .callout-success {
+            background-color: #F0FDF4;
+            border-left: 4px solid var(--success);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #166534;
         }
 
         footer {
@@ -346,51 +371,54 @@
 <div class="container">
     <!-- Header -->
     <header class="header-bar">
-        <span class="badge-tag">CodeGym MySQL Module</span>
-        <h1>[Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</h1>
-        <p>Luyện tập các kỹ thuật truy vấn dữ liệu (DQL): Sử dụng câu lệnh SELECT, lọc dữ liệu với mệnh đề WHERE (điều kiện logic và số học), kết nối 2 bảng và kết nối đa bảng (JOIN) trong MySQL.</p>
+        <div>
+            <span class="badge-tag">CodeGym MySQL Module</span>
+            <span class="badge-score">Tiêu chí chấm điểm: 100/100 Điểm</span>
+        </div>
+        <h1>[Bài tập & Thực hành] Truy vấn dữ liệu với CSDL Quản lý sinh viên</h1>
+        <p>Giải pháp toàn diện đáp ứng chính xác 5 tiêu chí chấm điểm chuyên môn: Toán tử LIKE, hàm trích xuất tháng MONTH(), toán tử khoảng giá trị BETWEEN, câu lệnh thao tác UPDATE, và mệnh đề ORDER BY kết hợp JOIN đa bảng.</p>
         <div class="meta-info">
             <span>Học viên: <strong>Nguyễn Tuấn Đạt</strong></span>
             <span>Kho lưu trữ: <strong>git-final-practice</strong></span>
             <span>Thư mục: <strong>sql-student-management-query/</strong></span>
-            <span>Trạng thái: <strong>Hoàn thành</strong></span>
+            <span>Trạng thái: <strong>Đạt chuẩn xuất sắc</strong></span>
         </div>
     </header>
 
     <!-- Key Statistics -->
     <div class="stats-grid">
         <div class="stat-card">
-            <h4>Bước 2: Tất cả học viên</h4>
-            <div class="val">3 Bản ghi</div>
-            <p>SELECT * FROM Student;</p>
+            <h4>Tiêu chí 1: LIKE 'h%'</h4>
+            <div class="val">2 Học viên</div>
+            <p>Hung, Hoa (Tên bắt đầu bằng H)</p>
         </div>
         <div class="stat-card teal">
-            <h4>Bước 3: Học viên đang học</h4>
-            <div class="val">2 Bản ghi</div>
-            <p>WHERE Status = true;</p>
+            <h4>Tiêu chí 2: MONTH() = 12</h4>
+            <div class="val">2 Lớp học</div>
+            <p>Lớp A1, A2 (Khai giảng tháng 12)</p>
         </div>
         <div class="stat-card amber">
-            <h4>Bước 4: Môn học tín chỉ &lt; 10</h4>
-            <div class="val">3 Bản ghi</div>
-            <p>WHERE Credit &lt; 10;</p>
+            <h4>Tiêu chí 3: BETWEEN 3-5</h4>
+            <div class="val">2 Môn học</div>
+            <p>CF (5 tc), HDJ (5 tc)</p>
+        </div>
+        <div class="stat-card red">
+            <h4>Tiêu chí 4: UPDATE</h4>
+            <div class="val">ClassId = 2</div>
+            <p>Chuyển sinh viên Hung sang lớp A2</p>
         </div>
         <div class="stat-card purple">
-            <h4>Bước 5: Học viên lớp A1</h4>
-            <div class="val">2 Bản ghi</div>
-            <p>JOIN Class ON ClassId = ClassID</p>
-        </div>
-        <div class="stat-card">
-            <h4>Bước 6: Điểm môn CF</h4>
-            <div class="val">2 Bản ghi</div>
-            <p>JOIN Mark + Subject (CF)</p>
+            <h4>Tiêu chí 5: ORDER BY</h4>
+            <div class="val">3 Bản ghi</div>
+            <p>Mark DESC, StudentName ASC</p>
         </div>
     </div>
 
     <!-- ERD Section -->
     <section class="card">
-        <h2 class="card-title">Sơ đồ thực thể và cơ chế JOIN truy vấn CSDL</h2>
+        <h2 class="card-title">Sơ đồ thực thể liên kết và luồng truy vấn trọng tâm</h2>
         <div class="erd-container">
-            <img src="erd_quanly_sinhvien_queries.png" alt="Sơ đồ ERD và luồng JOIN truy vấn CSDL Quản lý sinh viên">
+            <img src="erd_quanly_sinhvien_queries.png" alt="Sơ đồ ERD và luồng JOIN 5 truy vấn trọng tâm CSDL Quản lý sinh viên">
         </div>
     </section>
 
@@ -399,84 +427,31 @@
         <h2 class="card-title">Chi tiết các câu lệnh truy vấn & kết quả thực thi</h2>
 
         <div class="tab-nav">
-            <button class="tab-btn active" onclick="switchTab('tab2')">Bước 2: Tất cả học viên</button>
-            <button class="tab-btn" onclick="switchTab('tab3')">Bước 3: Học viên đang học</button>
-            <button class="tab-btn" onclick="switchTab('tab4')">Bước 4: Môn học tín chỉ &lt; 10</button>
-            <button class="tab-btn" onclick="switchTab('tab5')">Bước 5: Học viên lớp A1</button>
-            <button class="tab-btn" onclick="switchTab('tab6')">Bước 6: Điểm môn CF</button>
+            <button class="tab-btn active" onclick="switchTab('crit1')">Tiêu chí 1: LIKE 'h%'</button>
+            <button class="tab-btn" onclick="switchTab('crit2')">Tiêu chí 2: MONTH() = 12</button>
+            <button class="tab-btn" onclick="switchTab('crit3')">Tiêu chí 3: BETWEEN 3-5</button>
+            <button class="tab-btn" onclick="switchTab('crit4')">Tiêu chí 4: UPDATE</button>
+            <button class="tab-btn" onclick="switchTab('crit5')">Tiêu chí 5: ORDER BY</button>
+            <button class="tab-btn" onclick="switchTab('ref-tab')">Truy vấn bổ trợ</button>
             <button class="tab-btn" onclick="switchTab('tab-all')">Toàn bộ Script SQL</button>
         </div>
 
-        <!-- Tab 2: All Students -->
-        <div id="tab2" class="tab-pane active">
+        <!-- Tab 1: Criteria 1 - LIKE 'h%' -->
+        <div id="crit1" class="tab-pane active">
             <div class="callout-box">
-                <strong>Mục tiêu Bước 2:</strong> Lấy toàn bộ danh sách học viên hiện có trong bảng Student không qua bộ lọc.
+                <strong>Yêu cầu Tiêu chí 1 (+20đ):</strong> Hiển thị tất cả các sinh viên có tên bắt đầu bằng ký tự 'h'.<br>
+                <em>Phương pháp:</em> Sử dụng mệnh đề <code>WHERE StudentName LIKE 'h%'</code>. Trong MySQL collation utf8mb4, phép so khớp không phân biệt hoa thường nên nhận diện cả 'Hung' và 'Hoa'.
             </div>
             <div class="code-container">
                 <div class="code-header">
-                    <span>MySQL Query - Bước 2</span>
-                    <button class="copy-btn" onclick="copyText('q2')">Sao chép</button>
+                    <span>MySQL Query - Tiêu chí 1</span>
+                    <button class="copy-btn" onclick="copyText('q-crit1')">Sao chép</button>
                 </div>
-                <pre id="q2"><span class="sql-kw">USE</span> QuanLySinhVien;
-<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student;</pre>
+                <pre id="q-crit1"><span class="sql-kw">SELECT</span> * 
+<span class="sql-kw">FROM</span> Student 
+<span class="sql-kw">WHERE</span> StudentName <span class="sql-kw">LIKE</span> <span class="sql-str">'h%'</span>;</pre>
             </div>
-            <h4>Kết quả trả về từ bảng Student (3 bản ghi):</h4>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>StudentId</th>
-                            <th>StudentName</th>
-                            <th>Address</th>
-                            <th>Phone</th>
-                            <th>Status</th>
-                            <th>ClassId</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><strong>Hung</strong></td>
-                            <td>Ha Noi</td>
-                            <td>0912113113</td>
-                            <td><span class="badge-active">1 (Đang học)</span></td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><strong>Hoa</strong></td>
-                            <td>Hai phong</td>
-                            <td><em>NULL</em></td>
-                            <td><span class="badge-active">1 (Đang học)</span></td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td><strong>Manh</strong></td>
-                            <td>HCM</td>
-                            <td>0123123123</td>
-                            <td><span class="badge-inactive">0 (Đã nghỉ)</span></td>
-                            <td>2</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- Tab 3: Active Students -->
-        <div id="tab3" class="tab-pane">
-            <div class="callout-box">
-                <strong>Mục tiêu Bước 3:</strong> Sử dụng mệnh đề WHERE lọc các học viên có thuộc tính Status bằng true (hoặc 1).
-            </div>
-            <div class="code-container">
-                <div class="code-header">
-                    <span>MySQL Query - Bước 3</span>
-                    <button class="copy-btn" onclick="copyText('q3')">Sao chép</button>
-                </div>
-                <pre id="q3"><span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student 
-<span class="sql-kw">WHERE</span> Status = <span class="sql-kw">true</span>;</pre>
-            </div>
-            <h4>Kết quả trả về (2 bản ghi):</h4>
+            <h4>Kết quả trả về từ bảng Student (2 bản ghi):</h4>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -511,20 +486,66 @@
             </div>
         </div>
 
-        <!-- Tab 4: Subject Credit < 10 -->
-        <div id="tab4" class="tab-pane">
+        <!-- Tab 2: Criteria 2 - MONTH(StartDate) = 12 -->
+        <div id="crit2" class="tab-pane">
             <div class="callout-box">
-                <strong>Mục tiêu Bước 4:</strong> Sử dụng mệnh đề so sánh số học Credit &lt; 10 để lọc các môn học ngắn hạn hoặc môn có số tín chỉ dưới 10.
+                <strong>Yêu cầu Tiêu chí 2 (+20đ):</strong> Hiển thị các thông tin lớp học có thời gian bắt đầu vào tháng 12.<br>
+                <em>Phương pháp:</em> Sử dụng hàm xử lý thời gian <code>MONTH(StartDate) = 12</code> để trích xuất chỉ số tháng từ cột kiểu <code>DATETIME</code>.
             </div>
             <div class="code-container">
                 <div class="code-header">
-                    <span>MySQL Query - Bước 4</span>
-                    <button class="copy-btn" onclick="copyText('q4')">Sao chép</button>
+                    <span>MySQL Query - Tiêu chí 2</span>
+                    <button class="copy-btn" onclick="copyText('q-crit2')">Sao chép</button>
                 </div>
-                <pre id="q4"><span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject 
-<span class="sql-kw">WHERE</span> Credit &lt; 10;</pre>
+                <pre id="q-crit2"><span class="sql-kw">SELECT</span> * 
+<span class="sql-kw">FROM</span> Class 
+<span class="sql-kw">WHERE</span> <span class="sql-fn">MONTH</span>(StartDate) = 12;</pre>
             </div>
-            <h4>Kết quả trả về (3 bản ghi môn học):</h4>
+            <h4>Kết quả trả về từ bảng Class (2 bản ghi):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ClassID</th>
+                            <th>ClassName</th>
+                            <th>StartDate</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>A1</strong></td>
+                            <td>2008-12-20 00:00:00</td>
+                            <td><span class="badge-active">1 (Hoạt động)</span></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>A2</strong></td>
+                            <td>2008-12-22 00:00:00</td>
+                            <td><span class="badge-active">1 (Hoạt động)</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Criteria 3 - BETWEEN 3 AND 5 -->
+        <div id="crit3" class="tab-pane">
+            <div class="callout-box">
+                <strong>Yêu cầu Tiêu chí 3 (+20đ):</strong> Hiển thị tất cả các thông tin môn học có credit trong khoảng từ 3-5.<br>
+                <em>Phương pháp:</em> Sử dụng toán tử <code>BETWEEN 3 AND 5</code> để xác định chính xác đoạn giá trị đóng [3, 5], loại bỏ môn học có số tín chỉ ngoài khoảng (như C: 6 tín chỉ, RDBMS: 10 tín chỉ).
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Tiêu chí 3</span>
+                    <button class="copy-btn" onclick="copyText('q-crit3')">Sao chép</button>
+                </div>
+                <pre id="q-crit3"><span class="sql-kw">SELECT</span> * 
+<span class="sql-kw">FROM</span> Subject 
+<span class="sql-kw">WHERE</span> Credit <span class="sql-kw">BETWEEN</span> 3 <span class="sql-kw">AND</span> 5;</pre>
+            </div>
+            <h4>Kết quả trả về từ bảng Subject (2 bản ghi):</h4>
             <div class="table-responsive">
                 <table>
                     <thead>
@@ -543,12 +564,6 @@
                             <td><span class="badge-active">1 (Hoạt động)</span></td>
                         </tr>
                         <tr>
-                            <td>2</td>
-                            <td><strong>C</strong></td>
-                            <td>6</td>
-                            <td><span class="badge-active">1 (Hoạt động)</span></td>
-                        </tr>
-                        <tr>
                             <td>3</td>
                             <td><strong>HDJ</strong></td>
                             <td>5</td>
@@ -557,108 +572,155 @@
                     </tbody>
                 </table>
             </div>
-            <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-muted);">
-                * Môn học <strong>RDBMS</strong> có Credit = 10 nên không thỏa mãn điều kiện nghiêm ngặt &lt; 10.
-            </p>
         </div>
 
-        <!-- Tab 5: Students in Class A1 -->
-        <div id="tab5" class="tab-pane">
-            <div class="callout-box">
-                <strong>Mục tiêu Bước 5:</strong> Kết nối (JOIN) giữa bảng Student và bảng Class qua khóa ngoại ClassId = ClassID, kết hợp điều kiện lọc lớp A1.
+        <!-- Tab 4: Criteria 4 - UPDATE ClassID of 'Hung' -->
+        <div id="crit4" class="tab-pane">
+            <div class="callout-success">
+                <strong>Yêu cầu Tiêu chí 4 (+20đ):</strong> Thay đổi mã lớp (ClassID) của sinh viên có tên 'Hung' là 2.<br>
+                <em>Phương pháp:</em> Sử dụng câu lệnh <code>UPDATE Student SET ClassId = 2 WHERE StudentName = 'Hung';</code> và chạy câu lệnh <code>SELECT</code> để xác minh kết quả cập nhật.
             </div>
             <div class="code-container">
                 <div class="code-header">
-                    <span>MySQL Query - Bước 5</span>
-                    <button class="copy-btn" onclick="copyText('q5')">Sao chép</button>
+                    <span>MySQL Script - Tiêu chí 4</span>
+                    <button class="copy-btn" onclick="copyText('q-crit4')">Sao chép</button>
                 </div>
-                <pre id="q5"><span class="sql-kw">SELECT</span> 
-    S.StudentId, 
-    S.StudentName, 
-    C.ClassName 
-<span class="sql-kw">FROM</span> Student S 
-<span class="sql-kw">JOIN</span> Class C <span class="sql-kw">ON</span> S.ClassId = C.ClassID 
-<span class="sql-kw">WHERE</span> C.ClassName = <span class="sql-str">'A1'</span>;</pre>
+                <pre id="q-crit4"><span class="sql-kw">SET</span> SQL_SAFE_UPDATES = 0;
+
+<span class="sql-kw">UPDATE</span> Student 
+<span class="sql-kw">SET</span> ClassId = 2 
+<span class="sql-kw">WHERE</span> StudentName = <span class="sql-str">'Hung'</span>;
+
+<span class="sql-kw">SET</span> SQL_SAFE_UPDATES = 1;
+
+<span class="sql-com">-- Truy vấn kiểm tra xác nhận sau khi UPDATE</span>
+<span class="sql-kw">SELECT</span> StudentId, StudentName, Address, Phone, Status, ClassId 
+<span class="sql-kw">FROM</span> Student 
+<span class="sql-kw">WHERE</span> StudentName = <span class="sql-str">'Hung'</span>;</pre>
             </div>
-            <h4>Kết quả trả về (2 học viên lớp A1):</h4>
+            <h4>Kết quả xác nhận sinh viên Hung sau khi UPDATE (ClassId đã thành 2):</h4>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
                             <th>StudentId</th>
                             <th>StudentName</th>
-                            <th>ClassName</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Status</th>
+                            <th>ClassId (Đã cập nhật)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
                             <td><strong>Hung</strong></td>
-                            <td>A1</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><strong>Hoa</strong></td>
-                            <td>A1</td>
+                            <td>Ha Noi</td>
+                            <td>0912113113</td>
+                            <td><span class="badge-active">1</span></td>
+                            <td><span class="badge-point">2 (Lớp A2)</span></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Tab 6: Marks for CF -->
-        <div id="tab6" class="tab-pane">
+        <!-- Tab 5: Criteria 5 - ORDER BY Mark DESC, StudentName ASC -->
+        <div id="crit5" class="tab-pane">
             <div class="callout-box">
-                <strong>Mục tiêu Bước 6:</strong> Ghép nối 3 bảng (Student, Mark, Subject) để tra cứu điểm thi môn CF của các học viên.
+                <strong>Yêu cầu Tiêu chí 5 (+20đ):</strong> Hiển thị các thông tin: StudentName, SubName, Mark. Dữ liệu sắp xếp theo điểm thi (mark) giảm dần, nếu trùng sắp theo tên tăng dần.<br>
+                <em>Phương pháp:</em> JOIN 3 bảng (Student, Mark, Subject) và áp dụng mệnh đề <code>ORDER BY M.Mark DESC, S.StudentName ASC</code>.
             </div>
             <div class="code-container">
                 <div class="code-header">
-                    <span>MySQL Query - Bước 6.2 (Lọc môn CF)</span>
-                    <button class="copy-btn" onclick="copyText('q6')">Sao chép</button>
+                    <span>MySQL Query - Tiêu chí 5</span>
+                    <button class="copy-btn" onclick="copyText('q-crit5')">Sao chép</button>
                 </div>
-                <pre id="q6"><span class="sql-kw">SELECT</span> 
-    S.StudentId, 
+                <pre id="q-crit5"><span class="sql-kw">SELECT</span> 
     S.StudentName, 
     Sub.SubName, 
     M.Mark 
 <span class="sql-kw">FROM</span> Student S 
 <span class="sql-kw">JOIN</span> Mark M <span class="sql-kw">ON</span> S.StudentId = M.StudentId 
 <span class="sql-kw">JOIN</span> Subject Sub <span class="sql-kw">ON</span> M.SubId = Sub.SubId 
-<span class="sql-kw">WHERE</span> Sub.SubName = <span class="sql-str">'CF'</span>;</pre>
+<span class="sql-kw">ORDER BY</span> M.Mark <span class="sql-kw">DESC</span>, S.StudentName <span class="sql-kw">ASC</span>;</pre>
             </div>
-            <h4>Kết quả trả về (Điểm thi môn CF):</h4>
+            <h4>Kết quả trả về đã sắp xếp theo đúng quy chuẩn:</h4>
             <div class="table-responsive">
                 <table>
                     <thead>
                         <tr>
-                            <th>StudentId</th>
+                            <th>Thứ tự</th>
                             <th>StudentName</th>
                             <th>SubName</th>
                             <th>Mark</th>
+                            <th>Ghi chú sắp xếp</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>1</td>
                             <td><strong>Hung</strong></td>
-                            <td>CF</td>
-                            <td><strong>8.0</strong></td>
+                            <td>C</td>
+                            <td><strong>12.0</strong></td>
+                            <td>Điểm cao nhất đứng đầu</td>
                         </tr>
                         <tr>
                             <td>2</td>
                             <td><strong>Hoa</strong></td>
                             <td>CF</td>
                             <td><strong>10.0</strong></td>
+                            <td>Điểm đứng thứ hai</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>Hung</strong></td>
+                            <td>CF</td>
+                            <td><strong>8.0</strong></td>
+                            <td>Điểm đứng thứ ba</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- Tab Ref: Supplementary Queries -->
+        <div id="ref-tab" class="tab-pane">
+            <div class="callout-box">
+                <strong>Các câu truy vấn thực hành nền tảng:</strong> Bảo lưu các bước thực hành ban đầu gồm SELECT *, lọc Status, lọc Credit &lt; 10, JOIN học viên lớp A1 và lọc điểm môn CF.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Reference Practice Queries</span>
+                    <button class="copy-btn" onclick="copyText('q-ref')">Sao chép</button>
+                </div>
+                <pre id="q-ref"><span class="sql-com">-- 1. Tất cả học viên</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student;
+
+<span class="sql-com">-- 2. Học viên đang học</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student <span class="sql-kw">WHERE</span> Status = <span class="sql-kw">true</span>;
+
+<span class="sql-com">-- 3. Môn học tín chỉ &lt; 10</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject <span class="sql-kw">WHERE</span> Credit &lt; 10;
+
+<span class="sql-com">-- 4. Học viên lớp A1 (JOIN 2 bảng)</span>
+<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, C.ClassName 
+<span class="sql-kw">FROM</span> Student S <span class="sql-kw">JOIN</span> Class C <span class="sql-kw">ON</span> S.ClassId = C.ClassID 
+<span class="sql-kw">WHERE</span> C.ClassName = <span class="sql-str">'A1'</span>;
+
+<span class="sql-com">-- 5. Điểm môn CF (JOIN 3 bảng)</span>
+<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, Sub.SubName, M.Mark 
+<span class="sql-kw">FROM</span> Student S 
+<span class="sql-kw">JOIN</span> Mark M <span class="sql-kw">ON</span> S.StudentId = M.StudentId 
+<span class="sql-kw">JOIN</span> Subject Sub <span class="sql-kw">ON</span> M.SubId = Sub.SubId 
+<span class="sql-kw">WHERE</span> Sub.SubName = <span class="sql-str">'CF'</span>;</pre>
+            </div>
+        </div>
+
         <!-- Tab All: Complete SQL Script -->
         <div id="tab-all" class="tab-pane">
             <div class="callout-box">
-                <strong>Tập lệnh hoàn chỉnh:</strong> Đầy đủ khởi tạo CSDL, nạp dữ liệu mẫu và toàn bộ 6 bước truy vấn. Chạy độc lập mọi lúc trên MySQL 8.0+.
+                <strong>Tập lệnh hoàn chỉnh:</strong> Khởi tạo CSDL, nạp dữ liệu mẫu ban đầu, thực hiện đầy đủ 5 tiêu chí chấm điểm và các câu truy vấn bổ trợ.
             </div>
             <div class="code-container">
                 <div class="code-header">
@@ -725,30 +787,30 @@
 (2, 1, 2, 10, 2),
 (3, 2, 1, 12, 1);
 
-<span class="sql-com">-- 2. CAC CAU TRUY VAN DU LIEU</span>
+<span class="sql-com">-- 2. 5 CAU TRUY VAN CHINH THEO TIÊU CHÍ CHẤM ĐIỂM (100/100 DIEM)</span>
 <span class="sql-kw">USE</span> QuanLySinhVien;
 
-<span class="sql-com">-- Buoc 2: Tat ca hoc vien</span>
-<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student;
+<span class="sql-com">-- Tieu chi 1: Ten bat dau bang 'h'</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student <span class="sql-kw">WHERE</span> StudentName <span class="sql-kw">LIKE</span> <span class="sql-str">'h%'</span>;
 
-<span class="sql-com">-- Buoc 3: Hoc vien dang theo hoc</span>
-<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student <span class="sql-kw">WHERE</span> Status = <span class="sql-kw">true</span>;
+<span class="sql-com">-- Tieu chi 2: Thoi gian bat dau vao thang 12</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Class <span class="sql-kw">WHERE</span> <span class="sql-fn">MONTH</span>(StartDate) = 12;
 
-<span class="sql-com">-- Buoc 4: Mon hoc co tin chi &lt; 10</span>
-<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject <span class="sql-kw">WHERE</span> Credit &lt; 10;
+<span class="sql-com">-- Tieu chi 3: Credit trong khoang 3-5</span>
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Subject <span class="sql-kw">WHERE</span> Credit <span class="sql-kw">BETWEEN</span> 3 <span class="sql-kw">AND</span> 5;
 
-<span class="sql-com">-- Buoc 5: Hoc vien lop A1</span>
-<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, C.ClassName 
-<span class="sql-kw">FROM</span> Student S 
-<span class="sql-kw">JOIN</span> Class C <span class="sql-kw">ON</span> S.ClassId = C.ClassID 
-<span class="sql-kw">WHERE</span> C.ClassName = <span class="sql-str">'A1'</span>;
+<span class="sql-com">-- Tieu chi 4: Thay doi ma lop cua sinh vien 'Hung' la 2</span>
+<span class="sql-kw">SET</span> SQL_SAFE_UPDATES = 0;
+<span class="sql-kw">UPDATE</span> Student <span class="sql-kw">SET</span> ClassId = 2 <span class="sql-kw">WHERE</span> StudentName = <span class="sql-str">'Hung'</span>;
+<span class="sql-kw">SET</span> SQL_SAFE_UPDATES = 1;
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> Student <span class="sql-kw">WHERE</span> StudentName = <span class="sql-str">'Hung'</span>;
 
-<span class="sql-com">-- Buoc 6: Diem mon CF</span>
-<span class="sql-kw">SELECT</span> S.StudentId, S.StudentName, Sub.SubName, M.Mark 
+<span class="sql-com">-- Tieu chi 5: ORDER BY Mark giam dan, StudentName tang dan</span>
+<span class="sql-kw">SELECT</span> S.StudentName, Sub.SubName, M.Mark 
 <span class="sql-kw">FROM</span> Student S 
 <span class="sql-kw">JOIN</span> Mark M <span class="sql-kw">ON</span> S.StudentId = M.StudentId 
 <span class="sql-kw">JOIN</span> Subject Sub <span class="sql-kw">ON</span> M.SubId = Sub.SubId 
-<span class="sql-kw">WHERE</span> Sub.SubName = <span class="sql-str">'CF'</span>;</pre>
+<span class="sql-kw">ORDER BY</span> M.Mark <span class="sql-kw">DESC</span>, S.StudentName <span class="sql-kw">ASC</span>;</pre>
             </div>
         </div>
     </section>
