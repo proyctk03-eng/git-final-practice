@@ -25,6 +25,7 @@
 | 13 | **[Thực hành] Tạo bảng trong CSDL** | `sql-create-table-practice/` | SQL DDL (`CREATE DATABASE`, `TABLE`, `ALTER TABLE`), ERD | Hoàn thành |
 | 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
 | 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
+| 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
 
 ---
 
@@ -248,9 +249,25 @@ Giải quyết sự cố bốc hơi lợi nhuận do dữ liệu "lệch pha" v�
 - Giao diện web mô phỏng & máy tính hoàn cọc: `autoride-profit-leak-fix/index.html`
 - Thuyết minh chi tiết & trả lời 3 câu hỏi vấn đáp: `autoride-profit-leak-fix/README.md`
 
+## 16. Bài thực hành 16: [Thực hành] Thêm Dữ Liệu Vào CSDL Quản Lý Sinh Viên
+
+### 16.1. Mục tiêu
+Thực hành các kỹ thuật chèn dữ liệu bằng câu lệnh `INSERT INTO` vào 4 bảng `Class`, `Student`, `Subject`, `Mark`:
+- Chèn dữ liệu theo thứ tự cột mặc định của bảng `Class`.
+- Chèn chỉ định cột trong bảng `Student`, xử lý trường `Phone` nhận giá trị `NULL` cho sinh viên 'Hoa'.
+- Kỹ thuật Batch Insert chèn đồng thời 4 bản ghi môn học vào bảng `Subject`.
+- Chèn bảng điểm `Mark` và kiểm tra toàn vẹn ràng buộc khóa ngoại.
+- Thực hiện truy vấn kết hợp `JOIN` giữa 4 bảng để tổng hợp kết quả học tập.
+
+### 16.2. Tài liệu và Mã nguồn
+- Kịch bản SQL DDL & DML hoàn chỉnh: `sql-student-management-insert-data/student_management_data.sql`
+- Sơ đồ ERD trực quan: `sql-student-management-insert-data/erd_quanly_sinhvien.png`
+- Giao diện web tra cứu: `sql-student-management-insert-data/index.html`
+- Thuyết minh chi tiết: `sql-student-management-insert-data/README.md`
+
 ---
 
-## 16. Hướng dẫn mở và kiểm tra trực tiếp
+## 17. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -267,3 +284,4 @@ Giải quyết sự cố bốc hơi lợi nhuận do dữ liệu "lệch pha" v�
 13. **Mở Thực hành Tạo bảng trong CSDL**: Mở file `sql-create-table-practice/index.html` trong trình duyệt.
 14. **Mở Bài tập Chuyển đổi ERD sang mô hình quan hệ**: Mở file `erd-to-relational/index.html` trong trình duyệt.
 15. **Mở Bài tập Sự cố AutoRide**: Mở file `autoride-profit-leak-fix/index.html` trong trình duyệt.
+16. **Mở Thực hành Thêm dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-insert-data/index.html` trong trình duyệt.

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #0F766E;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #CCFBF1;
+            max-width: 850px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            background: var(--bg-card);
+            padding: 0.5rem 1rem 0;
+            border-radius: 0.75rem 0.75rem 0 0;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.85rem 1.5rem;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 1.25rem 0 0.5rem;
+        }
+
+        .diagram-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            text-align: left;
+        }
+
+        th {
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background: #F8FAFC;
+        }
+
+        .null-badge {
+            background: #FEE2E2;
+            color: #DC2626;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-style: italic;
+        }
+
+        pre {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin: 1rem 0;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            border-top: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header-bar">
+        <span class="badge-tag">Hệ Thống Quản Lý Sinh Viên &bull; SQL DML</span>
+        <h1>Thao Tác Thêm Dữ Liệu (INSERT INTO)</h1>
+        <p>Thực hành chèn dữ liệu bảng Class, Student, Subject, Mark - Nắm vững kỹ thuật chèn đơn lẻ, chèn chỉ định cột xử lý NULL, chèn hàm thời gian hệ thống và Batch Insert.</p>
+    </header>
+
+    <div class="tabs-nav">
+        <button class="tab-btn active" onclick="openTab(event, 'tab-erd')">Sơ đồ ERD</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-data')">Dữ liệu 4 Bảng</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-join')">Truy vấn Tổng hợp (JOIN)</button>
+        <button class="tab-btn" onclick="openTab(event, 'tab-sql')">Mã nguồn SQL</button>
+    </div>
+
+    <!-- Tab 1: ERD -->
+    <div id="tab-erd" class="tab-content active">
+        <div class="card">
+            <h2>1. Sơ đồ Thực thể Liên kết (ERD) - CSDL QuanLySinhVien</h2>
+            <div class="diagram-container">
+                <img src="erd_quanly_sinhvien.png" alt="Sơ đồ ERD Quản lý sinh viên">
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 2: Dữ liệu 4 Bảng -->
+    <div id="tab-data" class="tab-content">
+        <div class="grid-2">
+            <!-- Bảng Class -->
+            <div class="card">
+                <h2>Bảng Class (Lớp học)</h2>
+                <table>
+                    <thead>
+                        <tr><th>ClassID</th><th>ClassName</th><th>StartDate</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>A1</td><td>2008-12-20</td><td>1 (Đang mở)</td></tr>
+                        <tr><td>2</td><td>A2</td><td>2008-12-22</td><td>1 (Đang mở)</td></tr>
+                        <tr><td>3</td><td>B3</td><td>CURRENT_DATE</td><td>0 (Chưa mở)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bảng Student -->
+            <div class="card">
+                <h2>Bảng Student (Học viên)</h2>
+                <table>
+                    <thead>
+                        <tr><th>ID</th><th>Tên</th><th>Địa chỉ</th><th>Số điện thoại</th><th>Lớp</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>Hung</td><td>Ha Noi</td><td>0912113113</td><td>A1 (1)</td></tr>
+                        <tr><td>2</td><td>Hoa</td><td>Hai phong</td><td><span class="null-badge">NULL</span></td><td>A1 (1)</td></tr>
+                        <tr><td>3</td><td>Manh</td><td>HCM</td><td>0123123123</td><td>A2 (2)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bảng Subject -->
+            <div class="card">
+                <h2>Bảng Subject (Môn học)</h2>
+                <table>
+                    <thead>
+                        <tr><th>SubId</th><th>Tên môn</th><th>Số tín chỉ</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>CF</td><td>5</td><td>1</td></tr>
+                        <tr><td>2</td><td>C</td><td>6</td><td>1</td></tr>
+                        <tr><td>3</td><td>HDJ</td><td>5</td><td>1</td></tr>
+                        <tr><td>4</td><td>RDBMS</td><td>10</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Bảng Mark -->
+            <div class="card">
+                <h2>Bảng Mark (Bảng điểm)</h2>
+                <table>
+                    <thead>
+                        <tr><th>MarkId</th><th>Môn học (SubId)</th><th>Sinh viên (StudentId)</th><th>Điểm thi</th><th>Lần thi</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1</td><td>1 (CF)</td><td>1 (Hung)</td><td>8.0</td><td>1</td></tr>
+                        <tr><td>2</td><td>1 (CF)</td><td>2 (Hoa)</td><td>10.0</td><td>2</td></tr>
+                        <tr><td>3</td><td>2 (C)</td><td>1 (Hung)</td><td>12.0</td><td>1</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab 3: Truy vấn JOIN -->
+    <div id="tab-join" class="tab-content">
+        <div class="card">
+            <h2>Kết quả Truy vấn Kết hợp 4 Bảng (Verification Query)</h2>
+            <pre><code>SELECT 
+    s.StudentId,
+    s.StudentName,
+    c.ClassName,
+    sub.SubName,
+    m.Mark AS DiemThi,
+    m.ExamTimes AS LanThi
+FROM Mark m
+JOIN Student s ON m.StudentId = s.StudentId
+JOIN Subject sub ON m.SubId = sub.SubId
+JOIN Class c ON s.ClassId = c.ClassID
+ORDER BY s.StudentId, sub.SubName;</code></pre>
+
+            <table>
+                <thead>
+                    <tr><th>Mã SV</th><th>Họ tên sinh viên</th><th>Lớp học</th><th>Môn thi</th><th>Điểm số</th><th>Lần thi</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Hung</td><td>A1</td><td>C</td><td>12.0</td><td>1</td></tr>
+                    <tr><td>1</td><td>Hung</td><td>A1</td><td>CF</td><td>8.0</td><td>1</td></tr>
+                    <tr><td>2</td><td>Hoa</td><td>A1</td><td>CF</td><td>10.0</td><td>2</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Tab 4: SQL Code -->
+    <div id="tab-sql" class="tab-content">
+        <div class="card">
+            <h2>Mã Nguồn SQL Hoàn Chỉnh (student_management_data.sql)</h2>
+            <pre><code>CREATE DATABASE IF NOT EXISTS QuanLySinhVien;
+USE QuanLySinhVien;
+
+-- DDL TẠO BẢNG
+CREATE TABLE Class (
+    ClassID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ClassName VARCHAR(60) NOT NULL,
+    StartDate DATETIME NOT NULL,
+    Status BIT
+);
+
+CREATE TABLE Student (
+    StudentId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    StudentName VARCHAR(30) NOT NULL,
+    Address VARCHAR(50),
+    Phone VARCHAR(20),
+    Status BIT,
+    ClassId INT NOT NULL,
+    FOREIGN KEY (ClassId) REFERENCES Class (ClassID)
+);
+
+CREATE TABLE Subject (
+    SubId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    SubName VARCHAR(30) NOT NULL,
+    Credit TINYINT NOT NULL DEFAULT 1 CHECK (Credit >= 1),
+    Status BIT DEFAULT 1
+);
+
+CREATE TABLE Mark (
+    MarkId INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    SubId INT NOT NULL,
+    StudentId INT NOT NULL,
+    Mark FLOAT DEFAULT 0 CHECK (Mark BETWEEN 0 AND 100),
+    ExamTimes TINYINT DEFAULT 1,
+    UNIQUE (SubId, StudentId),
+    FOREIGN KEY (SubId) REFERENCES Subject (SubId),
+    FOREIGN KEY (StudentId) REFERENCES Student (StudentId)
+);
+
+-- DML CHÈN DỮ LIỆU
+INSERT INTO Class VALUES (1, 'A1', '2008-12-20', 1);
+INSERT INTO Class VALUES (2, 'A2', '2008-12-22', 1);
+INSERT INTO Class VALUES (3, 'B3', current_date, 0);
+
+INSERT INTO Student (StudentName, Address, Phone, Status, ClassId) VALUES ('Hung', 'Ha Noi', '0912113113', 1, 1);
+INSERT INTO Student (StudentName, Address, Status, ClassId) VALUES ('Hoa', 'Hai phong', 1, 1);
+INSERT INTO Student (StudentName, Address, Phone, Status, ClassId) VALUES ('Manh', 'HCM', '0123123123', 0, 2);
+
+INSERT INTO Subject VALUES 
+(1, 'CF', 5, 1),
+(2, 'C', 6, 1),
+(3, 'HDJ', 5, 1),
+(4, 'RDBMS', 10, 1);
+
+INSERT INTO Mark (SubId, StudentId, Mark, ExamTimes) VALUES 
+(1, 1, 8, 1),
+(1, 2, 10, 2),
+(2, 1, 12, 1);</code></pre>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Báo cáo Bài thực hành Quản lý sinh viên - CodeGym &bull; Học viên: Nguyễn Tuấn Đạt</p>
+    </footer>
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var tabContents = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabContents.length; i++) {
+            tabContents[i].classList.remove("active");
+        }
+        var tabBtns = document.getElementsByClassName("tab-btn");
+        for (var i = 0; i < tabBtns.length; i++) {
+            tabBtns[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
+</script>
+
+</body>
+</html>
