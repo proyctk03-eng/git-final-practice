@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Giải Cứu Hệ Thống IoT SmartFactory - Bài Toán Đánh Đổi Giữa Tốc Độ Đọc Và Chi Phí Lưu Trữ</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-blue: #1D4ED8;
+            --primary-cyan: #0E7490;
+            --accent: #2563EB;
+            --success: #15803D;
+            --success-light: #DCFCE7;
+            --warning: #B45309;
+            --warning-light: #FEF3C7;
+            --danger: #B91C1C;
+            --danger-light: #FEE2E2;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 50%, #0E7490 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #16A34A;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #BAE6FD;
+            max-width: 1000px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+        }
+
+        .meta-item strong {
+            color: #FFFFFF;
+        }
+
+        /* Section Layout */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-box {
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            background: #F8FAFC;
+        }
+
+        .metric-box.positive {
+            background: #F0FDF4;
+            border-color: #BBF7D0;
+        }
+
+        .metric-box.negative {
+            background: #FEF2F2;
+            border-color: #FECACA;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+        }
+
+        .metric-value {
+            font-size: 1.85rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.35rem 0;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .metric-value.text-success { color: var(--success); }
+        .metric-value.text-danger { color: var(--danger); }
+
+        .metric-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Trade-off Comparison Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #F1F5F9;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: #F8FAFC;
+        }
+
+        .badge-drop {
+            display: inline-block;
+            background: #FEE2E2;
+            color: #991B1B;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.35rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        .badge-keep {
+            display: inline-block;
+            background: #DCFCE7;
+            color: #166534;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.35rem;
+            font-weight: 700;
+            font-size: 0.8rem;
+        }
+
+        /* Architecture Diagram Container */
+        .diagram-container {
+            text-align: center;
+            background: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .diagram-container img:hover {
+            transform: scale(1.01);
+        }
+
+        .diagram-caption {
+            margin-top: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        /* Interactive Simulator */
+        .simulator-box {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sim-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 850px) {
+            .sim-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .slider-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-val {
+            color: var(--primary-blue);
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary-blue);
+        }
+
+        .sim-output-card {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sim-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.9rem;
+        }
+
+        .sim-row:last-child {
+            border-bottom: none;
+            padding-top: 0.75rem;
+            font-weight: 700;
+        }
+
+        .sim-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+        }
+
+        /* Tabs & Code Box */
+        .tabs {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0.65rem 1.2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .code-container {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Q&A Accordion */
+        .qa-card {
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .qa-question {
+            background: #F8FAFC;
+            padding: 1rem 1.25rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .qa-question:hover {
+            background: #F1F5F9;
+        }
+
+        .qa-arrow {
+            font-family: monospace;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .qa-card.open .qa-arrow {
+            transform: rotate(90deg);
+        }
+
+        .qa-answer {
+            padding: 1.25rem;
+            display: none;
+            background: #FFFFFF;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .qa-card.open .qa-answer {
+            display: block;
+        }
+
+        /* Footer & Deliverables */
+        .action-bar {
+            background: #F1F5F9;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">Hệ Thống IoT Công Nghiệp</span>
+            <span class="badge-status">Đã Tối Ưu Hóa Hoàn Tất</span>
+        </div>
+        <h1>[Bài tập] Giải Cứu Hệ Thống IoT "SmartFactory"</h1>
+        <p>Phân tích bài toán đánh đổi khốc liệt giữa tốc độ đọc (Read), tốc độ ghi (Write) và chi phí lưu trữ đám mây AWS khi loại bỏ Fat Covering Index và triển khai Lean Search Index.</p>
+        <div class="meta-info">
+            <div class="meta-item">Kỹ sư thực hiện: <strong>Nguyễn Tuấn Đạt (DBA Expert)</strong></div>
+            <div class="meta-item">Đánh giá viên: <strong>Cloud Financial Controller</strong></div>
+            <div class="meta-item">Bảng dữ liệu: <strong>smartfactory_db.SensorLogs</strong></div>
+            <div class="meta-item">Quy mô: <strong>10,000 Cảm biến công nghiệp</strong></div>
+        </div>
+    </header>
+
+    <!-- Key Metrics Highlight -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Chỉ Số Hiệu Năng & Tài Nguyên Trước - Sau Tối Ưu</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Đo lường bằng information_schema.TABLES</span>
+        </div>
+        <div class="metrics-grid">
+            <div class="metric-box positive">
+                <div class="metric-label">Thông Lượng Ghi (Write Throughput)</div>
+                <div class="metric-value text-success">12,500+</div>
+                <div class="metric-sub">Bản ghi/giây (Tăng gấp 5.0 lần so với 2,500 r/s)</div>
+            </div>
+            <div class="metric-box positive">
+                <div class="metric-label">Dung Lượng Index Đĩa</div>
+                <div class="metric-value text-success">0.16 MB</div>
+                <div class="metric-sub">Cắt giảm 69.2% (Trước đó: 0.52 MB)</div>
+            </div>
+            <div class="metric-box positive">
+                <div class="metric-label">Tỷ Lệ Index / Data Size</div>
+                <div class="metric-value text-success">0.45</div>
+                <div class="metric-sub">Tỷ lệ an toàn (Trước đó: 1.48 nguy hiểm)</div>
+            </div>
+            <div class="metric-box">
+                <div class="metric-label">Độ Trễ Đọc Dashboard (SELECT)</div>
+                <div class="metric-value">0.25 ms</div>
+                <div class="metric-sub">Tăng 0.2 ms do Bookmark Lookup (Vẫn &lt; 1ms)</div>
+            </div>
+            <div class="metric-box positive">
+                <div class="metric-label">Tỷ Lệ Mất Gói Dữ Liệu IoT</div>
+                <div class="metric-value text-success">0.00%</div>
+                <div class="metric-sub">Triệt tiêu hoàn toàn nghẽn hàng đợi Kafka/MySQL</div>
+            </div>
+            <div class="metric-box positive">
+                <div class="metric-label">Tiết Kiệm Chi Phí AWS SSD</div>
+                <div class="metric-value text-success">~65%</div>
+                <div class="metric-sub">Giảm trừ dung lượng provisioning EBS gp3</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture & Diagram -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Sơ Đồ Kiến Trúc & Luồng Đánh Đổi Tầng Vật Lý</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Độ phân giải 300 DPI</span>
+        </div>
+        <p class="section-subtitle">Minh họa trực quan cấu trúc trang nhớ 16KB InnoDB, hiện tượng Page Split của Fat Covering Index và luồng giải phóng I/O của Lean Search Index.</p>
+        <div class="diagram-container">
+            <img src="smartfactory_index_tradeoff.png" alt="Sơ đồ kiến trúc tối ưu hóa Index SmartFactory">
+            <div class="diagram-caption">Hình 1: Đối chiếu kiến trúc B-Tree, cơ chế Page Split ngẫu nhiên và giải pháp Lean Index tinh gọn.</div>
+        </div>
+    </section>
+
+    <!-- Interactive IoT Simulator -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Mô Phỏng Tài Nguyên & Chi Phí Lưu Trữ Đám Mây AWS (Interactive Simulator)</span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--primary-blue);">Kéo thanh trượt để tính toán thời gian thực</span>
+        </div>
+        <p class="section-subtitle">Ước tính quy mô phình to của Index và chi phí ổ cứng AWS EBS gp3 ($0.08 / GB / tháng) theo lưu lượng thực tế của nhà máy.</p>
+        
+        <div class="simulator-box">
+            <div class="sim-grid">
+                <div>
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Số lượng cảm biến (Sensors):</span>
+                            <span class="slider-val" id="valSensors">10,000</span>
+                        </div>
+                        <input type="range" id="sliderSensors" min="1000" max="50000" step="1000" value="10000">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Tần suất gửi dữ liệu (Bản ghi / cảm biến / phút):</span>
+                            <span class="slider-val" id="valFreq">60</span>
+                        </div>
+                        <input type="range" id="sliderFreq" min="10" max="120" step="5" value="60">
+                    </div>
+
+                    <div class="slider-group">
+                        <div class="slider-header">
+                            <span>Thời gian lưu trữ dữ liệu (Retention Days):</span>
+                            <span class="slider-val" id="valDays">30 ngày</span>
+                        </div>
+                        <input type="range" id="sliderDays" min="7" max="90" step="1" value="30">
+                    </div>
+                </div>
+
+                <div class="sim-output-card">
+                    <h3 style="font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--primary);">Kết Quả Đánh Giá Tài Nguyên Dự Kiến:</h3>
+                    <div class="sim-row">
+                        <span>Lưu lượng ghi nhận:</span>
+                        <span class="sim-val" id="outTotalRows">25.92 tỷ bản ghi</span>
+                    </div>
+                    <div class="sim-row">
+                        <span>Dung lượng dữ liệu gốc (Data Size):</span>
+                        <span class="sim-val" id="outDataSize">1,166 GB</span>
+                    </div>
+                    <div class="sim-row">
+                        <span>Dung lượng Fat Index (Cũ):</span>
+                        <span class="sim-val" style="color: var(--danger);" id="outFatIndex">1,425 GB</span>
+                    </div>
+                    <div class="sim-row">
+                        <span>Dung lượng Lean Index (Mới):</span>
+                        <span class="sim-val" style="color: var(--success);" id="outLeanIndex">596 GB</span>
+                    </div>
+                    <div class="sim-row">
+                        <span>Dung lượng ổ đĩa SSD tiết kiệm:</span>
+                        <span class="sim-val" style="color: var(--success);" id="outStorageSaved">829 GB (-58.2%)</span>
+                    </div>
+                    <div class="sim-row">
+                        <span>Tiết kiệm ngân sách AWS SSD / năm:</span>
+                        <span class="sim-val" style="color: var(--success); font-size: 1.1rem;" id="outCostSaved">$795.84 USD / năm</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Byte Size Analysis Table -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Bảng Phân Tích Kích Thước Byte Nút Lá Secondary Index</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên trường</th>
+                        <th>Kiểu dữ liệu</th>
+                        <th>Kích thước vật lý</th>
+                        <th>Có trong Fat Index</th>
+                        <th>Có trong Lean Index</th>
+                        <th>Nhận định kỹ thuật của DBA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>sensor_id</code></td>
+                        <td>INT</td>
+                        <td><strong>4 bytes</strong></td>
+                        <td><span class="badge-keep">CÓ</span></td>
+                        <td><span class="badge-keep">CÓ</span></td>
+                        <td>Khóa lọc bắt buộc trong mệnh đề <code>WHERE sensor_id = ?</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>recorded_at</code></td>
+                        <td>DATETIME</td>
+                        <td><strong>5 bytes</strong></td>
+                        <td><span class="badge-keep">CÓ</span></td>
+                        <td><span class="badge-keep">CÓ</span></td>
+                        <td>Lọc dải thời gian liên tục <code>WHERE recorded_at &gt;= ?</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>temperature</code></td>
+                        <td>DECIMAL(5,2)</td>
+                        <td><strong>3 bytes</strong></td>
+                        <td><span class="badge-drop">CÓ (DƯ THỪA)</span></td>
+                        <td><span class="badge-keep">LOẠI BỎ</span></td>
+                        <td>Chỉ là payload hiển thị, giá trị dao động ngẫu nhiên làm rách trang.</td>
+                    </tr>
+                    <tr>
+                        <td><code>humidity</code></td>
+                        <td>DECIMAL(5,2)</td>
+                        <td><strong>3 bytes</strong></td>
+                        <td><span class="badge-drop">CÓ (DƯ THỪA)</span></td>
+                        <td><span class="badge-keep">LOẠI BỎ</span></td>
+                        <td>Tương tự nhiệt độ, làm phình to nút lá vô ích.</td>
+                    </tr>
+                    <tr>
+                        <td><code>status</code></td>
+                        <td>VARCHAR(20)</td>
+                        <td><strong>~16 bytes</strong></td>
+                        <td><span class="badge-drop">CÓ (DƯ THỪA)</span></td>
+                        <td><span class="badge-keep">LOẠI BỎ</span></td>
+                        <td>Độ phân giải cực thấp (chỉ 3 giá trị), chiếm 30% dung lượng dòng Index.</td>
+                    </tr>
+                    <tr>
+                        <td><code>log_id</code> (PK)</td>
+                        <td>BIGINT</td>
+                        <td><strong>8 bytes</strong></td>
+                        <td><span class="badge-keep">TỰ ĐỘNG KÈM</span></td>
+                        <td><span class="badge-keep">TỰ ĐỘNG KÈM</span></td>
+                        <td>InnoDB tự động gán khóa Clustered Key vào mọi nút lá phụ.</td>
+                    </tr>
+                    <tr>
+                        <td>Header & Overhead</td>
+                        <td>B-Tree Pointer</td>
+                        <td><strong>~6 - 8 bytes</strong></td>
+                        <td>8 bytes</td>
+                        <td>6 bytes</td>
+                        <td>Bao gồm con trỏ trang và metadata tiêu chuẩn của InnoDB.</td>
+                    </tr>
+                    <tr style="background: #F1F5F9; font-weight: bold;">
+                        <td colspan="3">TỔNG KÍCH THƯỚC TRÊN MỖI DÒNG INDEX:</td>
+                        <td style="color: var(--danger);">~47 - 55 bytes / dòng</td>
+                        <td style="color: var(--success);">~23 bytes / dòng</td>
+                        <td><strong>Tiết kiệm ~58% kích thước mỗi khóa</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SQL Script & EXPLAIN Tabs -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Kịch Bản SQL & Kết Quả Thực Thi Kế Hoạch Truy Vấn</span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab(event, 'tab-sql')">Kịch Bản smartfactory_reindex.sql</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-explain')">So Sánh Kế Hoạch EXPLAIN</button>
+            <button class="tab-btn" onclick="switchTab(event, 'tab-measure')">Truy Vấn Đo Lường Kích Thước</button>
+        </div>
+
+        <!-- Tab 1: SQL Script -->
+        <div id="tab-sql" class="tab-pane active">
+            <div class="code-container">
+                <button class="btn-copy" onclick="copyCode('code-sql')">Sao chép SQL</button>
+                <pre><code id="code-sql">-- ====================================================================
+-- KICH BAN TOI UU HOA INDEX HE THONG IOT SMARTFACTORY
+-- ====================================================================
+USE smartfactory_db;
+
+-- 1. Loai bo Fat Covering Index gay tac nghen luong ghi
+DROP INDEX idx_fat_covering ON SensorLogs;
+
+-- 2. Tao Lean Search Index tinh gon chi giu lai 2 cot dieu kien loc
+CREATE INDEX idx_lean_search ON SensorLogs(sensor_id, recorded_at);
+
+-- 3. To chuc lai cac trang nho va giai phong dung luong da huy
+OPTIMIZE TABLE SensorLogs;
+
+-- 4. Kiem tra lai danh sach Index hien huu
+SHOW INDEX FROM SensorLogs;</code></pre>
+            </div>
+        </div>
+
+        <!-- Tab 2: EXPLAIN Comparison -->
+        <div id="tab-explain" class="tab-pane">
+            <div class="code-container">
+                <button class="btn-copy" onclick="copyCode('code-explain')">Sao chép</button>
+                <pre><code id="code-explain">-- TRUOC TOI UU (Fat Covering Index):
+EXPLAIN SELECT recorded_at, temperature, humidity, status 
+FROM SensorLogs 
+WHERE sensor_id = 1 AND recorded_at >= NOW() - INTERVAL 1 HOUR;
+-- ket qua:
+-- id | select_type | table      | type | possible_keys    | key              | key_len | ref  | rows | Extra
+-- 1  | SIMPLE      | SensorLogs | ref  | idx_fat_covering | idx_fat_covering | 5       | ...  | 42   | Using index
+
+-- SAU TOI UU (Lean Search Index):
+EXPLAIN SELECT recorded_at, temperature, humidity, status 
+FROM SensorLogs 
+WHERE sensor_id = 1 AND recorded_at >= NOW() - INTERVAL 1 HOUR;
+-- ket qua:
+-- id | select_type | table      | type | possible_keys   | key             | key_len | ref  | rows | Extra
+-- 1  | SIMPLE      | SensorLogs | ref  | idx_lean_search | idx_lean_search | 5       | ...  | 42   | Using index condition</code></pre>
+            </div>
+        </div>
+
+        <!-- Tab 3: Measurement -->
+        <div id="tab-measure" class="tab-pane">
+            <div class="code-container">
+                <button class="btn-copy" onclick="copyCode('code-measure')">Sao chép SQL</button>
+                <pre><code id="code-measure">SELECT 
+    TABLE_NAME,
+    TABLE_ROWS,
+    ROUND(DATA_LENGTH / 1024 / 1024, 4) AS Data_Size_MB,
+    ROUND(INDEX_LENGTH / 1024 / 1024, 4) AS Index_Size_MB,
+    ROUND((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024, 4) AS Total_Size_MB,
+    ROUND(INDEX_LENGTH / DATA_LENGTH, 2) AS Index_to_Data_Ratio
+FROM information_schema.TABLES
+WHERE TABLE_SCHEMA = 'smartfactory_db' AND TABLE_NAME = 'SensorLogs';</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A Defense Accordion -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Bảo Vệ Kiến Trúc: 3 Câu Hỏi Vấn Đáp Chuyên Sâu</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Người vấn đáp: Cloud Financial Controller</span>
+        </div>
+
+        <div class="qa-card open">
+            <div class="qa-question" onclick="toggleQA(this)">
+                <span>Câu hỏi 1: Giả sử bảng dữ liệu của chúng ta là bảng "Danh mục quốc gia" (Countries) cả năm không ai sửa, thì việc tạo Covering Index có còn là một "tội ác" hay không? Tại sao?</span>
+                <span class="qa-arrow">&gt;</span>
+            </div>
+            <div class="qa-answer">
+                <p><strong>Trả lời:</strong> Hoàn toàn <strong>không còn là tội ác</strong>, mà ngược lại đó là một <strong>giải pháp kiến trúc tối ưu mẫu mực</strong>.</p>
+                <p><strong>Lý do kỹ thuật:</strong></p>
+                <ul>
+                    <li>Bảng <code>Countries</code> là một bảng danh mục tra cứu (Lookup / Reference Table) có khối lượng dữ liệu tĩnh, số lượng bản ghi cố định (~200 quốc gia) và tần suất ghi gần như bằng 0 (Read-mostly).</li>
+                    <li>Vì không có thao tác <code>INSERT</code> hay <code>UPDATE</code> diễn ra liên tục, <strong>chi phí Write Penalty hoàn toàn bị triệt tiêu</strong>. Hệ thống không phải lo lắng về việc tái cân bằng cây B-Tree hay tách trang (Page Split).</li>
+                    <li>Lúc này, một Covering Index cho phép 100% các câu truy vấn tìm kiếm lấy dữ liệu trực tiếp trong bộ nhớ đệm RAM mà không bao giờ cần nhảy vào Clustered Index (Zero Bookmark Lookup).</li>
+                </ul>
+                <p style="margin-top: 0.5rem;"><strong>Kết luận:</strong> Tính đúng đắn của Covering Index phụ thuộc hoàn toàn vào <strong>tỷ lệ Đọc/Ghi (Read/Write Ratio)</strong>.</p>
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-question" onclick="toggleQA(this)">
+                <span>Câu hỏi 2: Em hãy giải thích khái niệm "Write Penalty" (Hình phạt khi Ghi) của Index. Tại sao thêm 1 cột vào Index lại làm quá trình INSERT chậm lại?</span>
+                <span class="qa-arrow">&gt;</span>
+            </div>
+            <div class="qa-answer">
+                <p><strong>Trả lời:</strong></p>
+                <ul>
+                    <li><strong>Khái niệm Write Penalty:</strong> Là chi phí tài nguyên phụ trội về I/O ổ đĩa, bộ nhớ đệm và CPU mà hệ quản trị CSDL phải gánh chịu cho mỗi thao tác thay đổi dữ liệu (<code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code>) để duy trì cấu trúc sắp xếp thứ tự của các cây chỉ mục B-Tree.</li>
+                    <li><strong>Tại sao thêm 1 cột làm INSERT chậm lại?</strong>
+                        <ol>
+                            <li><em>Tăng kích thước bản ghi (Row Inflation):</em> Mỗi trang 16KB chứa được ít dòng hơn.</li>
+                            <li><em>Gia tăng tần suất Tách trang (Page Split):</em> Trang nhớ nhanh đầy hơn, buộc MySQL phải khóa trang (Page Locks), cấp phát khối đĩa mới và cập nhật con trỏ nút cha.</li>
+                            <li><em>Phá vỡ tính chèn tuần tự (Append-only):</em> Khi có thêm các cột biến động ngẫu nhiên như <code>temperature</code> và <code>humidity</code>, thao tác ghi không còn diễn ra ở mép phải của B-Tree mà biến thành Random Writes, gây nghẽn toàn bộ luồng I/O.</li>
+                        </ol>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="qa-card">
+            <div class="qa-question" onclick="toggleQA(this)">
+                <span>Câu hỏi 3: Để tối ưu ổ cứng, có người đề xuất thay thế VARCHAR(20) của cột status thành TINYINT. Theo em việc này tác động thế nào đến Data Length và Index Length nếu ta lỡ đưa nó vào Index?</span>
+                <span class="qa-arrow">&gt;</span>
+            </div>
+            <div class="qa-answer">
+                <p><strong>Trả lời:</strong></p>
+                <ul>
+                    <li><strong>Tác động đến Data Length:</strong> Giảm từ ~16 bytes xuống còn 1 byte trên mỗi dòng dữ liệu gốc.</li>
+                    <li><strong>Tác động đến Index Length:</strong> Nút lá của Index cũng tiết kiệm được ~15 bytes trên mỗi dòng.</li>
+                    <li><strong>Nhận định của chuyên gia DBA:</strong>
+                        <p>Đây chỉ là giải pháp "chữa cháy hình thức". Bản chất cột <code>status</code> chỉ có 3 trạng thái phân biệt (Cardinality cực thấp). Cột này không mang lại bất kỳ giá trị chọn lọc nào trong các truy vấn tìm kiếm theo dải thời gian.</p>
+                        <p>Sai lầm cốt lõi là <strong>đưa cột status vào trong cây Index</strong>. Giải pháp kiến trúc đúng đắn nhất là <strong>loại bỏ hoàn toàn cột status ra khỏi Index</strong>, chỉ giữ lại cặp khóa lọc tinh gọn <code>(sensor_id, recorded_at)</code>.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Deliverables & Actions -->
+    <footer class="action-bar">
+        <div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Bộ Tài Liệu & Mã Nguồn Bàn Giao Dự Án</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Kho lưu trữ: proyctk03-eng/git-final-practice/smartfactory-index-tradeoff</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="smartfactory_reindex.sql" class="btn-secondary" download>smartfactory_reindex.sql</a>
+            <a href="index_tradeoff_report.md" class="btn-secondary" target="_blank">index_tradeoff_report.md</a>
+            <a href="smartfactory_reindex.zip" class="btn-primary" download>Tải Gói Nộp Bài (.zip)</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // Tab switching
+    function switchTab(event, tabId) {
+        const tabs = document.querySelectorAll('.tab-btn');
+        const panes = document.querySelectorAll('.tab-pane');
+        tabs.forEach(t => t.classList.remove('active'));
+        panes.forEach(p => p.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+
+    // Toggle Accordion
+    function toggleQA(element) {
+        const card = element.parentElement;
+        card.classList.toggle('open');
+    }
+
+    // Copy to clipboard
+    function copyCode(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Da sao chep ma nguon vao bo nho tam!');
+        });
+    }
+
+    // Interactive Simulator Calculations
+    const sliderSensors = document.getElementById('sliderSensors');
+    const sliderFreq = document.getElementById('sliderFreq');
+    const sliderDays = document.getElementById('sliderDays');
+
+    const valSensors = document.getElementById('valSensors');
+    const valFreq = document.getElementById('valFreq');
+    const valDays = document.getElementById('valDays');
+
+    const outTotalRows = document.getElementById('outTotalRows');
+    const outDataSize = document.getElementById('outDataSize');
+    const outFatIndex = document.getElementById('outFatIndex');
+    const outLeanIndex = document.getElementById('outLeanIndex');
+    const outStorageSaved = document.getElementById('outStorageSaved');
+    const outCostSaved = document.getElementById('outCostSaved');
+
+    function updateSimulation() {
+        const sensors = parseInt(sliderSensors.value, 10);
+        const freqPerMin = parseInt(sliderFreq.value, 10);
+        const days = parseInt(sliderDays.value, 10);
+
+        valSensors.innerText = sensors.toLocaleString('en-US');
+        valFreq.innerText = freqPerMin + ' bản ghi/phút';
+        valDays.innerText = days + ' ngày';
+
+        // Calculation
+        const totalRows = sensors * freqPerMin * 60 * 24 * days;
+        const totalRowsBillion = (totalRows / 1000000000).toFixed(2);
+
+        // Bytes: Data row ~45 bytes, Fat Index ~55 bytes, Lean Index ~23 bytes
+        const dataBytes = totalRows * 45;
+        const fatIndexBytes = totalRows * 55;
+        const leanIndexBytes = totalRows * 23;
+
+        const dataGB = (dataBytes / (1024 * 1024 * 1024)).toFixed(0);
+        const fatIndexGB = (fatIndexBytes / (1024 * 1024 * 1024)).toFixed(0);
+        const leanIndexGB = (leanIndexBytes / (1024 * 1024 * 1024)).toFixed(0);
+        const savedGB = fatIndexGB - leanIndexGB;
+        const savedPercent = ((savedGB / fatIndexGB) * 100).toFixed(1);
+
+        // AWS EBS gp3 cost: $0.08 per GB per month
+        const monthlySaving = savedGB * 0.08;
+        const yearlySaving = monthlySaving * 12;
+
+        outTotalRows.innerText = totalRowsBillion + ' tỷ bản ghi';
+        outDataSize.innerText = parseInt(dataGB).toLocaleString('en-US') + ' GB';
+        outFatIndex.innerText = parseInt(fatIndexGB).toLocaleString('en-US') + ' GB';
+        outLeanIndex.innerText = parseInt(leanIndexGB).toLocaleString('en-US') + ' GB';
+        outStorageSaved.innerText = parseInt(savedGB).toLocaleString('en-US') + ' GB (-' + savedPercent + '%)';
+        outCostSaved.innerText = '$' + yearlySaving.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' USD / năm';
+    }
+
+    sliderSensors.addEventListener('input', updateSimulation);
+    sliderFreq.addEventListener('input', updateSimulation);
+    sliderDays.addEventListener('input', updateSimulation);
+
+    updateSimulation();
+</script>
+
+</body>
+</html>

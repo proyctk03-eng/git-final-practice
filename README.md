@@ -30,6 +30,7 @@
 | 18 | **[Thực hành] Stored Procedure trong MySQL** | `sql-stored-procedure/` | MySQL Stored Procedure (`DELIMITER`, `CREATE PROCEDURE`, `CALL`, `DROP IF EXISTS`), Plan Cache | Hoàn thành |
 | 19 | **[Thực hành] Trigger trong MySQL** | `sql-trigger/` | MySQL Trigger (`BEFORE INSERT`, `NEW.col`, `AFTER UPDATE`, Audit Log) | Hoàn thành |
 | 20 | **[Thực hành] Thảm Họa Over-Indexing Tại QuickFeed** | `quickfeed-index-optimization/` | MySQL Index Optimization, Cardinality, B-Tree Trade-off, `information_schema` | Hoàn thành |
+| 21 | **[Bài tập] Giải Cứu IoT SmartFactory (Tối ưu Index)** | `smartfactory-index-tradeoff/` | MySQL Covering vs Lean Index, Write Penalty, Page Split, Storage Trade-off | Hoàn thành |
 
 ---
 
@@ -340,7 +341,28 @@ Giải cứu mạng xã hội vi blog "QuickFeed" khỏi tình trạng tắc ngh
 
 ---
 
-## 21. Hướng dẫn mở và kiểm tra trực tiếp
+## 21. Bài tập 21: [Bài tập] Giải Cứu Hệ Thống IoT "SmartFactory" - Bài Toán Đánh Đổi Giữa Tốc Độ Đọc Và Chi Phí Lưu Trữ
+
+### 21.1. Mục tiêu & Bối cảnh
+Giải cứu hệ thống IoT SmartFactory với 10,000 cảm biến công nghiệp gửi hàng chục nghìn bản ghi/giây khỏi sự cố nghẽn ghi đĩa (làm rớt dữ liệu cảm biến) và hóa đơn lưu trữ đám mây AWS SSD tăng gấp 4 lần do Fat Covering Index `(sensor_id, recorded_at, temperature, humidity, status)`:
+- Đánh giá sự đánh đổi 3 chiều (Trade-off): Tốc độ Đọc (Read Latency) vs Tốc độ Ghi (Write Throughput) vs Chi phí Lưu trữ Đám mây (Storage Cost).
+- Phân tích bản chất vật lý của cấu trúc B-Tree InnoDB: Tính toán kích thước bản ghi nút lá (Row Size Inflation) và hiện tượng tách trang (Page Split) do các cột dữ liệu dao động ngẫu nhiên gây ra Random I/O.
+- Thay thế Fat Covering Index bằng **Lean Search Index** tinh gọn `(sensor_id, recorded_at)`: Chấp nhận Bookmark Lookup (~0.2ms) để đổi lấy thông lượng ghi tăng gấp 5 lần (từ 2,500 lên 12,500+ bản ghi/giây), triệt tiêu hoàn toàn lỗi mất gói dữ liệu.
+- Đo lường bằng `information_schema.TABLES`: Cắt giảm 69.2% dung lượng Index, đưa tỷ lệ `Index / Data` từ 1.48 (nguy hiểm) về 0.45 (tối ưu).
+- Bảo vệ thiết kế kiến trúc trước Cloud Financial Controller với 3 câu hỏi vấn đáp chuyên sâu và nhật ký đối thoại AI chi tiết.
+
+### 21.2. Tài liệu và Mã nguồn bàn giao
+- Kịch bản SQL tối ưu hóa: `smartfactory-index-tradeoff/smartfactory_reindex.sql`
+- Báo cáo đánh giá hiệu năng & vấn đáp Financial Controller: `smartfactory-index-tradeoff/index_tradeoff_report.md`
+- Nhật ký tra cứu kỹ thuật AI: `smartfactory-index-tradeoff/ai_prompt_log.md`
+- Sơ đồ kiến trúc & luồng đánh đổi B-Tree (300 DPI): `smartfactory-index-tradeoff/smartfactory_index_tradeoff.png`
+- Giao diện web mô phỏng tương tác: `smartfactory-index-tradeoff/index.html`
+- File nén đóng gói nộp bài: `smartfactory-index-tradeoff/smartfactory_reindex.zip`
+- Thuyết minh kỹ thuật toàn diện: `smartfactory-index-tradeoff/README.md`
+
+---
+
+## 22. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -362,3 +384,4 @@ Giải cứu mạng xã hội vi blog "QuickFeed" khỏi tình trạng tắc ngh
 18. **Mở Thực hành Stored Procedure**: Mở file `sql-stored-procedure/index.html` trong trình duyệt.
 19. **Mở Thực hành Trigger**: Mở file `sql-trigger/index.html` trong trình duyệt.
 20. **Mở Thực hành Tối ưu Index QuickFeed**: Mở file `quickfeed-index-optimization/index.html` trong trình duyệt.
+21. **Mở Bài tập Tối ưu Index IoT SmartFactory**: Mở file `smartfactory-index-tradeoff/index.html` trong trình duyệt.
