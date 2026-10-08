@@ -29,6 +29,7 @@
 | 17 | **[Bài tập & Thực hành] Truy vấn dữ liệu CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL & DML (`LIKE`, `MONTH`, `BETWEEN`, `UPDATE`, `ORDER BY`, `JOIN`), ERD | Hoàn thành (100/100) |
 | 18 | **[Thực hành] Stored Procedure trong MySQL** | `sql-stored-procedure/` | MySQL Stored Procedure (`DELIMITER`, `CREATE PROCEDURE`, `CALL`, `DROP IF EXISTS`), Plan Cache | Hoàn thành |
 | 19 | **[Thực hành] Trigger trong MySQL** | `sql-trigger/` | MySQL Trigger (`BEFORE INSERT`, `NEW.col`, `AFTER UPDATE`, Audit Log) | Hoàn thành |
+| 20 | **[Thực hành] Thảm Họa Over-Indexing Tại QuickFeed** | `quickfeed-index-optimization/` | MySQL Index Optimization, Cardinality, B-Tree Trade-off, `information_schema` | Hoàn thành |
 
 ---
 
@@ -317,9 +318,29 @@ Luyện tập sử dụng Trigger để tự động hóa xử lý và kiểm so
 - Giao diện web tra cứu & mô phỏng: `sql-trigger/index.html`
 - Thuyết minh kỹ thuật chi tiết: `sql-trigger/README.md`
 
+## 20. Bài thực hành 20: [Thực hành] Thảm Họa Quá Tải Ổ Cứng Tại Mạng Xã Hội "QuickFeed" - Tối Ưu Index
+
+### 20.1. Mục tiêu & Bối cảnh
+Giải cứu mạng xã hội vi blog "QuickFeed" khỏi tình trạng tắc nghẽn thao tác ghi (lỗi Timeout 5-10s khi đăng bài) và cảnh báo cạn kiệt ổ cứng do lập trình viên cũ tạo Index trên tất cả các cột của bảng `Posts`:
+- Đánh giá sự đánh đổi (Trade-off) giữa tốc độ Đọc (Read) và tốc độ Ghi (Write) trong cấu trúc cây B-Tree.
+- Áp dụng khái niệm độ phân giải dữ liệu (Cardinality) và tỷ lệ chọn lọc (Selectivity) để thiết lập Ma trận quyết định (Decision Matrix).
+- Cắt bỏ 3 Index vô dụng và độc hại: `idx_content` (cột TEXT quá lớn), `idx_post_type` (chỉ có 3 giá trị), `idx_is_visible` (chỉ có 2 giá trị, Optimizer luôn quét Full Table Scan).
+- Giữ lại 2 Index có giá trị thực tế cao: `idx_user_id` (lọc trang cá nhân) và `idx_created_at` (sắp xếp Newsfeed mới nhất).
+- Đo lường bằng `information_schema.TABLES`: Giải phóng hơn 65% dung lượng Index, giảm 50% chi phí ghi đĩa mỗi lần INSERT, đưa độ trễ về dưới 15ms.
+- Bảo vệ thiết kế với 3 câu hỏi vấn đáp chuyên sâu của Tech Lead và nhật ký tra cứu AI về kiến trúc lưu trữ InnoDB.
+
+### 20.2. Tài liệu và Mã nguồn bàn giao
+- Kịch bản SQL tối ưu hóa: `quickfeed-index-optimization/quickfeed_index_optimization.sql`
+- Báo cáo đánh giá hiệu năng & vấn đáp Tech Lead: `quickfeed-index-optimization/storage_performance_report.md`
+- Nhật ký tra cứu kỹ thuật AI: `quickfeed-index-optimization/ai_prompt_log.md`
+- Sơ đồ kiến trúc & luồng đánh đổi (300 DPI): `quickfeed-index-optimization/quickfeed_index_tradeoff.png`
+- Giao diện web báo cáo tương tác: `quickfeed-index-optimization/index.html`
+- File nén đóng gói nộp bài: `quickfeed-index-optimization/quickfeed_index_optimization.zip`
+- Thuyết minh chi tiết: `quickfeed-index-optimization/README.md`
+
 ---
 
-## 20. Hướng dẫn mở và kiểm tra trực tiếp
+## 21. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -340,3 +361,4 @@ Luyện tập sử dụng Trigger để tự động hóa xử lý và kiểm so
 17. **Mở Thực hành Truy vấn dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-query/index.html` trong trình duyệt.
 18. **Mở Thực hành Stored Procedure**: Mở file `sql-stored-procedure/index.html` trong trình duyệt.
 19. **Mở Thực hành Trigger**: Mở file `sql-trigger/index.html` trong trình duyệt.
+20. **Mở Thực hành Tối ưu Index QuickFeed**: Mở file `quickfeed-index-optimization/index.html` trong trình duyệt.

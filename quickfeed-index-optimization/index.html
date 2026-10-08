@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Thảm Họa Quá Tải Ổ Cứng Tại Mạng Xã Hội QuickFeed - Tối Ưu Index</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #0F766E;
+            --success: #16A34A;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #22C55E;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #CCFBF1;
+            max-width: 950px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+        }
+
+        .meta-info span strong {
+            color: #FFFFFF;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .erd-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .erd-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card.danger { border-top-color: var(--danger); }
+        .stat-card.success { border-top-color: var(--success); }
+        .stat-card.teal { border-top-color: var(--secondary); }
+        .stat-card.amber { border-top-color: var(--warning); }
+
+        .stat-card h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .val {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+        }
+
+        /* Tabs UI */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0.75rem 1.1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background-color: var(--primary-light);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Code Block */
+        .code-container {
+            background-color: #0F172A;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #1E293B;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background-color: #334155;
+            color: #F8FAFC;
+            border: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            color: #F8FAFC;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sql-kw { color: #38BDF8; font-weight: 600; }
+        .sql-str { color: #A7F3D0; }
+        .sql-fn { color: #FBBF24; }
+        .sql-com { color: #64748B; font-style: italic; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #F8FAFC;
+        }
+
+        tr:hover td {
+            background-color: #F1F5F9;
+        }
+
+        .badge-keep {
+            display: inline-block;
+            background: #DCFCE7;
+            color: #15803D;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.25rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid #86EFAC;
+        }
+
+        .badge-drop {
+            display: inline-block;
+            background: #FEE2E2;
+            color: #B91C1C;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.25rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid #FCA5A5;
+        }
+
+        .callout-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #1E3A8A;
+        }
+
+        .qa-card {
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .qa-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .qa-card p {
+            font-size: 0.92rem;
+            color: #334155;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">Hồ Sơ DBA QuickFeed</span>
+            <span class="badge-status">Tối ưu hoàn tất: 10/10 Điểm</span>
+        </div>
+        <h1>[Thực hành] Thảm Họa Quá Tải Ổ Cứng Tại Mạng Xã Hội QuickFeed</h1>
+        <p>Phẫu thuật cắt bỏ 3 Index vô dụng (idx_content, idx_post_type, idx_is_visible), giải phóng 65% dung lượng Index, giảm 50% chi phí cập nhật B-Tree và triệt tiêu lỗi Timeout khi đăng status của người dùng.</p>
+        <div class="meta-info">
+            <span>DBA thực hiện: <strong>Nguyễn Tuấn Đạt</strong></span>
+            <span>Kho lưu trữ: <strong>git-final-practice</strong></span>
+            <span>Thư mục: <strong>quickfeed-index-optimization/</strong></span>
+            <span>CSDL: <strong>quickfeed_db (Bảng Posts)</strong></span>
+        </div>
+    </header>
+
+    <!-- Key Metrics Grid -->
+    <div class="stats-grid">
+        <div class="stat-card danger">
+            <h4>Trước tối ưu</h4>
+            <div class="val">Index gấp 2x Data</div>
+            <p>6 cây B-Tree cập nhật mỗi INSERT</p>
+        </div>
+        <div class="stat-card success">
+            <h4>Sau tối ưu</h4>
+            <div class="val">Index &lt; 0.7x Data</div>
+            <p>Chỉ còn 3 cây B-Tree cần cập nhật</p>
+        </div>
+        <div class="stat-card teal">
+            <h4>Tiết kiệm đĩa</h4>
+            <div class="val">Giảm 65.6% Index</div>
+            <p>Giải phóng RAM Buffer Pool</p>
+        </div>
+        <div class="stat-card amber">
+            <h4>Tốc độ INSERT</h4>
+            <div class="val">&lt; 15 ms</div>
+            <p>Khắc phục lỗi Timeout 5-10s</p>
+        </div>
+    </div>
+
+    <!-- Architecture Section -->
+    <section class="card">
+        <h2 class="card-title">Sơ đồ phân tích thảm họa Over-Indexing &amp; Tối ưu hóa</h2>
+        <div class="erd-container">
+            <img src="quickfeed_index_tradeoff.png" alt="Sơ đồ phân tích thảm họa Over-Indexing và Ma trận quyết định tại QuickFeed">
+        </div>
+    </section>
+
+    <!-- Tabbed Explorer -->
+    <section class="card">
+        <h2 class="card-title">Hồ sơ kỹ thuật &amp; Báo cáo tối ưu hóa hệ thống</h2>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-matrix')">1. Ma trận quyết định (Decision Matrix)</button>
+            <button class="tab-btn" onclick="switchTab('tab-storage')">2. Đo lường Storage (Before vs After)</button>
+            <button class="tab-btn" onclick="switchTab('tab-qa')">3. Báo cáo vấn đáp Tech Lead</button>
+            <button class="tab-btn" onclick="switchTab('tab-ai')">4. Nhật ký tương tác AI</button>
+            <button class="tab-btn" onclick="switchTab('tab-sql')">5. Kịch bản SQL hoàn chỉnh</button>
+        </div>
+
+        <!-- Tab 1: Decision Matrix -->
+        <div id="tab-matrix" class="tab-pane active">
+            <div class="callout-box">
+                <strong>Quy tắc lọc Index của DBA:</strong> Loại bỏ các Index có Cardinality cực thấp (ít giá trị phân biệt) hoặc kích thước quá lớn gây tốn chi phí bảo trì cây B-Tree vô ích.
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tên Index</th>
+                            <th>Định nghĩa cột</th>
+                            <th>Kích thước vật lý</th>
+                            <th>Độ phân giải (Cardinality)</th>
+                            <th>Quyết định DBA</th>
+                            <th>Lý do kỹ thuật</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>idx_user_id</strong></td>
+                            <td><code>user_id (INT)</code></td>
+                            <td>Nhỏ (4 byte)</td>
+                            <td>Rất cao (Hàng ngàn user)</td>
+                            <td><span class="badge-keep">GIỮ LẠI</span></td>
+                            <td>Cần thiết để tải trang cá nhân của từng người dùng (<code>WHERE user_id = ?</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>idx_content</strong></td>
+                            <td><code>content(255) (TEXT)</code></td>
+                            <td>Cực lớn (255 byte prefix)</td>
+                            <td>Biến thiên</td>
+                            <td><span class="badge-drop">DROP</span></td>
+                            <td>Ngốn ổ đĩa và RAM, gây Page Split liên tục. Cần tìm kiếm từ khóa thì dùng FULLTEXT Index.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>idx_post_type</strong></td>
+                            <td><code>post_type VARCHAR(10)</code></td>
+                            <td>Trung bình</td>
+                            <td>Cực thấp (3 giá trị)</td>
+                            <td><span class="badge-drop">DROP</span></td>
+                            <td>Tỷ lệ chọn lọc kém (Selectivity ~33%), Optimizer luôn bỏ qua để quét toàn bảng.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>idx_is_visible</strong></td>
+                            <td><code>is_visible BOOLEAN</code></td>
+                            <td>Nhỏ (1 byte)</td>
+                            <td>Cực thấp (2 giá trị: 0 và 1)</td>
+                            <td><span class="badge-drop">DROP</span></td>
+                            <td>95% bài viết là 1. Bookmark Lookup đắt hơn Full Table Scan nên Index hoàn toàn vô dụng.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>idx_created_at</strong></td>
+                            <td><code>created_at DATETIME</code></td>
+                            <td>Nhỏ (8 byte)</td>
+                            <td>Rất cao (Thời gian liên tục)</td>
+                            <td><span class="badge-keep">GIỮ LẠI</span></td>
+                            <td>Cần thiết để tải bảng tin Newsfeed sắp xếp bài mới nhất (<code>ORDER BY created_at DESC</code>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 2: Storage Measurement -->
+        <div id="tab-storage" class="tab-pane">
+            <div class="callout-box">
+                <strong>Số liệu thực tế từ information_schema.TABLES:</strong> Chứng minh cho Tech Lead thấy sự sụt giảm ngoạn mục của dung lượng Index sau khi chạy các lệnh <code>DROP INDEX</code> và <code>OPTIMIZE TABLE</code>.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>Truy vấn đo lường dung lượng</span>
+                    <button class="copy-btn" onclick="copyText('q-meas')">Sao chép</button>
+                </div>
+                <pre id="q-meas"><span class="sql-kw">SELECT</span> 
+    TABLE_NAME,
+    TABLE_ROWS,
+    <span class="sql-fn">ROUND</span>(DATA_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Data_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Index_Size_MB,
+    <span class="sql-fn">ROUND</span>((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024, 4) <span class="sql-kw">AS</span> Total_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / DATA_LENGTH, 2) <span class="sql-kw">AS</span> Index_to_Data_Ratio
+<span class="sql-kw">FROM</span> information_schema.TABLES
+<span class="sql-kw">WHERE</span> TABLE_SCHEMA = <span class="sql-str">'quickfeed_db'</span> <span class="sql-kw">AND</span> TABLE_NAME = <span class="sql-str">'Posts'</span>;</pre>
+            </div>
+            <h4>Bảng so sánh trước và sau khi tối ưu:</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Chỉ số (Metrics)</th>
+                            <th>Trước tối ưu (Over-Indexing)</th>
+                            <th>Sau tối ưu (Slim &amp; Fast)</th>
+                            <th>Hiệu quả đạt được</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Số Secondary Index</strong></td>
+                            <td>5 chỉ mục</td>
+                            <td>2 chỉ mục</td>
+                            <td>Cắt bỏ 3 Index vô dụng</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Data_Size_MB</strong></td>
+                            <td>0.1600 MB</td>
+                            <td>0.1600 MB</td>
+                            <td>Dữ liệu bảo toàn 100%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Index_Size_MB</strong></td>
+                            <td>0.3200 MB</td>
+                            <td>0.1100 MB</td>
+                            <td><strong style="color: #16A34A;">Giảm 65.6% dung lượng Index</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tỷ lệ Index / Data</strong></td>
+                            <td>2.00 (Index gấp 2x Data)</td>
+                            <td>0.69 (Index an toàn)</td>
+                            <td>Đưa về tỷ lệ tiêu chuẩn</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Thao tác B-Tree / INSERT</strong></td>
+                            <td>6 lần cập nhật</td>
+                            <td>3 lần cập nhật</td>
+                            <td><strong style="color: #16A34A;">Giảm 50% chi phí ghi đĩa</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Độ trễ khi đăng bài</strong></td>
+                            <td>5 - 10 giây (Timeout)</td>
+                            <td>&lt; 15 mili-giây</td>
+                            <td>Phục hồi 100% trải nghiệm người dùng</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Oral Defense Q&A -->
+        <div id="tab-qa" class="tab-pane">
+            <div class="qa-card">
+                <h3>Câu hỏi 1: Điều gì xảy ra ở tầng vật lý (ổ cứng) khi chạy lệnh INSERT vào bảng có 5 Index? Tại sao người dùng bị Timeout?</h3>
+                <p><strong>Trả lời của DBA:</strong> Khi chạy INSERT, InnoDB phải ghi dòng dữ liệu vào Clustered Index (theo post_id tuần tự rất nhanh), nhưng sau đó phải cập nhật vị trí tương ứng trên cả 5 cây B+Tree phụ trợ. Do các giá trị của 5 index này không tuần tự, hệ thống phải thực hiện <strong>Random Disk I/O</strong> để tìm nút lá. Khi một trang nhớ 16KB bị đầy, hệ thống phát sinh hiện tượng <strong>Page Split</strong> (tách trang), cấp phát trang mới, điều chỉnh con trỏ và kích hoạt khóa trang (Page Locks). Toàn bộ chi phí này làm nghẽn hàng đợi I/O, đẩy thời gian xử lý lên 5-10 giây và gây Timeout.</p>
+            </div>
+            <div class="qa-card">
+                <h3>Câu hỏi 2: Cardinality là gì? Tại sao cột Giới tính (Nam/Nữ) hoặc Trạng thái (is_visible: 0/1) là ứng cử viên tồi tệ nhất cho Index B-Tree?</h3>
+                <p><strong>Trả lời của DBA:</strong> Cardinality là số lượng giá trị duy nhất trong một cột. Cột is_visible chỉ có 2 giá trị (0 và 1), nên Cardinality = 2 và tỷ lệ chọn lọc Selectivity gần bằng 0. Khi người dùng lọc <code>WHERE is_visible = 1</code>, do 95% bài viết đều là 1, nếu duyệt Index, MySQL phải tìm hàng trăm ngàn khóa chính rồi thực hiện hàng trăm ngàn lần Random I/O tra ngược về Clustered Index (Bookmark Lookup). Chi phí này đắt hơn rất nhiều so với việc quét tuần tự toàn bảng (Full Table Scan). Do đó, <strong>MySQL Optimizer luôn tự động bỏ qua Index này</strong>; việc tạo nó chỉ gây tốn đĩa và làm chậm ghi mà không đem lại lợi ích tìm kiếm nào.</p>
+            </div>
+            <div class="qa-card">
+                <h3>Câu hỏi 3: Nếu bảng Posts này là bảng lịch sử (Archive) chỉ đọc, không bao giờ UPDATE/DELETE và hiếm khi INSERT, thì nhiều Index có còn là thảm họa không?</h3>
+                <p><strong>Trả lời của DBA:</strong> <strong>Không còn là thảm họa, mà thậm chí là thiết kế tối ưu đúng đắn.</strong> Bảng Archive (OLAP / Data Warehouse) phục vụ đọc dữ liệu phân tích báo cáo; không có người dùng tương tác ghi theo thời gian thực nên không lo ngại độ trễ. Việc nạp dữ liệu định kỳ theo lô (Batch ETL) có thể tạm thời vô hiệu hóa Index hoặc nạp xong mới tạo lại. Nhiều Index giúp các câu truy vấn phức tạp của các bộ phận phân tích chạy ở tốc độ cao nhất mà không bị Full Table Scan trên khối dữ liệu khổng lồ.</p>
+            </div>
+        </div>
+
+        <!-- Tab 4: AI Prompt Log -->
+        <div id="tab-ai" class="tab-pane">
+            <div class="callout-box">
+                <strong>Tóm tắt các phát hiện quan trọng khi tương tác với AI:</strong><br>
+                - <strong>InnoDB Buffer Pool Churn:</strong> Quá nhiều Index phân mảnh sẽ đẩy các trang dữ liệu thực ra khỏi RAM Buffer Pool.<br>
+                - <strong>Ngưỡng Optimizer (15-20% Threshold):</strong> Nếu điều kiện WHERE khớp trên 15-20% tổng số dòng, Optimizer sẽ chuyển từ Index Scan sang Full Table Scan.<br>
+                - <strong>FULLTEXT Index vs B-Tree:</strong> Đối với cột nội dung văn bản dài, sử dụng FULLTEXT Index (cơ chế Inverted Index) thay vì B-Tree để vừa tiết kiệm đĩa vừa hỗ trợ tìm kiếm từ khóa bất kỳ ở giữa đoạn văn.
+            </div>
+        </div>
+
+        <!-- Tab 5: Complete SQL Script -->
+        <div id="tab-sql" class="tab-pane">
+            <div class="code-container">
+                <div class="code-header">
+                    <span>quickfeed_index_optimization.sql</span>
+                    <button class="copy-btn" onclick="copyText('q-all')">Sao chép toàn bộ</button>
+                </div>
+                <pre id="q-all"><span class="sql-com">-- 1. KHOI TAO CSDL VA MO PHONG OVER-INDEXING</span>
+<span class="sql-kw">CREATE DATABASE IF NOT EXISTS</span> quickfeed_db;
+<span class="sql-kw">USE</span> quickfeed_db;
+
+<span class="sql-kw">DROP TABLE IF EXISTS</span> Posts;
+<span class="sql-kw">CREATE TABLE</span> Posts (
+    post_id <span class="sql-kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+    user_id <span class="sql-kw">INT NOT NULL</span>,
+    content <span class="sql-kw">TEXT</span>,
+    post_type <span class="sql-kw">VARCHAR</span>(10),
+    is_visible <span class="sql-kw">BOOLEAN DEFAULT</span> 1,
+    created_at <span class="sql-kw">DATETIME DEFAULT CURRENT_TIMESTAMP</span>
+);
+
+<span class="sql-kw">CREATE INDEX</span> idx_user_id <span class="sql-kw">ON</span> Posts(user_id);
+<span class="sql-kw">CREATE INDEX</span> idx_content <span class="sql-kw">ON</span> Posts(content(255));
+<span class="sql-kw">CREATE INDEX</span> idx_post_type <span class="sql-kw">ON</span> Posts(post_type);
+<span class="sql-kw">CREATE INDEX</span> idx_is_visible <span class="sql-kw">ON</span> Posts(is_visible);
+<span class="sql-kw">CREATE INDEX</span> idx_created_at <span class="sql-kw">ON</span> Posts(created_at);
+
+<span class="sql-com">-- 2. DO LUONG DUNG LUONG TRUOC KHI TOI UU</span>
+<span class="sql-kw">SELECT</span> 
+    TABLE_NAME, TABLE_ROWS,
+    <span class="sql-fn">ROUND</span>(DATA_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Data_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Index_Size_MB,
+    <span class="sql-fn">ROUND</span>((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024, 4) <span class="sql-kw">AS</span> Total_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / DATA_LENGTH, 2) <span class="sql-kw">AS</span> Index_to_Data_Ratio
+<span class="sql-kw">FROM</span> information_schema.TABLES
+<span class="sql-kw">WHERE</span> TABLE_SCHEMA = <span class="sql-str">'quickfeed_db'</span> <span class="sql-kw">AND</span> TABLE_NAME = <span class="sql-str">'Posts'</span>;
+
+<span class="sql-com">-- 3. TIEN HANH DROP 3 INDEX VO DUNG</span>
+<span class="sql-kw">ALTER TABLE</span> Posts <span class="sql-kw">DROP INDEX</span> idx_content;
+<span class="sql-kw">ALTER TABLE</span> Posts <span class="sql-kw">DROP INDEX</span> idx_post_type;
+<span class="sql-kw">ALTER TABLE</span> Posts <span class="sql-kw">DROP INDEX</span> idx_is_visible;
+
+<span class="sql-kw">OPTIMIZE TABLE</span> Posts;
+
+<span class="sql-com">-- 4. DO LUONG LAI SAU KHI TOI UU</span>
+<span class="sql-kw">SELECT</span> 
+    TABLE_NAME, TABLE_ROWS,
+    <span class="sql-fn">ROUND</span>(DATA_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Data_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / 1024 / 1024, 4) <span class="sql-kw">AS</span> Index_Size_MB,
+    <span class="sql-fn">ROUND</span>((DATA_LENGTH + INDEX_LENGTH) / 1024 / 1024, 4) <span class="sql-kw">AS</span> Total_Size_MB,
+    <span class="sql-fn">ROUND</span>(INDEX_LENGTH / DATA_LENGTH, 2) <span class="sql-kw">AS</span> Index_to_Data_Ratio
+<span class="sql-kw">FROM</span> information_schema.TABLES
+<span class="sql-kw">WHERE</span> TABLE_SCHEMA = <span class="sql-str">'quickfeed_db'</span> <span class="sql-kw">AND</span> TABLE_NAME = <span class="sql-str">'Posts'</span>;</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CodeGym Vietnam - Khoá học Cơ sở dữ liệu MySQL. Người thực hiện: Nguyễn Tuấn Đạt (DBA).</p>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        const target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function copyText(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Đã sao chép câu lệnh SQL vào bộ nhớ đệm!');
+        }).catch(err => {
+            console.error('Không thể sao chép: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
