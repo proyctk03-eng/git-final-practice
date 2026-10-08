@@ -32,6 +32,7 @@
 | 20 | **[Thực hành] Thảm Họa Over-Indexing Tại QuickFeed** | `quickfeed-index-optimization/` | MySQL Index Optimization, Cardinality, B-Tree Trade-off, `information_schema` | Hoàn thành |
 | 21 | **[Bài tập] Giải Cứu IoT SmartFactory (Tối ưu Index)** | `smartfactory-index-tradeoff/` | MySQL Covering vs Lean Index, Write Penalty, Page Split, Storage Trade-off | Hoàn thành |
 | 22 | **[Thực hành] Sử dụng CSS** | `using-css/` | HTML5, CSS3, Font-family, Border, Padding, Specificity (`#id`) | Hoàn thành |
+| 23 | **[Bài tập] Định dạng văn bản với CSS** | `css-text-formatting/` | HTML5, CSS3 Typography, `font-style`, `text-align`, `font-size`, `text-indent`, `color` | Hoàn thành |
 
 ---
 
@@ -380,7 +381,25 @@ Luyện tập các thuộc tính CSS cơ bản và hiểu sâu về cơ chế hi
 
 ---
 
-## 23. Hướng dẫn mở và kiểm tra trực tiếp
+## 23. Bài tập 23: [Bài tập] Định Dạng Văn Bản Với CSS
+
+### 23.1. Mục tiêu & Các thuộc tính CSS sử dụng
+Luyện tập sử dụng các thuộc tính CSS Typography để định dạng bố cục và phong cách hiển thị bài viết chuyên nghiệp:
+- **`text-indent`**: Tạo khoảng thụt lề đầu dòng (`2.2em`) cho dòng đầu tiên của các đoạn văn bản thân bài (`p.content-paragraph`), tuân thủ chuẩn trình bày báo chí và học thuật.
+- **`text-align`**: Căn lề ngang linh hoạt: Căn giữa (`center`) cho tiêu đề chính `h1` và khối trích dẫn `blockquote`; Căn đều hai bên (`justify`) cho các đoạn văn bản chính; Căn phải (`right`) cho phần thông tin kết bài.
+- **`font-style`**: Áp dụng chữ in nghiêng (`italic`) cho phần thông tin tác giả, ngày đăng, đoạn dẫn nhập (Lead paragraph) và danh ngôn trích dẫn.
+- **`font-size`**: Thiết lập hệ thống thứ bậc thị giác chặt chẽ (Visual Hierarchy) từ `2.25rem` (tiêu đề chính), `1.45rem` (tiêu đề phân mục `h2`), `1.2rem` (đoạn dẫn nhập), `1.05rem` (nội dung thân bài), đến `0.95rem` (thông tin phụ).
+- **`color`**: Sử dụng bảng màu hiện đại có độ tương phản cao (Navy `#1E3A8A`, Teal `#0F766E`, Slate tối `#1E293B`, Đỏ rượu `#B91C1C`) bảo đảm chuẩn dễ tiếp cận WCAG AAA.
+- **`line-height` & `font-family`**: Giãn dòng `1.85` tạo nhịp đọc thoải mái, kết hợp phông có chân cổ điển `Merriweather` với phông không chân `Plus Jakarta Sans`.
+
+### 23.2. Tài liệu và Mã nguồn bàn giao
+- Trang bài viết chuẩn: `css-text-formatting/index.html` (Định dạng văn bản hoàn chỉnh)
+- Phòng thí nghiệm Typography tương tác: `css-text-formatting/demo.html` (Thanh trượt tùy biến thời gian thực & sinh mã CSS)
+- Thuyết minh kỹ thuật chi tiết: `css-text-formatting/README.md`
+
+---
+
+## 24. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -404,3 +423,4 @@ Luyện tập các thuộc tính CSS cơ bản và hiểu sâu về cơ chế hi
 20. **Mở Thực hành Tối ưu Index QuickFeed**: Mở file `quickfeed-index-optimization/index.html` trong trình duyệt.
 21. **Mở Bài tập Tối ưu Index IoT SmartFactory**: Mở file `smartfactory-index-tradeoff/index.html` trong trình duyệt.
 22. **Mở Thực hành Sử dụng CSS**: Mở file `using-css/index.html` hoặc `using-css/demo.html` trong trình duyệt.
+23. **Mở Bài tập Định dạng văn bản với CSS**: Mở file `css-text-formatting/index.html` hoặc `css-text-formatting/demo.html` trong trình duyệt.

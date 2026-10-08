@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Định dạng văn bản với CSS</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           DINH DANG VAN BAN VOI CSS - BAI TAP CODEGYM
+           Su dung cac thuoc tinh: font-style, text-align, font-size, text-indent, color
+           ========================================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #F8FAFC;
+            color: #334155;
+            font-family: 'Merriweather', Georgia, serif;
+            line-height: 1.8;
+            padding: 2.5rem 1rem;
+        }
+
+        .article-container {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            padding: 3rem 2.5rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #E2E8F0;
+        }
+
+        /* 1. Tieu de chinh (h1) */
+        h1.main-title {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            font-size: 2.25rem; /* ~36px */
+            font-weight: 700;
+            color: #1E3A8A; /* Mau xanh Navy dam */
+            text-align: center; /* Can giua tieu de */
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        /* 2. Thong tin tac gia & Ngay dang (Author meta) */
+        .article-meta {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            font-size: 0.95rem;
+            font-style: italic; /* Chu in nghieng */
+            text-align: center; /* Can giua thong tin phu */
+            color: #64748B; /* Mau xam slate */
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 1rem;
+        }
+
+        /* 3. Tieu de phan muc (h2) */
+        h2.section-title {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            font-size: 1.45rem; /* ~23px */
+            font-weight: 600;
+            color: #0F766E; /* Mau xanh Teal */
+            text-align: left; /* Can le trai */
+            margin-top: 1.75rem;
+            margin-bottom: 0.85rem;
+        }
+
+        /* 4. Doan van ban chinh (Paragraphs) */
+        p.content-paragraph {
+            font-size: 1.05rem; /* ~17px */
+            color: #1E293B; /* Mau chu toi de doc */
+            text-align: justify; /* Can deu hai ben le */
+            text-indent: 2.2em; /* Thut dau dong khoang 35px */
+            margin-bottom: 1.25rem;
+            line-height: 1.85;
+        }
+
+        /* 5. Doan van ban dan nhap (Lead paragraph) */
+        p.lead-paragraph {
+            font-size: 1.2rem;
+            font-style: italic; /* In nghieng doan dan nhap */
+            text-align: justify;
+            text-indent: 2em;
+            color: #334155;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3B82F6;
+            padding-left: 1.25rem;
+            background-color: #EFF6FF;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-radius: 0 0.375rem 0.375rem 0;
+        }
+
+        /* 6. Trich dan noi bat (Blockquote) */
+        blockquote.highlight-quote {
+            font-size: 1.15rem;
+            font-style: italic; /* In nghieng loi trich dan */
+            color: #1E40AF; /* Mau xanh Royal */
+            text-align: center; /* Can giua loi trich */
+            margin: 2rem 1.5rem;
+            padding: 1.25rem 2rem;
+            background: #F8FAFC;
+            border-top: 2px solid #CBD5E1;
+            border-bottom: 2px solid #CBD5E1;
+            line-height: 1.7;
+        }
+
+        blockquote.highlight-quote cite {
+            display: block;
+            margin-top: 0.5rem;
+            font-size: 0.85rem;
+            font-style: normal;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            color: #64748B;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* 7. Cac the nhan manh bo sung */
+        .highlight-keyword {
+            color: #B91C1C; /* Mau do dam nhan manh tu khoa */
+            font-weight: 700;
+        }
+
+        .technical-term {
+            color: #2563EB;
+            font-style: italic;
+        }
+
+        /* 8. Phan ket thuc bai viet */
+        .article-footer {
+            margin-top: 2.5rem;
+            border-top: 1px solid #E2E8F0;
+            padding-top: 1.25rem;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #94A3B8;
+            text-align: right; /* Can phai phan ket thuc */
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<main class="article-container">
+    <!-- Tieu de chinh -->
+    <h1 class="main-title">Nghệ Thuật Định Dạng Văn Bản Với CSS Trong Thiết Kế Web Hiện Đại</h1>
+
+    <!-- Thong tin tac gia & Ngay dang -->
+    <div class="article-meta">
+        Tác giả: Nguyễn Tuấn Đạt &bull; Chuyên mục: Kỹ thuật Lập trình Frontend &bull; Cập nhật: Năm 2026
+    </div>
+
+    <!-- Doan mo dau (Lead paragraph) -->
+    <p class="lead-paragraph">
+        Trong kỷ nguyên số, nội dung không chỉ đơn thuần là thông điệp được truyền tải mà còn phụ thuộc chặt chẽ vào cách thức trình bày thị giác. Việc làm chủ các thuộc tính định dạng văn bản trong CSS giúp biến những trang web khô khan thành những tác phẩm truyền thông cuốn hút và chuyên nghiệp.
+    </p>
+
+    <!-- Phan muc 1 -->
+    <h2 class="section-title">1. Sức mạnh của khoảng thụt đầu dòng (text-indent)</h2>
+    <p class="content-paragraph">
+        Thuộc tính <span class="technical-term">text-indent</span> đóng vai trò tối quan trọng trong việc tạo nhịp điệu đọc tự nhiên cho mắt người dùng. Khác với văn bản thông thường trên môi trường số vốn dựa nhiều vào khoảng cách giữa các khối, phong cách trình bày học thuật và báo chí truyền thống luôn ưu tiên thụt đầu dòng ở mỗi đoạn văn mới. Khi kết hợp thuộc tính này với việc căn lề đều hai bên (<span class="technical-term">text-align: justify</span>), bố cục tổng thể của trang web trở nên vuông vức, trang nhã và chuẩn mực.
+    </p>
+
+    <!-- Loi trich dan noi bat -->
+    <blockquote class="highlight-quote">
+        &ldquo;Typography trong lập trình web không phải là chọn phông chữ ngẫu nhiên, mà là nghệ thuật dẫn dắt ánh nhìn và điều khiển cảm xúc của người đọc qua từng điểm chạm thị giác.&rdquo;
+        <cite>&mdash; Nguyên lý Thiết kế Giao diện Trải nghiệm Người dùng</cite>
+    </blockquote>
+
+    <!-- Phan muc 2 -->
+    <h2 class="section-title">2. Phối hợp phông chữ, kích thước và màu sắc</h2>
+    <p class="content-paragraph">
+        Sự phối hợp hài hòa giữa <span class="technical-term">font-size</span>, <span class="technical-term">font-style</span> và <span class="technical-term">color</span> tạo nên một hệ thống thứ bậc thị giác rõ ràng (Visual Hierarchy). Bằng cách cho tiêu đề có kích thước lớn và màu sắc trầm đậm, đoạn văn chính có độ tương phản cao trên nền trắng, và những phần chú giải mang phông chữ in nghiêng màu xám nhạt, người đọc có thể dễ dàng quét nhanh qua tài liệu mà không bị mỏi mắt.
+    </p>
+    <p class="content-paragraph">
+        Đặc biệt, việc nhấn mạnh các <span class="highlight-keyword">từ khóa quan trọng</span> bằng màu sắc nổi bật kết hợp phông chữ nghiêng giúp tăng khả năng ghi nhớ thông tin lên tới 40% so với văn bản đơn sắc. Đây chính là bí quyết mà các chuyên gia giao diện áp dụng để tối ưu hóa trải nghiệm đọc cho hàng triệu người dùng mỗi ngày.
+    </p>
+
+    <!-- Phan ket thuc -->
+    <div class="article-footer">
+        Bài tập thực hành định dạng văn bản CSS &bull; Hệ thống đào tạo lập trình CodeGym
+    </div>
+</main>
+
+</body>
+</html>

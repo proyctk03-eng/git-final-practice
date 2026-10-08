@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Bài tập] Định dạng văn bản với CSS - Phòng Thí Nghiệm Typography Tương Tác</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-blue: #1D4ED8;
+            --primary-light: #EFF6FF;
+            --secondary: #0E7490;
+            --success: #15803D;
+            --warning: #B45309;
+            --danger: #B91C1C;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header */
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #0E7490 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #16A34A;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #BAE6FD;
+            max-width: 950px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+        }
+
+        .meta-info strong {
+            color: #FFFFFF;
+        }
+
+        /* Section Layout */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Playground Two-Column Layout */
+        .playground-grid {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 960px) {
+            .playground-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Control Panel */
+        .control-panel {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .control-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .control-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
+
+        .control-label span.val-display {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .control-select, .control-input {
+            width: 100%;
+            padding: 0.55rem 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.4rem;
+            font-size: 0.9rem;
+            background: #FFFFFF;
+            color: var(--text-main);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary-blue);
+        }
+
+        /* Preview Area */
+        .preview-area {
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            background: #FFFFFF;
+            padding: 2.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .preview-header {
+            font-size: 0.82rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Sample Article in Preview */
+        #liveH1 {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+        }
+
+        #liveMeta {
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        #liveP1, #liveP2 {
+            margin-bottom: 1.25rem;
+        }
+
+        #liveQuote {
+            margin: 1.5rem 0;
+            padding: 1rem 1.5rem;
+            background: #F8FAFC;
+            border-top: 2px solid #E2E8F0;
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        /* Generated Code Pane */
+        .code-box {
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+            margin-top: 1.5rem;
+        }
+
+        .btn-copy {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 0.35rem 0.75rem;
+            border-radius: 0.35rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .btn-copy:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Property Matrix Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #F1F5F9;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: #F8FAFC;
+        }
+
+        .code-tag {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            padding: 0.2rem 0.45rem;
+            border-radius: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Footer Action Bar */
+        .action-bar {
+            background: #F1F5F9;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">CSS Typography & Text Styling</span>
+            <span class="badge-status">Hoàn Thành Bài Tập</span>
+        </div>
+        <h1>[Bài tập] Định Dạng Văn Bản Với CSS</h1>
+        <p>Phòng thí nghiệm tương tác trực quan hóa các thuộc tính định dạng văn bản cốt lõi: font-style, text-align, font-size, text-indent, color cùng các nguyên tắc thiết kế kiểu chữ chuyên nghiệp.</p>
+        <div class="meta-info">
+            <div>Học viên: <strong>Nguyễn Tuấn Đạt</strong></div>
+            <div>Khóa học: <strong>Thiết kế Giao diện Người dùng & Lập trình Web</strong></div>
+            <div>Mã nguồn: <strong>index.html</strong></div>
+            <div>Kho lưu trữ: <strong>github.com/proyctk03-eng/git-final-practice</strong></div>
+        </div>
+    </header>
+
+    <!-- Interactive Typography Lab -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Phòng Thí Nghiệm Tương Tác (Live Typography Playground)</span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--primary-blue);">Điều chỉnh thuộc tính để xem hiệu ứng tức thì</span>
+        </div>
+        <p class="section-subtitle">Tùy biến các tham số định dạng trên đoạn văn bản mẫu và kiểm tra mã nguồn CSS tương ứng được sinh tự động.</p>
+
+        <div class="playground-grid">
+            <!-- Left: Controls -->
+            <div class="control-panel">
+                <!-- 1. text-indent -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>text-indent (Thụt đầu dòng):</span>
+                        <span class="val-display" id="valIndent">35px (2.2em)</span>
+                    </div>
+                    <input type="range" id="inputIndent" min="0" max="70" step="5" value="35">
+                </div>
+
+                <!-- 2. text-align -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>text-align (Căn lề đoạn văn):</span>
+                    </div>
+                    <select class="control-select" id="inputAlign">
+                        <option value="justify" selected>justify (Căn đều hai bên)</option>
+                        <option value="left">left (Căn lề trái)</option>
+                        <option value="center">center (Căn giữa)</option>
+                        <option value="right">right (Căn lề phải)</option>
+                    </select>
+                </div>
+
+                <!-- 3. font-size -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>font-size (Cỡ chữ đoạn văn):</span>
+                        <span class="val-display" id="valFontSize">17px</span>
+                    </div>
+                    <input type="range" id="inputFontSize" min="14" max="24" step="1" value="17">
+                </div>
+
+                <!-- 4. font-style -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>font-style (Kiểu chữ đoạn văn):</span>
+                    </div>
+                    <select class="control-select" id="inputFontStyle">
+                        <option value="normal" selected>normal (Chữ thẳng thông thường)</option>
+                        <option value="italic">italic (Chữ in nghiêng)</option>
+                        <option value="oblique">oblique (Chữ xiên nghiêng)</option>
+                    </select>
+                </div>
+
+                <!-- 5. color -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>color (Màu sắc chữ đoạn văn):</span>
+                    </div>
+                    <select class="control-select" id="inputColor">
+                        <option value="#1E293B" selected>Slate Đậm (#1E293B)</option>
+                        <option value="#1E3A8A">Xanh Navy (#1E3A8A)</option>
+                        <option value="#0F766E">Xanh Teal (#0F766E)</option>
+                        <option value="#B91C1C">Đỏ Rượu (#B91C1C)</option>
+                        <option value="#475569">Xám Trung Tính (#475569)</option>
+                    </select>
+                </div>
+
+                <!-- 6. line-height -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>line-height (Khoảng cách dòng):</span>
+                        <span class="val-display" id="valLineHeight">1.8</span>
+                    </div>
+                    <input type="range" id="inputLineHeight" min="1.2" max="2.4" step="0.1" value="1.8">
+                </div>
+
+                <!-- 7. font-family -->
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>font-family (Phông chữ):</span>
+                    </div>
+                    <select class="control-select" id="inputFontFamily">
+                        <option value="'Merriweather', Georgia, serif" selected>Merriweather (Serif cổ điển)</option>
+                        <option value="'Plus Jakarta Sans', Arial, sans-serif">Plus Jakarta Sans (Sans-serif hiện đại)</option>
+                        <option value="'Inter', -apple-system, sans-serif">Inter (UI Sans-serif)</option>
+                        <option value="'Times New Roman', serif">Times New Roman (Chuẩn văn bản)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Right: Live Preview -->
+            <div>
+                <div class="preview-area">
+                    <div class="preview-header">Khung Hiển Thị Kết Quả Trực Tiếp (Live DOM)</div>
+
+                    <h1 id="liveH1" style="color: #1E3A8A; font-size: 2.25rem; text-align: center; font-weight: 700;">
+                        Nghệ Thuật Định Dạng Văn Bản Với CSS Trong Thiết Kế Web Hiện Đại
+                    </h1>
+
+                    <div id="liveMeta" style="color: #64748B; font-size: 0.95rem; font-style: italic; text-align: center;">
+                        Tác giả: Nguyễn Tuấn Đạt &bull; Chuyên mục: Kỹ thuật Lập trình Frontend &bull; Cập nhật: Năm 2026
+                    </div>
+
+                    <p id="liveP1">
+                        Trong kỷ nguyên số, nội dung không chỉ đơn thuần là thông điệp được truyền tải mà còn phụ thuộc chặt chẽ vào cách thức trình bày thị giác. Việc làm chủ các thuộc tính định dạng văn bản trong CSS giúp biến những trang web khô khan thành những tác phẩm truyền thông cuốn hút và chuyên nghiệp.
+                    </p>
+
+                    <blockquote id="liveQuote" style="color: #1E40AF; font-size: 1.15rem; font-style: italic; text-align: center; line-height: 1.7;">
+                        &ldquo;Typography trong lập trình web không phải là chọn phông chữ ngẫu nhiên, mà là nghệ thuật dẫn dắt ánh nhìn và điều khiển cảm xúc của người đọc.&rdquo;
+                    </blockquote>
+
+                    <p id="liveP2">
+                        Thuộc tính text-indent đóng vai trò tối quan trọng trong việc tạo nhịp điệu đọc tự nhiên cho mắt người dùng. Khác với văn bản thông thường trên môi trường số vốn dựa nhiều vào khoảng cách giữa các khối, phong cách trình bày học thuật và báo chí truyền thống luôn ưu tiên thụt đầu dòng ở mỗi đoạn văn mới kết hợp căn lề đều hai bên.
+                    </p>
+                </div>
+
+                <!-- Generated CSS Code -->
+                <div class="code-box">
+                    <button class="btn-copy" onclick="copyCSS()">Sao chép CSS</button>
+                    <pre><code id="generatedCSS">/* CSS sinh tu dong tu Playground */
+p {
+    text-indent: 35px;
+    text-align: justify;
+    font-size: 17px;
+    font-style: normal;
+    color: #1E293B;
+    line-height: 1.8;
+    font-family: 'Merriweather', Georgia, serif;
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Reference Table -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Bảng Tra Cứu Các Thuộc Tính Định Dạng Văn Bản CSS Cốt Lõi</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên thuộc tính</th>
+                        <th>Cú pháp mẫu</th>
+                        <th>Các giá trị thông dụng</th>
+                        <th>Mục đích sử dụng & Ý nghĩa kỹ thuật</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="code-tag">text-indent</span></td>
+                        <td><code>text-indent: 2em;</code></td>
+                        <td><code>length (px, em, rem)</code>, <code>%</code></td>
+                        <td>Thụt đầu dòng cho <strong>dòng đầu tiên</strong> của khối văn bản, tạo cấu trúc chuẩn đoạn văn học thuật.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">text-align</span></td>
+                        <td><code>text-align: justify;</code></td>
+                        <td><code>left</code>, <code>right</code>, <code>center</code>, <code>justify</code></td>
+                        <td>Căn chỉnh lề theo chiều ngang. <code>justify</code> giúp kéo giãn khoảng trắng để hai bên lề thẳng hàng tuyệt đối.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">font-style</span></td>
+                        <td><code>font-style: italic;</code></td>
+                        <td><code>normal</code>, <code>italic</code>, <code>oblique</code></td>
+                        <td>Quy định kiểu dáng chữ nghiêng, thường dùng cho lời dẫn, trích dẫn, tên tài liệu hoặc ghi chú tác giả.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">font-size</span></td>
+                        <td><code>font-size: 1.1rem;</code></td>
+                        <td><code>px</code>, <code>rem</code>, <code>em</code>, <code>%</code>, <code>pt</code></td>
+                        <td>Xác định kích cỡ hiển thị của phông chữ, tạo thứ bậc thị giác giữa tiêu đề chính, tiêu đề phụ và nội dung.</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">color</span></td>
+                        <td><code>color: #1E3A8A;</code></td>
+                        <td><code>Tên màu</code>, <code>HEX (#rrggbb)</code>, <code>rgb()</code>, <code>hsl()</code></td>
+                        <td>Quy định màu sắc văn bản, quyết định độ tương phản thị giác so với màu nền để bảo đảm khả năng tiếp cận (WCAG).</td>
+                    </tr>
+                    <tr>
+                        <td><span class="code-tag">line-height</span></td>
+                        <td><code>line-height: 1.8;</code></td>
+                        <td><code>number (1.5, 1.8)</code>, <code>length (px)</code>, <code>%</code></td>
+                        <td>Chiều cao giữa các dòng trong cùng một đoạn, tránh hiện tượng các dòng chữ bị dính sát vào nhau gây mỏi mắt.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Action Bar -->
+    <footer class="action-bar">
+        <div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Bộ Tài Liệu & Mã Nguồn Bàn Giao</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Kho lưu trữ: proyctk03-eng/git-final-practice/css-text-formatting</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn-primary" target="_blank">Xem Trang index.html Chuẩn</a>
+            <a href="README.md" class="btn-secondary" target="_blank">Đọc Tài Liệu README.md</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const inputIndent = document.getElementById('inputIndent');
+    const inputAlign = document.getElementById('inputAlign');
+    const inputFontSize = document.getElementById('inputFontSize');
+    const inputFontStyle = document.getElementById('inputFontStyle');
+    const inputColor = document.getElementById('inputColor');
+    const inputLineHeight = document.getElementById('inputLineHeight');
+    const inputFontFamily = document.getElementById('inputFontFamily');
+
+    const valIndent = document.getElementById('valIndent');
+    const valFontSize = document.getElementById('valFontSize');
+    const valLineHeight = document.getElementById('valLineHeight');
+
+    const liveP1 = document.getElementById('liveP1');
+    const liveP2 = document.getElementById('liveP2');
+    const generatedCSS = document.getElementById('generatedCSS');
+
+    function updateTypography() {
+        const indent = inputIndent.value + 'px';
+        const align = inputAlign.value;
+        const fontSize = inputFontSize.value + 'px';
+        const fontStyle = inputFontStyle.value;
+        const color = inputColor.value;
+        const lineHeight = inputLineHeight.value;
+        const fontFamily = inputFontFamily.value;
+
+        valIndent.innerText = indent;
+        valFontSize.innerText = fontSize;
+        valLineHeight.innerText = lineHeight;
+
+        [liveP1, liveP2].forEach(p => {
+            p.style.textIndent = indent;
+            p.style.textAlign = align;
+            p.style.fontSize = fontSize;
+            p.style.fontStyle = fontStyle;
+            p.style.color = color;
+            p.style.lineHeight = lineHeight;
+            p.style.fontFamily = fontFamily;
+        });
+
+        generatedCSS.textContent = `/* CSS sinh tu dong tu Playground */
+p {
+    text-indent: ${indent};
+    text-align: ${align};
+    font-size: ${fontSize};
+    font-style: ${fontStyle};
+    color: ${color};
+    line-height: ${lineHeight};
+    font-family: ${fontFamily};
+}`;
+    }
+
+    inputIndent.addEventListener('input', updateTypography);
+    inputAlign.addEventListener('change', updateTypography);
+    inputFontSize.addEventListener('input', updateTypography);
+    inputFontStyle.addEventListener('change', updateTypography);
+    inputColor.addEventListener('change', updateTypography);
+    inputLineHeight.addEventListener('input', updateTypography);
+    inputFontFamily.addEventListener('change', updateTypography);
+
+    function copyCSS() {
+        navigator.clipboard.writeText(generatedCSS.textContent).then(() => {
+            alert('Da sao chep ma CSS vao bo nho tam!');
+        });
+    }
+
+    // Initialize
+    updateTypography();
+</script>
+
+</body>
+</html>
