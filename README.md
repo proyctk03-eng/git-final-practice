@@ -27,6 +27,7 @@
 | 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
 | 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
 | 17 | **[Bài tập & Thực hành] Truy vấn dữ liệu CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL & DML (`LIKE`, `MONTH`, `BETWEEN`, `UPDATE`, `ORDER BY`, `JOIN`), ERD | Hoàn thành (100/100) |
+| 18 | **[Thực hành] Stored Procedure trong MySQL** | `sql-stored-procedure/` | MySQL Stored Procedure (`DELIMITER`, `CREATE PROCEDURE`, `CALL`, `DROP IF EXISTS`), Plan Cache | Hoàn thành |
 
 ---
 
@@ -283,9 +284,25 @@ Triển khai toàn diện 5 yêu cầu nghiệp vụ chuyên sâu theo đúng nh
 - Giao diện web tra cứu & sao chép truy vấn: `sql-student-management-query/index.html`
 - Thuyết minh chi tiết & bảng ma trận đối chiếu tiêu chí: `sql-student-management-query/README.md`
 
+## 18. Bài thực hành 18: [Thực hành] Stored Procedure Trong MySQL
+
+### 18.1. Mục tiêu
+Luyện tập sử dụng thủ tục lưu trữ (Stored Procedure) trên cơ sở dữ liệu `classicmodels` (bảng `customers`):
+- Nắm vững khái niệm, chu trình biên dịch và lưu trữ kế hoạch thực thi (Execution Plan Cache) trong RAM.
+- Sử dụng từ khóa `DELIMITER //` và `DELIMITER ;` để thay đổi và khôi phục ký tự phân tách câu lệnh.
+- Tạo thủ tục đầu tiên `findAllCustomers()` lấy toàn bộ danh sách khách hàng và gọi bằng `CALL findAllCustomers();`.
+- Hiểu rõ cơ chế quản trị trong MySQL (không hỗ trợ `ALTER PROCEDURE` sửa thân thủ tục); áp dụng quy trình chuẩn xóa và tạo lại bằng `DROP PROCEDURE IF EXISTS` & `CREATE PROCEDURE` với bộ lọc `WHERE customerNumber = 175`.
+- Mở rộng xây dựng thủ tục có tham số đầu vào `IN p_customerNumber INT` phục vụ tra cứu khách hàng linh hoạt.
+
+### 18.2. Tài liệu và Mã nguồn
+- Kịch bản SQL hoàn chỉnh: `sql-stored-procedure/stored_procedure.sql`
+- Sơ đồ kiến trúc & luồng Plan Cache: `sql-stored-procedure/stored_procedure_architecture.png`
+- Giao diện web tra cứu & mô phỏng: `sql-stored-procedure/index.html`
+- Thuyết minh kỹ thuật chi tiết: `sql-stored-procedure/README.md`
+
 ---
 
-## 18. Hướng dẫn mở và kiểm tra trực tiếp
+## 19. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -304,3 +321,4 @@ Triển khai toàn diện 5 yêu cầu nghiệp vụ chuyên sâu theo đúng nh
 15. **Mở Bài tập Sự cố AutoRide**: Mở file `autoride-profit-leak-fix/index.html` trong trình duyệt.
 16. **Mở Thực hành Thêm dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-insert-data/index.html` trong trình duyệt.
 17. **Mở Thực hành Truy vấn dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-query/index.html` trong trình duyệt.
+18. **Mở Thực hành Stored Procedure**: Mở file `sql-stored-procedure/index.html` trong trình duyệt.

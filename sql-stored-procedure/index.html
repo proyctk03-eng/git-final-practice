@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Stored Procedure trong MySQL</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #0F766E;
+            --success: #16A34A;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #22C55E;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #CCFBF1;
+            max-width: 900px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+        }
+
+        .meta-info span strong {
+            color: #FFFFFF;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .erd-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .erd-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card.teal { border-top-color: #0F766E; }
+        .stat-card.amber { border-top-color: #B45309; }
+        .stat-card.purple { border-top-color: #6D28D9; }
+
+        .stat-card h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+        }
+
+        /* Comparison Grid */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .comp-card {
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .comp-card.pros {
+            background-color: #F0FDF4;
+            border-color: #BBF7D0;
+        }
+
+        .comp-card.cons {
+            background-color: #FEF2F2;
+            border-color: #FECACA;
+        }
+
+        .comp-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .comp-card.pros h3 { color: #166534; }
+        .comp-card.cons h3 { color: #991B1B; }
+
+        .comp-list {
+            list-style: none;
+        }
+
+        .comp-list li {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            padding-left: 1.25rem;
+            position: relative;
+            color: #334155;
+        }
+
+        .comp-card.pros .comp-list li::before {
+            content: "+";
+            position: absolute;
+            left: 0;
+            font-weight: 800;
+            color: #16A34A;
+        }
+
+        .comp-card.cons .comp-list li::before {
+            content: "-";
+            position: absolute;
+            left: 0;
+            font-weight: 800;
+            color: #DC2626;
+        }
+
+        /* Tabs UI */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0.75rem 1.1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background-color: var(--primary-light);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Code Block */
+        .code-container {
+            background-color: #0F172A;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #1E293B;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background-color: #334155;
+            color: #F8FAFC;
+            border: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            color: #F8FAFC;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sql-kw { color: #38BDF8; font-weight: 600; }
+        .sql-str { color: #A7F3D0; }
+        .sql-fn { color: #FBBF24; }
+        .sql-com { color: #64748B; font-style: italic; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #F8FAFC;
+        }
+
+        tr:hover td {
+            background-color: #F1F5F9;
+        }
+
+        .badge-point {
+            display: inline-block;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.25rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            border: 1px solid #BFDBFE;
+        }
+
+        .callout-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #1E3A8A;
+        }
+
+        .callout-info {
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">CodeGym MySQL Module</span>
+            <span class="badge-status">Hoàn thành thực hành</span>
+        </div>
+        <h1>[Thực hành] Stored Procedure trong MySQL</h1>
+        <p>Luyện tập kỹ thuật xây dựng thủ tục lưu trữ (Stored Procedure) trên cơ sở dữ liệu classicmodels: Khai báo với DELIMITER, biên dịch với CREATE PROCEDURE, triệu gọi bằng CALL và quy trình tái tạo với DROP PROCEDURE IF EXISTS.</p>
+        <div class="meta-info">
+            <span>Học viên: <strong>Nguyễn Tuấn Đạt</strong></span>
+            <span>Kho lưu trữ: <strong>git-final-practice</strong></span>
+            <span>Thư mục: <strong>sql-stored-procedure/</strong></span>
+            <span>CSDL: <strong>classicmodels.customers</strong></span>
+        </div>
+    </header>
+
+    <!-- Key Statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>Bảng dữ liệu</h4>
+            <div class="val">customers</div>
+            <p>CSDL classicmodels</p>
+        </div>
+        <div class="stat-card teal">
+            <h4>Procedure ban đầu</h4>
+            <div class="val">findAllCustomers()</div>
+            <p>SELECT * FROM customers</p>
+        </div>
+        <div class="stat-card amber">
+            <h4>Quy trình cập nhật</h4>
+            <div class="val">Drop &amp; Re-create</div>
+            <p>Lọc customerNumber = 175</p>
+        </div>
+        <div class="stat-card purple">
+            <h4>Thủ tục mở rộng</h4>
+            <div class="val">getCustomerById()</div>
+            <p>Tham số đầu vào IN Parameter</p>
+        </div>
+    </div>
+
+    <!-- Architecture Diagram Section -->
+    <section class="card">
+        <h2 class="card-title">Kiến trúc và cơ chế thực thi Stored Procedure</h2>
+        <div class="erd-container">
+            <img src="stored_procedure_architecture.png" alt="Kiến trúc Stored Procedure và luồng Execution Plan Cache trong MySQL">
+        </div>
+
+        <div class="comparison-grid">
+            <div class="comp-card pros">
+                <h3>Ưu điểm của Stored Procedure</h3>
+                <ul class="comp-list">
+                    <li><strong>Biên dịch sẵn (Pre-compiled):</strong> Lưu trữ kế hoạch thực thi trong bộ nhớ đệm (Plan Cache), chạy nhanh hơn các truy vấn SQL thô.</li>
+                    <li><strong>Tiết kiệm băng thông mạng:</strong> Ứng dụng chỉ truyền chuỗi lệnh ngắn (như <code>CALL findAllCustomers();</code>) thay vì gửi toàn bộ khối SQL dài.</li>
+                    <li><strong>Đóng gói nghiệp vụ &amp; Bảo mật:</strong> Cấp quyền thực thi <code>EXECUTE</code> cho người dùng mà không cần mở quyền trực tiếp trên bảng dữ liệu gốc.</li>
+                    <li><strong>Phòng chống SQL Injection:</strong> Khi sử dụng tham số hóa, ngăn chặn mã độc can thiệp vào câu lệnh truy vấn.</li>
+                </ul>
+            </div>
+            <div class="comp-card cons">
+                <h3>Nhược điểm &amp; Lưu ý kỹ thuật</h3>
+                <ul class="comp-list">
+                    <li><strong>Chiếm dụng RAM máy chủ:</strong> Quá nhiều thủ tục sẽ tiêu tốn dung lượng bộ nhớ đệm của DB Server.</li>
+                    <li><strong>Gia tăng tải CPU cho CSDL:</strong> Không nên nhồi nhét xử lý vòng lặp nặng nề vào DB Server; nên phân tách logic về tầng ứng dụng.</li>
+                    <li><strong>Khó khăn khi Debug:</strong> MySQL không có công cụ gỡ lỗi từng bước (Step-by-step debugger) mạnh mẽ như Oracle hay SQL Server.</li>
+                    <li><strong>Không có ALTER PROCEDURE sửa thân thủ tục:</strong> Bắt buộc phải dùng cơ chế xóa và tạo lại (DROP IF EXISTS &rarr; CREATE PROCEDURE).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tabbed Procedure Explorer -->
+    <section class="card">
+        <h2 class="card-title">Thực hành triển khai Stored Procedure từng bước</h2>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('proc-init')">Bước 1 &amp; 2: Tạo Procedure đầu tiên</button>
+            <button class="tab-btn" onclick="switchTab('proc-modify')">Bước 4 &amp; 5: Sửa Procedure (Lọc 175)</button>
+            <button class="tab-btn" onclick="switchTab('proc-param')">Bước 6: Procedure có tham số (IN)</button>
+            <button class="tab-btn" onclick="switchTab('proc-all')">Toàn bộ Script SQL</button>
+        </div>
+
+        <!-- Tab 1: Initial Procedure -->
+        <div id="proc-init" class="tab-pane active">
+            <div class="callout-box">
+                <strong>Giải thích từ khóa quan trọng:</strong><br>
+                - <code>DELIMITER //</code>: Đổi ký tự kết thúc câu lệnh từ <code>;</code> thành <code>//</code> để client không kết thúc sớm khi gặp dấu <code>;</code> bên trong thân thủ tục.<br>
+                - <code>CREATE PROCEDURE findAllCustomers()</code>: Định nghĩa tên thủ tục.<br>
+                - <code>BEGIN ... END //</code>: Khối lệnh thực thi nghiệp vụ bên trong.<br>
+                - <code>DELIMITER ;</code>: Trả lại ký tự phân cách về dấu chấm phẩy mặc định.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Query - Tạo và triệu gọi findAllCustomers()</span>
+                    <button class="copy-btn" onclick="copyText('q-init')">Sao chép</button>
+                </div>
+                <pre id="q-init"><span class="sql-kw">DELIMITER</span> //
+
+<span class="sql-kw">CREATE PROCEDURE</span> findAllCustomers()
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> customers;
+<span class="sql-kw">END</span> //
+
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- Triệu gọi Stored Procedure</span>
+<span class="sql-kw">CALL</span> findAllCustomers();</pre>
+            </div>
+            <h4>Kết quả trả về khi chạy <code>CALL findAllCustomers();</code> (8 khách hàng):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>customerNumber</th>
+                            <th>customerName</th>
+                            <th>contactName</th>
+                            <th>phone</th>
+                            <th>city</th>
+                            <th>country</th>
+                            <th>creditLimit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>103</td>
+                            <td><strong>Atelier graphique</strong></td>
+                            <td>Carine Schmitt</td>
+                            <td>40.32.2555</td>
+                            <td>Nantes</td>
+                            <td>France</td>
+                            <td>21,000.00</td>
+                        </tr>
+                        <tr>
+                            <td>112</td>
+                            <td><strong>Signal Gift Stores</strong></td>
+                            <td>Jean King</td>
+                            <td>7025551838</td>
+                            <td>Las Vegas</td>
+                            <td>USA</td>
+                            <td>71,800.00</td>
+                        </tr>
+                        <tr>
+                            <td>114</td>
+                            <td><strong>Australian Collectors, Co.</strong></td>
+                            <td>Peter Ferguson</td>
+                            <td>03 9520 4555</td>
+                            <td>Melbourne</td>
+                            <td>Australia</td>
+                            <td>117,300.00</td>
+                        </tr>
+                        <tr>
+                            <td>119</td>
+                            <td><strong>La Rochelle Gifts</strong></td>
+                            <td>Janine Labrune</td>
+                            <td>40.67.8555</td>
+                            <td>Nantes</td>
+                            <td>France</td>
+                            <td>118,200.00</td>
+                        </tr>
+                        <tr>
+                            <td>121</td>
+                            <td><strong>Baane Mini Imports</strong></td>
+                            <td>Jonas Bergulfsen</td>
+                            <td>07-98 9555</td>
+                            <td>Stavern</td>
+                            <td>Norway</td>
+                            <td>81,700.00</td>
+                        </tr>
+                        <tr>
+                            <td>141</td>
+                            <td><strong>Euro+ Shopping Channel</strong></td>
+                            <td>Diego Freyre</td>
+                            <td>(91) 555 94 44</td>
+                            <td>Madrid</td>
+                            <td>Spain</td>
+                            <td>227,600.00</td>
+                        </tr>
+                        <tr>
+                            <td>145</td>
+                            <td><strong>Danish Wholesale Imports</strong></td>
+                            <td>Jytte Petersen</td>
+                            <td>31 12 3555</td>
+                            <td>Kobenhavn</td>
+                            <td>Denmark</td>
+                            <td>82,100.00</td>
+                        </tr>
+                        <tr>
+                            <td><strong>175</strong></td>
+                            <td><strong>Gift Depot Inc.</strong></td>
+                            <td>Julie King</td>
+                            <td>2035552570</td>
+                            <td>Bridgewater</td>
+                            <td>USA</td>
+                            <td>84,300.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 2: Modify Procedure -->
+        <div id="proc-modify" class="tab-pane">
+            <div class="callout-box">
+                <strong>Quy tắc cập nhật thủ tục trong MySQL (Drop &amp; Re-create):</strong><br>
+                MySQL không hỗ trợ <code>ALTER PROCEDURE</code> để sửa đổi các câu lệnh SQL bên trong <code>BEGIN...END</code>. Vì vậy, ta áp dụng lệnh <code>DROP PROCEDURE IF EXISTS</code> để xóa thủ tục cũ trước, sau đó tạo lại thủ tục mới với điều kiện lọc <code>customerNumber = 175</code>.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Script - Sửa Stored Procedure bằng Drop &amp; Re-create</span>
+                    <button class="copy-btn" onclick="copyText('q-mod')">Sao chép</button>
+                </div>
+                <pre id="q-mod"><span class="sql-kw">DELIMITER</span> //
+
+<span class="sql-kw">DROP PROCEDURE IF EXISTS</span> `findAllCustomers` //
+
+<span class="sql-kw">CREATE PROCEDURE</span> findAllCustomers()
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> customers <span class="sql-kw">WHERE</span> customerNumber = 175;
+<span class="sql-kw">END</span> //
+
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- Triệu gọi lại sau khi sửa</span>
+<span class="sql-kw">CALL</span> findAllCustomers();</pre>
+            </div>
+            <h4>Kết quả trả về sau khi cập nhật (Chỉ còn duy nhất khách hàng số 175):</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>customerNumber</th>
+                            <th>customerName</th>
+                            <th>contactName</th>
+                            <th>phone</th>
+                            <th>addressLine1</th>
+                            <th>city</th>
+                            <th>state</th>
+                            <th>postalCode</th>
+                            <th>country</th>
+                            <th>creditLimit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-point">175</span></td>
+                            <td><strong>Gift Depot Inc.</strong></td>
+                            <td>Julie King</td>
+                            <td>2035552570</td>
+                            <td>255 Vista Charra</td>
+                            <td>Bridgewater</td>
+                            <td>CT</td>
+                            <td>06805</td>
+                            <td>USA</td>
+                            <td>84,300.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Parameterized Procedure -->
+        <div id="proc-param" class="tab-pane">
+            <div class="callout-box">
+                <strong>Mở rộng: Stored Procedure có tham số truyền vào (IN Parameter):</strong><br>
+                Thay vì cố định cứng mã khách hàng 175, ta truyền tham số <code>IN p_customerNumber INT</code>. Điều này giúp thủ tục trở nên tái sử dụng linh hoạt cho bất kỳ khách hàng nào.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Script - Stored Procedure với tham số IN</span>
+                    <button class="copy-btn" onclick="copyText('q-param')">Sao chép</button>
+                </div>
+                <pre id="q-param"><span class="sql-kw">DELIMITER</span> //
+
+<span class="sql-kw">DROP PROCEDURE IF EXISTS</span> `getCustomerById` //
+
+<span class="sql-kw">CREATE PROCEDURE</span> getCustomerById(<span class="sql-kw">IN</span> p_customerNumber <span class="sql-kw">INT</span>)
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * 
+    <span class="sql-kw">FROM</span> customers 
+    <span class="sql-kw">WHERE</span> customerNumber = p_customerNumber;
+<span class="sql-kw">END</span> //
+
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- Triệu gọi với tham số động</span>
+<span class="sql-kw">CALL</span> getCustomerById(175);
+<span class="sql-kw">CALL</span> getCustomerById(103);</pre>
+            </div>
+            <h4>Kết quả trả về khi chạy <code>CALL getCustomerById(103);</code>:</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>customerNumber</th>
+                            <th>customerName</th>
+                            <th>contactName</th>
+                            <th>phone</th>
+                            <th>city</th>
+                            <th>country</th>
+                            <th>creditLimit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="badge-point">103</span></td>
+                            <td><strong>Atelier graphique</strong></td>
+                            <td>Carine Schmitt</td>
+                            <td>40.32.2555</td>
+                            <td>Nantes</td>
+                            <td>France</td>
+                            <td>21,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: Complete SQL Script -->
+        <div id="proc-all" class="tab-pane">
+            <div class="callout-info">
+                Tập lệnh đầy đủ bao gồm tạo cơ sở dữ liệu classicmodels, tạo bảng customers, chèn dữ liệu mẫu và toàn bộ các thao tác Stored Procedure có thể chạy độc lập.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>stored_procedure.sql</span>
+                    <button class="copy-btn" onclick="copyText('qall')">Sao chép toàn bộ</button>
+                </div>
+                <pre id="qall"><span class="sql-com">-- 1. KHOI TAO CSDL CLASSICMODELS VA BANG CUSTOMERS</span>
+<span class="sql-kw">CREATE DATABASE IF NOT EXISTS</span> classicmodels;
+<span class="sql-kw">USE</span> classicmodels;
+
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> customers (
+    customerNumber <span class="sql-kw">INT NOT NULL PRIMARY KEY</span>,
+    customerName <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    contactLastName <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    contactFirstName <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    phone <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    addressLine1 <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    addressLine2 <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">DEFAULT NULL</span>,
+    city <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    state <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">DEFAULT NULL</span>,
+    postalCode <span class="sql-kw">VARCHAR</span>(15) <span class="sql-kw">DEFAULT NULL</span>,
+    country <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    salesRepEmployeeNumber <span class="sql-kw">INT DEFAULT NULL</span>,
+    creditLimit <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">DEFAULT NULL</span>
+);
+
+<span class="sql-kw">INSERT IGNORE INTO</span> customers <span class="sql-kw">VALUES</span>
+(103, <span class="sql-str">'Atelier graphique'</span>, <span class="sql-str">'Schmitt'</span>, <span class="sql-str">'Carine'</span>, <span class="sql-str">'40.32.2555'</span>, <span class="sql-str">'54, rue Royale'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Nantes'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'44000'</span>, <span class="sql-str">'France'</span>, 1370, 21000.00),
+(112, <span class="sql-str">'Signal Gift Stores'</span>, <span class="sql-str">'King'</span>, <span class="sql-str">'Jean'</span>, <span class="sql-str">'7025551838'</span>, <span class="sql-str">'8489 Strong St.'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Las Vegas'</span>, <span class="sql-str">'NV'</span>, <span class="sql-str">'83030'</span>, <span class="sql-str">'USA'</span>, 1166, 71800.00),
+(114, <span class="sql-str">'Australian Collectors, Co.'</span>, <span class="sql-str">'Ferguson'</span>, <span class="sql-str">'Peter'</span>, <span class="sql-str">'03 9520 4555'</span>, <span class="sql-str">'636 St Kilda Road'</span>, <span class="sql-str">'Level 3'</span>, <span class="sql-str">'Melbourne'</span>, <span class="sql-str">'Victoria'</span>, <span class="sql-str">'3004'</span>, <span class="sql-str">'Australia'</span>, 1611, 117300.00),
+(119, <span class="sql-str">'La Rochelle Gifts'</span>, <span class="sql-str">'Labrune'</span>, <span class="sql-str">'Janine'</span>, <span class="sql-str">'40.67.8555'</span>, <span class="sql-str">'67, rue des Cinquante Otages'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Nantes'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'44340'</span>, <span class="sql-str">'France'</span>, 1370, 118200.00),
+(121, <span class="sql-str">'Baane Mini Imports'</span>, <span class="sql-str">'Bergulfsen'</span>, <span class="sql-str">'Jonas'</span>, <span class="sql-str">'07-98 9555'</span>, <span class="sql-str">'Erling Skakkes gate 78'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Stavern'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'4110'</span>, <span class="sql-str">'Norway'</span>, 1504, 81700.00),
+(141, <span class="sql-str">'Euro+ Shopping Channel'</span>, <span class="sql-str">'Freyre'</span>, <span class="sql-str">'Diego'</span>, <span class="sql-str">'(91) 555 94 44'</span>, <span class="sql-str">'C/ Moralzarzal, 86'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Madrid'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'28034'</span>, <span class="sql-str">'Spain'</span>, 1370, 227600.00),
+(145, <span class="sql-str">'Danish Wholesale Imports'</span>, <span class="sql-str">'Petersen'</span>, <span class="sql-str">'Jytte'</span>, <span class="sql-str">'31 12 3555'</span>, <span class="sql-str">'Vinbaeltet 34'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Kobenhavn'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'1734'</span>, <span class="sql-str">'Denmark'</span>, 1401, 82100.00),
+(175, <span class="sql-str">'Gift Depot Inc.'</span>, <span class="sql-str">'King'</span>, <span class="sql-str">'Julie'</span>, <span class="sql-str">'2035552570'</span>, <span class="sql-str">'255 Vista Charra'</span>, <span class="sql-kw">NULL</span>, <span class="sql-str">'Bridgewater'</span>, <span class="sql-str">'CT'</span>, <span class="sql-str">'06805'</span>, <span class="sql-str">'USA'</span>, 1323, 84300.00);
+
+<span class="sql-com">-- 2. TAO PROCEDURE DAU TIEN</span>
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">CREATE PROCEDURE</span> findAllCustomers()
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> customers;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- 3. GOI PROCEDURE</span>
+<span class="sql-kw">CALL</span> findAllCustomers();
+
+<span class="sql-com">-- 4. SUA PROCEDURE (DROP & RE-CREATE)</span>
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">DROP PROCEDURE IF EXISTS</span> `findAllCustomers` //
+<span class="sql-kw">CREATE PROCEDURE</span> findAllCustomers()
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> customers <span class="sql-kw">WHERE</span> customerNumber = 175;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- 5. GOI LAI PROCEDURE SAU KHI CAP NHAT</span>
+<span class="sql-kw">CALL</span> findAllCustomers();
+
+<span class="sql-com">-- 6. PROCEDURE CO THAM SO (IN PARAMETER)</span>
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">DROP PROCEDURE IF EXISTS</span> `getCustomerById` //
+<span class="sql-kw">CREATE PROCEDURE</span> getCustomerById(<span class="sql-kw">IN</span> p_customerNumber <span class="sql-kw">INT</span>)
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> customers <span class="sql-kw">WHERE</span> customerNumber = p_customerNumber;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-kw">CALL</span> getCustomerById(175);</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CodeGym Vietnam - Khoá học Cơ sở dữ liệu MySQL. Thực hiện: Nguyễn Tuấn Đạt.</p>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        const target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function copyText(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Đã sao chép câu lệnh SQL vào bộ nhớ đệm!');
+        }).catch(err => {
+            console.error('Không thể sao chép: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
