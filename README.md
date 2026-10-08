@@ -28,6 +28,7 @@
 | 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
 | 17 | **[Bài tập & Thực hành] Truy vấn dữ liệu CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL & DML (`LIKE`, `MONTH`, `BETWEEN`, `UPDATE`, `ORDER BY`, `JOIN`), ERD | Hoàn thành (100/100) |
 | 18 | **[Thực hành] Stored Procedure trong MySQL** | `sql-stored-procedure/` | MySQL Stored Procedure (`DELIMITER`, `CREATE PROCEDURE`, `CALL`, `DROP IF EXISTS`), Plan Cache | Hoàn thành |
+| 19 | **[Thực hành] Trigger trong MySQL** | `sql-trigger/` | MySQL Trigger (`BEFORE INSERT`, `NEW.col`, `AFTER UPDATE`, Audit Log) | Hoàn thành |
 
 ---
 
@@ -300,9 +301,25 @@ Luyện tập sử dụng thủ tục lưu trữ (Stored Procedure) trên cơ s�
 - Giao diện web tra cứu & mô phỏng: `sql-stored-procedure/index.html`
 - Thuyết minh kỹ thuật chi tiết: `sql-stored-procedure/README.md`
 
+## 19. Bài thực hành 19: [Thực hành] Trigger Trong MySQL
+
+### 19.1. Mục tiêu
+Luyện tập sử dụng Trigger để tự động hóa xử lý và kiểm soát tính toàn vẹn dữ liệu trong MySQL:
+- Nắm vững cú pháp tạo Trigger: `CREATE TRIGGER trigger_name {BEFORE | AFTER} {INSERT | UPDATE | DELETE} ON table_name FOR EACH ROW BEGIN ... END;`.
+- Hiểu rõ sự khác biệt giữa biến ngữ cảnh `NEW` và `OLD`, cũng như nguyên lý tại sao chỉ có thể sửa đổi dữ liệu cột (`SET NEW.col = ...`) trong Trigger `BEFORE`.
+- Tạo Trigger `update_department` trên bảng `employees` của CSDL `company`: Tự động phân loại nhân viên vào các phòng ban `Management` (lương >= 5000), `Sales` (lương >= 3000), hoặc `Support` (lương < 3000) khi chèn bản ghi mới.
+- Thử nghiệm chèn dữ liệu với phòng ban giả định `'A'`, kiểm tra cơ chế tự động ghi đè của Trigger.
+- Mở rộng kỹ thuật kiểm toán: Xây dựng Trigger `AFTER UPDATE` (`trg_audit_salary_update`) lưu vết biến động lương vào bảng `salary_audit`.
+
+### 19.2. Tài liệu và Mã nguồn
+- Kịch bản SQL hoàn chỉnh: `sql-trigger/trigger_demo.sql`
+- Sơ đồ kiến trúc & luồng xử lý Trigger: `sql-trigger/trigger_architecture.png`
+- Giao diện web tra cứu & mô phỏng: `sql-trigger/index.html`
+- Thuyết minh kỹ thuật chi tiết: `sql-trigger/README.md`
+
 ---
 
-## 19. Hướng dẫn mở và kiểm tra trực tiếp
+## 20. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -322,3 +339,4 @@ Luyện tập sử dụng thủ tục lưu trữ (Stored Procedure) trên cơ s�
 16. **Mở Thực hành Thêm dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-insert-data/index.html` trong trình duyệt.
 17. **Mở Thực hành Truy vấn dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-query/index.html` trong trình duyệt.
 18. **Mở Thực hành Stored Procedure**: Mở file `sql-stored-procedure/index.html` trong trình duyệt.
+19. **Mở Thực hành Trigger**: Mở file `sql-trigger/index.html` trong trình duyệt.

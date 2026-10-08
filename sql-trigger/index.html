@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Trigger trong MySQL</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A8A;
+            --primary-light: #EFF6FF;
+            --accent: #2563EB;
+            --secondary: #0F766E;
+            --success: #16A34A;
+            --warning: #D97706;
+            --danger: #DC2626;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        .header-bar {
+            background: linear-gradient(135deg, #1E3A8A 0%, #0F766E 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #22C55E;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .header-bar h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #CCFBF1;
+            max-width: 900px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+        }
+
+        .meta-info span strong {
+            color: #FFFFFF;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.75rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .card-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .erd-container {
+            text-align: center;
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            overflow: hidden;
+        }
+
+        .erd-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--accent);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .stat-card.teal { border-top-color: #0F766E; }
+        .stat-card.amber { border-top-color: #B45309; }
+        .stat-card.purple { border-top-color: #6D28D9; }
+
+        .stat-card h4 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .stat-card .val {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .stat-card p {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.35rem;
+        }
+
+        /* Tabs UI */
+        .tab-nav {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            outline: none;
+            padding: 0.75rem 1.1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            border-radius: 0.5rem 0.5rem 0 0;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+            background-color: var(--primary-light);
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        /* Code Block */
+        .code-container {
+            background-color: #0F172A;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .code-header {
+            background-color: #1E293B;
+            padding: 0.6rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #94A3B8;
+            font-size: 0.85rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background-color: #334155;
+            color: #F8FAFC;
+            border: none;
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .copy-btn:hover {
+            background-color: #475569;
+        }
+
+        pre {
+            padding: 1.25rem;
+            overflow-x: auto;
+            color: #F8FAFC;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sql-kw { color: #38BDF8; font-weight: 600; }
+        .sql-str { color: #A7F3D0; }
+        .sql-fn { color: #FBBF24; }
+        .sql-com { color: #64748B; font-style: italic; }
+
+        /* Tables */
+        .table-responsive {
+            overflow-x: auto;
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #F1F5F9;
+            color: var(--text-main);
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: #334155;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #F8FAFC;
+        }
+
+        tr:hover td {
+            background-color: #F1F5F9;
+        }
+
+        .badge-dept {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.25rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .dept-mgmt {
+            background: #F3E8FF;
+            color: #7E22CE;
+            border: 1px solid #D8B4FE;
+        }
+
+        .dept-sales {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+        }
+
+        .dept-support {
+            background: #ECFDF5;
+            color: #047857;
+            border: 1px solid #A7F3D0;
+        }
+
+        .callout-box {
+            background-color: #EFF6FF;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.25rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #1E3A8A;
+        }
+
+        .callout-info {
+            background-color: #F8FAFC;
+            border: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">CodeGym MySQL Module</span>
+            <span class="badge-status">Hoàn thành thực hành</span>
+        </div>
+        <h1>[Thực hành] Trigger trong MySQL</h1>
+        <p>Luyện tập sử dụng Trigger trong MySQL: Khai báo với cú pháp BEFORE INSERT, áp dụng biến giả lập NEW để tự động phân loại phòng ban theo mức lương, và mở rộng Trigger ghi nhật ký kiểm toán AFTER UPDATE.</p>
+        <div class="meta-info">
+            <span>Học viên: <strong>Nguyễn Tuấn Đạt</strong></span>
+            <span>Kho lưu trữ: <strong>git-final-practice</strong></span>
+            <span>Thư mục: <strong>sql-trigger/</strong></span>
+            <span>CSDL: <strong>company.employees</strong></span>
+        </div>
+    </header>
+
+    <!-- Key Statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h4>Bảng chính</h4>
+            <div class="val">employees</div>
+            <p>CSDL company</p>
+        </div>
+        <div class="stat-card teal">
+            <h4>Trigger sự kiện</h4>
+            <div class="val">BEFORE INSERT</div>
+            <p>update_department</p>
+        </div>
+        <div class="stat-card amber">
+            <h4>Biến can thiệp</h4>
+            <div class="val">SET NEW.department</div>
+            <p>Ghi đè giá trị trước khi lưu</p>
+        </div>
+        <div class="stat-card purple">
+            <h4>Mở rộng kiểm toán</h4>
+            <div class="val">AFTER UPDATE</div>
+            <p>Bảng salary_audit</p>
+        </div>
+    </div>
+
+    <!-- Architecture Diagram Section -->
+    <section class="card">
+        <h2 class="card-title">Kiến trúc và cơ chế hoạt động của Trigger trong MySQL</h2>
+        <div class="erd-container">
+            <img src="trigger_architecture.png" alt="Kiến trúc Trigger và luồng BEFORE INSERT trong MySQL">
+        </div>
+    </section>
+
+    <!-- Tabbed Trigger Explorer -->
+    <section class="card">
+        <h2 class="card-title">Thực hành triển khai Trigger từng bước</h2>
+
+        <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab('tab-trigger')">Bước 2: Tạo Trigger update_department</button>
+            <button class="tab-btn" onclick="switchTab('tab-demo')">Bước 3: Demo chèn dữ liệu &amp; Kết quả</button>
+            <button class="tab-btn" onclick="switchTab('tab-audit')">Bước 4: Mở rộng Trigger Audit Log</button>
+            <button class="tab-btn" onclick="switchTab('tab-rules')">Quy tắc biến NEW &amp; OLD</button>
+            <button class="tab-btn" onclick="switchTab('tab-all')">Toàn bộ Script SQL</button>
+        </div>
+
+        <!-- Tab 1: Trigger update_department -->
+        <div id="tab-trigger" class="tab-pane active">
+            <div class="callout-box">
+                <strong>Nguyên lý Trigger BEFORE INSERT:</strong><br>
+                - Trigger được kích hoạt trước khi bản ghi thực sự được ghi vào đĩa lưu trữ.<br>
+                - Biến <code>NEW</code> đại diện cho dòng dữ liệu mới đang chuẩn bị được chèn.<br>
+                - Ta có quyền thay đổi các trường dữ liệu bằng câu lệnh: <code>SET NEW.department = ...</code>. Điều này không thể thực hiện trong trigger <code>AFTER INSERT</code> vì lúc đó bản ghi đã trở thành chỉ đọc.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Script - Tạo Trigger update_department</span>
+                    <button class="copy-btn" onclick="copyText('q-trg')">Sao chép</button>
+                </div>
+                <pre id="q-trg"><span class="sql-kw">DELIMITER</span> //
+
+<span class="sql-kw">DROP TRIGGER IF EXISTS</span> update_department //
+
+<span class="sql-kw">CREATE TRIGGER</span> update_department
+<span class="sql-kw">BEFORE INSERT ON</span> employees
+<span class="sql-kw">FOR EACH ROW</span>
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">IF</span> NEW.salary >= 5000 <span class="sql-kw">THEN</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Management'</span>;
+    <span class="sql-kw">ELSEIF</span> NEW.salary >= 3000 <span class="sql-kw">THEN</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Sales'</span>;
+    <span class="sql-kw">ELSE</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Support'</span>;
+    <span class="sql-kw">END IF</span>;
+<span class="sql-kw">END</span> //
+
+<span class="sql-kw">DELIMITER</span> ;</pre>
+            </div>
+        </div>
+
+        <!-- Tab 2: Demo & Results -->
+        <div id="tab-demo" class="tab-pane">
+            <div class="callout-box">
+                <strong>Thử nghiệm chèn dữ liệu với phòng ban giả định 'A':</strong><br>
+                Mặc dù người dùng truyền giá trị phòng ban là <code>'A'</code> trong câu lệnh <code>INSERT</code>, Trigger <code>update_department</code> sẽ chặn và tự động gán lại phòng ban chuẩn theo mức lương.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Script - Chèn dữ liệu thử nghiệm</span>
+                    <button class="copy-btn" onclick="copyText('q-demo')">Sao chép</button>
+                </div>
+                <pre id="q-demo"><span class="sql-kw">INSERT INTO</span> employees (name, department, salary) <span class="sql-kw">VALUES</span>
+(<span class="sql-str">'John Doe'</span>, <span class="sql-str">'A'</span>, 3500),
+(<span class="sql-str">'Jane Smith'</span>, <span class="sql-str">'A'</span>, 2000),
+(<span class="sql-str">'David Johnson'</span>, <span class="sql-str">'A'</span>, 6000);
+
+<span class="sql-com">-- Truy vấn kiểm tra</span>
+<span class="sql-kw">SELECT</span> id, name, department, salary <span class="sql-kw">FROM</span> employees <span class="sql-kw">ORDER BY</span> id <span class="sql-kw">ASC</span>;</pre>
+            </div>
+            <h4>Bảng kết quả đối chiếu trước và sau khi Trigger can thiệp:</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>Giá trị đầu vào (Input)</th>
+                            <th>Phòng ban sau Trigger (Output)</th>
+                            <th>salary</th>
+                            <th>Quy tắc phân loại tự động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>John Doe</strong></td>
+                            <td><span style="color: #94A3B8; text-decoration: line-through;">'A'</span></td>
+                            <td><span class="badge-dept dept-sales">Sales</span></td>
+                            <td>3,500.00</td>
+                            <td>Mức lương 3500 &ge; 3000 &rarr; Phòng Sales</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Jane Smith</strong></td>
+                            <td><span style="color: #94A3B8; text-decoration: line-through;">'A'</span></td>
+                            <td><span class="badge-dept dept-support">Support</span></td>
+                            <td>2,000.00</td>
+                            <td>Mức lương 2000 &lt; 3000 &rarr; Phòng Support</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>David Johnson</strong></td>
+                            <td><span style="color: #94A3B8; text-decoration: line-through;">'A'</span></td>
+                            <td><span class="badge-dept dept-mgmt">Management</span></td>
+                            <td>6,000.00</td>
+                            <td>Mức lương 6000 &ge; 5000 &rarr; Phòng Management</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 3: Audit Logging Trigger -->
+        <div id="tab-audit" class="tab-pane">
+            <div class="callout-box">
+                <strong>Ứng dụng thực tế: Trigger kiểm toán (Audit Trail):</strong><br>
+                Sử dụng trigger <code>AFTER UPDATE</code> để tự động ghi lại lịch sử điều chỉnh lương của nhân viên, đối chiếu giá trị lương cũ <code>OLD.salary</code> và lương mới <code>NEW.salary</code>.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>MySQL Script - Trigger ghi log khi sửa lương</span>
+                    <button class="copy-btn" onclick="copyText('q-audit')">Sao chép</button>
+                </div>
+                <pre id="q-audit"><span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> salary_audit (
+    audit_id <span class="sql-kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+    employee_id <span class="sql-kw">INT NOT NULL</span>,
+    employee_name <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    old_salary <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">NOT NULL</span>,
+    new_salary <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">NOT NULL</span>,
+    action_type <span class="sql-kw">VARCHAR</span>(20) <span class="sql-kw">NOT NULL</span>,
+    changed_at <span class="sql-kw">DATETIME NOT NULL</span>
+);
+
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">CREATE TRIGGER</span> trg_audit_salary_update
+<span class="sql-kw">AFTER UPDATE ON</span> employees
+<span class="sql-kw">FOR EACH ROW</span>
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">IF</span> OLD.salary <> NEW.salary <span class="sql-kw">THEN</span>
+        <span class="sql-kw">INSERT INTO</span> salary_audit (
+            employee_id, employee_name, old_salary, new_salary, action_type, changed_at
+        ) <span class="sql-kw">VALUES</span> (
+            OLD.id, OLD.name, OLD.salary, NEW.salary, <span class="sql-str">'SALARY_UPDATE'</span>, <span class="sql-fn">NOW</span>()
+        );
+    <span class="sql-kw">END IF</span>;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- Thử nghiệm tăng lương cho Jane Smith</span>
+<span class="sql-kw">UPDATE</span> employees <span class="sql-kw">SET</span> salary = 3200 <span class="sql-kw">WHERE</span> name = <span class="sql-str">'Jane Smith'</span>;</pre>
+            </div>
+            <h4>Dữ liệu tự động sinh trong bảng <code>salary_audit</code>:</h4>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>audit_id</th>
+                            <th>employee_id</th>
+                            <th>employee_name</th>
+                            <th>old_salary</th>
+                            <th>new_salary</th>
+                            <th>action_type</th>
+                            <th>changed_at</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>2</td>
+                            <td><strong>Jane Smith</strong></td>
+                            <td>2,000.00</td>
+                            <td><strong>3,200.00</strong></td>
+                            <td><span class="badge-dept dept-sales">SALARY_UPDATE</span></td>
+                            <td>2026-10-08 16:40:00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 4: NEW vs OLD Rules -->
+        <div id="tab-rules" class="tab-pane">
+            <div class="callout-box">
+                <strong>Ma trận khả dụng của các biến giả lập NEW và OLD trong MySQL Trigger:</strong>
+            </div>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sự kiện DML</th>
+                            <th>Biến OLD (Giá trị trước sự kiện)</th>
+                            <th>Biến NEW (Giá trị sau sự kiện)</th>
+                            <th>Mục đích sử dụng tiêu biểu</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>INSERT</strong></td>
+                            <td>Không khả dụng</td>
+                            <td>Khả dụng (<code>NEW.column</code>)</td>
+                            <td>Kiểm tra hợp lệ, gán giá trị mặc định, phân loại tự động</td>
+                        </tr>
+                        <tr>
+                            <td><strong>UPDATE</strong></td>
+                            <td>Khả dụng (<code>OLD.column</code>)</td>
+                            <td>Khả dụng (<code>NEW.column</code>)</td>
+                            <td>Đối chiếu biến động, ghi log kiểm toán (Audit Trail)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DELETE</strong></td>
+                            <td>Khả dụng (<code>OLD.column</code>)</td>
+                            <td>Không khả dụng</td>
+                            <td>Lưu trữ dữ liệu vào bảng thùng rác (Archive), kiểm tra ràng buộc hủy</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Tab 5: Complete SQL Script -->
+        <div id="tab-all" class="tab-pane">
+            <div class="callout-info">
+                Tập lệnh hoàn chỉnh bao gồm tạo CSDL company, bảng employees, trigger update_department, demo chèn dữ liệu và mở rộng bảng salary_audit.
+            </div>
+            <div class="code-container">
+                <div class="code-header">
+                    <span>trigger_demo.sql</span>
+                    <button class="copy-btn" onclick="copyText('qall')">Sao chép toàn bộ</button>
+                </div>
+                <pre id="qall"><span class="sql-com">-- 1. KHOI TAO CSDL VA BANG</span>
+<span class="sql-kw">CREATE DATABASE IF NOT EXISTS</span> company;
+<span class="sql-kw">USE</span> company;
+
+<span class="sql-kw">DROP TABLE IF EXISTS</span> employees;
+
+<span class="sql-kw">CREATE TABLE</span> employees (
+    id <span class="sql-kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+    name <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    department <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    salary <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">NOT NULL</span>
+);
+
+<span class="sql-com">-- 2. TAO TRIGGER PHAN LOAI PHONG BAN</span>
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">DROP TRIGGER IF EXISTS</span> update_department //
+<span class="sql-kw">CREATE TRIGGER</span> update_department
+<span class="sql-kw">BEFORE INSERT ON</span> employees
+<span class="sql-kw">FOR EACH ROW</span>
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">IF</span> NEW.salary >= 5000 <span class="sql-kw">THEN</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Management'</span>;
+    <span class="sql-kw">ELSEIF</span> NEW.salary >= 3000 <span class="sql-kw">THEN</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Sales'</span>;
+    <span class="sql-kw">ELSE</span>
+        <span class="sql-kw">SET</span> NEW.department = <span class="sql-str">'Support'</span>;
+    <span class="sql-kw">END IF</span>;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-com">-- 3. DEMO CHEN DU LIEU</span>
+<span class="sql-kw">INSERT INTO</span> employees (name, department, salary) <span class="sql-kw">VALUES</span>
+(<span class="sql-str">'John Doe'</span>, <span class="sql-str">'A'</span>, 3500),
+(<span class="sql-str">'Jane Smith'</span>, <span class="sql-str">'A'</span>, 2000),
+(<span class="sql-str">'David Johnson'</span>, <span class="sql-str">'A'</span>, 6000);
+
+<span class="sql-kw">SELECT</span> id, name, department, salary <span class="sql-kw">FROM</span> employees <span class="sql-kw">ORDER BY</span> id <span class="sql-kw">ASC</span>;
+
+<span class="sql-com">-- 4. MO RONG AUDIT LOGGING</span>
+<span class="sql-kw">CREATE TABLE IF NOT EXISTS</span> salary_audit (
+    audit_id <span class="sql-kw">INT AUTO_INCREMENT PRIMARY KEY</span>,
+    employee_id <span class="sql-kw">INT NOT NULL</span>,
+    employee_name <span class="sql-kw">VARCHAR</span>(50) <span class="sql-kw">NOT NULL</span>,
+    old_salary <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">NOT NULL</span>,
+    new_salary <span class="sql-kw">DECIMAL</span>(10,2) <span class="sql-kw">NOT NULL</span>,
+    action_type <span class="sql-kw">VARCHAR</span>(20) <span class="sql-kw">NOT NULL</span>,
+    changed_at <span class="sql-kw">DATETIME NOT NULL</span>
+);
+
+<span class="sql-kw">DELIMITER</span> //
+<span class="sql-kw">CREATE TRIGGER</span> trg_audit_salary_update
+<span class="sql-kw">AFTER UPDATE ON</span> employees
+<span class="sql-kw">FOR EACH ROW</span>
+<span class="sql-kw">BEGIN</span>
+    <span class="sql-kw">IF</span> OLD.salary <> NEW.salary <span class="sql-kw">THEN</span>
+        <span class="sql-kw">INSERT INTO</span> salary_audit (
+            employee_id, employee_name, old_salary, new_salary, action_type, changed_at
+        ) <span class="sql-kw">VALUES</span> (
+            OLD.id, OLD.name, OLD.salary, NEW.salary, <span class="sql-str">'SALARY_UPDATE'</span>, <span class="sql-fn">NOW</span>()
+        );
+    <span class="sql-kw">END IF</span>;
+<span class="sql-kw">END</span> //
+<span class="sql-kw">DELIMITER</span> ;
+
+<span class="sql-kw">UPDATE</span> employees <span class="sql-kw">SET</span> salary = 3200 <span class="sql-kw">WHERE</span> name = <span class="sql-str">'Jane Smith'</span>;
+<span class="sql-kw">SELECT</span> * <span class="sql-kw">FROM</span> salary_audit;</pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 CodeGym Vietnam - Khoá học Cơ sở dữ liệu MySQL. Thực hiện: Nguyễn Tuấn Đạt.</p>
+    </footer>
+</div>
+
+<script>
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        
+        const target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => {
+            if (btn.getAttribute('onclick').includes(tabId)) {
+                btn.classList.add('active');
+            }
+        });
+    }
+
+    function copyText(elementId) {
+        const text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Đã sao chép câu lệnh SQL vào bộ nhớ đệm!');
+        }).catch(err => {
+            console.error('Không thể sao chép: ', err);
+        });
+    }
+</script>
+
+</body>
+</html>
