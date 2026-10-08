@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Sử dụng CSS - Phòng Thí Nghiệm & Mô Phỏng Tương Tác</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-blue: #1D4ED8;
+            --primary-light: #EFF6FF;
+            --secondary: #0E7490;
+            --success: #15803D;
+            --warning: #B45309;
+            --danger: #B91C1C;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header */
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #0E7490 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #16A34A;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #BAE6FD;
+            max-width: 950px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+        }
+
+        .meta-info strong {
+            color: #FFFFFF;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Step Switcher */
+        .step-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-btn {
+            background: #F1F5F9;
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1.15rem;
+            border-radius: 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-btn:hover {
+            background: #E2E8F0;
+            color: var(--text-main);
+        }
+
+        .step-btn.active {
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            border-color: var(--primary-blue);
+        }
+
+        /* Stage Preview */
+        .stage-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 850px) {
+            .stage-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-pane {
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            background: #FFFFFF;
+            padding: 1.5rem;
+            min-height: 280px;
+        }
+
+        .preview-pane-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-pane {
+            background: #0F172A;
+            color: #F8FAFC;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-pane pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Box Model Visualizer */
+        .box-model-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: #F8FAFC;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .box-margin {
+            background: #FED7AA;
+            border: 2px dashed #F97316;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            width: 100%;
+            max-width: 620px;
+        }
+
+        .box-border {
+            background: #FEF08A;
+            border: 2px solid #EAB308;
+            padding: 1.5rem;
+            border-radius: 0.35rem;
+        }
+
+        .box-padding {
+            background: #BBF7D0;
+            border: 2px dashed #22C55E;
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+        }
+
+        .box-content {
+            background: #BFDBFE;
+            border: 2px solid #3B82F6;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-weight: 700;
+            color: #1E3A8A;
+        }
+
+        .box-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Specificity Comparison */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #F1F5F9;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: #F8FAFC;
+        }
+
+        .tag-badge {
+            display: inline-block;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.35rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .tag-type { background: #E0E7FF; color: #3730A3; }
+        .tag-id { background: #DCFCE7; color: #166534; }
+
+        /* Interactive Playground Controls */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            background: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .control-item label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .control-item input, .control-item select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 0.35rem;
+            font-size: 0.9rem;
+            background: #FFFFFF;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            background: #F1F5F9;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">Mô-đun CSS Cơ Bản</span>
+            <span class="badge-status">Hoàn Thành 5 Bước</span>
+        </div>
+        <h1>[Thực hành] Sử dụng CSS</h1>
+        <p>Phòng thí nghiệm trực quan hóa và mô phỏng tương tác quá trình học tập 5 bước của CodeGym: Từ HTML cơ bản, áp dụng Typography, Border, Box Model Padding cho đến ghi đè thuộc tính với ID Selector.</p>
+        <div class="meta-info">
+            <div>Học viên: <strong>Nguyễn Tuấn Đạt</strong></div>
+            <div>Khóa học: <strong>Thiết kế Giao diện Người dùng & Lập trình Web</strong></div>
+            <div>Mã nguồn chuẩn: <strong>index.html</strong></div>
+            <div>Kho lưu trữ: <strong>github.com/proyctk03-eng/git-final-practice</strong></div>
+        </div>
+    </header>
+
+    <!-- Step Progression Showcase -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Tiến Trình 5 Bước Thực Hành (Interactive Stepper)</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Bấm chọn từng bước để xem kết quả và mã nguồn</span>
+        </div>
+        <p class="section-subtitle">Theo dõi cách tài liệu HTML thay đổi diện mạo qua từng thuộc tính CSS được thêm vào.</p>
+
+        <div class="step-nav">
+            <button class="step-btn" onclick="selectStep(1)">Bước 1: HTML Cơ Bản</button>
+            <button class="step-btn" onclick="selectStep(2)">Bước 2: Font & Màu Sắc</button>
+            <button class="step-btn" onclick="selectStep(3)">Bước 3: Thêm Border</button>
+            <button class="step-btn" onclick="selectStep(4)">Bước 4: Thêm Padding</button>
+            <button class="step-btn active" onclick="selectStep(5)">Bước 5: Selector ID (Hoàn Chỉnh)</button>
+        </div>
+
+        <div class="stage-box">
+            <!-- Preview Stage -->
+            <div class="preview-pane">
+                <div class="preview-pane-header" id="previewTitle">Kết Quả Hiển Thị Trong Trình Duyệt (Bước 5)</div>
+                <div id="dynamicPreview">
+                    <!-- Injected dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- Code Stage -->
+            <div class="code-pane">
+                <pre><code id="dynamicCode"></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- CSS Box Model Visualization -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Mô Hình Hộp CSS (The CSS Box Model)</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Phân tích cấu trúc vật lý của thẻ &lt;p&gt;</span>
+        </div>
+        <p class="section-subtitle">Trong Bước 3 và Bước 4, ta sử dụng <code>border: 1px solid grey;</code> và <code>padding: 10px;</code> để định hình không gian của thẻ đoạn văn.</p>
+
+        <div class="box-model-container">
+            <div class="box-margin">
+                <span class="box-label" style="color: #9A3412;">Margin (Khoảng cách giữa các đoạn văn: mặc định 1em)</span>
+                <div class="box-border">
+                    <span class="box-label" style="color: #854D0E;">Border: 1px solid grey (Đường viền bao bọc phần tử)</span>
+                    <div class="box-padding">
+                        <span class="box-label" style="color: #166534;">Padding: 10px (Khoảng đệm từ viền đến nội dung văn bản)</span>
+                        <div class="box-content">
+                            Content: "Đây là đoạn văn bản." (Kích thước chữ 120%, font Arial)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Selector Specificity Table -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Cơ Chế Ghi Đè Độ Ưu Tiên (CSS Selector Specificity)</span>
+        </div>
+        <p class="section-subtitle">Giải thích tại sao trong Bước 5, đoạn văn bản có <code>id="element1"</code> đổi sang màu xanh dương (blue) thay vì màu đỏ (red) của thẻ <code>p</code> thông thường.</p>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Selector</th>
+                        <th>Loại Selector</th>
+                        <th>Trọng số ưu tiên (Specificity)</th>
+                        <th>Màu chữ áp dụng</th>
+                        <th>Kế thừa các thuộc tính khác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>p</code></td>
+                        <td><span class="tag-badge tag-type">Type Selector (Tag)</span></td>
+                        <td><strong>(0, 0, 1)</strong> (Điểm 1)</td>
+                        <td><span style="color: red; font-weight: bold;">red</span></td>
+                        <td>Áp dụng cho mọi thẻ <code>&lt;p&gt;</code> mặc định</td>
+                    </tr>
+                    <tr>
+                        <td><code>#element1</code></td>
+                        <td><span class="tag-badge tag-id">ID Selector</span></td>
+                        <td><strong>(1, 0, 0)</strong> (Điểm 100)</td>
+                        <td><span style="color: blue; font-weight: bold;">blue</span></td>
+                        <td>Ghi đè thuộc tính <code>color</code> vì có độ ưu tiên cao hơn 100 lần so với Type Selector. Vẫn kế thừa <code>font-family</code>, <code>font-size</code>, <code>border</code> và <code>padding</code> của thẻ <code>p</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Interactive Live Playground -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Thử Nghiệm Tùy Biến CSS (Live CSS Playground)</span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--primary-blue);">Thay đổi tham số để quan sát trực tiếp</span>
+        </div>
+        <p class="section-subtitle">Tự do điều chỉnh giá trị thuộc tính để hiểu sâu hơn về cơ chế hiển thị CSS.</p>
+
+        <div class="controls-grid">
+            <div class="control-item">
+                <label for="inputH1Color">Màu tiêu đề (h1 color):</label>
+                <select id="inputH1Color" onchange="updatePlayground()">
+                    <option value="blue" selected>blue</option>
+                    <option value="#0E7490">cyan (#0E7490)</option>
+                    <option value="#7C3AED">purple (#7C3AED)</option>
+                    <option value="#0F172A">dark (#0F172A)</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label for="inputPColor">Màu đoạn văn (p color):</label>
+                <select id="inputPColor" onchange="updatePlayground()">
+                    <option value="red" selected>red</option>
+                    <option value="#D97706">amber (#D97706)</option>
+                    <option value="#059669">green (#059669)</option>
+                    <option value="#475569">slate (#475569)</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label for="inputPadding">Khoảng đệm (padding):</label>
+                <select id="inputPadding" onchange="updatePlayground()">
+                    <option value="0px">0px (Không có đệm)</option>
+                    <option value="5px">5px</option>
+                    <option value="10px" selected>10px (Chuẩn CodeGym)</option>
+                    <option value="18px">18px (Rộng rãi)</option>
+                </select>
+            </div>
+            <div class="control-item">
+                <label for="inputBorder">Kiểu viền (border):</label>
+                <select id="inputBorder" onchange="updatePlayground()">
+                    <option value="none">none (Không viền)</option>
+                    <option value="1px solid grey" selected>1px solid grey (Chuẩn)</option>
+                    <option value="2px dashed #94A3B8">2px dashed #94A3B8</option>
+                    <option value="2px solid #2563EB">2px solid #2563EB</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="preview-pane" id="playgroundPreview">
+            <!-- Dynamically updated -->
+        </div>
+    </section>
+
+    <!-- Footer Action Bar -->
+    <footer class="action-bar">
+        <div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Bộ Tài Liệu & Mã Nguồn Bàn Giao</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Kho lưu trữ: proyctk03-eng/git-final-practice/using-css</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn-primary" target="_blank">Xem File index.html Chuẩn</a>
+            <a href="README.md" class="btn-secondary" target="_blank">Đọc Tài Liệu README.md</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const stepsData = {
+        1: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 1: Chưa Áp Dụng CSS)",
+            html: `<h1>Đây là đề mục</h1>\n<p>Đây là đoạn văn bản.</p>`,
+            code: `<!-- BƯỚC 1: HTML cơ bản chưa có CSS -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n</head>\n<body>\n    <h1>Đây là đề mục</h1>\n    <p>Đây là đoạn văn bản.</p>\n</body>\n</html>`,
+            render: function() {
+                return `<h1>Đây là đề mục</h1><p>Đây là đoạn văn bản.</p>`;
+            }
+        },
+        2: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 2: Thêm Font & Màu Sắc)",
+            code: `<!-- BƯỚC 2: Khai báo style, đổi font-family, color, font-size -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n    <style>\n        h1 {\n            color: blue;\n            font-family: Tahoma;\n            font-size: 200%;\n        }\n        p {\n            color: red;\n            font-family: Arial;\n            font-size: 120%;\n        }\n    </style>\n</head>\n<body>\n    <h1>Đây là đề mục</h1>\n    <p>Đây là đoạn văn bản.</p>\n</body>\n</html>`,
+            render: function() {
+                return `<h1 style="color: blue; font-family: Tahoma; font-size: 200%;">Đây là đề mục</h1><p style="color: red; font-family: Arial; font-size: 120%;">Đây là đoạn văn bản.</p>`;
+            }
+        },
+        3: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 3: Thêm Thuộc Tính Border)",
+            code: `<!-- BƯỚC 3: Thêm border cho thẻ p -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n    <style>\n        h1 {\n            color: blue;\n            font-family: Tahoma;\n            font-size: 200%;\n        }\n        p {\n            color: red;\n            font-family: Arial;\n            font-size: 120%;\n            border: 1px solid grey;\n        }\n    </style>\n</head>\n<body>\n    <h1>Đây là đề mục</h1>\n    <p>Đây là đoạn văn bản.</p>\n</body>\n</html>`,
+            render: function() {
+                return `<h1 style="color: blue; font-family: Tahoma; font-size: 200%;">Đây là đề mục</h1><p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey;">Đây là đoạn văn bản.</p>`;
+            }
+        },
+        4: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 4: Thêm Padding & Nhiều Đoạn Văn)",
+            code: `<!-- BƯỚC 4: Thêm padding 10px cho p -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n    <style>\n        h1 {\n            color: blue;\n            font-family: Tahoma;\n            font-size: 200%;\n        }\n        p {\n            color: red;\n            font-family: Arial;\n            font-size: 120%;\n            border: 1px solid grey;\n            padding: 10px;\n        }\n    </style>\n</head>\n<body>\n    <h1>Đây là đề mục</h1>\n    <p>Đây là đoạn văn bản.</p>\n    <p>Đây là đoạn văn bản.</p>\n    <p>Đây là đoạn văn bản.</p>\n</body>\n</html>`,
+            render: function() {
+                return `<h1 style="color: blue; font-family: Tahoma; font-size: 200%;">Đây là đề mục</h1>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>`;
+            }
+        },
+        5: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 5: Selector ID element1)",
+            code: `<!-- BƯỚC 5: Gán id cho phần tử để thay đổi css riêng -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Title</title>\n    <style>\n        h1 {\n            color: blue;\n            font-family: Tahoma;\n            font-size: 200%;\n        }\n        p {\n            color: red;\n            font-family: Arial;\n            font-size: 120%;\n            border: 1px solid grey;\n            padding: 10px;\n        }\n        #element1 {\n            color: blue;\n        }\n    </style>\n</head>\n<body>\n    <h1>Đây là đề mục</h1>\n    <p>Đây là đoạn văn bản.</p>\n    <p>Đây là đoạn văn bản.</p>\n    <p>Đây là đoạn văn bản.</p>\n    <p id="element1">Đoạn văn bản có thuộc tính id</p>\n</body>\n</html>`,
+            render: function() {
+                return `<h1 style="color: blue; font-family: Tahoma; font-size: 200%;">Đây là đề mục</h1>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>\n<p style="color: red; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đây là đoạn văn bản.</p>\n<p style="color: blue; font-family: Arial; font-size: 120%; border: 1px solid grey; padding: 10px; margin: 0.5rem 0;">Đoạn văn bản có thuộc tính id</p>`;
+            }
+        }
+    };
+
+    function selectStep(stepNum) {
+        document.querySelectorAll('.step-btn').forEach((btn, index) => {
+            if (index + 1 === stepNum) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const step = stepsData[stepNum];
+        document.getElementById('previewTitle').innerText = step.title;
+        document.getElementById('dynamicPreview').innerHTML = step.render();
+        document.getElementById('dynamicCode').textContent = step.code;
+    }
+
+    function updatePlayground() {
+        const h1Color = document.getElementById('inputH1Color').value;
+        const pColor = document.getElementById('inputPColor').value;
+        const padding = document.getElementById('inputPadding').value;
+        const border = document.getElementById('inputBorder').value;
+
+        const playgroundPreview = document.getElementById('playgroundPreview');
+        playgroundPreview.innerHTML = `
+            <h1 style="color: ${h1Color}; font-family: Tahoma; font-size: 200%;">Đây là đề mục</h1>
+            <p style="color: ${pColor}; font-family: Arial; font-size: 120%; border: ${border}; padding: ${padding}; margin: 0.5rem 0;">Đây là đoạn văn bản thường.</p>
+            <p style="color: blue; font-family: Arial; font-size: 120%; border: ${border}; padding: ${padding}; margin: 0.5rem 0;">Đoạn văn bản có thuộc tính id (color: blue ghi đè).</p>
+        `;
+    }
+
+    // Initialize
+    selectStep(5);
+    updatePlayground();
+</script>
+
+</body>
+</html>

@@ -31,6 +31,7 @@
 | 19 | **[Thực hành] Trigger trong MySQL** | `sql-trigger/` | MySQL Trigger (`BEFORE INSERT`, `NEW.col`, `AFTER UPDATE`, Audit Log) | Hoàn thành |
 | 20 | **[Thực hành] Thảm Họa Over-Indexing Tại QuickFeed** | `quickfeed-index-optimization/` | MySQL Index Optimization, Cardinality, B-Tree Trade-off, `information_schema` | Hoàn thành |
 | 21 | **[Bài tập] Giải Cứu IoT SmartFactory (Tối ưu Index)** | `smartfactory-index-tradeoff/` | MySQL Covering vs Lean Index, Write Penalty, Page Split, Storage Trade-off | Hoàn thành |
+| 22 | **[Thực hành] Sử dụng CSS** | `using-css/` | HTML5, CSS3, Font-family, Border, Padding, Specificity (`#id`) | Hoàn thành |
 
 ---
 
@@ -362,7 +363,24 @@ Giải cứu hệ thống IoT SmartFactory với 10,000 cảm biến công nghi�
 
 ---
 
-## 22. Hướng dẫn mở và kiểm tra trực tiếp
+## 22. Bài thực hành 22: [Thực hành] Sử dụng CSS
+
+### 22.1. Mục tiêu & Quá trình thực hiện
+Luyện tập các thuộc tính CSS cơ bản và hiểu sâu về cơ chế hiển thị hộp (CSS Box Model) cùng độ ưu tiên bộ chọn (CSS Specificity) qua 5 bước thực hành:
+- **Bước 1**: Khởi tạo tài liệu HTML5 cơ bản với tiêu đề `<h1>` và đoạn văn `<p>`.
+- **Bước 2**: Khai báo `<style>` nội bộ trong `<head>`, thiết lập `font-family` (`Tahoma` cho `h1`, `Arial` cho `p`), `color` (`blue` cho `h1`, `red` cho `p`) và `font-size` (`200%`, `120%`).
+- **Bước 3**: Vẽ đường viền `border: 1px solid grey;` cho thẻ `<p>`.
+- **Bước 4**: Quy định khoảng đệm `padding: 10px;` từ viền đến nội dung chữ và tạo 3 đoạn văn bản đồng dạng.
+- **Bước 5**: Định nghĩa bộ chọn định danh `#element1 { color: blue; }` và gán `id="element1"` cho đoạn văn thứ tư để kiểm chứng tính năng ghi đè thuộc tính CSS Specificity `(1, 0, 0) > (0, 0, 1)`.
+
+### 22.2. Tài liệu và Mã nguồn bàn giao
+- Mã nguồn chuẩn CodeGym: `using-css/index.html` (Hoàn thành đầy đủ Bước 5, trùng khớp nhánh `develop` của CodeGym)
+- Giao diện phòng thí nghiệm & mô phỏng tương tác: `using-css/demo.html`
+- Thuyết minh kỹ thuật & phân tích Box Model: `using-css/README.md`
+
+---
+
+## 23. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -385,3 +403,4 @@ Giải cứu hệ thống IoT SmartFactory với 10,000 cảm biến công nghi�
 19. **Mở Thực hành Trigger**: Mở file `sql-trigger/index.html` trong trình duyệt.
 20. **Mở Thực hành Tối ưu Index QuickFeed**: Mở file `quickfeed-index-optimization/index.html` trong trình duyệt.
 21. **Mở Bài tập Tối ưu Index IoT SmartFactory**: Mở file `smartfactory-index-tradeoff/index.html` trong trình duyệt.
+22. **Mở Thực hành Sử dụng CSS**: Mở file `using-css/index.html` hoặc `using-css/demo.html` trong trình duyệt.
