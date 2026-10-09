@@ -1,320 +1,34 @@
-<!DOCTYPE html>
-<html lang="vi">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Báo Cáo Thực Hành: Phối Màu Cho Newsletter (Adobe Color & Bootstrap)</title>
-    <!-- Bootstrap CSS 5.3.3 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --app-bg: #f8fafc;
-            --app-text: #0f172a;
-            --app-card: #ffffff;
-            --app-border: #e2e8f0;
-            --brand-primary: #0065FF;
-            --brand-sunset: #E65100;
-        }
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--app-bg);
-            color: var(--app-text);
-            line-height: 1.6;
-            padding-bottom: 60px;
-        }
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-        .code-font {
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .dashboard-header {
-            background: linear-gradient(135deg, #091e42 0%, #172b4d 100%);
-            color: #ffffff;
-            padding: 48px 0 36px;
-            margin-bottom: 32px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .swatch-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 14px;
-            border-radius: 8px;
-            background: #ffffff;
-            border: 1px solid var(--app-border);
-            font-size: 0.88rem;
-            margin: 4px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-
-        .color-box {
-            width: 24px;
-            height: 24px;
-            border-radius: 6px;
-            border: 1px solid rgba(0,0,0,0.15);
-        }
-
-        .tab-btn {
-            padding: 10px 22px;
-            font-weight: 600;
-            border-radius: 10px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-
-        .tab-btn.active {
-            background: #ffffff;
-            color: var(--brand-primary);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            border-color: var(--app-border);
-        }
-
-        .preview-frame {
-            width: 100%;
-            height: 820px;
-            border: none;
-            border-radius: 12px;
-            background: #f4f5f7;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.05);
-        }
-
-        .contrast-badge {
-            font-size: 0.75rem;
-            font-weight: 700;
-            padding: 3px 8px;
-            border-radius: 4px;
-            background: #e3fcef;
-            color: #006644;
-        }
-
-        .rule-card {
-            border-radius: 12px;
-            border: 1px solid var(--app-border);
-            background: var(--app-card);
-            padding: 24px;
-            height: 100%;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.03);
-        }
-    </style>
+    <title>Login - Nguyen Tuan Dat</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-
-    <!-- Header Báo Cáo Thực Hành -->
-    <header class="dashboard-header">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <span class="badge bg-primary bg-opacity-25 text-white border border-white border-opacity-25 px-3 py-2 rounded-pill mb-3">
-                        <i class="fa-solid fa-graduation-cap me-1"></i> Báo Cáo Bài Tập: Thiết Kế UI/UX & Phối Màu
-                    </span>
-                    <h1 class="display-6 fw-bold mb-2">Thực Hành Phối Màu Cho Newsletter</h1>
-                    <p class="lead opacity-75 mb-0">
-                        Ứng dụng quy tắc bánh xe màu Adobe Color, kiến trúc Bootstrap 5.3.3 và CSS Variables để tạo 2 phong cách thị giác đối lập.
-                    </p>
-                </div>
-                <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                    <div class="d-inline-flex flex-column gap-2">
-                        <a href="newsletter_v1.html" target="_blank" class="btn btn-light fw-bold text-primary px-3 py-2 text-start">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Mở Bản 1 (Cool Productivity)
-                        </a>
-                        <a href="newsletter_v2.html" target="_blank" class="btn btn-warning fw-bold text-dark px-3 py-2 text-start">
-                            <i class="fa-solid fa-arrow-up-right-from-square me-2"></i>Mở Bản 2 (Sunset Energy)
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-
-        <!-- Bảng Phân Tích Màu Sắc Adobe Color -->
-        <div class="row g-4 mb-5">
-            <!-- Palette 1 Card -->
-            <div class="col-lg-6">
-                <div class="rule-card" style="border-top: 5px solid #0065FF;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="fw-bold mb-0 text-primary">
-                            <i class="fa-solid fa-palette me-2"></i>Bộ Màu 1: Cool Productivity
-                        </h4>
-                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle">Tương đồng & Bổ túc</span>
-                    </div>
-                    <p class="text-secondary small mb-3">
-                        Lấy cảm hứng từ nhận diện Trello / Atlassian. Gợi cảm xúc tin cậy, trật tự, tập trung và thúc đẩy năng suất làm việc nhóm.
-                    </p>
-                    
-                    <div class="d-flex flex-wrap mb-3">
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #0065FF;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#0065FF</div>
-                                <div class="text-muted small">Primary (Electric Blue)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #00A3BF;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#00A3BF</div>
-                                <div class="text-muted small">Secondary (Sky Cyan)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #36B37E;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#36B37E</div>
-                                <div class="text-muted small">Accent (Emerald)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #172B4D;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#172B4D</div>
-                                <div class="text-muted small">Text (Deep Navy)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-top pt-3 mt-2 d-flex justify-content-between align-items-center">
-                        <span class="small text-muted"><i class="fa-solid fa-check-circle text-success me-1"></i>Độ tương phản chữ: <strong>12.8:1</strong></span>
-                        <span class="contrast-badge">WCAG 2.2 AAA PASS</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Palette 2 Card -->
-            <div class="col-lg-6">
-                <div class="rule-card" style="border-top: 5px solid #E65100;">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h4 class="fw-bold mb-0" style="color: #E65100;">
-                            <i class="fa-solid fa-fire me-2"></i>Bộ Màu 2: Sunset Creative Energy
-                        </h4>
-                        <span class="badge bg-warning-subtle text-dark border border-warning-subtle">Tam giác màu & Bổ túc ấm</span>
-                    </div>
-                    <p class="text-secondary small mb-3">
-                        Tông cam đất kết hợp tím thạch anh và bạc hà. Gợi cảm xúc ấm áp, nhiệt huyết, thúc đẩy tư duy đổi mới và gắn kết cộng đồng.
-                    </p>
-                    
-                    <div class="d-flex flex-wrap mb-3">
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #E65100;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#E65100</div>
-                                <div class="text-muted small">Primary (Sunset Tangerine)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #6A1B9A;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#6A1B9A</div>
-                                <div class="text-muted small">Secondary (Royal Plum)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #00897B;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#00897B</div>
-                                <div class="text-muted small">Accent (Mint Teal)</div>
-                            </div>
-                        </div>
-                        <div class="swatch-chip">
-                            <div class="color-box" style="background: #261C14;"></div>
-                            <div>
-                                <div class="fw-bold code-font">#261C14</div>
-                                <div class="text-muted small">Text (Espresso Roast)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="border-top pt-3 mt-2 d-flex justify-content-between align-items-center">
-                        <span class="small text-muted"><i class="fa-solid fa-check-circle text-success me-1"></i>Độ tương phản chữ: <strong>13.5:1</strong></span>
-                        <span class="contrast-badge">WCAG 2.2 AAA PASS</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bộ Điều Khiển Chuyển Đổi Xem Trực Tiếp -->
-        <div class="card border-0 shadow-sm mb-4">
-            <div class="card-body p-3 d-flex flex-wrap justify-content-between align-items-center gap-3">
-                <div class="d-flex gap-2 p-1 bg-light rounded-3 border">
-                    <button class="tab-btn active" id="btnShowV1" onclick="switchView('v1')">
-                        <i class="fa-solid fa-eye me-1"></i>Xem Bản 1 (Cool Productivity)
-                    </button>
-                    <button class="tab-btn" id="btnShowV2" onclick="switchView('v2')">
-                        <i class="fa-solid fa-eye me-1"></i>Xem Bản 2 (Sunset Energy)
-                    </button>
-                    <button class="tab-btn" id="btnShowBoth" onclick="switchView('both')">
-                        <i class="fa-solid fa-columns me-1"></i>So Sánh Song Song
-                    </button>
-                </div>
-                <div class="text-muted small">
-                    <i class="fa-solid fa-circle-info me-1"></i>Khung hiển thị responsive độc lập theo thời gian thực
-                </div>
-            </div>
-        </div>
-
-        <!-- Khung Hiển Thị Trực Tiếp -->
-        <div id="singleFrameContainer">
-            <iframe id="livePreviewIframe" src="newsletter_v1.html" class="preview-frame" title="Xem trước Newsletter"></iframe>
-        </div>
-
-        <div id="splitFrameContainer" class="d-none">
-            <div class="row g-4">
-                <div class="col-lg-6">
-                    <div class="p-2 bg-white rounded-3 border mb-2 text-center fw-bold text-primary">
-                        <i class="fa-solid fa-palette me-1"></i>Bản 1: Cool Productivity (#0065FF)
-                    </div>
-                    <iframe src="newsletter_v1.html" class="preview-frame" style="height: 750px;" title="Bản 1"></iframe>
-                </div>
-                <div class="col-lg-6">
-                    <div class="p-2 bg-white rounded-3 border mb-2 text-center fw-bold" style="color: #E65100;">
-                        <i class="fa-solid fa-fire me-1"></i>Bản 2: Sunset Energy (#E65100)
-                    </div>
-                    <iframe src="newsletter_v2.html" class="preview-frame" style="height: 750px;" title="Bản 2"></iframe>
-                </div>
-            </div>
-        </div>
-
+<body class="text-center">
+<form class="form-signin">
+    <img class="mb-4" src="bootstrap.png" alt="Bootstrap" width="72"
+         height="72">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
     </div>
-
-    <!-- Script Chuyển Đổi View Trực Quan -->
-    <script>
-        function switchView(mode) {
-            const btnV1 = document.getElementById('btnShowV1');
-            const btnV2 = document.getElementById('btnShowV2');
-            const btnBoth = document.getElementById('btnShowBoth');
-            const singleContainer = document.getElementById('singleFrameContainer');
-            const splitContainer = document.getElementById('splitFrameContainer');
-            const iframe = document.getElementById('livePreviewIframe');
-
-            btnV1.classList.remove('active');
-            btnV2.classList.remove('active');
-            btnBoth.classList.remove('active');
-
-            if (mode === 'v1') {
-                btnV1.classList.add('active');
-                singleContainer.classList.remove('d-none');
-                splitContainer.classList.add('d-none');
-                iframe.src = 'newsletter_v1.html';
-            } else if (mode === 'v2') {
-                btnV2.classList.add('active');
-                singleContainer.classList.remove('d-none');
-                splitContainer.classList.add('d-none');
-                iframe.src = 'newsletter_v2.html';
-            } else if (mode === 'both') {
-                btnBoth.classList.add('active');
-                singleContainer.classList.add('d-none');
-                splitContainer.classList.remove('d-none');
-            }
-        }
-    </script>
-
+    <button class="btn btn-lg btn-primary btn-block w-100" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017-2026 - Nguyen Tuan Dat</p>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+        crossorigin="anonymous"></script>
 </body>
 </html>
