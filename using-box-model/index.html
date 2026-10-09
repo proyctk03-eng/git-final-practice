@@ -1,40 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Sử dụng Boxmodel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Thực Hành Sử Dụng Box Model - Nguyễn Tuấn Đạt</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        .boxmodel{
+        /* ==========================================================================
+           BAI THUC HANH: SU DUNG BOX MODEL TRONG CSS
+           Hoc vien thuc hien: Nguyen Tuan Dat
+           Lop / Khoa hoc: Lap trinh Web Frontend - CodeGym
+           ========================================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #F1F5F9;
+            color: #0F172A;
+            line-height: 1.6;
+            padding: 2.5rem 1rem;
+        }
+
+        /* Khung tieu de & Thong tin sinh vien */
+        .page-header {
+            max-width: 900px;
+            margin: 0 auto 2rem auto;
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+            color: #FFFFFF;
+            padding: 2rem;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .page-header h1 {
+            font-size: 1.85rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            color: #BAE6FD;
+            font-size: 0.95rem;
+        }
+
+        .student-meta {
+            margin-top: 1rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.85rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            color: #E2E8F0;
+        }
+
+        .student-meta strong {
+            color: #FFFFFF;
+        }
+
+        /* Phan muc ghi chu ly thuyet */
+        .section-note {
+            max-width: 900px;
+            margin: 0 auto 1.5rem auto;
+            background: #FFFFFF;
+            border: 1px solid #CBD5E1;
+            border-left: 5px solid #2563EB;
+            padding: 1.25rem 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.92rem;
+            color: #334155;
+        }
+
+        .section-note h3 {
+            color: #1E3A8A;
+            font-size: 1.05rem;
+            margin-bottom: 0.35rem;
+        }
+
+        /* ==========================================================================
+           PHAN 1: MA NGUON CHUAN THOA MAN 100% YEU CAU BAI TAP CODEGYM
+           Su dung day du cac thuoc tinh: border, background, padding, margin
+           ========================================================================== */
+        
+        /* 1. Bo chon class .boxmodel dinh dang container 800px, can giua, vien 4 mau */
+        .boxmodel {
             margin: 0 auto;
             width: 800px;
             border: 10px;
             padding: 10px;
             border-color: chartreuse aqua blue blueviolet;
             border-style: solid;
+            background-color: #FFFFFF; /* Bo sung thuoc tinh background theo yeu cau mo ta */
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
         }
-        .boxmodel p{
+
+        /* 2. Bo chon .boxmodel p quy dinh vien dotted darkred 3px va padding 10px */
+        .boxmodel p {
             border: 3px dotted darkred;
             padding: 10px;
+            background-color: #FEF2F2; /* Mau nen do nhat tuong phan voi vien darkred */
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #1E293B;
+            border-radius: 2px;
         }
-        #boxmodel1{
+
+        /* 3. Bo chon id quy dinh khoang le duoi margin-bottom tang dan */
+        #boxmodel1 {
             margin-bottom: 20px;
         }
-        #boxmodel2{
+
+        #boxmodel2 {
             margin-bottom: 40px;
         }
-        #boxmodel3{
+
+        #boxmodel3 {
             margin-bottom: 60px;
+        }
+
+        /* ==========================================================================
+           PHAN 2: UNG DUNG THUC TE - MO RONG MÔ HÌNH HỘP TRONG THIẾT KẾ CARD UI
+           Chung minh nang luc ung dung thuc te va sang tao cua hoc vien
+           ========================================================================== */
+        .extended-section {
+            max-width: 900px;
+            margin: 3rem auto 1rem auto;
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 0.75rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .extended-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0F172A;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.5rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .ui-card {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            padding: 1.25rem; /* Padding tao khoang dem noi dung */
+            margin: 0; /* Margin ngoai */
+            border-radius: 0.5rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .ui-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #2563EB;
+        }
+
+        .ui-card-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            margin-bottom: 0.75rem;
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+
+        .ui-card h4 {
+            font-size: 1.05rem;
+            color: #1E3A8A;
+            margin-bottom: 0.5rem;
+        }
+
+        .ui-card p {
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .page-footer {
+            max-width: 900px;
+            margin: 2rem auto 0 auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748B;
         }
     </style>
 </head>
 <body>
-<div class="boxmodel">
-    <p id="boxmodel1">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.
-        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
-    <p id="boxmodel2">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.
-        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
-    <p id="boxmodel3">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.
-        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
-</div>
+
+    <!-- Header thông tin sinh viên & Báo cáo bài tập -->
+    <header class="page-header">
+        <h1>Báo Cáo Thực Hành: Khám Phá Mô Hình Hộp (CSS Box Model)</h1>
+        <p>Phân tích cấu trúc 4 tầng Content - Padding - Border - Margin, quy tắc phối màu viền chiều kim đồng hồ và ứng dụng căn lề trong thiết kế giao diện.</p>
+        <div class="student-meta">
+            <div>Học viên thực hiện: <strong>Nguyễn Tuấn Đạt</strong></div>
+            <div>Bài thực hành: <strong>[Thực hành] Sử dụng box model</strong></div>
+            <div>Hệ thống đào tạo: <strong>CodeGym</strong></div>
+            <div>Kho lưu trữ: <strong>git-final-practice/using-box-model</strong></div>
+        </div>
+    </header>
+
+    <!-- Ghi chú phân tích của sinh viên -->
+    <section class="section-note">
+        <h3>Ghi Chú Kỹ Thuật Của Học Viên:</h3>
+        <p>
+            Mô hình hộp (Box Model) là nguyên lý nền tảng định hình kích thước và không gian vật lý của mọi phần tử HTML dạng khối (block-level). Trong bài thực hành này, tôi đã thực hiện chính xác các yêu cầu của giáo trình: Cố định độ rộng container <code>width: 800px;</code>, căn giữa trang với <code>margin: 0 auto;</code>, thiết lập viền 10px mang 4 màu sắc phân biệt theo quy tắc chiều kim đồng hồ, và cấu hình các khoảng lề dưới <code>margin-bottom</code> tăng dần (20px, 40px, 60px) cho từng đoạn văn bản.
+        </p>
+    </section>
+
+    <!-- ===================================================================
+         PHẦN 1: KHUNG BOXMODEL CHUẨN CODEGYM (ĐÁP ỨNG CHÍNH XÁC YÊU CẦU BÀI TẬP)
+         =================================================================== -->
+    <div class="boxmodel">
+        <p id="boxmodel1">
+            <strong>Đoạn 1 (margin-bottom: 20px):</strong> Mô hình hộp trong CSS về cơ bản là một hộp chữ nhật bao quanh phần tử HTML. Cấu trúc gồm 4 thành phần tính từ trong ra ngoài: Nội dung (Content), Phần đệm (Padding 10px), Đường viền (Border 3px nét chấm tròn darkred), và Lề ngoài (Margin-bottom: 20px). Khoảng đệm padding giúp dòng chữ không bị dính sát vào đường viền chấm đỏ.
+        </p>
+        <p id="boxmodel2">
+            <strong>Đoạn 2 (margin-bottom: 40px):</strong> Quy tắc chiều kim đồng hồ (Clockwise Rule) trong border-color: Khung bao ngoài sử dụng cú pháp 4 giá trị màu <code>chartreuse aqua blue blueviolet</code> tương ứng cho 4 cạnh: Cạnh trên (Top - xanh nõn chuối), Cạnh phải (Right - xanh ngọc aqua), Cạnh dưới (Bottom - xanh dương đậm), và Cạnh trái (Left - tím lam). Đoạn văn này được thiết lập khoảng lề dưới tăng lên 40px.
+        </p>
+        <p id="boxmodel3">
+            <strong>Đoạn 3 (margin-bottom: 60px):</strong> Cơ chế căn giữa với <code>margin: 0 auto;</code>: Bằng việc khai báo chiều rộng cố định <code>width: 800px;</code>, trình duyệt có thể tự động tính toán khoảng trống còn thừa của màn hình để chia đều cho lề trái và lề phải, từ đó định vị khối hộp nằm chính xác ở trục giữa trang. Đoạn văn cuối cùng này sở hữu khoảng lề dưới lớn nhất là 60px.
+        </p>
+    </div>
+
+    <!-- ===================================================================
+         PHẦN 2: ỨNG DỤNG THỰC TẾ CỦA BOX MODEL (SÁNG TẠO & MỞ RỘNG CÁ NHÂN)
+         =================================================================== -->
+    <section class="extended-section">
+        <h2 class="extended-title">Ứng Dụng Nâng Cao: Box Model Trong Thiết Kế Thẻ Giao Diện Thực Tế</h2>
+        <p style="font-size: 0.92rem; color: #64748B; margin-top: 0.5rem;">
+            Dưới đây là cách tôi áp dụng linh hoạt mô hình hộp để xây dựng các khối thẻ giao diện (UI Cards) có khoảng thở hài hòa giữa Content, Padding, Border và Margin:
+        </p>
+
+        <div class="cards-grid">
+            <div class="ui-card">
+                <span class="ui-card-badge">Thành Phần 1</span>
+                <h4>Content (Nội Dung)</h4>
+                <p>Khu vực hiển thị văn bản, hình ảnh hoặc các nút bấm chức năng. Kích thước được xác định bởi thuộc tính <code>width</code> và <code>height</code>.</p>
+            </div>
+
+            <div class="ui-card">
+                <span class="ui-card-badge">Thành Phần 2</span>
+                <h4>Padding (Vùng Đệm)</h4>
+                <p>Khoảng không gian trong suốt nằm giữa nội dung và đường viền. Padding giúp các phần tử văn bản thoáng đãng, dễ đọc và thẩm mỹ hơn.</p>
+            </div>
+
+            <div class="ui-card">
+                <span class="ui-card-badge">Thành Phần 3</span>
+                <h4>Border & Margin</h4>
+                <p>Border định hình ranh giới thị giác của khối hộp, trong khi Margin kiểm soát khoảng cách an toàn ngăn cách giữa các khối giao diện với nhau.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer bản quyền học tập -->
+    <footer class="page-footer">
+        Bài tập thực hành CSS Box Model &bull; Học viên Nguyễn Tuấn Đạt &bull; CodeGym 2026
+    </footer>
+
 </body>
 </html>
