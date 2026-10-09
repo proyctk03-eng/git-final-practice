@@ -34,6 +34,7 @@
 | 22 | **[Thực hành] Sử dụng CSS** | `using-css/` | HTML5, CSS3, Font-family, Border, Padding, Specificity (`#id`) | Hoàn thành |
 | 23 | **[Bài tập] Định dạng văn bản với CSS** | `css-text-formatting/` | HTML5, CSS3 Typography, `font-style`, `text-align`, `font-size`, `text-indent`, `color` | Hoàn thành |
 | 24 | **[Thực hành] Sử dụng box model** | `using-box-model/` | HTML5, CSS3 Box Model, Content, Padding, Border (4 colors), Margin (`0 auto`) | Hoàn thành |
+| 25 | **[Bài tập] Tạo giao diện giản lược của trang chủ Facebook** | `facebook-homepage-layout/` | HTML5, CSS3 Position (`fixed`, `relative`), 3-Column Layout, Sidebars, Responsive | Hoàn thành |
 
 ---
 
@@ -417,7 +418,37 @@ Luyện tập thành thạo mô hình hộp trong CSS và kiểm soát không gi
 
 ---
 
-## 25. Hướng dẫn mở và kiểm tra trực tiếp
+## 25. Bài tập 25: [Bài tập] Tạo Giao Diện Giản Lược Của Trang Chủ Facebook
+
+### 25.1. Mục tiêu & Các yêu cầu kỹ thuật bố cục
+Xây dựng giao diện trang chủ Facebook giản lược nhưng chuẩn mực, tái hiện trung thực cấu trúc layout chuyên nghiệp của mạng xã hội hiện đại:
+- **Thanh điều hướng cố định (Fixed Header)**:
+  - Thiết lập `position: fixed; top: 0; left: 0; width: 100%; height: 56px; z-index: 1000;` ghim chặt ở đỉnh màn hình, luôn hiển thị khi người dùng cuộn nội dung.
+  - Phân tách 3 phân vùng rõ ràng: Cụm thương hiệu và thanh tìm kiếm bên trái; Cụm 5 biểu tượng điều hướng trung tâm (Home, Watch, Marketplace, Groups, Gaming) có gạch chỉ báo `active`; Cụm công cụ người dùng bên phải (Menu, Messenger, Notifications, Avatar trang cá nhân).
+- **Thanh điều hướng bên trái (Left Sidebar Navigation)**:
+  - Sử dụng `position: fixed; top: 56px; left: 0; width: 280px; height: calc(100vh - 56px); overflow-y: auto;`.
+  - Cuộn độc lập không làm trôi thanh Header, hiển thị danh mục phím tắt trang cá nhân, Bạn bè, Nhóm, Marketplace, Video, Đã lưu và Lối tắt tùy chỉnh.
+- **Thanh liên hệ bên phải (Right Sidebar Contacts & Sponsored)**:
+  - Sử dụng `position: fixed; top: 56px; right: 0; width: 280px; height: calc(100vh - 56px); overflow-y: auto;`.
+  - Hiển thị khối Được tài trợ (Sponsored ads) và danh sách Người liên hệ trực tuyến kèm chấm xanh trạng thái `online`.
+- **Dòng thời gian trung tâm (Main Feed Column)**:
+  - Bố cục linh hoạt căn giữa (`margin: 0 auto; max-width: 680px; padding: 16px 8px;`).
+  - Khay tin ngắn dạng thẻ (Stories Tray) với hiệu ứng chuyển động tương tác và ảnh bìa sinh động.
+  - Hộp soạn bài viết (Post Composer) kèm các nút đính kèm Video trực tiếp, Ảnh/video và Cảm xúc/hoạt động.
+  - Danh sách bài viết đầy đủ tính năng: Tác giả, thời gian đăng, quyền riêng tư, nội dung bài viết, hình ảnh trực quan, bộ đếm cảm xúc và các nút tương tác (Thích, Bình luận, Chia sẻ) có tương tác JavaScript mô phỏng thực tế.
+- **Thiết kế thích ứng đa màn hình (Responsive Breakpoints)**:
+  - Màn hình rộng (> 1100px): Hiển thị đầy đủ 3 cột hoàn chỉnh.
+  - Màn hình trung bình (820px - 1100px): Tự động ẩn thanh bên phải, ưu tiên không gian cho Feed và thanh bên trái.
+  - Màn hình di động (< 820px): Ẩn cả hai thanh bên, thu gọn Header và chuyển Feed về 1 cột toàn màn hình mượt mà.
+
+### 25.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện Facebook hoàn chỉnh: `facebook-homepage-layout/index.html` (Bố cục 3 cột, Fixed Header, tương tác Like/Bình luận)
+- Phòng thí nghiệm kiến trúc tương tác: `facebook-homepage-layout/demo.html` (Mô phỏng khung dây Wireframe, bật/tắt từng thành phần)
+- Thuyết minh kỹ thuật chi tiết: `facebook-homepage-layout/README.md`
+
+---
+
+## 26. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -443,3 +474,4 @@ Luyện tập thành thạo mô hình hộp trong CSS và kiểm soát không gi
 22. **Mở Thực hành Sử dụng CSS**: Mở file `using-css/index.html` hoặc `using-css/demo.html` trong trình duyệt.
 23. **Mở Bài tập Định dạng văn bản với CSS**: Mở file `css-text-formatting/index.html` hoặc `css-text-formatting/demo.html` trong trình duyệt.
 24. **Mở Thực hành Sử dụng box model**: Mở file `using-box-model/index.html` hoặc `using-box-model/demo.html` trong trình duyệt.
+25. **Mở Bài tập Giao diện Facebook**: Mở file `facebook-homepage-layout/index.html` hoặc `facebook-homepage-layout/demo.html` trong trình duyệt.
