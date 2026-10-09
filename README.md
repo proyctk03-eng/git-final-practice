@@ -33,6 +33,7 @@
 | 21 | **[Bài tập] Giải Cứu IoT SmartFactory (Tối ưu Index)** | `smartfactory-index-tradeoff/` | MySQL Covering vs Lean Index, Write Penalty, Page Split, Storage Trade-off | Hoàn thành |
 | 22 | **[Thực hành] Sử dụng CSS** | `using-css/` | HTML5, CSS3, Font-family, Border, Padding, Specificity (`#id`) | Hoàn thành |
 | 23 | **[Bài tập] Định dạng văn bản với CSS** | `css-text-formatting/` | HTML5, CSS3 Typography, `font-style`, `text-align`, `font-size`, `text-indent`, `color` | Hoàn thành |
+| 24 | **[Thực hành] Sử dụng box model** | `using-box-model/` | HTML5, CSS3 Box Model, Content, Padding, Border (4 colors), Margin (`0 auto`) | Hoàn thành |
 
 ---
 
@@ -399,7 +400,24 @@ Luyện tập sử dụng các thuộc tính CSS Typography để định dạng
 
 ---
 
-## 24. Hướng dẫn mở và kiểm tra trực tiếp
+## 24. Bài thực hành 24: [Thực hành] Sử Dụng Box Model
+
+### 24.1. Mục tiêu & Các thuộc tính Box Model sử dụng
+Luyện tập thành thạo mô hình hộp trong CSS và kiểm soát không gian vật lý của khối phần tử qua 4 bước thực hành:
+- **`width: 800px;` & `margin: 0 auto;`**: Cố định bề rộng container và căn giữa đối xứng hoàn hảo trên màn hình.
+- **`border: 10px solid;` & `border-color: chartreuse aqua blue blueviolet;`**: Áp dụng quy tắc chiều kim đồng hồ (Clockwise rule) thiết lập 4 màu riêng biệt cho 4 cạnh viền (Trên: Xanh nõn chuối, Phải: Xanh ngọc aqua, Dưới: Xanh dương, Trái: Tím lam).
+- **`padding: 10px;`**: Quy định khoảng đệm bên trong hộp từ viền đến nội dung chữ.
+- **`.boxmodel p`**: Định dạng viền chấm tròn nét đứt `border: 3px dotted darkred;` và `padding: 10px;` cho các phần tử con.
+- **`margin-bottom`**: Sử dụng các bộ chọn định danh `#boxmodel1` (20px), `#boxmodel2` (40px), `#boxmodel3` (60px) để tạo khoảng cách lề dưới phân tầng tăng dần đều.
+
+### 24.2. Tài liệu và Mã nguồn bàn giao
+- Mã nguồn chuẩn CodeGym: `using-box-model/index.html` (Hoàn thành đầy đủ Bước 4, trùng khớp nhánh `develop` của CodeGym)
+- Giao diện phòng thí nghiệm tương tác: `using-box-model/demo.html` (Mô phỏng trực quan 4 lớp Box Model, la bàn 4 màu và thanh trượt kích thước)
+- Thuyết minh kỹ thuật chi tiết: `using-box-model/README.md`
+
+---
+
+## 25. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -424,3 +442,4 @@ Luyện tập sử dụng các thuộc tính CSS Typography để định dạng
 21. **Mở Bài tập Tối ưu Index IoT SmartFactory**: Mở file `smartfactory-index-tradeoff/index.html` trong trình duyệt.
 22. **Mở Thực hành Sử dụng CSS**: Mở file `using-css/index.html` hoặc `using-css/demo.html` trong trình duyệt.
 23. **Mở Bài tập Định dạng văn bản với CSS**: Mở file `css-text-formatting/index.html` hoặc `css-text-formatting/demo.html` trong trình duyệt.
+24. **Mở Thực hành Sử dụng box model**: Mở file `using-box-model/index.html` hoặc `using-box-model/demo.html` trong trình duyệt.

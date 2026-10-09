@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Thực hành] Sử dụng box model - Phòng Thí Nghiệm & Mô Phỏng Tương Tác</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-blue: #1D4ED8;
+            --primary-light: #EFF6FF;
+            --secondary: #0E7490;
+            --success: #15803D;
+            --warning: #B45309;
+            --danger: #B91C1C;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header */
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #0E7490 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #16A34A;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #BAE6FD;
+            max-width: 950px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+        }
+
+        .meta-info strong {
+            color: #FFFFFF;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Step Buttons */
+        .step-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step-btn {
+            background: #F1F5F9;
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1.15rem;
+            border-radius: 0.5rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .step-btn:hover {
+            background: #E2E8F0;
+            color: var(--text-main);
+        }
+
+        .step-btn.active {
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            border-color: var(--primary-blue);
+        }
+
+        /* Stage Preview */
+        .stage-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 920px) {
+            .stage-box {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-pane {
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            background: #FFFFFF;
+            padding: 1.5rem;
+            min-height: 320px;
+            overflow-x: auto;
+        }
+
+        .preview-pane-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-pane {
+            background: #0F172A;
+            color: #F8FAFC;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-pane pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Clockwise Border Color Visualizer */
+        .compass-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            background: #F8FAFC;
+            padding: 1.75rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        @media (max-width: 800px) {
+            .compass-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .compass-box {
+            position: relative;
+            width: 260px;
+            height: 180px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border-top: 14px solid chartreuse;
+            border-right: 14px solid aqua;
+            border-bottom: 14px solid blue;
+            border-left: 14px solid blueviolet;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .compass-label {
+            position: absolute;
+            font-size: 0.78rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+
+        .label-top { top: -26px; color: #4D7C0F; }
+        .label-right { right: -65px; color: #0E7490; }
+        .label-bottom { bottom: -26px; color: #1D4ED8; }
+        .label-left { left: -95px; color: #7C3AED; }
+
+        /* Box Model Layers Diagram */
+        .box-model-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background: #F8FAFC;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .layer-margin {
+            background: #FED7AA;
+            border: 2px dashed #F97316;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            width: 100%;
+            max-width: 680px;
+        }
+
+        .layer-border {
+            background: #FEF08A;
+            border: 2px solid #EAB308;
+            padding: 1.5rem;
+            border-radius: 0.35rem;
+        }
+
+        .layer-padding {
+            background: #BBF7D0;
+            border: 2px dashed #22C55E;
+            padding: 1.5rem;
+            border-radius: 0.25rem;
+        }
+
+        .layer-content {
+            background: #BFDBFE;
+            border: 2px solid #3B82F6;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-weight: 700;
+            color: #1E3A8A;
+        }
+
+        .layer-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Playground Controls */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.25rem;
+            background: #F8FAFC;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .control-item label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.35rem;
+        }
+
+        .control-item span.val-display {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        /* Live Sandbox Output */
+        .sandbox-wrapper {
+            background: #F1F5F9;
+            padding: 2rem 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        #sandboxBox {
+            background: #FFFFFF;
+            transition: all 0.2s ease;
+        }
+
+        #sandboxBox p {
+            background: #FAFAFA;
+            line-height: 1.6;
+        }
+
+        /* Footer Action Bar */
+        .action-bar {
+            background: #F1F5F9;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #1D4ED8;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">CSS Box Model Architecture</span>
+            <span class="badge-status">Hoàn Thành 4 Bước</span>
+        </div>
+        <h1>[Thực hành] Sử Dụng Box Model</h1>
+        <p>Phòng thí nghiệm tương tác trực quan hóa 4 lớp cấu trúc: Content, Padding, Border, Margin. Minh họa cơ chế căn giữa margin: 0 auto, quy tắc chiều kim đồng hồ 4 màu viền và khoảng lề dưới tăng dần.</p>
+        <div class="meta-info">
+            <div>Học viên: <strong>Nguyễn Tuấn Đạt</strong></div>
+            <div>Khóa học: <strong>Thiết kế Giao diện Người dùng & Lập trình Web</strong></div>
+            <div>Mã nguồn chuẩn: <strong>index.html</strong></div>
+            <div>Kho lưu trữ: <strong>github.com/proyctk03-eng/git-final-practice</strong></div>
+        </div>
+    </header>
+
+    <!-- 4-Step Stepper -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Tiến Trình 4 Bước Thực Hành (Interactive Stepper)</span>
+            <span style="font-size: 0.85rem; font-weight: normal; color: var(--text-muted);">Bấm chọn từng bước để xem mã nguồn và kết quả render</span>
+        </div>
+        <p class="section-subtitle">Theo dõi cách cấu trúc hộp và các phần tử con hình thành từng bước theo giáo trình CodeGym.</p>
+
+        <div class="step-nav">
+            <button class="step-btn" onclick="selectStep(1)">Bước 1: Khung HTML Cơ Bản</button>
+            <button class="step-btn" onclick="selectStep(2)">Bước 2: Định Dạng Thẻ Div .boxmodel</button>
+            <button class="step-btn" onclick="selectStep(3)">Bước 3: Định Dạng Thẻ Con .boxmodel p</button>
+            <button class="step-btn active" onclick="selectStep(4)">Bước 4: Khoảng Lề Dưới ID (Hoàn Chỉnh)</button>
+        </div>
+
+        <div class="stage-box">
+            <!-- Preview Pane -->
+            <div class="preview-pane">
+                <div class="preview-pane-header" id="previewTitle">Kết Quả Hiển Thị Trong Trình Duyệt (Bước 4)</div>
+                <div id="dynamicPreview">
+                    <!-- Dynamic rendering via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Code Pane -->
+            <div class="code-pane">
+                <pre><code id="dynamicCode"></code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clockwise Color Rule Card -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Quy Tắc Chiều Kim Đồng Hồ (The Clockwise Rule)</span>
+        </div>
+        <p class="section-subtitle">
+            Cú pháp <code>border-color: chartreuse aqua blue blueviolet;</code> gán 4 màu tương ứng cho 4 cạnh theo chiều kim đồng hồ bắt đầu từ cạnh trên.
+        </p>
+
+        <div class="compass-card">
+            <div>
+                <div class="compass-box">
+                    <span>NỘI DUNG CONTAINER<br>(width: 800px)</span>
+                    <span class="compass-label label-top">1. TOP: chartreuse</span>
+                    <span class="compass-label label-right">2. RIGHT: aqua</span>
+                    <span class="compass-label label-bottom">3. BOTTOM: blue</span>
+                    <span class="compass-label label-left">4. LEFT: blueviolet</span>
+                </div>
+            </div>
+            <div>
+                <h3 style="font-size: 1.05rem; margin-bottom: 0.75rem; color: var(--primary);">Nguyên lý nhận diện thứ tự:</h3>
+                <ul style="padding-left: 1.25rem; font-size: 0.92rem; color: var(--text-muted); line-height: 1.8;">
+                    <li><strong>Giá trị 1 (12h):</strong> <code>chartreuse</code> (Xanh nõn chuối) &rarr; Áp dụng cho cạnh <strong>Top</strong> (Trên).</li>
+                    <li><strong>Giá trị 2 (3h):</strong> <code>aqua</code> (Xanh ngọc lơ) &rarr; Áp dụng cho cạnh <strong>Right</strong> (Phải).</li>
+                    <li><strong>Giá trị 3 (6h):</strong> <code>blue</code> (Xanh dương đậm) &rarr; Áp dụng cho cạnh <strong>Bottom</strong> (Dưới).</li>
+                    <li><strong>Giá trị 4 (9h):</strong> <code>blueviolet</code> (Tím lam) &rarr; Áp dụng cho cạnh <strong>Left</strong> (Trái).</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual Box Model Diagram -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Cấu Trúc 4 Tầng Mô Hình Hộp (CSS Box Model Architecture)</span>
+        </div>
+        <p class="section-subtitle">Mỗi phần tử block-level trong tài liệu được tính toán không gian vật lý qua 4 lớp bao bọc nhau.</p>
+
+        <div class="box-model-container">
+            <div class="layer-margin">
+                <span class="layer-title" style="color: #9A3412;">Margin: margin: 0 auto; (Căn giữa ngang, margin-bottom riêng biệt)</span>
+                <div class="layer-border">
+                    <span class="layer-title" style="color: #854D0E;">Border: 10px solid (Viền 4 màu dày 10 pixel)</span>
+                    <div class="layer-padding">
+                        <span class="layer-title" style="color: #166534;">Padding: 10px (Khoảng cách đệm từ viền đến nội dung)</span>
+                        <div class="layer-content">
+                            Content: width: 800px (Chứa 3 đoạn văn bản p có viền dotted 3px darkred)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Live Sandbox -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Phòng Thử Nghiệm Thông Số Box Model (Interactive Sandbox)</span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--primary-blue);">Kéo thanh trượt để thay đổi thông số hộp</span>
+        </div>
+        <p class="section-subtitle">Tùy biến các giá trị kích thước để quan sát sự co giãn của mô hình hộp thời gian thực.</p>
+
+        <div class="controls-grid">
+            <div class="control-item">
+                <label>
+                    <span>Chiều rộng container (width):</span>
+                    <span class="val-display" id="valWidth">800px</span>
+                </label>
+                <input type="range" id="inputWidth" min="500" max="950" step="25" value="800">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    <span>Độ dày viền (border):</span>
+                    <span class="val-display" id="valBorder">10px</span>
+                </label>
+                <input type="range" id="inputBorder" min="2" max="24" step="2" value="10">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    <span>Khoảng đệm (padding):</span>
+                    <span class="val-display" id="valPadding">10px</span>
+                </label>
+                <input type="range" id="inputPadding" min="0" max="30" step="2" value="10">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    <span>#boxmodel1 (margin-bottom):</span>
+                    <span class="val-display" id="valM1">20px</span>
+                </label>
+                <input type="range" id="inputM1" min="0" max="60" step="5" value="20">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    <span>#boxmodel2 (margin-bottom):</span>
+                    <span class="val-display" id="valM2">40px</span>
+                </label>
+                <input type="range" id="inputM2" min="0" max="80" step="5" value="40">
+            </div>
+
+            <div class="control-item">
+                <label>
+                    <span>#boxmodel3 (margin-bottom):</span>
+                    <span class="val-display" id="valM3">60px</span>
+                </label>
+                <input type="range" id="inputM3" min="0" max="100" step="5" value="60">
+            </div>
+        </div>
+
+        <div class="sandbox-wrapper">
+            <div id="sandboxBox">
+                <p id="sbP1">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
+                <p id="sbP2">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
+                <p id="sbP3">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Action Bar -->
+    <footer class="action-bar">
+        <div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Bộ Tài Liệu & Mã Nguồn Bàn Giao</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Kho lưu trữ: proyctk03-eng/git-final-practice/using-box-model</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn-primary" target="_blank">Xem File index.html Chuẩn</a>
+            <a href="README.md" class="btn-secondary" target="_blank">Đọc Tài Liệu README.md</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    const stepsData = {
+        1: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 1: Khung HTML Chưa Định Kiểu)",
+            code: `<!-- BƯỚC 1: HTML cơ bản chưa có CSS -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Sử dụng Boxmodel</title>\n</head>\n<body>\n<div>\n    <p>Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n    <p>Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n    <p>Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>\n</body>\n</html>`,
+            render: function() {
+                return `<div>\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>`;
+            }
+        },
+        2: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 2: Định Dạng Khung .boxmodel 800px)",
+            code: `<!-- BƯỚC 2: Định dạng thẻ div .boxmodel -->\n<style>\n    .boxmodel {\n        margin: 0 auto;\n        width: 800px;\n        border: 10px;\n        padding: 10px;\n        border-color: chartreuse aqua blue blueviolet;\n        border-style: solid;\n    }\n</style>`,
+            render: function() {
+                return `<div style="margin: 0 auto; max-width: 100%; width: 100%; border: 10px solid; border-color: chartreuse aqua blue blueviolet; padding: 10px;">\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>`;
+            }
+        },
+        3: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 3: Định Dạng Thẻ Con .boxmodel p Viền Dotted)",
+            code: `<!-- BƯỚC 3: Thêm viền chấm và padding cho thẻ p -->\n<style>\n    .boxmodel {\n        margin: 0 auto;\n        width: 800px;\n        border: 10px;\n        padding: 10px;\n        border-color: chartreuse aqua blue blueviolet;\n        border-style: solid;\n    }\n    .boxmodel p {\n        border: 3px dotted darkred;\n        padding: 10px;\n    }\n</style>`,
+            render: function() {
+                return `<div style="margin: 0 auto; max-width: 100%; width: 100%; border: 10px solid; border-color: chartreuse aqua blue blueviolet; padding: 10px;">\n<p style="border: 3px dotted darkred; padding: 10px; margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="border: 3px dotted darkred; padding: 10px; margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="border: 3px dotted darkred; padding: 10px; margin: 1em 0;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>`;
+            }
+        },
+        4: {
+            title: "Kết Quả Hiển Thị Trong Trình Duyệt (Bước 4: Thiết Lập Khoảng Lề Dưới Tăng Dần)",
+            code: `<!-- BƯỚC 4: Hoàn chỉnh với margin-bottom cho từng id -->\n<!DOCTYPE html>\n<html lang="en">\n<head>\n    <meta charset="UTF-8">\n    <title>Sử dụng Boxmodel</title>\n    <style>\n        .boxmodel{\n            margin: 0 auto;\n            width: 800px;\n            border: 10px;\n            padding: 10px;\n            border-color: chartreuse aqua blue blueviolet;\n            border-style: solid;\n        }\n        .boxmodel p{\n            border: 3px dotted darkred;\n            padding: 10px;\n        }\n        #boxmodel1{\n            margin-bottom: 20px;\n        }\n        #boxmodel2{\n            margin-bottom: 40px;\n        }\n        #boxmodel3{\n            margin-bottom: 60px;\n        }\n    </style>\n</head>\n<body>\n<div class="boxmodel">\n    <p id="boxmodel1">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n    <p id="boxmodel2">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n    <p id="boxmodel3">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML.\n        Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>\n</body>\n</html>`,
+            render: function() {
+                return `<div style="margin: 0 auto; max-width: 100%; width: 100%; border: 10px solid; border-color: chartreuse aqua blue blueviolet; padding: 10px;">\n<p style="border: 3px dotted darkred; padding: 10px; margin-bottom: 20px;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="border: 3px dotted darkred; padding: 10px; margin-bottom: 40px;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n<p style="border: 3px dotted darkred; padding: 10px; margin-bottom: 60px;">Mô hình hộp trong CSS về cơ bản là một hộp bao quanh phần tử HTML. Nó bao gồm: lề (margin), viền (border), phần đệm (padding) và nội dung (content)</p>\n</div>`;
+            }
+        }
+    };
+
+    function selectStep(stepNum) {
+        document.querySelectorAll('.step-btn').forEach((btn, index) => {
+            if (index + 1 === stepNum) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+
+        const step = stepsData[stepNum];
+        document.getElementById('previewTitle').innerText = step.title;
+        document.getElementById('dynamicPreview').innerHTML = step.render();
+        document.getElementById('dynamicCode').textContent = step.code;
+    }
+
+    // Sandbox Controls
+    const inputWidth = document.getElementById('inputWidth');
+    const inputBorder = document.getElementById('inputBorder');
+    const inputPadding = document.getElementById('inputPadding');
+    const inputM1 = document.getElementById('inputM1');
+    const inputM2 = document.getElementById('inputM2');
+    const inputM3 = document.getElementById('inputM3');
+
+    const valWidth = document.getElementById('valWidth');
+    const valBorder = document.getElementById('valBorder');
+    const valPadding = document.getElementById('valPadding');
+    const valM1 = document.getElementById('valM1');
+    const valM2 = document.getElementById('valM2');
+    const valM3 = document.getElementById('valM3');
+
+    const sandboxBox = document.getElementById('sandboxBox');
+    const sbP1 = document.getElementById('sbP1');
+    const sbP2 = document.getElementById('sbP2');
+    const sbP3 = document.getElementById('sbP3');
+
+    function updateSandbox() {
+        const widthVal = inputWidth.value + 'px';
+        const borderVal = inputBorder.value + 'px';
+        const paddingVal = inputPadding.value + 'px';
+        const m1Val = inputM1.value + 'px';
+        const m2Val = inputM2.value + 'px';
+        const m3Val = inputM3.value + 'px';
+
+        valWidth.innerText = widthVal;
+        valBorder.innerText = borderVal;
+        valPadding.innerText = paddingVal;
+        valM1.innerText = m1Val;
+        valM2.innerText = m2Val;
+        valM3.innerText = m3Val;
+
+        sandboxBox.style.margin = '0 auto';
+        sandboxBox.style.width = widthVal;
+        sandboxBox.style.maxWidth = '100%';
+        sandboxBox.style.border = `${borderVal} solid`;
+        sandboxBox.style.borderColor = 'chartreuse aqua blue blueviolet';
+        sandboxBox.style.padding = paddingVal;
+
+        [sbP1, sbP2, sbP3].forEach(p => {
+            p.style.border = '3px dotted darkred';
+            p.style.padding = '10px';
+        });
+
+        sbP1.style.marginBottom = m1Val;
+        sbP2.style.marginBottom = m2Val;
+        sbP3.style.marginBottom = m3Val;
+    }
+
+    inputWidth.addEventListener('input', updateSandbox);
+    inputBorder.addEventListener('input', updateSandbox);
+    inputPadding.addEventListener('input', updateSandbox);
+    inputM1.addEventListener('input', updateSandbox);
+    inputM2.addEventListener('input', updateSandbox);
+    inputM3.addEventListener('input', updateSandbox);
+
+    // Initial load
+    selectStep(4);
+    updateSandbox();
+</script>
+
+</body>
+</html>
