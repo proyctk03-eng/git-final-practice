@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Tra Bố Cục Facebook Layout - Nguyễn Tuấn Đạt</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --primary-blue: #1877F2;
+            --primary-light: #EFF6FF;
+            --secondary: #0E7490;
+            --success: #15803D;
+            --warning: #B45309;
+            --danger: #B91C1C;
+            --text-main: #0F172A;
+            --text-muted: #475569;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+        }
+
+        /* Header Bar */
+        .header-bar {
+            background: linear-gradient(135deg, #0F172A 0%, #1877F2 60%, #0E7490 100%);
+            color: #FFFFFF;
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .badge-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-status {
+            display: inline-block;
+            background: #16A34A;
+            color: #FFFFFF;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .header-bar h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-bar p {
+            font-size: 1.05rem;
+            color: #BAE6FD;
+            max-width: 950px;
+        }
+
+        .meta-info {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: #E2E8F0;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            padding-top: 1rem;
+        }
+
+        .meta-info strong {
+            color: #FFFFFF;
+        }
+
+        /* Section Cards */
+        .section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 0.85rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 2px solid #F1F5F9;
+            padding-bottom: 0.75rem;
+        }
+
+        .section-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: -0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* Wireframe Visualizer */
+        .wireframe-container {
+            background: #F1F5F9;
+            border: 2px dashed #CBD5E1;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .wf-header {
+            background: #3B82F6;
+            color: #FFFFFF;
+            padding: 0.85rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .wf-body {
+            display: flex;
+            gap: 1rem;
+            min-height: 260px;
+        }
+
+        .wf-sidebar-left {
+            width: 25%;
+            background: #93C5FD;
+            color: #1E3A8A;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.88rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .wf-feed {
+            flex: 1;
+            background: #FFFFFF;
+            border: 2px solid #3B82F6;
+            color: #1E293B;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .wf-card-mock {
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            padding: 0.75rem;
+            border-radius: 0.35rem;
+            font-size: 0.8rem;
+            color: #64748B;
+        }
+
+        .wf-sidebar-right {
+            width: 25%;
+            background: #A7F3D0;
+            color: #065F46;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.88rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Interactive Controls */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            background: #F8FAFC;
+            padding: 1.25rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-toggle {
+            background: #FFFFFF;
+            border: 1px solid var(--border-color);
+            padding: 0.65rem 1rem;
+            border-radius: 0.4rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .btn-toggle:hover {
+            background: #F1F5F9;
+        }
+
+        .btn-toggle.active {
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            border-color: var(--primary-blue);
+        }
+
+        /* Technical Breakdown Table */
+        .table-responsive {
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #F1F5F9;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background-color: #F8FAFC;
+        }
+
+        .code-tag {
+            background: #EFF6FF;
+            color: #1D4ED8;
+            padding: 0.2rem 0.45rem;
+            border-radius: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Action Bar */
+        .action-bar {
+            background: #F1F5F9;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary-blue);
+            color: #FFFFFF;
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: #166FE5;
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            background: #FFFFFF;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            background: #F8FAFC;
+            border-color: #CBD5E1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <header class="header-bar">
+        <div>
+            <span class="badge-tag">CSS Architecture & Layout Inspector</span>
+            <span class="badge-status">Bố Cục 3 Cột Hoàn Hảo</span>
+        </div>
+        <h1>Thanh Tra Bố Cục: Giao Diện Giản Lược Facebook</h1>
+        <p>Phân tích chuyên sâu về cơ chế định vị CSS Position Fixed, giải pháp cô lập thanh cuộn độc lập và kỹ thuật quản lý phân tầng Stacking Context (z-index) trong hệ thống giao diện mạng xã hội.</p>
+        <div class="meta-info">
+            <div>Học viên: <strong>Nguyễn Tuấn Đạt</strong></div>
+            <div>Bài thực hành: <strong>[Bài tập] Tạo giao diện giản lược của trang chủ Facebook</strong></div>
+            <div>Mã nguồn chuẩn: <strong>index.html</strong></div>
+            <div>Kho lưu trữ: <strong>github.com/proyctk03-eng/git-final-practice</strong></div>
+        </div>
+    </header>
+
+    <!-- Wireframe Visualizer -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Sơ Đồ Phân Rã Cấu Trúc Khối (Wireframe Architecture)</span>
+            <span style="font-size: 0.85rem; font-weight: 500; color: var(--primary-blue);">3 Cột Độc Lập</span>
+        </div>
+        <p class="section-subtitle">Minh họa cách Fixed Header và 2 Sidebar phân bổ không gian màn hình với Main Feed.</p>
+
+        <div class="wireframe-container">
+            <div class="wf-header" id="wfHeader">
+                1. FIXED HEADER (height: 56px; position: fixed; top: 0; z-index: 1000;)
+            </div>
+            <div class="wf-body">
+                <div class="wf-sidebar-left" id="wfLeft">
+                    <div>
+                        <strong>2. LEFT SIDEBAR</strong><br>
+                        width: 280px;<br>
+                        position: fixed;<br>
+                        overflow-y: auto;
+                    </div>
+                    <div style="font-size: 0.75rem; opacity: 0.85;">Danh mục điều hướng</div>
+                </div>
+
+                <div class="wf-feed" id="wfFeed">
+                    <div style="display: flex; justify-content: space-between;">
+                        <strong>3. MAIN FEED CONTAINER</strong>
+                        <span style="font-size: 0.75rem; color: #3B82F6;">max-width: 680px</span>
+                    </div>
+                    <div class="wf-card-mock">Stories Tray (Grid 4 cột)</div>
+                    <div class="wf-card-mock">Create Post Card (Input & Action Buttons)</div>
+                    <div class="wf-card-mock">Newsfeed Post Card 1 (Author, Text, Media, Stats)</div>
+                    <div class="wf-card-mock">Newsfeed Post Card 2 (Cuộn trang độc lập)</div>
+                </div>
+
+                <div class="wf-sidebar-right" id="wfRight">
+                    <div>
+                        <strong>4. RIGHT SIDEBAR</strong><br>
+                        width: 280px;<br>
+                        position: fixed;<br>
+                        right: 0;
+                    </div>
+                    <div style="font-size: 0.75rem; opacity: 0.85;">Danh sách liên hệ Online</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Toggles -->
+        <div class="controls-grid">
+            <button class="btn-toggle active" id="btnToggleLeft" onclick="toggleSidebar('left')">Ẩn/Hiện Sidebar Trái</button>
+            <button class="btn-toggle active" id="btnToggleRight" onclick="toggleSidebar('right')">Ẩn/Hiện Sidebar Phải</button>
+            <button class="btn-toggle" id="btnToggleSimulateMobile" onclick="toggleMobileMode()">Mô Phỏng Giao Diện Mobile</button>
+        </div>
+    </section>
+
+    <!-- Technical Analysis Table -->
+    <section class="section-card">
+        <div class="section-title">
+            <span>Bảng Phân Tích Kỹ Thuật Các Thuộc Tính CSS Cốt Lõi</span>
+        </div>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Thành phần giao diện</th>
+                        <th>Thuộc tính CSS quyết định</th>
+                        <th>Giá trị cấu hình</th>
+                        <th>Mục đích kỹ thuật & Ý nghĩa trải nghiệm</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Fixed Header</strong></td>
+                        <td><span class="code-tag">position: fixed</span></td>
+                        <td><code>top: 0; left: 0; width: 100%;</code></td>
+                        <td>Ghim thanh điều hướng luôn nằm cố định ở đỉnh màn hình khi người dùng cuộn xem bài viết.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thứ bậc hiển thị</strong></td>
+                        <td><span class="code-tag">z-index</span></td>
+                        <td><code>z-index: 1000;</code></td>
+                        <td>Bảo đảm Header luôn nổi lên trên các thẻ bài viết và hình ảnh trong Main Feed khi cuộn qua.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Chiều cao Sidebar</strong></td>
+                        <td><span class="code-tag">height: calc()</span></td>
+                        <td><code>calc(100vh - 56px);</code></td>
+                        <td>Tự động chiếm trọn vẹn phần chiều cao còn lại của cửa sổ màn hình sau khi trừ đi 56px của Header.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cuộn độc lập</strong></td>
+                        <td><span class="code-tag">overflow-y</span></td>
+                        <td><code>overflow-y: auto;</code></td>
+                        <td>Cho phép menu danh mục cuộn lên xuống độc lập mà không ảnh hưởng đến vị trí bài viết ở giữa.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Main Feed Spacing</strong></td>
+                        <td><span class="code-tag">margin-top</span></td>
+                        <td><code>margin-top: 56px;</code></td>
+                        <td>Đẩy toàn bộ khối nội dung chính xuống dưới để tránh bị thanh Header che khuất phần đầu.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Stories Tray</strong></td>
+                        <td><span class="code-tag">display: grid</span></td>
+                        <td><code>repeat(4, 1fr);</code></td>
+                        <td>Chia đều 4 thẻ tin Story có kích thước bằng nhau và co giãn mượt mà theo độ rộng khung Feed.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Footer Action Bar -->
+    <footer class="action-bar">
+        <div>
+            <h4 style="font-size: 1rem; color: var(--primary);">Bộ Tài Liệu & Mã Nguồn Bàn Giao</h4>
+            <p style="font-size: 0.85rem; color: var(--text-muted);">Kho lưu trữ: proyctk03-eng/git-final-practice/facebook-homepage-layout</p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="index.html" class="btn-primary" target="_blank">Mở Giao Diện Facebook index.html</a>
+            <a href="README.md" class="btn-secondary" target="_blank">Đọc Tài Liệu README.md</a>
+        </div>
+    </footer>
+</div>
+
+<script>
+    let leftVisible = true;
+    let rightVisible = true;
+    let mobileMode = false;
+
+    const wfLeft = document.getElementById('wfLeft');
+    const wfRight = document.getElementById('wfRight');
+    const wfFeed = document.getElementById('wfFeed');
+    const btnToggleLeft = document.getElementById('btnToggleLeft');
+    const btnToggleRight = document.getElementById('btnToggleRight');
+    const btnToggleSimulateMobile = document.getElementById('btnToggleSimulateMobile');
+
+    function toggleSidebar(side) {
+        if (side === 'left') {
+            leftVisible = !leftVisible;
+            wfLeft.style.display = leftVisible ? 'flex' : 'none';
+            btnToggleLeft.classList.toggle('active', leftVisible);
+        } else {
+            rightVisible = !rightVisible;
+            wfRight.style.display = rightVisible ? 'flex' : 'none';
+            btnToggleRight.classList.toggle('active', rightVisible);
+        }
+    }
+
+    function toggleMobileMode() {
+        mobileMode = !mobileMode;
+        btnToggleSimulateMobile.classList.toggle('active', mobileMode);
+
+        if (mobileMode) {
+            wfLeft.style.display = 'none';
+            wfRight.style.display = 'none';
+            btnToggleLeft.classList.remove('active');
+            btnToggleRight.classList.remove('active');
+            leftVisible = false;
+            rightVisible = false;
+        } else {
+            wfLeft.style.display = 'flex';
+            wfRight.style.display = 'flex';
+            btnToggleLeft.classList.add('active');
+            btnToggleRight.classList.add('active');
+            leftVisible = true;
+            rightVisible = true;
+        }
+    }
+</script>
+
+</body>
+</html>
