@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetricsHub - Tái Cấu Trúc Bố Cục UI/UX (Kỹ sư: Nguyễn Tuấn Đạt)</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom Refactored Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===================================================================
+         0. THANH DIEU KHIEN THAM DINH (AUDIT & TESTING TOOLBAR)
+         =================================================================== -->
+    <div class="audit-toolbar">
+        <div class="d-flex align-items-center gap-2">
+            <span class="audit-badge">MetricsHub UI/UX Audit</span>
+            <span class="d-none d-sm-inline">Kỹ sư Frontend: <strong>Nguyễn Tuấn Đạt</strong></span>
+        </div>
+
+        <div class="audit-controls">
+            <!-- Chuyen che do xem Refactored vs Legacy -->
+            <button class="toggle-btn active" id="btnModeRefactored" onclick="switchMode('refactored')">
+                Giao Diện Tái Cấu Trúc
+            </button>
+            <button class="toggle-btn" id="btnModeLegacy" onclick="switchMode('legacy')">
+                Mã Cũ Lỗi (Legacy)
+            </button>
+
+            <!-- Chuyen doi Ngon ngu EN / DE kiem tra tu dai tieng Duc -->
+            <button class="btn-lang" id="btnToggleLang" onclick="toggleLanguage()">
+                Ngôn ngữ: <strong id="lblCurrentLang">EN</strong>
+            </button>
+
+            <!-- Chi bao Viewport thoi gian thuc de PM kiem thu Responsive -->
+            <div class="viewport-indicator" id="viewportIndicator">
+                Viewport: <span id="vpWidth">1440</span>px (<span id="vpBreakpoint">Desktop</span>)
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================
+         KHU VUC 1: GIAO DIEN SAU TAI CAU TRUC (REFACTORED INTERFACE)
+         =================================================================== -->
+    <div id="refactoredView">
+
+        <!-- ===============================================================
+             VU KHI 1: NAVBAR VOI FLEXBOX (1D - CONTENT-DRIVEN)
+             Loi cu: Grid 200px 600px 200px -> Bi vo khi doi tieng Duc
+             Giai phap: display: flex; justify-content: space-between; gap; flex-wrap
+             =============================================================== -->
+        <header class="refactored-navbar">
+            <!-- 1.1. Brand Logo (Flex-shrink: 0 khong bi bop meo) -->
+            <a href="#" class="nav-brand">
+                <div class="brand-icon">M</div>
+                <div class="brand-name">MetricsHub</div>
+            </a>
+
+            <!-- 1.2. Nav Links (Flexbox tu dong co gian theo chieu dai noi dung thuc te) -->
+            <ul class="nav-links" id="mainNavLinks">
+                <li class="nav-item active"><a href="#" id="navHome">Home</a></li>
+                <li class="nav-item"><a href="#" id="navAbout">About</a></li>
+                <li class="nav-item"><a href="#" id="navDashboard">Dashboard</a></li>
+                <li class="nav-item"><a href="#" id="navPricing">Pricing</a></li>
+                <li class="nav-item"><a href="#" id="navContact">Contact</a></li>
+            </ul>
+
+            <!-- 1.3. User Profile & Quick Actions -->
+            <div class="nav-user">
+                <div class="user-profile" title="Tài khoản kỹ sư UI/UX">
+                    <div class="avatar-badge">Đ</div>
+                    <span class="user-name">Tuấn Đạt</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- ===============================================================
+             VU KHI 2: BENTO DASHBOARD VOI CSS GRID (2D - LAYOUT-DRIVEN)
+             Loi cu: Flexbox long nhau sau .column 50% gay Div Soup
+             Giai phap: display: grid; repeat(4, 1fr); gap: 1.25rem; Shallow DOM
+             =============================================================== -->
+        <main class="dashboard-section">
+            <div class="section-header">
+                <div>
+                    <h1 class="section-title">Bento Analytics Dashboard</h1>
+                    <p class="section-subtitle">
+                        Toàn bộ Widget là anh em ngang hàng (Siblings) trực tiếp của <code>.grid-dashboard</code>. Không lồng thẻ trung gian.
+                    </p>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge bg-light text-dark border">CSS Grid 2D</span>
+                    <span class="badge bg-primary">Shallow DOM</span>
+                </div>
+            </div>
+
+            <!-- FLAT DOM: TAT CA WIDGET LA SIBLINGS TRUC TIEP -->
+            <div class="grid-dashboard">
+
+                <!-- Widget 1: Revenue Hero Chart (Chiem 2 Cot x 2 Hang) -->
+                <div class="widget widget-hero">
+                    <div>
+                        <div class="widget-head">
+                            <span class="widget-label">Doanh Thu Đăng Ký Tháng (MRR)</span>
+                            <span class="widget-badge badge-green">+24.8% YoY</span>
+                        </div>
+                        <div class="widget-value">$184,920</div>
+                        <div class="widget-trend trend-up">
+                            Tăng $38,400 so với quý trước (Vượt mục tiêu 112%)
+                        </div>
+                    </div>
+
+                    <!-- Bieu do Cot truc quan bang Flexbox ben trong Cell Grid -->
+                    <div class="chart-container">
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 45%;"></div>
+                            <span class="chart-month">T5</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 60%;"></div>
+                            <span class="chart-month">T6</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 52%;"></div>
+                            <span class="chart-month">T7</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 75%;"></div>
+                            <span class="chart-month">T8</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 88%;"></div>
+                            <span class="chart-month">T9</span>
+                        </div>
+                        <div class="chart-bar-group">
+                            <div class="chart-bar" style="height: 100%;"></div>
+                            <span class="chart-month">T10</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget 2: Khach hang hoat dong (1 Cot x 1 Hang) -->
+                <div class="widget widget-standard">
+                    <div class="widget-head">
+                        <span class="widget-label">Khách Hàng Hoạt Động</span>
+                        <span class="widget-badge badge-blue">Realtime</span>
+                    </div>
+                    <div class="widget-value">42,850</div>
+                    <div class="widget-trend trend-up">
+                        +1,420 người dùng mới tuần này
+                    </div>
+                </div>
+
+                <!-- Widget 3: Do tre Server & Telemetry (1 Cot x 1 Hang) -->
+                <div class="widget widget-standard">
+                    <div class="widget-head">
+                        <span class="widget-label">Độ Trễ API Trung Bình</span>
+                        <span class="widget-badge badge-cyan">99.98% SLA</span>
+                    </div>
+                    <div class="widget-value">32ms</div>
+                    <div class="widget-trend trend-up">
+                        Khu vực Đông Nam Á (Singapore)
+                    </div>
+                </div>
+
+                <!-- Widget 4: Kenh Luu Luong & Chuyen Doi (2 Cot x 1 Hang) -->
+                <div class="widget widget-wide">
+                    <div class="widget-head">
+                        <span class="widget-label">Kênh Lưu Lượng & Tỷ Lệ Chuyển Đổi</span>
+                        <span class="widget-badge badge-green">4.82% Conv.</span>
+                    </div>
+                    <div>
+                        <div class="d-flex justify-content-between font-monospace small mb-1">
+                            <span>Tìm kiếm tự nhiên (Organic Search): 64%</span>
+                            <span>Direct & Referral: 36%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-fill" style="width: 64%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget 5: Ty le giu chan (Retention Rate - 1 Cot x 1 Hang) -->
+                <div class="widget widget-standard">
+                    <div class="widget-head">
+                        <span class="widget-label">Tỷ Lệ Giữ Chân</span>
+                        <span class="widget-badge badge-green">94.2%</span>
+                    </div>
+                    <div class="widget-value">94.2%</div>
+                    <div class="widget-trend trend-up">
+                        Chỉ số Churn Rate chỉ 1.8%
+                    </div>
+                </div>
+
+                <!-- Widget 6: Ty le loi he thong (1 Cot x 1 Hang) -->
+                <div class="widget widget-standard">
+                    <div class="widget-head">
+                        <span class="widget-label">Tỷ Lệ Lỗi HTTP 5xx</span>
+                        <span class="widget-badge badge-blue">Tối ưu</span>
+                    </div>
+                    <div class="widget-value">0.002%</div>
+                    <div class="widget-trend trend-up">
+                        Không phát hiện sự cố gián đoạn
+                    </div>
+                </div>
+
+                <!-- Widget 7: Nhat ky su kien he thong (Chiem toan bo 4 cot tren Desktop) -->
+                <div class="widget widget-full">
+                    <div class="widget-head">
+                        <span class="widget-label">Nhật Ký Triển Khai & Kiểm Định Kiến Trúc</span>
+                        <span class="widget-badge badge-blue">Audit Log</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-borderless table-sm align-middle mb-0" style="font-size: 0.88rem;">
+                            <thead>
+                                <tr class="text-muted border-bottom">
+                                    <th>Thời gian</th>
+                                    <th>Thành phần</th>
+                                    <th>Công nghệ áp dụng</th>
+                                    <th>Cải tiến kỹ thuật</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="font-monospace">22:45:10</td>
+                                    <td><strong>Thanh điều hướng (Navbar)</strong></td>
+                                    <td><code>Flexbox (1D)</code></td>
+                                    <td>Thay thế Grid cứng nhắc; tự co giãn khi đổi ngôn ngữ tiếng Đức.</td>
+                                    <td><span class="badge bg-success">Hoàn thành</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-monospace">22:46:30</td>
+                                    <td><strong>Bento Dashboard</strong></td>
+                                    <td><code>CSS Grid (2D)</code></td>
+                                    <td>Làm phẳng DOM (Shallow DOM), span 2 rows/cols, loại bỏ hoàn toàn Div Soup.</td>
+                                    <td><span class="badge bg-success">Hoàn thành</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font-monospace">22:47:45</td>
+                                    <td><strong>Bảng giá (Pricing)</strong></td>
+                                    <td><code>Bootstrap 5 (12-col)</code></td>
+                                    <td>Sử dụng <code>row g-4</code> và <code>col-md-4</code>; dẹp bỏ float: left và media query tay.</td>
+                                    <td><span class="badge bg-success">Hoàn thành</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- ===============================================================
+             VU KHI 3: PRICING SECTION VOI BOOTSTRAP 5 (12-COL RAPID PROTOTYPING)
+             Loi cu: float: left; width: 33.33% va media query thu cong
+             Giai phap: <div class="row g-4"><div class="col-12 col-md-4">
+             =============================================================== -->
+        <section class="pricing-section-wrapper">
+            <div class="container">
+                <div class="text-center mb-5">
+                    <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-2 mb-2">
+                        Bootstrap 5 Rapid Prototyping
+                    </span>
+                    <h2 class="fw-bold fs-2 text-dark">Bảng Giá Đăng Ký MetricsHub</h2>
+                    <p class="text-muted mx-auto" style="max-width: 620px;">
+                        Thiết lập tốc độ cao bằng hệ thống lưới 12 cột chuẩn hóa của Bootstrap 5. Tự động hiển thị 3 cột trên Desktop và xếp chồng hoàn hảo trên Mobile mà không cần viết thêm 1 dòng CSS thuần nào.
+                    </p>
+                </div>
+
+                <!-- LUOI BOOTSTRAP 5 CHUAN 12 COT -->
+                <div class="row g-4 justify-content-center">
+
+                    <!-- Goi 1: Starter (col-12 col-md-4) -->
+                    <div class="col-12 col-md-4">
+                        <div class="card pricing-card h-100 p-4">
+                            <div class="card-body p-0 d-flex flex-column">
+                                <h3 class="fs-5 fw-bold text-dark">Gói Khởi Nghiệp</h3>
+                                <p class="text-muted small">Dành cho cá nhân và nhóm nhỏ kiểm thử sản phẩm</p>
+                                <div class="my-3">
+                                    <span class="pricing-currency">$</span>
+                                    <span class="pricing-price">29</span>
+                                    <span class="pricing-period">/ tháng</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Theo dõi 5 ứng dụng độc lập</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Lưu trữ dữ liệu 30 ngày</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Báo cáo Bento Dashboard cơ bản</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-outline-dark w-100 fw-bold py-2 mt-auto">Bắt Đầu Dùng Thử</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goi 2: Pro (col-12 col-md-4) - Khuyen nghi (Featured) -->
+                    <div class="col-12 col-md-4">
+                        <div class="card pricing-card featured h-100 p-4">
+                            <span class="pricing-badge-popular">Phổ Biến Nhất</span>
+                            <div class="card-body p-0 d-flex flex-column">
+                                <h3 class="fs-5 fw-bold text-dark">Gói Chuyên Nghiệp</h3>
+                                <p class="text-muted small">Giải pháp tối ưu cho doanh nghiệp tăng trưởng nhanh</p>
+                                <div class="my-3">
+                                    <span class="pricing-currency">$</span>
+                                    <span class="pricing-price">79</span>
+                                    <span class="pricing-period">/ tháng</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Theo dõi không giới hạn ứng dụng</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Lưu trữ dữ liệu 1 năm trọn vẹn</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Cảnh báo thời gian thực qua Slack / Webhook</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Hỗ trợ kỹ thuật ưu tiên 24/7</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-primary w-100 fw-bold py-2 mt-auto">Đăng Ký Gói Pro</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goi 3: Enterprise (col-12 col-md-4) -->
+                    <div class="col-12 col-md-4">
+                        <div class="card pricing-card h-100 p-4">
+                            <div class="card-body p-0 d-flex flex-column">
+                                <h3 class="fs-5 fw-bold text-dark">Gói Doanh Nghiệp</h3>
+                                <p class="text-muted small">Dành cho tập đoàn quy mô lớn có yêu cầu khắt khe</p>
+                                <div class="my-3">
+                                    <span class="pricing-currency">$</span>
+                                    <span class="pricing-price">199</span>
+                                    <span class="pricing-period">/ tháng</span>
+                                </div>
+                                <ul class="feature-list">
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Dedicated Database Cluster</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Cam kết 99.99% Uptime SLA</span>
+                                    </li>
+                                    <li class="feature-item">
+                                        <svg class="check-icon" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                        </svg>
+                                        <span>Tùy biến Widget Bento theo yêu cầu</span>
+                                    </li>
+                                </ul>
+                                <button class="btn btn-outline-dark w-100 fw-bold py-2 mt-auto">Liên Hệ Báo Giá</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ===================================================================
+         KHU VUC 2: MO PHONG GIAO DIEN CU LOI (LEGACY CODE INSPECTOR)
+         De Product Manager (PM) so sanh truc quan cac loi da bi bop meo
+         =================================================================== -->
+    <div id="legacyView" class="legacy-container">
+        <div class="legacy-banner">
+            <h4 class="fw-bold mb-2">Thanh Tra Mã Nguồn Cũ (Legacy Code Review)</h4>
+            <p class="mb-0">
+                Dưới đây là đoạn mã gốc bị lỗi của lập trình viên cũ. Chú ý các lỗi:
+                <strong>(1) Navbar dùng Grid cố định 200px 600px 200px gây tràn và đè chữ</strong>;
+                <strong>(2) Dashboard dùng Flexbox lồng nhau tạo Div Soup</strong>;
+                <strong>(3) Pricing tự viết float: left và media query thủ công</strong>.
+            </p>
+        </div>
+
+        <!-- 1. BAD NAVBAR -->
+        <div class="mb-2 text-danger fw-bold">LỖI 1: Navbar dùng Grid cứng nhắc (grid-template-columns: 200px 600px 200px)</div>
+        <div class="bad-navbar">
+            <div>Logo</div>
+            <div id="badNavText">Home | About | VeryLongGermanWordForDashboard | Contact</div>
+            <div>Profile</div>
+        </div>
+
+        <!-- 2. BAD DASHBOARD -->
+        <div class="mt-4 mb-2 text-danger fw-bold">LỖI 2: Dashboard dùng Flexbox lồng nhau quá sâu (.column width: 50% & widget-large height: 200px)</div>
+        <div class="bad-dashboard">
+            <div class="column">
+                <div class="widget widget-large">Chart A (Cần span 2 hàng - bị ép fix cứng height: 200px)</div>
+                <div class="widget">Chart B</div>
+            </div>
+            <div class="column">
+                <div class="widget">Chart C</div>
+                <div class="widget">Chart D</div>
+            </div>
+        </div>
+
+        <!-- 3. BAD PRICING -->
+        <div class="mt-4 mb-2 text-danger fw-bold">LỖI 3: Tự viết tay Float và Media Query thay vì dùng hệ thống Bootstrap có sẵn</div>
+        <div class="bad-pricing">
+            <div class="price-card">Gói Cơ bản (float: left)</div>
+            <div class="price-card">Gói Nâng cao (float: left)</div>
+            <div class="price-card">Gói Doanh nghiệp (float: left)</div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <!-- ===================================================================
+         JAVASCRIPT TUONG TAC KIEM THU (TESTING CONTROLLER)
+         =================================================================== -->
+    <script>
+        // Quan ly trang thai ngon ngu
+        let currentLang = 'EN';
+        const langData = {
+            EN: {
+                home: 'Home',
+                about: 'About',
+                dashboard: 'Dashboard',
+                pricing: 'Pricing',
+                contact: 'Contact',
+                badText: 'Home | About | VeryLongGermanWordForDashboard | Contact'
+            },
+            DE: {
+                home: 'Startseite',
+                about: 'Über uns',
+                dashboard: 'Dashboard-Verwaltungskennzahlenübersicht', // Tu dai tieng Duc thu nghiem
+                pricing: 'Preise',
+                contact: 'Kontakt',
+                badText: 'Startseite | Über uns | Dashboard-Verwaltungskennzahlenübersicht | Kontakt'
+            }
+        };
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'EN' ? 'DE' : 'EN';
+            document.getElementById('lblCurrentLang').textContent = currentLang;
+
+            // Cap nhat Navbar Refactored
+            document.getElementById('navHome').textContent = langData[currentLang].home;
+            document.getElementById('navAbout').textContent = langData[currentLang].about;
+            document.getElementById('navDashboard').textContent = langData[currentLang].dashboard;
+            document.getElementById('navPricing').textContent = langData[currentLang].pricing;
+            document.getElementById('navContact').textContent = langData[currentLang].contact;
+
+            // Cap nhat Navbar Legacy
+            document.getElementById('badNavText').textContent = langData[currentLang].badText;
+        }
+
+        // Chuyen doi Che do Refactored vs Legacy
+        function switchMode(mode) {
+            const refactoredView = document.getElementById('refactoredView');
+            const legacyView = document.getElementById('legacyView');
+            const btnRefactored = document.getElementById('btnModeRefactored');
+            const btnLegacy = document.getElementById('btnModeLegacy');
+
+            if (mode === 'refactored') {
+                refactoredView.style.display = 'block';
+                legacyView.style.display = 'none';
+                btnRefactored.classList.add('active');
+                btnLegacy.classList.remove('active');
+            } else {
+                refactoredView.style.display = 'none';
+                legacyView.style.display = 'block';
+                btnRefactored.classList.remove('active');
+                btnLegacy.classList.add('active');
+            }
+        }
+
+        // Cap nhat thong so Viewport Responsive cho Product Manager
+        function updateViewportInfo() {
+            const w = window.innerWidth;
+            document.getElementById('vpWidth').textContent = w;
+            
+            let bp = 'Desktop (>1024px)';
+            if (w <= 768) {
+                bp = 'Mobile (<768px)';
+            } else if (w <= 1024) {
+                bp = 'Tablet (768px-1024px)';
+            }
+            document.getElementById('vpBreakpoint').textContent = bp;
+        }
+
+        window.addEventListener('resize', updateViewportInfo);
+        window.addEventListener('DOMContentLoaded', updateViewportInfo);
+    </script>
+</body>
+</html>

@@ -35,6 +35,7 @@
 | 23 | **[Bài tập] Định dạng văn bản với CSS** | `css-text-formatting/` | HTML5, CSS3 Typography, `font-style`, `text-align`, `font-size`, `text-indent`, `color` | Hoàn thành |
 | 24 | **[Thực hành] Sử dụng box model** | `using-box-model/` | HTML5, CSS3 Box Model, Content, Padding, Border (4 colors), Margin (`0 auto`) | Hoàn thành |
 | 25 | **[Bài tập] Tạo giao diện giản lược của trang chủ Facebook** | `facebook-homepage-layout/` | HTML5, CSS3 Position (`fixed`, `relative`), 3-Column Layout, Sidebars, Responsive | Hoàn thành |
+| 26 | **[Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub"** | `metricshub-layout-refactoring/` | Flexbox (1D Navbar), CSS Grid (2D Bento Dashboard), Bootstrap 5 (12-Col Pricing), Shallow DOM | Hoàn thành |
 
 ---
 
@@ -448,7 +449,32 @@ Xây dựng giao diện trang chủ Facebook giản lược nhưng chuẩn mực
 
 ---
 
-## 26. Hướng dẫn mở và kiểm tra trực tiếp
+## 26. Bài thực hành 26: [Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub" - Chọn Đúng "Vũ Khí" Dàn Trang
+
+### 26.1. Mục tiêu & 3 "Vũ Khí" Dàn Trang
+Tái cấu trúc toàn diện bảng điều khiển quản trị MetricsHub bị lỗi do lập trình viên cũ dùng sai công cụ, phân loại chính xác bản chất không gian để ứng dụng 3 công nghệ dàn trang chuẩn mực:
+- **Thanh điều hướng (Navbar) -> Flexbox (1D - Content-Driven)**:
+  - Thay thế CSS Grid cố định pixel (`grid-template-columns: 200px 600px 200px`) bằng `display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap;`.
+  - Phân bổ không gian linh hoạt dựa trên độ dài nội dung thực tế (Content-first), triệt tiêu hoàn toàn lỗi tràn và đè nút khi chuyển sang từ khóa tiếng Đức dài (`Dashboard-Verwaltungskennzahlenübersicht`).
+- **Khu vực Widget (Bento Dashboard) -> CSS Grid (2D - Layout-Driven)**:
+  - Thay thế hệ thống Flexbox lồng tầng sâu (`.column width: 50%`, `widget-large height: 200px`) bằng CSS Grid 2 chiều: `display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;`.
+  - Làm phẳng cấu trúc DOM (Shallow DOM): Toàn bộ Widget đều là anh em ngang hàng (Siblings) trực tiếp của `.grid-dashboard`.
+  - Áp dụng các quy tắc `grid-column: span 2; grid-row: span 2;` cho biểu tượng Hero Chart, `span 2` cho biểu đồ luồng lưu lượng và `span 1` cho các thẻ chỉ số chuẩn, tạo bố cục Bento Box hiện đại và ổn định trên iPad/Tablet.
+- **Khu vực Bảng giá (Pricing) -> Bootstrap 5 (Standardized 12-Column Grid)**:
+  - Loại bỏ hoàn toàn mã `float: left; width: 33.33%;` và các Media Query viết tay.
+  - Tận dụng hệ thống lưới 12 cột chuẩn hóa của Bootstrap 5 (`<div class="row g-4 justify-content-center">`, `<div class="col-12 col-md-4">`) và các lớp `.card`, `.card-body`, `.badge` để triển khai 3 gói dịch vụ tốc độ cao (Rapid Prototyping).
+
+### 26.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện MetricsHub hoàn chỉnh: `metricshub-layout-refactoring/index.html` (Tích hợp bộ chuyển đổi Refactored vs Legacy, công tắc tiếng Đức EN/DE, thước đo Viewport thời gian thực)
+- Kiểu dáng CSS tối ưu: `metricshub-layout-refactoring/style.css`
+- Giải trình chiến lược dàn trang (< 150 từ): `metricshub-layout-refactoring/layout_strategy.md`
+- Nhật ký tương tác AI & Vấn đáp PM: `metricshub-layout-refactoring/ai_prompt_log.md`
+- Báo cáo Audit & Thuyết minh kiến trúc: `metricshub-layout-refactoring/audit_report.md`
+- Tệp nén nộp bài chuẩn CodeGym: `metricshub-layout-refactoring/metricshub_ui.zip`
+
+---
+
+## 27. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -475,3 +501,4 @@ Xây dựng giao diện trang chủ Facebook giản lược nhưng chuẩn mực
 23. **Mở Bài tập Định dạng văn bản với CSS**: Mở file `css-text-formatting/index.html` hoặc `css-text-formatting/demo.html` trong trình duyệt.
 24. **Mở Thực hành Sử dụng box model**: Mở file `using-box-model/index.html` hoặc `using-box-model/demo.html` trong trình duyệt.
 25. **Mở Bài tập Giao diện Facebook**: Mở file `facebook-homepage-layout/index.html` hoặc `facebook-homepage-layout/demo.html` trong trình duyệt.
+26. **Mở Thực hành Tái cấu trúc MetricsHub**: Mở file `metricshub-layout-refactoring/index.html` trong trình duyệt.
