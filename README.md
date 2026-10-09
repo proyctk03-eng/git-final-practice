@@ -36,6 +36,7 @@
 | 24 | **[Thực hành] Sử dụng box model** | `using-box-model/` | HTML5, CSS3 Box Model, Content, Padding, Border (4 colors), Margin (`0 auto`) | Hoàn thành |
 | 25 | **[Bài tập] Tạo giao diện giản lược của trang chủ Facebook** | `facebook-homepage-layout/` | HTML5, CSS3 Position (`fixed`, `relative`), 3-Column Layout, Sidebars, Responsive | Hoàn thành |
 | 26 | **[Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub"** | `metricshub-layout-refactoring/` | Flexbox (1D Navbar), CSS Grid (2D Bento Dashboard), Bootstrap 5 (12-Col Pricing), Shallow DOM | Hoàn thành |
+| 27 | **[Thực hành] Sử dụng Bootstrap xây dựng form login** | `jwbd-login-bootstrap/` | Bootstrap 5.0.0-beta2, Flexbox Centering, Form Controls, CSS Input Grouping | Hoàn thành |
 
 ---
 
@@ -474,7 +475,25 @@ Tái cấu trúc toàn diện bảng điều khiển quản trị MetricsHub b�
 
 ---
 
-## 27. Hướng dẫn mở và kiểm tra trực tiếp
+## 27. Bài thực hành 27: [Thực hành] Sử Dụng Bootstrap Xây Dựng Form Login
+
+### 27.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng giao diện Form đăng nhập chuẩn mực sử dụng thư viện Bootstrap 5 kết hợp CSS tinh chỉnh theo đúng đặc tả của CodeGym:
+- **Tích hợp Bootstrap 5 qua CDN**: Sử dụng Bootstrap CSS và Bootstrap Bundle JS (v5.0.0-beta2).
+- **Căn giữa toàn màn hình bằng Flexbox**: Thiết lập `html, body { height: 100%; }` và `body { display: flex; align-items: center; justify-content: center; }` giúp form đăng nhập luôn nằm chính giữa màn hình theo cả hai chiều.
+- **Bố cục form đăng nhập (`.form-signin`)**: Khống chế `max-width: 330px; margin: 0 auto; padding: 15px;`.
+- **Hiệu ứng liên kết góc bo tròn Input**: Ghép nối ô Email và Password thành một khối trực quan liền mạch: ô Email bo góc dưới bằng 0 (`border-bottom-*-radius: 0; margin-bottom: -1px;`), ô Password bo góc trên bằng 0 (`border-top-*-radius: 0; margin-bottom: 10px;`).
+- **Nút đăng nhập chuẩn Bootstrap**: Nút `.btn .btn-lg .btn-primary .w-100` phủ kín chiều rộng form với hiệu ứng phản hồi xúc giác.
+
+### 27.2. Tài liệu và Mã nguồn bàn giao
+- Biểu tượng Bootstrap chuẩn: `jwbd-login-bootstrap/bootstrap.png`
+- Giao diện Form đăng nhập: `jwbd-login-bootstrap/index.html`
+- Kiểu dáng CSS căn giữa & bo góc: `jwbd-login-bootstrap/styles.css`
+- Thuyết minh kỹ thuật chi tiết: `jwbd-login-bootstrap/README.md`
+
+---
+
+## 28. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -502,3 +521,4 @@ Tái cấu trúc toàn diện bảng điều khiển quản trị MetricsHub b�
 24. **Mở Thực hành Sử dụng box model**: Mở file `using-box-model/index.html` hoặc `using-box-model/demo.html` trong trình duyệt.
 25. **Mở Bài tập Giao diện Facebook**: Mở file `facebook-homepage-layout/index.html` hoặc `facebook-homepage-layout/demo.html` trong trình duyệt.
 26. **Mở Thực hành Tái cấu trúc MetricsHub**: Mở file `metricshub-layout-refactoring/index.html` trong trình duyệt.
+27. **Mở Thực hành Form Login Bootstrap**: Mở file `jwbd-login-bootstrap/index.html` trong trình duyệt.
