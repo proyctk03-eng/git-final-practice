@@ -41,6 +41,7 @@
 | 29 | **[Bài tập] Tạo layout với RWD** | `tao-layout-voi-rwd/` | HTML5 DIV, CSS Fluid Grid 12 cột, `box-sizing: border-box`, Media Queries (Breakpoints 600px, 768px) | Hoàn thành |
 | 30 | **[Thực hành] Tạo trang web hiển thị thời gian hệ thống** | `jsp-servlet-demo/` | Maven Webapp, Jakarta Servlet API 6.0, Jakarta JSP 3.1, Tomcat 10.1+, Scriptlet | Hoàn thành |
 | 31 | **[Bài tập] Ứng dụng Product Discount Calculator** | `product-discount-calculator/` | Java Servlet, JSP Form POST, Tomcat 10.1+, Jakarta EE 10, Discount Calculation | Hoàn thành |
+| 32 | **[Thực hành] CSS | flex-flow Property** | `css-flex-flow/` | CSS3 Flexbox, `flex-flow` (`row nowrap`, `row-reverse nowrap`), Flex Container | Hoàn thành |
 
 ---
 
@@ -573,7 +574,23 @@ Xây dựng ứng dụng tính toán chiết khấu mua hàng trực tuyến (Pr
 
 ---
 
-## 32. Hướng dẫn mở và kiểm tra trực tiếp
+## 32. Bài thực hành 32: [Thực hành] CSS | flex-flow Property
+
+### 32.1. Mục tiêu & Các kỹ thuật áp dụng
+Luyện tập sử dụng thuộc tính viết tắt `flex-flow` trong CSS Flexbox theo đúng đặc tả của CodeGym:
+- **Cú pháp shorthand `flex-flow`**: Kết hợp giữa hai thuộc tính điều hướng `flex-direction` và hành vi xuống dòng `flex-wrap` (`flex-flow: <flex-direction> <flex-wrap>;`).
+- **Ví dụ 1 (`row nowrap`)**: Sắp xếp các phần tử con theo chiều ngang từ trái qua phải (hướng đọc chuẩn) và giữ nguyên trên một hàng duy nhất.
+- **Ví dụ 2 (`row-reverse nowrap`)**: Sắp xếp các phần tử con theo chiều ngang từ phải qua trái (hướng ngược lại) và không xuống dòng.
+- **Phạm vi tác dụng**: Thuộc tính chỉ có hiệu lực khi được khai báo trên phần tử cha đóng vai trò là Flex Container (`display: flex` hoặc `display: inline-flex`).
+
+### 32.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện HTML kiểm thử: `css-flex-flow/index.html`
+- Kiểu dáng CSS định dạng `flex-flow`: `css-flex-flow/styles.css`
+- Thuyết minh kỹ thuật chi tiết: `css-flex-flow/README.md`
+
+---
+
+## 33. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -606,3 +623,4 @@ Xây dựng ứng dụng tính toán chiết khấu mua hàng trực tuyến (Pr
 29. **Mở Bài tập Layout RWD**: Mở file `tao-layout-voi-rwd/index.html` trong trình duyệt.
 30. **Mở Thực hành JSP Thời gian hệ thống**: Mở file `jsp-servlet-demo/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 31. **Mở Bài tập Product Discount Calculator**: Mở file `product-discount-calculator/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
+32. **Mở Thực hành CSS flex-flow**: Mở file `css-flex-flow/index.html` trong trình duyệt.
