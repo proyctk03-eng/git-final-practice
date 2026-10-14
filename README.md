@@ -40,6 +40,7 @@
 | 28 | **[Bài tập] Tạo layout với các thẻ HTML5 và CSS** | `tao-layout-html5-css/` | HTML5 Semantic (header, nav, section, article, aside, footer), CSS Flexbox Responsive | Hoàn thành |
 | 29 | **[Bài tập] Tạo layout với RWD** | `tao-layout-voi-rwd/` | HTML5 DIV, CSS Fluid Grid 12 cột, `box-sizing: border-box`, Media Queries (Breakpoints 600px, 768px) | Hoàn thành |
 | 30 | **[Thực hành] Tạo trang web hiển thị thời gian hệ thống** | `jsp-servlet-demo/` | Maven Webapp, Jakarta Servlet API 6.0, Jakarta JSP 3.1, Tomcat 10.1+, Scriptlet | Hoàn thành |
+| 31 | **[Bài tập] Ứng dụng Product Discount Calculator** | `product-discount-calculator/` | Java Servlet, JSP Form POST, Tomcat 10.1+, Jakarta EE 10, Discount Calculation | Hoàn thành |
 
 ---
 
@@ -550,7 +551,29 @@ Xây dựng ứng dụng Java Web đầu tiên theo chuẩn Maven Webapp tương
 
 ---
 
-## 31. Hướng dẫn mở và kiểm tra trực tiếp
+## 31. Bài tập 31: [Bài tập] Ứng Dụng Product Discount Calculator
+
+### 31.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng tính toán chiết khấu mua hàng trực tuyến (Product Discount Calculator) bằng Java Servlet và JSP theo đúng đặc tả của CodeGym:
+- **Tiếp nhận tham số qua Form POST (`index.jsp`)**: Xây dựng form nhập liệu các thông số sản phẩm gồm Product Description (`description`), List Price (`price`), và Discount Percent (`discount_percent`).
+- **Xử lý tính toán trong Servlet (`DiscountServlet.java`)**:
+  - Nhận và chuẩn hóa dữ liệu từ `HttpServletRequest` với encoding `UTF-8`.
+  - Áp dụng công thức tính chiết khấu:
+    $$\text{Discount Amount} = \text{List Price} \times \text{Discount Percent} \times 0.01$$
+    $$\text{Discount Price} = \text{List Price} - \text{Discount Amount}$$
+  - Kết xuất giao diện bảng kết quả chi tiết, định dạng tiền tệ chuyên nghiệp và liên kết quay trở lại form tính toán.
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package và web-app schema 6.0.
+
+### 31.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `product-discount-calculator/pom.xml`
+- Servlet điều khiển tính toán: `product-discount-calculator/src/main/java/com/codegym/DiscountServlet.java`
+- Giao diện form nhập liệu: `product-discount-calculator/src/main/webapp/index.jsp`
+- Cấu hình Web descriptor: `product-discount-calculator/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `product-discount-calculator/README.md`
+
+---
+
+## 32. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -582,3 +605,4 @@ Xây dựng ứng dụng Java Web đầu tiên theo chuẩn Maven Webapp tương
 28. **Mở Bài tập Layout HTML5 và CSS**: Mở file `tao-layout-html5-css/index.html` trong trình duyệt.
 29. **Mở Bài tập Layout RWD**: Mở file `tao-layout-voi-rwd/index.html` trong trình duyệt.
 30. **Mở Thực hành JSP Thời gian hệ thống**: Mở file `jsp-servlet-demo/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
+31. **Mở Bài tập Product Discount Calculator**: Mở file `product-discount-calculator/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
