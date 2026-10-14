@@ -1,0 +1,38 @@
+/* =============================================================================
+   THUC HANH: XAY DUNG LANDING PAGE VOI BOOTSTRAP 5.3.0
+   Teo: styles.css
+   Tac gia: Nguyen Tuan Dat
+   ============================================================================= */
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+    color: #212529;
+    background-color: #f8f9fa;
+}
+
+/* Service Card Enhancement */
+.service-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border-radius: 12px;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Service Badge Icons */
+.service-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    font-weight: 700;
+    font-size: 15px;
+    border-radius: 50%;
+    margin: 0 auto;
+    letter-spacing: 0.5px;
+}
