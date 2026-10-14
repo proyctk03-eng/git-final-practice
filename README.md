@@ -39,6 +39,7 @@
 | 27 | **[Thực hành] Sử dụng Bootstrap xây dựng form login** | `jwbd-login-bootstrap/` | Bootstrap 5.0.0-beta2, Flexbox Centering, Form Controls, CSS Input Grouping | Hoàn thành |
 | 28 | **[Bài tập] Tạo layout với các thẻ HTML5 và CSS** | `tao-layout-html5-css/` | HTML5 Semantic (header, nav, section, article, aside, footer), CSS Flexbox Responsive | Hoàn thành |
 | 29 | **[Bài tập] Tạo layout với RWD** | `tao-layout-voi-rwd/` | HTML5 DIV, CSS Fluid Grid 12 cột, `box-sizing: border-box`, Media Queries (Breakpoints 600px, 768px) | Hoàn thành |
+| 30 | **[Thực hành] Tạo trang web hiển thị thời gian hệ thống** | `jsp-servlet-demo/` | Maven Webapp, Jakarta Servlet API 6.0, Jakarta JSP 3.1, Tomcat 10.1+, Scriptlet | Hoàn thành |
 
 ---
 
@@ -531,7 +532,25 @@ Xây dựng bố cục trang web có khả năng đáp ứng đa màn hình (Res
 
 ---
 
-## 30. Hướng dẫn mở và kiểm tra trực tiếp
+## 30. Bài thực hành 30: [Thực hành] Tạo Trang Web Hiển Thị Thời Gian Hệ Thống
+
+### 30.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng Java Web đầu tiên theo chuẩn Maven Webapp tương thích hoàn toàn với Apache Tomcat 10.1+ và Jakarta EE 10:
+- **Cấu hình Maven (`pom.xml`)**: Quản lý gói dependencies chuẩn mực gồm `jakarta.servlet-api` (version 6.0.0) và `jakarta.servlet.jsp-api` (version 3.1.1) với phạm vi `provided`, trình biên dịch Java 17 và `maven-war-plugin` 3.4.0.
+- **Tầng giao diện động (`index.jsp`)**: Khai báo chỉ thị `<%@page contentType="text/html" pageEncoding="UTF-8"%>`, sử dụng Scriptlet `<% java.util.Date date = new java.util.Date(); %>` và JSP Expression `<%= date %>` để trích xuất và hiển thị thời gian thực của máy chủ.
+- **Tầng xử lý Servlet (`HelloServlet.java`)**: Kế thừa `HttpServlet`, định tuyến qua `@WebServlet(name = "HelloServlet", urlPatterns = {"/hello"})`, thiết lập UTF-8 và phản hồi HTML trực tiếp.
+- **Cấu hình ứng dụng (`web.xml`)**: Khai báo tệp khởi động `index.jsp` theo đúng schema Jakarta EE 10.
+
+### 30.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `jsp-servlet-demo/pom.xml`
+- Servlet điều khiển: `jsp-servlet-demo/src/main/java/com/codegym/HelloServlet.java`
+- Giao diện JSP thời gian hệ thống: `jsp-servlet-demo/src/main/webapp/index.jsp`
+- Cấu hình Web descriptor: `jsp-servlet-demo/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `jsp-servlet-demo/README.md`
+
+---
+
+## 31. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -562,3 +581,4 @@ Xây dựng bố cục trang web có khả năng đáp ứng đa màn hình (Res
 27. **Mở Thực hành Form Login Bootstrap**: Mở file `jwbd-login-bootstrap/index.html` trong trình duyệt.
 28. **Mở Bài tập Layout HTML5 và CSS**: Mở file `tao-layout-html5-css/index.html` trong trình duyệt.
 29. **Mở Bài tập Layout RWD**: Mở file `tao-layout-voi-rwd/index.html` trong trình duyệt.
+30. **Mở Thực hành JSP Thời gian hệ thống**: Mở file `jsp-servlet-demo/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
