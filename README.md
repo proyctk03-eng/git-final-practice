@@ -1,713 +1,77 @@
-# Bài Tập Thực Hành Thiết Kế Web & UX/UI
+# [Bài tập] Hiển thị danh sách khách hàng - JSTL JSP
 
-> **Khoá học**: Thiết kế Trải nghiệm Người dùng (UX) & Giao diện Người dùng (UI)  
-> **Sinh viên thực hiện**: Nguyễn Tuấn Đạt  
-> **Kho lưu trữ (Repository)**: `https://github.com/proyctk03-eng/git-final-practice`
+Dự án Java Web Maven Webapp thực hiện bài tập hiển thị danh sách khách hàng sử dụng thư viện JSTL (JavaServer Pages Standard Tag Library) kết hợp với JSP và Servlet theo chuẩn đào tạo của CodeGym.
 
----
+## 1. Thông tin tác giả và bản quyền
 
-## Danh mục Bài tập hoàn thành
+- Tác giả: Nguyễn Tuấn Đạt
+- Email: proyctk03@gmail.com
+- Môn học: Lập trình Java Web (JSP / Servlet / JSTL)
+- Hệ thống bài tập: CodeGym Java Web Developer
 
-| STT | Tên bài tập | Thư mục mã nguồn | Công nghệ sử dụng | Trạng thái |
-|:---:|---|---|---|:---:|
-| 1 | **[Bài tập] Phối màu cho newsletter** | Gốc repository (`./`) | HTML5, CSS3 Variables, Bootstrap 5.3.3, Adobe Color | Hoàn thành |
-| 2 | **[Bài tập] Xây dựng Landing Page (CodeGym Career)** | `landing-page/` | Bootstrap Material Design (MDBootstrap 4.19.1), Bootstrap 4.5.0, jQuery, Font Awesome | Hoàn thành |
-| 3 | **[Thực hành] Sử dụng thẻ HTML cơ bản** | `halong_bay.html` | HTML5 (`h1`, `p`, `img`, `a`) | Hoàn thành |
-| 4 | **[Thực hành] Định dạng văn bản với HTML Styles** | `text_formatting.html` | HTML5, CSS Inline Styles | Hoàn thành |
-| 5 | **[Thực hành] Tạo danh sách trong HTML** | `html_lists.html` | HTML5 (`ul`, `ol`, `li`, nested list) | Hoàn thành |
-| 6 | **[Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn** | `headings-paragraphs/index.html` | HTML5 (`h1`, `h2`, `p`) | Hoàn thành |
-| 7 | **[Bài tập] Sử dụng danh sách trong HTML** | `html-lists-exercise/index.html` | HTML5 (`h1`, `h2`, `ul`, `ol`) | Hoàn thành |
-| 8 | **[Bài tập] Tạo liên kết trong HTML** | `html-links-exercise/index.html` | HTML5 (`a`, `target="_blank"`, `mailto:`, internal link) | Hoàn thành |
-| 9 | **[Bài tập] Định dạng văn bản với HTML Styles** | `html-styles-exercise/index.html` | HTML5, CSS Inline Styles | Hoàn thành |
-| 10 | **[Bài tập] Sử dụng thẻ hình ảnh** | `html-images-exercise/index.html` | HTML5 (`img`, `src`, `alt`, `width`) | Hoàn thành |
-| 11 | **[Thực hành] Tạo form cơ bản** | `simpleform.html` / `simpleform/` | HTML5 Form (`form`, `select`, `radio`, `text`, `button`, CSS Font) | Hoàn thành |
-| 12 | **[Thực hành] Quản lý đơn đặt hàng** | `erd-order-management/` | Sơ đồ ERD Ký pháp Chen, Mô hình quan hệ 3NF Crow's Foot, SQL DDL | Hoàn thành |
-| 13 | **[Thực hành] Tạo bảng trong CSDL** | `sql-create-table-practice/` | SQL DDL (`CREATE DATABASE`, `TABLE`, `ALTER TABLE`), ERD | Hoàn thành |
-| 14 | **[Bài tập] Chuyển đổi ERD sang mô hình quan hệ** | `erd-to-relational/` | Ký pháp Chen, Xử lý quan hệ 1-n, n-m, Thuộc tính đa trị, SQL DDL | Hoàn thành |
-| 15 | **[Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide** | `autoride-profit-leak-fix/` | MySQL DDL, ENUM, DECIMAL(12,2), Trigger, ERD, 3NF | Hoàn thành |
-| 16 | **[Thực hành] Thêm dữ liệu vào CSDL Quản lý sinh viên** | `sql-student-management-insert-data/` | SQL DML (`INSERT INTO`, Batch Insert, NULL, CURRENT_DATE), ERD | Hoàn thành |
-| 17 | **[Bài tập & Thực hành] Truy vấn dữ liệu CSDL Quản lý sinh viên** | `sql-student-management-query/` | SQL DQL & DML (`LIKE`, `MONTH`, `BETWEEN`, `UPDATE`, `ORDER BY`, `JOIN`), ERD | Hoàn thành (100/100) |
-| 18 | **[Thực hành] Stored Procedure trong MySQL** | `sql-stored-procedure/` | MySQL Stored Procedure (`DELIMITER`, `CREATE PROCEDURE`, `CALL`, `DROP IF EXISTS`), Plan Cache | Hoàn thành |
-| 19 | **[Thực hành] Trigger trong MySQL** | `sql-trigger/` | MySQL Trigger (`BEFORE INSERT`, `NEW.col`, `AFTER UPDATE`, Audit Log) | Hoàn thành |
-| 20 | **[Thực hành] Thảm Họa Over-Indexing Tại QuickFeed** | `quickfeed-index-optimization/` | MySQL Index Optimization, Cardinality, B-Tree Trade-off, `information_schema` | Hoàn thành |
-| 21 | **[Bài tập] Giải Cứu IoT SmartFactory (Tối ưu Index)** | `smartfactory-index-tradeoff/` | MySQL Covering vs Lean Index, Write Penalty, Page Split, Storage Trade-off | Hoàn thành |
-| 22 | **[Thực hành] Sử dụng CSS** | `using-css/` | HTML5, CSS3, Font-family, Border, Padding, Specificity (`#id`) | Hoàn thành |
-| 23 | **[Bài tập] Định dạng văn bản với CSS** | `css-text-formatting/` | HTML5, CSS3 Typography, `font-style`, `text-align`, `font-size`, `text-indent`, `color` | Hoàn thành |
-| 24 | **[Thực hành] Sử dụng box model** | `using-box-model/` | HTML5, CSS3 Box Model, Content, Padding, Border (4 colors), Margin (`0 auto`) | Hoàn thành |
-| 25 | **[Bài tập] Tạo giao diện giản lược của trang chủ Facebook** | `facebook-homepage-layout/` | HTML5, CSS3 Position (`fixed`, `relative`), 3-Column Layout, Sidebars, Responsive | Hoàn thành |
-| 26 | **[Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub"** | `metricshub-layout-refactoring/` | Flexbox (1D Navbar), CSS Grid (2D Bento Dashboard), Bootstrap 5 (12-Col Pricing), Shallow DOM | Hoàn thành |
-| 27 | **[Thực hành] Sử dụng Bootstrap xây dựng form login** | `jwbd-login-bootstrap/` | Bootstrap 5.0.0-beta2, Flexbox Centering, Form Controls, CSS Input Grouping | Hoàn thành |
-| 28 | **[Bài tập] Tạo layout với các thẻ HTML5 và CSS** | `tao-layout-html5-css/` | HTML5 Semantic (header, nav, section, article, aside, footer), CSS Flexbox Responsive | Hoàn thành |
-| 29 | **[Bài tập] Tạo layout với RWD** | `tao-layout-voi-rwd/` | HTML5 DIV, CSS Fluid Grid 12 cột, `box-sizing: border-box`, Media Queries (Breakpoints 600px, 768px) | Hoàn thành |
-| 30 | **[Thực hành] Tạo trang web hiển thị thời gian hệ thống** | `jsp-servlet-demo/` | Maven Webapp, Jakarta Servlet API 6.0, Jakarta JSP 3.1, Tomcat 10.1+, Scriptlet | Hoàn thành |
-| 31 | **[Bài tập] Ứng dụng Product Discount Calculator** | `product-discount-calculator/` | Java Servlet, JSP Form POST, Tomcat 10.1+, Jakarta EE 10, Discount Calculation | Hoàn thành |
-| 32 | **[Thực hành] CSS | flex-flow Property** | `css-flex-flow/` | CSS3 Flexbox, `flex-flow` (`row nowrap`, `row-reverse nowrap`), Flex Container | Hoàn thành |
-| 33 | **[Thực hành] Xây dựng Landing Page với Bootstrap** | `bootstrap-landing-page/` | Bootstrap 5.3.0, Navbar, Hero Section, Responsive Grid (col-md-4), Cards, Footer | Hoàn thành |
-| 34 | **[Bài tập] Thiết kế Trang Đăng Ký với Bootstrap Forms** | `bootstrap-registration-form/` | Bootstrap 5.3.0 Forms, Form Controls, Radio, Checkbox, Dropdown Select, Validation | Hoàn thành |
-| 35 | **[Thực hành] Ứng dụng chuyển đổi tiền tệ - JSP** | `jsp-currency-converter/` | Java JSP, Scriptlet, Expression, Tomcat 10.1+, Jakarta EE 10, USD to VND | Hoàn thành |
-| 36 | **[Bài tập] Hiển thị danh sách khách hàng** | `customer-list-jstl/` | Java JSP, JSTL Core (`<c:forEach>`), EL, Jakarta EE 10, Tomcat 10.1+, Model, Servlet | Hoàn thành |
+## 2. Mục tiêu kỹ thuật
 
----
+- Luyện tập sử dụng thư viện JSTL Core trong trang JSP.
+- Khai báo chỉ thị thư viện thẻ taglib: `<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>`.
+- Sử dụng thẻ vòng lặp `<c:forEach>` để duyệt danh sách đối tượng khách hàng `customerList`.
+- Kết hợp Expression Language (EL) `${...}` để hiển thị các thuộc tính: tên khách hàng, ngày sinh, địa chỉ, hình ảnh.
+- Sử dụng biến trạng thái vòng lặp `varStatus="status"` và thuộc tính `${status.count}` để đánh số thứ tự (STT) tự động từ 1.
+- Hỗ trợ mô hình MVC với `CustomerServlet` định tuyến dữ liệu và hỗ trợ khởi tạo trực tiếp tại `index.jsp` khi truy cập thẳng.
+- Tương thích với Java 17, Apache Tomcat 10.1+ (Jakarta EE 10) và các máy chủ servlet tiêu chuẩn.
 
-## 1. Bài tập 1: Phối màu cho newsletter (Trello Sample)
+## 3. Cấu trúc thư mục dự án
 
-### 1.1. Mục tiêu
-Ứng dụng công cụ **Adobe Color** để nghiên cứu và lựa chọn 2 bộ màu sắc hài hòa, sau đó áp dụng vào khung mẫu **Trello Newsletter** trên nền tảng **Bootstrap 5.3.3**.
-
-### 1.2. Hai phiên bản phối màu
-- **Phiên bản 1 ("Atlassian Trello Cool Productivity")**:
-  - Mã nguồn: `newsletter_v1.html`, `css/style1.css`
-  - Bảng màu: Primary `#0065FF`, Secondary `#00A3BF`, Accent `#36B37E`, Text `#172B4D` (WCAG AAA 12.8:1), Canvas `#F4F5F7`.
-- **Phiên bản 2 ("Sunset Terracotta & Creative Energy")**:
-  - Mã nguồn: `newsletter_v2.html`, `css/style2.css`
-  - Bảng màu: Primary `#E65100`, Secondary `#6A1B9A`, Accent `#00897B`, Text `#261C14` (WCAG AAA 13.5:1), Canvas `#FFF8F0`.
-- **Trang Hub so sánh**: `index.html` tích hợp bộ chuyển đổi bảng màu trực tiếp và bảng phân tích thông số màu.
-
----
-
-## 2. Bài tập 2: Xây dựng Landing Page CodeGym Career
-
-### 2.1. Mục tiêu
-Chuyển đổi toàn bộ nội dung từ trang chính thức `https://codegym.vn/codegym-career/` sang giao diện chuẩn **Material Design** sử dụng thư viện **Bootstrap Material Design (MDBootstrap 4.19.1)**.
-
-### 2.2. Cấu trúc thư mục (`landing-page/`)
-```
-landing-page/
-├── index.html          # Giao diện Landing Page hoàn chỉnh
-├── css/
-│   └── style.css       # Tùy biến kiểu dáng Material Design, màu sắc thương hiệu CodeGym
-├── js/
-│   └── script.js       # Xử lý cuộn mượt, kiểm tra form đăng ký, hiệu ứng navbar
-└── README.md           # Thuyết minh kỹ thuật chi tiết
+```text
+customer-list-jstl/
+├── pom.xml
+├── README.md
+└── src/
+    └── main/
+        ├── java/
+        │   └── com/
+        │       └── codegym/
+        │           ├── controller/
+        │           │   └── CustomerServlet.java
+        │           └── model/
+        │               └── Customer.java
+        └── webapp/
+            ├── index.jsp
+            ├── images/
+            │   ├── customer1.svg
+            │   ├── customer2.svg
+            │   ├── customer3.svg
+            │   ├── customer4.svg
+            │   └── customer5.svg
+            └── WEB-INF/
+                └── web.xml
 ```
 
-### 2.3. Các khối chức năng chuẩn Material Design
-1. **Thanh điều hướng (Navbar)**: `fixed-top scrolling-navbar` với menu liên kết cuộn mượt và nút CTA tư vấn.
-2. **Hero Intro Section (Jumbotron Material)**: Tiêu đề bứt phá 5 tháng (20 tuần), huy hiệu cam kết việc làm 100% trong 45 ngày hoặc hoàn 100% học phí.
-3. **Thanh chỉ số ấn tượng (Stats Impact Bar)**: 4 thẻ card đổ bóng `z-depth-2` minh chứng kết quả đào tạo.
-4. **6 Trụ cột đào tạo thực chiến (Material Cards Grid)**: Thẻ card nâng cao (`transform: translateY(-6px)`), icon gradient và hiệu ứng waves.
-5. **Lộ trình đào tạo Coding Bootcamp (Material Stepper Timeline)**: Trục dòng thời gian 5 giai đoạn từ số 0 đến lập trình viên full-stack.
-6. **Hai khóa học chuyên sâu (Material Tabs System)**: CGC Java Full-Stack và CGC PHP Full-Stack.
-7. **Dịch vụ việc làm & Cam kết hợp đồng**: Quy trình 5 bước ứng tuyển nhận việc và cam kết hoàn học phí.
-8. **Hệ thống phần mềm hỗ trợ đào tạo**: Nền tảng LMS, Bob chấm code tự động, Agile Scrum Tracker, E-Portfolio.
-9. **Mạng lưới đối tác & Lời chứng thực học viên**: Viettel, FPT Software, VNPT, VNPAY, NashTech, Rikkeisoft, CMC Global,...
-10. **Form đăng ký tư vấn & Nhận tài liệu (Material Floating Form)**: Nhãn nổi `.md-form`, kiểm tra hợp lệ dữ liệu và câu hỏi bảo mật `15 + 7 = 22`.
-11. **Footer chuẩn Material Design**: Đầy đủ thông tin pháp lý, cơ sở Hà Nội, Đà Nẵng, hotline và mạng xã hội.
+## 4. Dữ liệu khách hàng mẫu (CodeGym Dataset)
 
-## 3. Bài tập 3: [Thực hành] Sử dụng thẻ HTML cơ bản (Vịnh Hạ Long)
+| STT | Tên khách hàng | Ngày sinh | Địa chỉ | Ảnh đại diện |
+|:---:|:---|:---:|:---|:---:|
+| 1 | Mai Văn Hoàn | 1983-08-20 | Hà Nội | `images/customer1.svg` |
+| 2 | Nguyễn Văn Nam | 1983-08-21 | Bắc Giang | `images/customer2.svg` |
+| 3 | Nguyễn Thái Hòa | 1983-08-22 | Nam Định | `images/customer3.svg` |
+| 4 | Trần Đăng Khoa | 1983-08-17 | Hà Tây | `images/customer4.svg` |
+| 5 | Nguyễn Đình Thi | 1983-08-19 | Hà Nội | `images/customer5.svg` |
 
-### 3.1. Mục tiêu
-Luyện tập xây dựng tài liệu HTML5 hoàn chỉnh, sử dụng các thẻ HTML cơ bản:
-- `<h1>`: Định nghĩa tiêu đề chính của trang.
-- `<p>`: Tạo các đoạn văn bản giới thiệu và mô tả.
-- `<img>`: Chèn hình ảnh Vịnh Hạ Long kèm các thuộc tính `src`, `alt`, `width="600"`.
-- `<a>`: Tạo siêu liên kết dẫn đến trang Wikipedia của Vịnh Hạ Long.
+## 5. Hướng dẫn cài đặt và chạy ứng dụng
 
-### 3.2. Mã nguồn
-- File thực hành: `halong_bay.html`
+### 5.1. Biên dịch dự án bằng Maven
 
-## 4. Bài tập 4: [Thực hành] Định dạng văn bản với HTML Styles
+Chạy lệnh sau tại thư mục gốc của dự án:
 
-### 4.1. Mục tiêu
-Luyện tập sử dụng các thẻ định dạng văn bản và thuộc tính CSS nội tuyến (inline style):
-- Các thẻ định dạng: `<b>` (chữ in đậm), `<i>` (chữ in nghiêng), `<u>` (chữ gạch chân).
-- Các thuộc tính CSS nội tuyến (`style`): `color`, `font-size`, `text-align`, `font-family`, `font-weight`.
+```bash
+mvn clean package
+```
 
-### 4.2. Mã nguồn
-- File thực hành: `text_formatting.html`
+Tệp lưu trữ triển khai `customer-list-jstl.war` sẽ được tạo trong thư mục `target/`.
 
-## 5. Bài tập 5: [Thực hành] Tạo danh sách trong HTML
+### 5.2. Triển khai trên Apache Tomcat 10.1+
 
-### 5.1. Mục tiêu
-Luyện tập sử dụng các thẻ danh sách trong HTML:
-- `<ul>`: Danh sách không có thứ tự (hiển thị dấu chấm tròn bullet).
-- `<ol>`: Danh sách có thứ tự (đánh số tự động 1, 2, 3...).
-- `<li>`: Phần tử danh sách.
-- Danh sách lồng nhau (Nested List): Kết hợp `<ul>` bên trong `<li>` của `<ol>`.
-
-### 5.2. Mã nguồn
-- File thực hành: `html_lists.html`
-
-## 6. Bài tập 6: [Bài tập] Sử dụng các thẻ tiêu đề và đoạn văn
-
-### 6.1. Mục tiêu
-Luyện tập sử dụng các thẻ tiêu đề và đoạn văn trong HTML:
-- `<h1>`: "Chào mừng đến với trang web của tôi"
-- `<h2>`: "Giới thiệu bản thân"
-- `<p>` (Đoạn 1): Mô tả sở thích cá nhân.
-- `<p>` (Đoạn 2): Mô tả mục tiêu học lập trình.
-
-### 6.2. Mã nguồn
-- File thực hành: `headings-paragraphs/index.html`
-
-## 7. Bài tập 7: [Bài tập] Sử dụng danh sách trong HTML
-
-### 7.1. Mục tiêu
-Luyện tập sử dụng danh sách có thứ tự (`<ol>`) và danh sách không có thứ tự (`<ul>`):
-- `<h1>`: "Những món ăn yêu thích của tôi".
-- `<ul>`: Liệt kê 5 món ăn yêu thích.
-- `<h2>`: "Các bước chuẩn bị cho một chuyến du lịch".
-- `<ol>`: Liệt kê 5 bước chuẩn bị trước khi đi du lịch.
-
-### 7.2. Mã nguồn
-- File thực hành: `html-lists-exercise/index.html`
-
-## 8. Bài tập 8: [Bài tập] Tạo liên kết trong HTML
-
-### 8.1. Mục tiêu
-Luyện tập sử dụng thẻ liên kết (`<a>`) để điều hướng giữa các trang web:
-- `<h1>`: "Liên kết yêu thích của tôi".
-- `<ul>`: Chứa 3 liên kết ngoài (Google, GitHub, Wikipedia).
-- Mở tab mới: Thuộc tính `target="_blank"`.
-- Liên kết nội bộ: Dẫn đến tệp `about.html` trong cùng thư mục.
-- Liên kết gửi email: `mailto:proyctk03@gmail.com`.
-
-### 8.2. Mã nguồn
-- File thực hành: `html-links-exercise/index.html` và `html-links-exercise/about.html`
-
-## 9. Bài tập 9: [Bài tập] Định dạng văn bản với HTML Styles
-
-### 9.1. Mục tiêu
-Luyện tập sử dụng CSS nội tuyến (`style`) để định dạng văn bản trong HTML:
-- `<h1>`: "Bài viết của tôi" có màu xanh dương (`color: blue`).
-- `<p>` 1: Màu đỏ và in đậm (`color: red; font-weight: bold`).
-- `<p>` 2: Chữ in nghiêng và căn giữa (`font-style: italic; text-align: center`).
-- `<p>` 3: Cỡ chữ 20px và gạch chân (`font-size: 20px; text-decoration: underline`).
-
-### 9.2. Mã nguồn
-- File thực hành: `html-styles-exercise/index.html`
-
-## 10. Bài tập 10: [Bài tập] Sử dụng thẻ hình ảnh
-
-### 10.1. Mục tiêu
-Luyện tập sử dụng thẻ hiển thị hình ảnh (`<img>`) trong trang web HTML:
-- Sử dụng thẻ `<img>` bên trong `<body>` để hiển thị hình ảnh phong cảnh.
-- Chọn hình ảnh độ nét cao với thuộc tính `src`.
-- Sử dụng thuộc tính `alt` mô tả hình ảnh đầy đủ ("Phong cảnh núi non hùng vĩ soi bóng xuống mặt hồ nước phẳng lặng").
-- Thuộc tính `width="600"` để tối ưu hiển thị.
-
-### 10.2. Mã nguồn
-- File thực hành: `html-images-exercise/index.html`
-
-## 11. Bài thực hành 11: [Thực hành] Tạo form cơ bản
-
-### 11.1. Mục tiêu
-Luyện tập tạo biểu mẫu (form) trong HTML với các phần tử giao diện cơ bản:
-- Thẻ form sử dụng phương thức GET: `<form method="get" action="simpleform.html" class="wufoo">`.
-- Định dạng kiểu chữ với CSS lớp `.wufoo`: `font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, sans-serif`.
-- Thẻ chọn thả xuống (`<select>`, `<option>`) để lựa chọn sản phẩm mua.
-- Nút chọn một (`<input type="radio" name="rd">`) để chọn số lượng và mức giá.
-- Ô nhập dữ liệu (`<input type="text">`) cho Họ và tên (`firstname`, `lastname`), `email`, `phone` kèm dấu bắt buộc (`*`).
-- Nút gửi dữ liệu (`<input type="button" name="btSubmit" value="Submit">`).
-
-### 11.2. Mã nguồn
-- File thực hành: `simpleform.html` và `simpleform/index.html`
-
-## 12. Bài thực hành 12: [Thực hành] Quản lý đơn đặt hàng
-
-### 12.1. Mục tiêu
-Thiết kế mô hình dữ liệu thực thể liên kết (ERD) và lược đồ cơ sở dữ liệu quan hệ chuẩn hóa 3NF cho bài toán Quản lý đơn đặt hàng và Phiếu giao hàng:
-- Phân tích và chọn lọc thuộc tính của Đơn đặt hàng và Phiếu giao hàng.
-- Xác định các thực thể: `ĐƠN VỊ KHÁCH`, `NGƯỜI ĐẶT`, `NGƯỜI NHẬN`, `NGƯỜI GIAO`, `NƠI GIAO`, `HÀNG`.
-- Xác định các mối quan hệ: `THUỘC` (1 - N), `ĐẶT` (N - N), `GIAO` (N - N - N - N).
-- Chuẩn hóa gộp `Đơn vị đặt hàng` và `Đơn vị khách hàng` thành thực thể `ĐƠN VỊ KHÁCH`.
-- Chuyển đổi thành mô hình quan hệ 3NF với 10 bảng dữ liệu chuẩn hóa, đầy đủ khóa chính (PK) và khóa ngoại (FK).
-
-### 12.2. Tài liệu và Mã nguồn
-- Sơ đồ ERD ký pháp Chen: `erd-order-management/erd_chen_model.png`
-- Mô hình quan hệ 3NF Crow's Foot: `erd-order-management/erd_relational_3nf.png`
-- Ảnh tổng hợp nộp bài: `erd-order-management/erd_diagram.png`
-- Mã nguồn SQL DDL: `erd-order-management/schema.sql`
-- Giao diện web trực quan: `erd-order-management/index.html`
-
-## 13. Bài thực hành 13: [Thực hành] Tạo bảng trong CSDL (QuanLyDiemThi)
-
-### 13.1. Mục tiêu
-Sử dụng các câu lệnh DDL để khởi tạo và liên kết 4 bảng cơ sở dữ liệu `QuanLyDiemThi`:
-- Bảng `HocSinh`: Quản lý thông tin học sinh (`MaHS` [PK], `TenHS`, `NgaySinh`, `Lop`, `GT`).
-- Bảng `MonHoc`: Quản lý danh mục môn học (`MaMH` [PK], `TenMH`, `MaGV` [FK]).
-- Bảng `BangDiem`: Bảng trung gian giải quyết quan hệ n - n giữa học sinh và môn học (`MaHS` [PK, FK], `MaMH` [PK, FK], `DiemThi`, `NgayKT`).
-- Bảng `GiaoVien`: Quản lý thông tin giáo viên phụ trách (`MaGV` [PK], `TenGV`, `SDT`).
-- Ràng buộc khóa ngoại liên kết giữa `MonHoc` và `GiaoVien`.
-
-### 13.2. Tài liệu và Mã nguồn
-- Kịch bản SQL hoàn chỉnh: `sql-create-table-practice/create_database.sql`
-- Sơ đồ quan hệ ERD: `sql-create-table-practice/erd_quanly_diemthi.png`
-- Giao diện web trực quan: `sql-create-table-practice/index.html`
-
-## 14. Bài tập 14: [Bài tập] Chuyển đổi ERD sang mô hình quan hệ (Quản lý Vật tư)
-
-### 14.1. Mục tiêu
-Thực hiện chuyển đổi toàn diện từ mô hình thực thể kết hợp (ERD) sang lược đồ dữ liệu quan hệ chuẩn 3NF:
-- Bước 1: Xác định 5 thực thể chính: `PHIEUXUAT`, `VATTU`, `PHIEUNHAP`, `DONDH`, `NHACC`.
-- Bước 2: Chuyển đổi quan hệ 1 - n (`CUNG_CAP` sinh khóa ngoại `MaNCC` trong `DONDH`) và các quan hệ n - m (`XUAT`, `NHAP`, `DAT_HANG` sinh các bảng chi tiết trung gian).
-- Bước 3: Tách thuộc tính đa trị `SDT` của `NHACC` thành bảng độc lập `NHACC_SDT(MaNCC, SDT)` để chuẩn hóa về 1NF.
-- Bước 4: Liệt kê danh sách 8 bảng quan hệ hoàn chỉnh với đầy đủ khóa chính và khóa ngoại.
-
-### 14.2. Tài liệu và Mã nguồn
-- Sơ đồ ERD đầu vào: `erd-to-relational/erd_input_model.png`
-- Lược đồ quan hệ sau chuyển đổi: `erd-to-relational/erd_relational_schema.png`
-- Ảnh tổng hợp nộp bài: `erd-to-relational/erd_conversion_overview.png`
-- Kịch bản SQL DDL: `erd-to-relational/create_tables.sql`
-- Giao diện web trực quan: `erd-to-relational/index.html`
-
-## 15. Bài tập 15: [Bài tập] Sự Cố Bốc Hơi Lợi Nhuận Tại AutoRide - Khắc Phục Data Gaps
-
-### 15.1. Mục tiêu
-Giải quyết sự cố bốc hơi lợi nhuận do dữ liệu "lệch pha" với UML Activity Diagram:
-- Chẩn đoán 4 khoảng trống dữ liệu (Data Gaps) nghiêm trọng trong Legacy Database.
-- Tái cấu trúc bảng `Rentals`: Khóa chặt trạng thái bằng `ENUM('BOOKED', 'ACTIVE', 'COMPLETED', 'CANCELLED')`, bổ sung các cột tài chính `security_deposit`, `late_fee`, `damage_fee` với kiểu `DECIMAL(12, 2)` tránh sai số dấu phẩy động.
-- Tạo bảng mới `Inspections` (quan hệ 1 - N) lưu vết biên bản kiểm tra xe kèm ràng buộc `ON DELETE RESTRICT`.
-- Viết Trigger `BEFORE INSERT` trên `Inspections` chặn lập biên bản khi hợp đồng đang ở trạng thái `BOOKED`.
-- Mô phỏng kịch bản thực tế khách "Nguyen Van A" vỡ đèn pha và tính toán quyết toán hoàn cọc chính xác 8.000.000 VNĐ.
-
-### 15.2. Tài liệu và Mã nguồn
-- Kịch bản SQL DDL & DML hoàn chỉnh: `autoride-profit-leak-fix/autoride_db.sql`
-- Báo cáo đối chiếu nghiệp vụ (< 200 từ): `autoride-profit-leak-fix/er_activity_mapping.md`
-- Nhật ký tương tác kỹ thuật AI: `autoride-profit-leak-fix/ai_prompt_log.md`
-- Sơ đồ ERD tối ưu hóa: `autoride-profit-leak-fix/erd_autoride.png`
-- Giao diện web mô phỏng & máy tính hoàn cọc: `autoride-profit-leak-fix/index.html`
-- Thuyết minh chi tiết & trả lời 3 câu hỏi vấn đáp: `autoride-profit-leak-fix/README.md`
-
-## 16. Bài thực hành 16: [Thực hành] Thêm Dữ Liệu Vào CSDL Quản Lý Sinh Viên
-
-### 16.1. Mục tiêu
-Thực hành các kỹ thuật chèn dữ liệu bằng câu lệnh `INSERT INTO` vào 4 bảng `Class`, `Student`, `Subject`, `Mark`:
-- Chèn dữ liệu theo thứ tự cột mặc định của bảng `Class`.
-- Chèn chỉ định cột trong bảng `Student`, xử lý trường `Phone` nhận giá trị `NULL` cho sinh viên 'Hoa'.
-- Kỹ thuật Batch Insert chèn đồng thời 4 bản ghi môn học vào bảng `Subject`.
-- Chèn bảng điểm `Mark` và kiểm tra toàn vẹn ràng buộc khóa ngoại.
-- Thực hiện truy vấn kết hợp `JOIN` giữa 4 bảng để tổng hợp kết quả học tập.
-
-### 16.2. Tài liệu và Mã nguồn
-- Kịch bản SQL DDL & DML hoàn chỉnh: `sql-student-management-insert-data/student_management_data.sql`
-- Sơ đồ ERD trực quan: `sql-student-management-insert-data/erd_quanly_sinhvien.png`
-- Giao diện web tra cứu: `sql-student-management-insert-data/index.html`
-- Thuyết minh chi tiết: `sql-student-management-insert-data/README.md`
-
-## 17. Bài tập & Thực hành 17: [Bài tập & Thực hành] Truy Vấn Dữ Liệu Với CSDL Quản Lý Sinh Viên
-
-### 17.1. Mục tiêu & 5 Tiêu chí chấm điểm (100/100 Điểm)
-Triển khai toàn diện 5 yêu cầu nghiệp vụ chuyên sâu theo đúng nhận xét và barem đánh giá của giảng viên:
-- **Tiêu chí 1 (+20đ)**: Lọc tất cả sinh viên có tên bắt đầu bằng ký tự 'h' bằng toán tử `LIKE 'h%'`.
-- **Tiêu chí 2 (+20đ)**: Lọc các lớp học có thời gian bắt đầu vào tháng 12 bằng hàm trích xuất tháng `MONTH(StartDate) = 12`.
-- **Tiêu chí 3 (+20đ)**: Lọc các môn học có credit trong khoảng từ 3 đến 5 bằng toán tử xác định khoảng giá trị `BETWEEN 3 AND 5`.
-- **Tiêu chí 4 (+20đ)**: Thay đổi mã lớp (ClassId) của sinh viên có tên 'Hung' thành 2 bằng câu lệnh `UPDATE Student SET ClassId = 2 WHERE StudentName = 'Hung';`.
-- **Tiêu chí 5 (+20đ)**: Hiển thị các trường `StudentName`, `SubName`, `Mark` từ 3 bảng (JOIN `Student`, `Mark`, `Subject`) sắp xếp giảm dần theo điểm thi và tăng dần theo tên bằng mệnh đề `ORDER BY M.Mark DESC, S.StudentName ASC`.
-- Bảo lưu các câu truy vấn thực hành nền tảng (SELECT *, WHERE Status = true, Credit < 10, JOIN học viên lớp A1, JOIN điểm môn CF).
-
-### 17.2. Tài liệu và Mã nguồn
-- Kịch bản SQL DDL, DML & DQL hoàn chỉnh: `sql-student-management-query/student_management_query.sql`
-- Sơ đồ ERD & luồng JOIN 5 truy vấn trọng tâm: `sql-student-management-query/erd_quanly_sinhvien_queries.png`
-- Giao diện web tra cứu & sao chép truy vấn: `sql-student-management-query/index.html`
-- Thuyết minh chi tiết & bảng ma trận đối chiếu tiêu chí: `sql-student-management-query/README.md`
-
-## 18. Bài thực hành 18: [Thực hành] Stored Procedure Trong MySQL
-
-### 18.1. Mục tiêu
-Luyện tập sử dụng thủ tục lưu trữ (Stored Procedure) trên cơ sở dữ liệu `classicmodels` (bảng `customers`):
-- Nắm vững khái niệm, chu trình biên dịch và lưu trữ kế hoạch thực thi (Execution Plan Cache) trong RAM.
-- Sử dụng từ khóa `DELIMITER //` và `DELIMITER ;` để thay đổi và khôi phục ký tự phân tách câu lệnh.
-- Tạo thủ tục đầu tiên `findAllCustomers()` lấy toàn bộ danh sách khách hàng và gọi bằng `CALL findAllCustomers();`.
-- Hiểu rõ cơ chế quản trị trong MySQL (không hỗ trợ `ALTER PROCEDURE` sửa thân thủ tục); áp dụng quy trình chuẩn xóa và tạo lại bằng `DROP PROCEDURE IF EXISTS` & `CREATE PROCEDURE` với bộ lọc `WHERE customerNumber = 175`.
-- Mở rộng xây dựng thủ tục có tham số đầu vào `IN p_customerNumber INT` phục vụ tra cứu khách hàng linh hoạt.
-
-### 18.2. Tài liệu và Mã nguồn
-- Kịch bản SQL hoàn chỉnh: `sql-stored-procedure/stored_procedure.sql`
-- Sơ đồ kiến trúc & luồng Plan Cache: `sql-stored-procedure/stored_procedure_architecture.png`
-- Giao diện web tra cứu & mô phỏng: `sql-stored-procedure/index.html`
-- Thuyết minh kỹ thuật chi tiết: `sql-stored-procedure/README.md`
-
-## 19. Bài thực hành 19: [Thực hành] Trigger Trong MySQL
-
-### 19.1. Mục tiêu
-Luyện tập sử dụng Trigger để tự động hóa xử lý và kiểm soát tính toàn vẹn dữ liệu trong MySQL:
-- Nắm vững cú pháp tạo Trigger: `CREATE TRIGGER trigger_name {BEFORE | AFTER} {INSERT | UPDATE | DELETE} ON table_name FOR EACH ROW BEGIN ... END;`.
-- Hiểu rõ sự khác biệt giữa biến ngữ cảnh `NEW` và `OLD`, cũng như nguyên lý tại sao chỉ có thể sửa đổi dữ liệu cột (`SET NEW.col = ...`) trong Trigger `BEFORE`.
-- Tạo Trigger `update_department` trên bảng `employees` của CSDL `company`: Tự động phân loại nhân viên vào các phòng ban `Management` (lương >= 5000), `Sales` (lương >= 3000), hoặc `Support` (lương < 3000) khi chèn bản ghi mới.
-- Thử nghiệm chèn dữ liệu với phòng ban giả định `'A'`, kiểm tra cơ chế tự động ghi đè của Trigger.
-- Mở rộng kỹ thuật kiểm toán: Xây dựng Trigger `AFTER UPDATE` (`trg_audit_salary_update`) lưu vết biến động lương vào bảng `salary_audit`.
-
-### 19.2. Tài liệu và Mã nguồn
-- Kịch bản SQL hoàn chỉnh: `sql-trigger/trigger_demo.sql`
-- Sơ đồ kiến trúc & luồng xử lý Trigger: `sql-trigger/trigger_architecture.png`
-- Giao diện web tra cứu & mô phỏng: `sql-trigger/index.html`
-- Thuyết minh kỹ thuật chi tiết: `sql-trigger/README.md`
-
-## 20. Bài thực hành 20: [Thực hành] Thảm Họa Quá Tải Ổ Cứng Tại Mạng Xã Hội "QuickFeed" - Tối Ưu Index
-
-### 20.1. Mục tiêu & Bối cảnh
-Giải cứu mạng xã hội vi blog "QuickFeed" khỏi tình trạng tắc nghẽn thao tác ghi (lỗi Timeout 5-10s khi đăng bài) và cảnh báo cạn kiệt ổ cứng do lập trình viên cũ tạo Index trên tất cả các cột của bảng `Posts`:
-- Đánh giá sự đánh đổi (Trade-off) giữa tốc độ Đọc (Read) và tốc độ Ghi (Write) trong cấu trúc cây B-Tree.
-- Áp dụng khái niệm độ phân giải dữ liệu (Cardinality) và tỷ lệ chọn lọc (Selectivity) để thiết lập Ma trận quyết định (Decision Matrix).
-- Cắt bỏ 3 Index vô dụng và độc hại: `idx_content` (cột TEXT quá lớn), `idx_post_type` (chỉ có 3 giá trị), `idx_is_visible` (chỉ có 2 giá trị, Optimizer luôn quét Full Table Scan).
-- Giữ lại 2 Index có giá trị thực tế cao: `idx_user_id` (lọc trang cá nhân) và `idx_created_at` (sắp xếp Newsfeed mới nhất).
-- Đo lường bằng `information_schema.TABLES`: Giải phóng hơn 65% dung lượng Index, giảm 50% chi phí ghi đĩa mỗi lần INSERT, đưa độ trễ về dưới 15ms.
-- Bảo vệ thiết kế với 3 câu hỏi vấn đáp chuyên sâu của Tech Lead và nhật ký tra cứu AI về kiến trúc lưu trữ InnoDB.
-
-### 20.2. Tài liệu và Mã nguồn bàn giao
-- Kịch bản SQL tối ưu hóa: `quickfeed-index-optimization/quickfeed_index_optimization.sql`
-- Báo cáo đánh giá hiệu năng & vấn đáp Tech Lead: `quickfeed-index-optimization/storage_performance_report.md`
-- Nhật ký tra cứu kỹ thuật AI: `quickfeed-index-optimization/ai_prompt_log.md`
-- Sơ đồ kiến trúc & luồng đánh đổi (300 DPI): `quickfeed-index-optimization/quickfeed_index_tradeoff.png`
-- Giao diện web báo cáo tương tác: `quickfeed-index-optimization/index.html`
-- File nén đóng gói nộp bài: `quickfeed-index-optimization/quickfeed_index_optimization.zip`
-- Thuyết minh chi tiết: `quickfeed-index-optimization/README.md`
-
----
-
-## 21. Bài tập 21: [Bài tập] Giải Cứu Hệ Thống IoT "SmartFactory" - Bài Toán Đánh Đổi Giữa Tốc Độ Đọc Và Chi Phí Lưu Trữ
-
-### 21.1. Mục tiêu & Bối cảnh
-Giải cứu hệ thống IoT SmartFactory với 10,000 cảm biến công nghiệp gửi hàng chục nghìn bản ghi/giây khỏi sự cố nghẽn ghi đĩa (làm rớt dữ liệu cảm biến) và hóa đơn lưu trữ đám mây AWS SSD tăng gấp 4 lần do Fat Covering Index `(sensor_id, recorded_at, temperature, humidity, status)`:
-- Đánh giá sự đánh đổi 3 chiều (Trade-off): Tốc độ Đọc (Read Latency) vs Tốc độ Ghi (Write Throughput) vs Chi phí Lưu trữ Đám mây (Storage Cost).
-- Phân tích bản chất vật lý của cấu trúc B-Tree InnoDB: Tính toán kích thước bản ghi nút lá (Row Size Inflation) và hiện tượng tách trang (Page Split) do các cột dữ liệu dao động ngẫu nhiên gây ra Random I/O.
-- Thay thế Fat Covering Index bằng **Lean Search Index** tinh gọn `(sensor_id, recorded_at)`: Chấp nhận Bookmark Lookup (~0.2ms) để đổi lấy thông lượng ghi tăng gấp 5 lần (từ 2,500 lên 12,500+ bản ghi/giây), triệt tiêu hoàn toàn lỗi mất gói dữ liệu.
-- Đo lường bằng `information_schema.TABLES`: Cắt giảm 69.2% dung lượng Index, đưa tỷ lệ `Index / Data` từ 1.48 (nguy hiểm) về 0.45 (tối ưu).
-- Bảo vệ thiết kế kiến trúc trước Cloud Financial Controller với 3 câu hỏi vấn đáp chuyên sâu và nhật ký đối thoại AI chi tiết.
-
-### 21.2. Tài liệu và Mã nguồn bàn giao
-- Kịch bản SQL tối ưu hóa: `smartfactory-index-tradeoff/smartfactory_reindex.sql`
-- Báo cáo đánh giá hiệu năng & vấn đáp Financial Controller: `smartfactory-index-tradeoff/index_tradeoff_report.md`
-- Nhật ký tra cứu kỹ thuật AI: `smartfactory-index-tradeoff/ai_prompt_log.md`
-- Sơ đồ kiến trúc & luồng đánh đổi B-Tree (300 DPI): `smartfactory-index-tradeoff/smartfactory_index_tradeoff.png`
-- Giao diện web mô phỏng tương tác: `smartfactory-index-tradeoff/index.html`
-- File nén đóng gói nộp bài: `smartfactory-index-tradeoff/smartfactory_reindex.zip`
-- Thuyết minh kỹ thuật toàn diện: `smartfactory-index-tradeoff/README.md`
-
----
-
-## 22. Bài thực hành 22: [Thực hành] Sử dụng CSS
-
-### 22.1. Mục tiêu & Quá trình thực hiện
-Luyện tập các thuộc tính CSS cơ bản và hiểu sâu về cơ chế hiển thị hộp (CSS Box Model) cùng độ ưu tiên bộ chọn (CSS Specificity) qua 5 bước thực hành:
-- **Bước 1**: Khởi tạo tài liệu HTML5 cơ bản với tiêu đề `<h1>` và đoạn văn `<p>`.
-- **Bước 2**: Khai báo `<style>` nội bộ trong `<head>`, thiết lập `font-family` (`Tahoma` cho `h1`, `Arial` cho `p`), `color` (`blue` cho `h1`, `red` cho `p`) và `font-size` (`200%`, `120%`).
-- **Bước 3**: Vẽ đường viền `border: 1px solid grey;` cho thẻ `<p>`.
-- **Bước 4**: Quy định khoảng đệm `padding: 10px;` từ viền đến nội dung chữ và tạo 3 đoạn văn bản đồng dạng.
-- **Bước 5**: Định nghĩa bộ chọn định danh `#element1 { color: blue; }` và gán `id="element1"` cho đoạn văn thứ tư để kiểm chứng tính năng ghi đè thuộc tính CSS Specificity `(1, 0, 0) > (0, 0, 1)`.
-
-### 22.2. Tài liệu và Mã nguồn bàn giao
-- Mã nguồn chuẩn CodeGym: `using-css/index.html` (Hoàn thành đầy đủ Bước 5, trùng khớp nhánh `develop` của CodeGym)
-- Giao diện phòng thí nghiệm & mô phỏng tương tác: `using-css/demo.html`
-- Thuyết minh kỹ thuật & phân tích Box Model: `using-css/README.md`
-
----
-
-## 23. Bài tập 23: [Bài tập] Định Dạng Văn Bản Với CSS
-
-### 23.1. Mục tiêu & Các thuộc tính CSS sử dụng
-Luyện tập sử dụng các thuộc tính CSS Typography để định dạng bố cục và phong cách hiển thị bài viết chuyên nghiệp:
-- **`text-indent`**: Tạo khoảng thụt lề đầu dòng (`2.2em`) cho dòng đầu tiên của các đoạn văn bản thân bài (`p.content-paragraph`), tuân thủ chuẩn trình bày báo chí và học thuật.
-- **`text-align`**: Căn lề ngang linh hoạt: Căn giữa (`center`) cho tiêu đề chính `h1` và khối trích dẫn `blockquote`; Căn đều hai bên (`justify`) cho các đoạn văn bản chính; Căn phải (`right`) cho phần thông tin kết bài.
-- **`font-style`**: Áp dụng chữ in nghiêng (`italic`) cho phần thông tin tác giả, ngày đăng, đoạn dẫn nhập (Lead paragraph) và danh ngôn trích dẫn.
-- **`font-size`**: Thiết lập hệ thống thứ bậc thị giác chặt chẽ (Visual Hierarchy) từ `2.25rem` (tiêu đề chính), `1.45rem` (tiêu đề phân mục `h2`), `1.2rem` (đoạn dẫn nhập), `1.05rem` (nội dung thân bài), đến `0.95rem` (thông tin phụ).
-- **`color`**: Sử dụng bảng màu hiện đại có độ tương phản cao (Navy `#1E3A8A`, Teal `#0F766E`, Slate tối `#1E293B`, Đỏ rượu `#B91C1C`) bảo đảm chuẩn dễ tiếp cận WCAG AAA.
-- **`line-height` & `font-family`**: Giãn dòng `1.85` tạo nhịp đọc thoải mái, kết hợp phông có chân cổ điển `Merriweather` với phông không chân `Plus Jakarta Sans`.
-
-### 23.2. Tài liệu và Mã nguồn bàn giao
-- Trang bài viết chuẩn: `css-text-formatting/index.html` (Định dạng văn bản hoàn chỉnh)
-- Phòng thí nghiệm Typography tương tác: `css-text-formatting/demo.html` (Thanh trượt tùy biến thời gian thực & sinh mã CSS)
-- Thuyết minh kỹ thuật chi tiết: `css-text-formatting/README.md`
-
----
-
-## 24. Bài thực hành 24: [Thực hành] Sử Dụng Box Model
-
-### 24.1. Mục tiêu & Các thuộc tính Box Model sử dụng
-Luyện tập thành thạo mô hình hộp trong CSS và kiểm soát không gian vật lý của khối phần tử qua 4 bước thực hành:
-- **`width: 800px;` & `margin: 0 auto;`**: Cố định bề rộng container và căn giữa đối xứng hoàn hảo trên màn hình.
-- **`border: 10px solid;` & `border-color: chartreuse aqua blue blueviolet;`**: Áp dụng quy tắc chiều kim đồng hồ (Clockwise rule) thiết lập 4 màu riêng biệt cho 4 cạnh viền (Trên: Xanh nõn chuối, Phải: Xanh ngọc aqua, Dưới: Xanh dương, Trái: Tím lam).
-- **`padding: 10px;`**: Quy định khoảng đệm bên trong hộp từ viền đến nội dung chữ.
-- **`.boxmodel p`**: Định dạng viền chấm tròn nét đứt `border: 3px dotted darkred;` và `padding: 10px;` cho các phần tử con.
-- **`margin-bottom`**: Sử dụng các bộ chọn định danh `#boxmodel1` (20px), `#boxmodel2` (40px), `#boxmodel3` (60px) để tạo khoảng cách lề dưới phân tầng tăng dần đều.
-
-### 24.2. Tài liệu và Mã nguồn bàn giao
-- Mã nguồn chuẩn CodeGym: `using-box-model/index.html` (Hoàn thành đầy đủ Bước 4, trùng khớp nhánh `develop` của CodeGym)
-- Giao diện phòng thí nghiệm tương tác: `using-box-model/demo.html` (Mô phỏng trực quan 4 lớp Box Model, la bàn 4 màu và thanh trượt kích thước)
-- Thuyết minh kỹ thuật chi tiết: `using-box-model/README.md`
-
----
-
-## 25. Bài tập 25: [Bài tập] Tạo Giao Diện Giản Lược Của Trang Chủ Facebook
-
-### 25.1. Mục tiêu & Các yêu cầu kỹ thuật bố cục
-Xây dựng giao diện trang chủ Facebook giản lược nhưng chuẩn mực, tái hiện trung thực cấu trúc layout chuyên nghiệp của mạng xã hội hiện đại:
-- **Thanh điều hướng cố định (Fixed Header)**:
-  - Thiết lập `position: fixed; top: 0; left: 0; width: 100%; height: 56px; z-index: 1000;` ghim chặt ở đỉnh màn hình, luôn hiển thị khi người dùng cuộn nội dung.
-  - Phân tách 3 phân vùng rõ ràng: Cụm thương hiệu và thanh tìm kiếm bên trái; Cụm 5 biểu tượng điều hướng trung tâm (Home, Watch, Marketplace, Groups, Gaming) có gạch chỉ báo `active`; Cụm công cụ người dùng bên phải (Menu, Messenger, Notifications, Avatar trang cá nhân).
-- **Thanh điều hướng bên trái (Left Sidebar Navigation)**:
-  - Sử dụng `position: fixed; top: 56px; left: 0; width: 280px; height: calc(100vh - 56px); overflow-y: auto;`.
-  - Cuộn độc lập không làm trôi thanh Header, hiển thị danh mục phím tắt trang cá nhân, Bạn bè, Nhóm, Marketplace, Video, Đã lưu và Lối tắt tùy chỉnh.
-- **Thanh liên hệ bên phải (Right Sidebar Contacts & Sponsored)**:
-  - Sử dụng `position: fixed; top: 56px; right: 0; width: 280px; height: calc(100vh - 56px); overflow-y: auto;`.
-  - Hiển thị khối Được tài trợ (Sponsored ads) và danh sách Người liên hệ trực tuyến kèm chấm xanh trạng thái `online`.
-- **Dòng thời gian trung tâm (Main Feed Column)**:
-  - Bố cục linh hoạt căn giữa (`margin: 0 auto; max-width: 680px; padding: 16px 8px;`).
-  - Khay tin ngắn dạng thẻ (Stories Tray) với hiệu ứng chuyển động tương tác và ảnh bìa sinh động.
-  - Hộp soạn bài viết (Post Composer) kèm các nút đính kèm Video trực tiếp, Ảnh/video và Cảm xúc/hoạt động.
-  - Danh sách bài viết đầy đủ tính năng: Tác giả, thời gian đăng, quyền riêng tư, nội dung bài viết, hình ảnh trực quan, bộ đếm cảm xúc và các nút tương tác (Thích, Bình luận, Chia sẻ) có tương tác JavaScript mô phỏng thực tế.
-- **Thiết kế thích ứng đa màn hình (Responsive Breakpoints)**:
-  - Màn hình rộng (> 1100px): Hiển thị đầy đủ 3 cột hoàn chỉnh.
-  - Màn hình trung bình (820px - 1100px): Tự động ẩn thanh bên phải, ưu tiên không gian cho Feed và thanh bên trái.
-  - Màn hình di động (< 820px): Ẩn cả hai thanh bên, thu gọn Header và chuyển Feed về 1 cột toàn màn hình mượt mà.
-
-### 25.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện Facebook hoàn chỉnh: `facebook-homepage-layout/index.html` (Bố cục 3 cột, Fixed Header, tương tác Like/Bình luận)
-- Phòng thí nghiệm kiến trúc tương tác: `facebook-homepage-layout/demo.html` (Mô phỏng khung dây Wireframe, bật/tắt từng thành phần)
-- Thuyết minh kỹ thuật chi tiết: `facebook-homepage-layout/README.md`
-
----
-
-## 26. Bài thực hành 26: [Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub" - Chọn Đúng "Vũ Khí" Dàn Trang
-
-### 26.1. Mục tiêu & 3 "Vũ Khí" Dàn Trang
-Tái cấu trúc toàn diện bảng điều khiển quản trị MetricsHub bị lỗi do lập trình viên cũ dùng sai công cụ, phân loại chính xác bản chất không gian để ứng dụng 3 công nghệ dàn trang chuẩn mực:
-- **Thanh điều hướng (Navbar) -> Flexbox (1D - Content-Driven)**:
-  - Thay thế CSS Grid cố định pixel (`grid-template-columns: 200px 600px 200px`) bằng `display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; flex-wrap: wrap;`.
-  - Phân bổ không gian linh hoạt dựa trên độ dài nội dung thực tế (Content-first), triệt tiêu hoàn toàn lỗi tràn và đè nút khi chuyển sang từ khóa tiếng Đức dài (`Dashboard-Verwaltungskennzahlenübersicht`).
-- **Khu vực Widget (Bento Dashboard) -> CSS Grid (2D - Layout-Driven)**:
-  - Thay thế hệ thống Flexbox lồng tầng sâu (`.column width: 50%`, `widget-large height: 200px`) bằng CSS Grid 2 chiều: `display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem;`.
-  - Làm phẳng cấu trúc DOM (Shallow DOM): Toàn bộ Widget đều là anh em ngang hàng (Siblings) trực tiếp của `.grid-dashboard`.
-  - Áp dụng các quy tắc `grid-column: span 2; grid-row: span 2;` cho biểu tượng Hero Chart, `span 2` cho biểu đồ luồng lưu lượng và `span 1` cho các thẻ chỉ số chuẩn, tạo bố cục Bento Box hiện đại và ổn định trên iPad/Tablet.
-- **Khu vực Bảng giá (Pricing) -> Bootstrap 5 (Standardized 12-Column Grid)**:
-  - Loại bỏ hoàn toàn mã `float: left; width: 33.33%;` và các Media Query viết tay.
-  - Tận dụng hệ thống lưới 12 cột chuẩn hóa của Bootstrap 5 (`<div class="row g-4 justify-content-center">`, `<div class="col-12 col-md-4">`) và các lớp `.card`, `.card-body`, `.badge` để triển khai 3 gói dịch vụ tốc độ cao (Rapid Prototyping).
-
-### 26.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện MetricsHub hoàn chỉnh: `metricshub-layout-refactoring/index.html` (Tích hợp bộ chuyển đổi Refactored vs Legacy, công tắc tiếng Đức EN/DE, thước đo Viewport thời gian thực)
-- Kiểu dáng CSS tối ưu: `metricshub-layout-refactoring/style.css`
-- Giải trình chiến lược dàn trang (< 150 từ): `metricshub-layout-refactoring/layout_strategy.md`
-- Nhật ký tương tác AI & Vấn đáp PM: `metricshub-layout-refactoring/ai_prompt_log.md`
-- Báo cáo Audit & Thuyết minh kiến trúc: `metricshub-layout-refactoring/audit_report.md`
-- Tệp nén nộp bài chuẩn CodeGym: `metricshub-layout-refactoring/metricshub_ui.zip`
-
----
-
-## 27. Bài thực hành 27: [Thực hành] Sử Dụng Bootstrap Xây Dựng Form Login
-
-### 27.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng giao diện Form đăng nhập chuẩn mực sử dụng thư viện Bootstrap 5 kết hợp CSS tinh chỉnh theo đúng đặc tả của CodeGym:
-- **Tích hợp Bootstrap 5 qua CDN**: Sử dụng Bootstrap CSS và Bootstrap Bundle JS (v5.0.0-beta2).
-- **Căn giữa toàn màn hình bằng Flexbox**: Thiết lập `html, body { height: 100%; }` và `body { display: flex; align-items: center; justify-content: center; }` giúp form đăng nhập luôn nằm chính giữa màn hình theo cả hai chiều.
-- **Bố cục form đăng nhập (`.form-signin`)**: Khống chế `max-width: 330px; margin: 0 auto; padding: 15px;`.
-- **Hiệu ứng liên kết góc bo tròn Input**: Ghép nối ô Email và Password thành một khối trực quan liền mạch: ô Email bo góc dưới bằng 0 (`border-bottom-*-radius: 0; margin-bottom: -1px;`), ô Password bo góc trên bằng 0 (`border-top-*-radius: 0; margin-bottom: 10px;`).
-- **Nút đăng nhập chuẩn Bootstrap**: Nút `.btn .btn-lg .btn-primary .w-100` phủ kín chiều rộng form với hiệu ứng phản hồi xúc giác.
-
-### 27.2. Tài liệu và Mã nguồn bàn giao
-- Biểu tượng Bootstrap chuẩn: `jwbd-login-bootstrap/bootstrap.png`
-- Giao diện Form đăng nhập: `jwbd-login-bootstrap/index.html`
-- Kiểu dáng CSS căn giữa & bo góc: `jwbd-login-bootstrap/styles.css`
-- Thuyết minh kỹ thuật chi tiết: `jwbd-login-bootstrap/README.md`
-
----
-
-## 28. Bài tập 28: [Bài tập] Tạo Layout Với Các Thẻ HTML5 và CSS
-
-### 28.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng bố cục trang web hoàn chỉnh bằng các thẻ ngữ nghĩa HTML5 (Semantic HTML5) kết hợp CSS Flexbox theo đúng đặc tả của CodeGym:
-- **Thẻ cấu trúc ngữ nghĩa HTML5**: Sử dụng đầy đủ 6 thẻ ngữ nghĩa layout chuẩn gồm `<header>`, `<nav>`, `<section>`, `<article>`, `<aside>` và `<footer>`.
-- **Thanh điều hướng (`<nav>`)**: Thiết kế danh sách liên kết điều hướng rõ ràng, hỗ trợ hiệu ứng chuyển trạng thái hover mượt mà.
-- **Khu vực nội dung chính và thanh bên (`<section>`, `<article>`, `<aside>`)**: Bố cục dạng 2 cột trực quan với nội dung bài viết và các tiện ích bên cạnh (aside), phân cấp thông tin mạch lạc.
-- **Bố cục linh hoạt và tương thích (Responsive Flexbox)**: Tự động co giãn phù hợp trên màn hình máy tính và thiết bị di động, đảm bảo chuẩn Web standards.
-
-### 28.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện chuẩn bài tập: `tao-layout-html5-css/index.html`
-- Kiểu dáng CSS bố cục ngữ nghĩa: `tao-layout-html5-css/styles.css`
-- Giao diện mở rộng hiện đại: `tao-layout-html5-css/modern_layout.html`
-- Kiểu dáng CSS mở rộng: `tao-layout-html5-css/modern_layout.css`
-- Thuyết minh kỹ thuật chi tiết: `tao-layout-html5-css/README.md`
-
----
-
-## 29. Bài tập 29: [Bài tập] Tạo Layout Với RWD
-
-### 29.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng bố cục trang web có khả năng đáp ứng đa màn hình (Responsive Web Design - RWD) bằng thẻ `<div>` và CSS theo đúng đặc tả của CodeGym:
-- **Thẻ meta Viewport**: Khai báo `<meta name="viewport" content="width=device-width, initial-scale=1.0">` để kiểm soát tỷ lệ hiển thị chuẩn trên mọi thiết bị di động.
-- **Thuộc tính `box-sizing: border-box`**: Đảm bảo kích thước lề đệm (`padding`) và viền (`border`) không làm biến dạng hoặc vỡ cấu trúc lưới phần trăm.
-- **Hệ thống lưới 12 cột tỷ lệ phần trăm (Fluid Grid)**: Phân bổ linh hoạt các cột với lớp `.col-*` (Desktop) và `.col-s-*` (Tablet) kết hợp kỹ thuật Clearfix.
-- **Truy vấn đa phương tiện (CSS Media Queries)**: Thiết lập các điểm ngắt (Breakpoints) tại `600px` (Tablet) và `768px` (Desktop) để chuyển đổi mượt mà giữa bố cục 3 cột (Desktop), 2 cột (Tablet) và 1 cột (Mobile).
-
-### 29.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện chuẩn bài tập: `tao-layout-voi-rwd/index.html`
-- Kiểu dáng CSS hệ thống lưới: `tao-layout-voi-rwd/styles.css`
-- Giao diện mở rộng hiện đại: `tao-layout-voi-rwd/modern_rwd.html`
-- Kiểu dáng CSS mở rộng: `tao-layout-voi-rwd/modern_rwd.css`
-- Thuyết minh kỹ thuật chi tiết: `tao-layout-voi-rwd/README.md`
-
----
-
-## 30. Bài thực hành 30: [Thực hành] Tạo Trang Web Hiển Thị Thời Gian Hệ Thống
-
-### 30.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng ứng dụng Java Web đầu tiên theo chuẩn Maven Webapp tương thích hoàn toàn với Apache Tomcat 10.1+ và Jakarta EE 10:
-- **Cấu hình Maven (`pom.xml`)**: Quản lý gói dependencies chuẩn mực gồm `jakarta.servlet-api` (version 6.0.0) và `jakarta.servlet.jsp-api` (version 3.1.1) với phạm vi `provided`, trình biên dịch Java 17 và `maven-war-plugin` 3.4.0.
-- **Tầng giao diện động (`index.jsp`)**: Khai báo chỉ thị `<%@page contentType="text/html" pageEncoding="UTF-8"%>`, sử dụng Scriptlet `<% java.util.Date date = new java.util.Date(); %>` và JSP Expression `<%= date %>` để trích xuất và hiển thị thời gian thực của máy chủ.
-- **Tầng xử lý Servlet (`HelloServlet.java`)**: Kế thừa `HttpServlet`, định tuyến qua `@WebServlet(name = "HelloServlet", urlPatterns = {"/hello"})`, thiết lập UTF-8 và phản hồi HTML trực tiếp.
-- **Cấu hình ứng dụng (`web.xml`)**: Khai báo tệp khởi động `index.jsp` theo đúng schema Jakarta EE 10.
-
-### 30.2. Tài liệu và Mã nguồn bàn giao
-- Cấu hình Maven: `jsp-servlet-demo/pom.xml`
-- Servlet điều khiển: `jsp-servlet-demo/src/main/java/com/codegym/HelloServlet.java`
-- Giao diện JSP thời gian hệ thống: `jsp-servlet-demo/src/main/webapp/index.jsp`
-- Cấu hình Web descriptor: `jsp-servlet-demo/src/main/webapp/WEB-INF/web.xml`
-- Thuyết minh kỹ thuật chi tiết: `jsp-servlet-demo/README.md`
-
----
-
-## 31. Bài tập 31: [Bài tập] Ứng Dụng Product Discount Calculator
-
-### 31.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng ứng dụng tính toán chiết khấu mua hàng trực tuyến (Product Discount Calculator) bằng Java Servlet và JSP theo đúng đặc tả của CodeGym:
-- **Tiếp nhận tham số qua Form POST (`index.jsp`)**: Xây dựng form nhập liệu các thông số sản phẩm gồm Product Description (`description`), List Price (`price`), và Discount Percent (`discount_percent`).
-- **Xử lý tính toán trong Servlet (`DiscountServlet.java`)**:
-  - Nhận và chuẩn hóa dữ liệu từ `HttpServletRequest` với encoding `UTF-8`.
-  - Áp dụng công thức tính chiết khấu:
-    $$\text{Discount Amount} = \text{List Price} \times \text{Discount Percent} \times 0.01$$
-    $$\text{Discount Price} = \text{List Price} - \text{Discount Amount}$$
-  - Kết xuất giao diện bảng kết quả chi tiết, định dạng tiền tệ chuyên nghiệp và liên kết quay trở lại form tính toán.
-- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package và web-app schema 6.0.
-
-### 31.2. Tài liệu và Mã nguồn bàn giao
-- Cấu hình Maven: `product-discount-calculator/pom.xml`
-- Servlet điều khiển tính toán: `product-discount-calculator/src/main/java/com/codegym/DiscountServlet.java`
-- Giao diện form nhập liệu: `product-discount-calculator/src/main/webapp/index.jsp`
-- Cấu hình Web descriptor: `product-discount-calculator/src/main/webapp/WEB-INF/web.xml`
-- Thuyết minh kỹ thuật chi tiết: `product-discount-calculator/README.md`
-
----
-
-## 32. Bài thực hành 32: [Thực hành] CSS | flex-flow Property
-
-### 32.1. Mục tiêu & Các kỹ thuật áp dụng
-Luyện tập sử dụng thuộc tính viết tắt `flex-flow` trong CSS Flexbox theo đúng đặc tả của CodeGym:
-- **Cú pháp shorthand `flex-flow`**: Kết hợp giữa hai thuộc tính điều hướng `flex-direction` và hành vi xuống dòng `flex-wrap` (`flex-flow: <flex-direction> <flex-wrap>;`).
-- **Ví dụ 1 (`row nowrap`)**: Sắp xếp các phần tử con theo chiều ngang từ trái qua phải (hướng đọc chuẩn) và giữ nguyên trên một hàng duy nhất.
-- **Ví dụ 2 (`row-reverse nowrap`)**: Sắp xếp các phần tử con theo chiều ngang từ phải qua trái (hướng ngược lại) và không xuống dòng.
-- **Phạm vi tác dụng**: Thuộc tính chỉ có hiệu lực khi được khai báo trên phần tử cha đóng vai trò là Flex Container (`display: flex` hoặc `display: inline-flex`).
-
-### 32.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện HTML kiểm thử: `css-flex-flow/index.html`
-- Kiểu dáng CSS định dạng `flex-flow`: `css-flex-flow/styles.css`
-- Thuyết minh kỹ thuật chi tiết: `css-flex-flow/README.md`
-
----
-
-## 33. Bài thực hành 33: [Thực hành] Xây Dựng Landing Page Với Bootstrap
-
-### 33.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng trang đích (Landing Page) chuyên nghiệp sử dụng thư viện Bootstrap 5.3.0 theo đúng đặc tả của CodeGym:
-- **Tích hợp Bootstrap 5.3.0 qua CDN**: Sử dụng Bootstrap CSS và JS Bundle mới nhất.
-- **Thanh điều hướng (`Navbar`)**: Khai báo `.navbar .navbar-expand-lg .navbar-dark .bg-dark`, tích hợp menu thu gọn responsive (`.navbar-toggler`) và các liên kết Home, About, Services, Contact.
-- **Khu vực mở đầu (`Hero Section`)**: Thiết kế khối giới thiệu nổi bật với lớp nền `.bg-primary`, màu chữ trắng, nút kêu gọi hành động `.btn .btn-light .btn-lg`.
-- **Hệ thống lưới dịch vụ (`Grid System - Services`)**: Bố cục 3 cột cân đối (`.row .col-md-4`) hiển thị các thẻ `.card` chứa thông tin Thiết kế Web, SEO & Marketing và Hỗ trợ 24/7.
-- **Chân trang (`Footer`)**: Khối `.bg-dark .text-white` căn giữa hiển thị bản quyền và tác giả.
-
-### 33.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện Landing Page: `bootstrap-landing-page/index.html`
-- Kiểu dáng CSS bổ trợ: `bootstrap-landing-page/styles.css`
-- Thuyết minh kỹ thuật chi tiết: `bootstrap-landing-page/README.md`
-
----
-
-## 34. Bài tập 34: [Bài tập] Thiết Kế Trang Đăng Ký Với Bootstrap Forms
-
-### 34.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng trang đăng ký người dùng chuyên nghiệp sử dụng đầy đủ các thành phần biểu mẫu của Bootstrap 5.3.0 theo đúng đặc tả của CodeGym:
-- **Trường nhập liệu Form Controls**: Sử dụng `.form-control` cho Họ và tên, Email, Mật khẩu và Xác nhận mật khẩu.
-- **Nút tùy chọn đơn (Radio Buttons)**: Khai báo `.form-check .form-check-inline` cho trường Giới tính (Nam, Nữ, Khác).
-- **Hộp kiểm chọn đa mục (Checkboxes)**: Khai báo `.form-check .form-check-inline` cho trường Sở thích (Đọc sách, Du lịch, Thể thao, Âm nhạc).
-- **Danh sách lựa chọn thả xuống (Dropdown Select)**: Khai báo `.form-select` cho trường Quốc gia với danh sách các nước.
-- **Nút gửi biểu mẫu (Button Submit)**: Thiết kế nút nổi bật `.btn .btn-primary .btn-lg .w-100 .shadow-sm`.
-- **Định dạng văn bản & Kiểm tra hợp lệ (Validation & Text Elements)**: Tích hợp `.text-muted`, `.form-text`, `.invalid-feedback` và kịch bản JavaScript kiểm tra tính hợp lệ và độ khớp mật khẩu theo thời gian thực.
-
-### 34.2. Tài liệu và Mã nguồn bàn giao
-- Giao diện Form đăng ký: `bootstrap-registration-form/index.html`
-- Kiểu dáng CSS bổ trợ: `bootstrap-registration-form/styles.css`
-- Thuyết minh kỹ thuật chi tiết: `bootstrap-registration-form/README.md`
-
----
-
-## 35. Bài thực hành 35: [Thực hành] Ứng Dụng Chuyển Đổi Tiền Tệ - JSP
-
-### 35.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng ứng dụng chuyển đổi tiền tệ từ USD sang VND sử dụng hoàn toàn mã JSP (Scriptlet & Expression) theo đúng đặc tả của CodeGym:
-- **Trang biểu mẫu nhập liệu (`index.jsp`)**: Xây dựng form nhập liệu tỉ giá (`rate`) và lượng USD cần đổi (`usd`), sử dụng phương thức `POST` gửi tới trang `converter.jsp`.
-- **Trang xử lý tính toán (`converter.jsp`)**:
-  - Sử dụng thẻ JSP Scriptlet `<% ... %>` nhận tham số từ request, ép kiểu sang số thực (`Float.parseFloat`).
-  - Thực hiện công thức tính toán: $\text{VND} = \text{Rate} \times \text{USD}$.
-  - Hiển thị trực tiếp kết quả ra màn hình bằng thẻ JSP Expression `<%= ... %>` với định dạng tiền tệ chuyên nghiệp.
-- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` và web-app schema 6.0.
-
-### 35.2. Tài liệu và Mã nguồn bàn giao
-- Cấu hình Maven: `jsp-currency-converter/pom.xml`
-- Giao diện form nhập liệu: `jsp-currency-converter/src/main/webapp/index.jsp`
-- Giao diện và logic tính toán: `jsp-currency-converter/src/main/webapp/converter.jsp`
-- Cấu hình Web descriptor: `jsp-currency-converter/src/main/webapp/WEB-INF/web.xml`
-- Thuyết minh kỹ thuật chi tiết: `jsp-currency-converter/README.md`
-
----
-
-## 36. Bài tập 36: [Bài tập] Hiển Thị Danh Sách Khách Hàng - JSTL
-
-### 36.1. Mục tiêu & Các kỹ thuật áp dụng
-Xây dựng ứng dụng hiển thị danh sách khách hàng sử dụng thư viện JSTL (JavaServer Pages Standard Tag Library) kết hợp JSP và Servlet theo đúng đặc tả của CodeGym:
-- **Khai báo thư viện JSTL Core**: Sử dụng chỉ thị `<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>` trên đầu trang `index.jsp`.
-- **Duyệt danh sách bằng `<c:forEach>`**: Duyệt tập hợp đối tượng khách hàng `customerList`, kết hợp `varStatus="status"` để hiển thị số thứ tự tự động bằng `${status.count}`.
-- **Trích xuất thuộc tính qua Expression Language (EL)**: Truy xuất các thuộc tính `${customer.name}`, `${customer.dob}`, `${customer.address}`, và ảnh đại diện `${customer.image}`.
-- **Mô hình kiến trúc đa tầng (MVC)**:
-  - Lớp thực thể `Customer.java`: Đóng gói thông tin khách hàng (id, name, dob, address, image).
-  - Lớp điều khiển `CustomerServlet.java`: Tiếp nhận request, khởi tạo danh sách 5 khách hàng mẫu chuẩn CodeGym, đẩy vào `request.setAttribute` và chuyển tiếp sang `index.jsp`.
-  - Hỗ trợ khởi tạo trực tiếp tại `index.jsp` khi truy cập thẳng không qua servlet.
-- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package, `jakarta.servlet.jsp.jstl`, và web-app schema 6.0.
-
-### 36.2. Tài liệu và Mã nguồn bàn giao
-- Cấu hình Maven: `customer-list-jstl/pom.xml`
-- Lớp Model khách hàng: `customer-list-jstl/src/main/java/com/codegym/model/Customer.java`
-- Servlet điều khiển: `customer-list-jstl/src/main/java/com/codegym/controller/CustomerServlet.java`
-- Giao diện hiển thị JSTL: `customer-list-jstl/src/main/webapp/index.jsp`
-- Bộ ảnh đại diện vector: `customer-list-jstl/src/main/webapp/images/`
-- Cấu hình Web descriptor: `customer-list-jstl/src/main/webapp/WEB-INF/web.xml`
-- Thuyết minh kỹ thuật chi tiết: `customer-list-jstl/README.md`
-
----
-
-## 37. Hướng dẫn mở và kiểm tra trực tiếp
-
-1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
-2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
-3. **Mở Thực hành Thẻ HTML cơ bản**: Mở file `halong_bay.html` trong trình duyệt.
-4. **Mở Thực hành Định dạng văn bản với HTML Styles**: Mở file `text_formatting.html` trong trình duyệt.
-5. **Mở Thực hành Tạo danh sách trong HTML**: Mở file `html_lists.html` trong trình duyệt.
-6. **Mở Bài tập Sử dụng các thẻ tiêu đề và đoạn văn**: Mở file `headings-paragraphs/index.html` trong trình duyệt.
-7. **Mở Bài tập Sử dụng danh sách trong HTML**: Mở file `html-lists-exercise/index.html` trong trình duyệt.
-8. **Mở Bài tập Tạo liên kết trong HTML**: Mở file `html-links-exercise/index.html` trong trình duyệt.
-9. **Mở Bài tập Định dạng văn bản với HTML Styles**: Mở file `html-styles-exercise/index.html` trong trình duyệt.
-10. **Mở Bài tập Sử dụng thẻ hình ảnh**: Mở file `html-images-exercise/index.html` trong trình duyệt.
-11. **Mở Thực hành Tạo form cơ bản**: Mở file `simpleform.html` hoặc `simpleform/index.html` trong trình duyệt.
-12. **Mở Thực hành Quản lý đơn đặt hàng (ERD)**: Mở file `erd-order-management/index.html` trong trình duyệt.
-13. **Mở Thực hành Tạo bảng trong CSDL**: Mở file `sql-create-table-practice/index.html` trong trình duyệt.
-14. **Mở Bài tập Chuyển đổi ERD sang mô hình quan hệ**: Mở file `erd-to-relational/index.html` trong trình duyệt.
-15. **Mở Bài tập Sự cố AutoRide**: Mở file `autoride-profit-leak-fix/index.html` trong trình duyệt.
-16. **Mở Thực hành Thêm dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-insert-data/index.html` trong trình duyệt.
-17. **Mở Thực hành Truy vấn dữ liệu Quản lý sinh viên**: Mở file `sql-student-management-query/index.html` trong trình duyệt.
-18. **Mở Thực hành Stored Procedure**: Mở file `sql-stored-procedure/index.html` trong trình duyệt.
-19. **Mở Thực hành Trigger**: Mở file `sql-trigger/index.html` trong trình duyệt.
-20. **Mở Thực hành Tối ưu Index QuickFeed**: Mở file `quickfeed-index-optimization/index.html` trong trình duyệt.
-21. **Mở Bài tập Tối ưu Index IoT SmartFactory**: Mở file `smartfactory-index-tradeoff/index.html` trong trình duyệt.
-22. **Mở Thực hành Sử dụng CSS**: Mở file `using-css/index.html` hoặc `using-css/demo.html` trong trình duyệt.
-23. **Mở Bài tập Định dạng văn bản với CSS**: Mở file `css-text-formatting/index.html` hoặc `css-text-formatting/demo.html` trong trình duyệt.
-24. **Mở Thực hành Sử dụng box model**: Mở file `using-box-model/index.html` hoặc `using-box-model/demo.html` trong trình duyệt.
-25. **Mở Bài tập Giao diện Facebook**: Mở file `facebook-homepage-layout/index.html` hoặc `facebook-homepage-layout/demo.html` trong trình duyệt.
-26. **Mở Thực hành Tái cấu trúc MetricsHub**: Mở file `metricshub-layout-refactoring/index.html` trong trình duyệt.
-27. **Mở Thực hành Form Login Bootstrap**: Mở file `jwbd-login-bootstrap/index.html` trong trình duyệt.
-28. **Mở Bài tập Layout HTML5 và CSS**: Mở file `tao-layout-html5-css/index.html` trong trình duyệt.
-29. **Mở Bài tập Layout RWD**: Mở file `tao-layout-voi-rwd/index.html` trong trình duyệt.
-30. **Mở Thực hành JSP Thời gian hệ thống**: Mở file `jsp-servlet-demo/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
-31. **Mở Bài tập Product Discount Calculator**: Mở file `product-discount-calculator/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
-32. **Mở Thực hành CSS flex-flow**: Mở file `css-flex-flow/index.html` trong trình duyệt.
-33. **Mở Thực hành Bootstrap Landing Page**: Mở file `bootstrap-landing-page/index.html` trong trình duyệt.
-34. **Mở Bài tập Bootstrap Registration Form**: Mở file `bootstrap-registration-form/index.html` trong trình duyệt.
-35. **Mở Thực hành JSP Currency Converter**: Mở file `jsp-currency-converter/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
-36. **Mở Bài tập JSTL Customer List**: Mở file `customer-list-jstl/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
+1. Sao chép tệp `customer-list-jstl.war` vào thư mục `webapps/` của Tomcat.
+2. Khởi động Tomcat bằng `bin/startup.bat` (Windows) hoặc `bin/startup.sh` (Linux/macOS).
+3. Mở trình duyệt web và truy cập theo một trong các địa chỉ sau:
+   - Truy cập trực tiếp trang chủ JSP: `http://localhost:8080/customer-list-jstl/`
+   - Truy cập qua Servlet điều khiển MVC: `http://localhost:8080/customer-list-jstl/customers`
