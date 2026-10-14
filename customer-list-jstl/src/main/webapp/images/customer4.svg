@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg4)" />
+  <!-- Body/Shoulders -->
+  <path d="M28 105 C28 85, 42 74, 60 74 C78 74, 92 85, 92 105 Z" fill="#ffffff" opacity="0.95" />
+  <!-- Head -->
+  <circle cx="60" cy="48" r="22" fill="#ffedd5" />
+  <!-- Hair textured crop -->
+  <path d="M38 45 C40 28, 50 22, 60 22 C70 22, 80 28, 82 45 C78 38, 70 36, 60 36 C50 36, 42 38, 38 45 Z" fill="#451a03" />
+  <!-- Round glasses -->
+  <circle cx="51" cy="48" r="7" stroke="#1e293b" stroke-width="2" fill="none" />
+  <circle cx="69" cy="48" r="7" stroke="#1e293b" stroke-width="2" fill="none" />
+  <line x1="58" y1="48" x2="62" y2="48" stroke="#1e293b" stroke-width="2" />
+  <!-- Eyes -->
+  <circle cx="51" cy="48" r="2" fill="#1e293b" />
+  <circle cx="69" cy="48" r="2" fill="#1e293b" />
+  <!-- Smile -->
+  <path d="M54 60 Q60 64 66 60" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round" />
+</svg>

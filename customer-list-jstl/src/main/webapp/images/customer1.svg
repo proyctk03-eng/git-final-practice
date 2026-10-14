@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="bg1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="url(#bg1)" />
+  <!-- Body/Shoulders -->
+  <path d="M28 105 C28 85, 42 74, 60 74 C78 74, 92 85, 92 105 Z" fill="#ffffff" opacity="0.95" />
+  <!-- Head -->
+  <circle cx="60" cy="48" r="22" fill="#fed7aa" />
+  <!-- Hair -->
+  <path d="M38 46 C38 30, 48 24, 60 24 C72 24, 82 30, 82 46 C76 40, 68 38, 60 38 C52 38, 44 40, 38 46 Z" fill="#1e293b" />
+  <!-- Eyes -->
+  <circle cx="53" cy="48" r="2.5" fill="#1e293b" />
+  <circle cx="67" cy="48" r="2.5" fill="#1e293b" />
+  <!-- Smile -->
+  <path d="M54 57 Q60 63 66 57" stroke="#1e293b" stroke-width="2" fill="none" stroke-linecap="round" />
+</svg>

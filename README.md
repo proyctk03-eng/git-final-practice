@@ -45,6 +45,7 @@
 | 33 | **[Thực hành] Xây dựng Landing Page với Bootstrap** | `bootstrap-landing-page/` | Bootstrap 5.3.0, Navbar, Hero Section, Responsive Grid (col-md-4), Cards, Footer | Hoàn thành |
 | 34 | **[Bài tập] Thiết kế Trang Đăng Ký với Bootstrap Forms** | `bootstrap-registration-form/` | Bootstrap 5.3.0 Forms, Form Controls, Radio, Checkbox, Dropdown Select, Validation | Hoàn thành |
 | 35 | **[Thực hành] Ứng dụng chuyển đổi tiền tệ - JSP** | `jsp-currency-converter/` | Java JSP, Scriptlet, Expression, Tomcat 10.1+, Jakarta EE 10, USD to VND | Hoàn thành |
+| 36 | **[Bài tập] Hiển thị danh sách khách hàng** | `customer-list-jstl/` | Java JSP, JSTL Core (`<c:forEach>`), EL, Jakarta EE 10, Tomcat 10.1+, Model, Servlet | Hoàn thành |
 
 ---
 
@@ -648,7 +649,31 @@ Xây dựng ứng dụng chuyển đổi tiền tệ từ USD sang VND sử dụ
 
 ---
 
-## 36. Hướng dẫn mở và kiểm tra trực tiếp
+## 36. Bài tập 36: [Bài tập] Hiển Thị Danh Sách Khách Hàng - JSTL
+
+### 36.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng hiển thị danh sách khách hàng sử dụng thư viện JSTL (JavaServer Pages Standard Tag Library) kết hợp JSP và Servlet theo đúng đặc tả của CodeGym:
+- **Khai báo thư viện JSTL Core**: Sử dụng chỉ thị `<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>` trên đầu trang `index.jsp`.
+- **Duyệt danh sách bằng `<c:forEach>`**: Duyệt tập hợp đối tượng khách hàng `customerList`, kết hợp `varStatus="status"` để hiển thị số thứ tự tự động bằng `${status.count}`.
+- **Trích xuất thuộc tính qua Expression Language (EL)**: Truy xuất các thuộc tính `${customer.name}`, `${customer.dob}`, `${customer.address}`, và ảnh đại diện `${customer.image}`.
+- **Mô hình kiến trúc đa tầng (MVC)**:
+  - Lớp thực thể `Customer.java`: Đóng gói thông tin khách hàng (id, name, dob, address, image).
+  - Lớp điều khiển `CustomerServlet.java`: Tiếp nhận request, khởi tạo danh sách 5 khách hàng mẫu chuẩn CodeGym, đẩy vào `request.setAttribute` và chuyển tiếp sang `index.jsp`.
+  - Hỗ trợ khởi tạo trực tiếp tại `index.jsp` khi truy cập thẳng không qua servlet.
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package, `jakarta.servlet.jsp.jstl`, và web-app schema 6.0.
+
+### 36.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `customer-list-jstl/pom.xml`
+- Lớp Model khách hàng: `customer-list-jstl/src/main/java/com/codegym/model/Customer.java`
+- Servlet điều khiển: `customer-list-jstl/src/main/java/com/codegym/controller/CustomerServlet.java`
+- Giao diện hiển thị JSTL: `customer-list-jstl/src/main/webapp/index.jsp`
+- Bộ ảnh đại diện vector: `customer-list-jstl/src/main/webapp/images/`
+- Cấu hình Web descriptor: `customer-list-jstl/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `customer-list-jstl/README.md`
+
+---
+
+## 37. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -685,3 +710,4 @@ Xây dựng ứng dụng chuyển đổi tiền tệ từ USD sang VND sử dụ
 33. **Mở Thực hành Bootstrap Landing Page**: Mở file `bootstrap-landing-page/index.html` trong trình duyệt.
 34. **Mở Bài tập Bootstrap Registration Form**: Mở file `bootstrap-registration-form/index.html` trong trình duyệt.
 35. **Mở Thực hành JSP Currency Converter**: Mở file `jsp-currency-converter/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
+36. **Mở Bài tập JSTL Customer List**: Mở file `customer-list-jstl/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
