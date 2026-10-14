@@ -1,8 +1,13 @@
 /* ==========================================================================
-   Tệp style.css - External CSS cho trang Giới thiệu bản thân (About Me)
+   Tệp style.css - External CSS cho Website
    Sinh viên: Nguyễn Tuấn Đạt (proyctk03@gmail.com)
    Khóa học: Module 1 - Thiết Kế Web
    ========================================================================== */
+
+/* Thiết lập box-sizing: border-box cho toàn bộ phần tử */
+* {
+  box-sizing: border-box;
+}
 
 /* Quy tắc định dạng cho toàn bộ trang web (phần tử body) */
 body {
@@ -10,17 +15,42 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.6;
   color: #333333;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  margin: 0;
+  padding: 20px 10px;
 }
 
-/* Thẻ bao bọc nội dung hồ sơ cá nhân */
+/* Thanh điều hướng giữa các bài thực hành */
+.site-nav {
+  max-width: 800px;
+  margin: 0 auto 25px auto;
+  text-align: center;
+  padding: 12px 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.site-nav a {
+  margin: 0 14px;
+  color: #2563eb;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+
+.site-nav a:hover {
+  text-decoration: underline;
+}
+
+/* Thẻ bao bọc nội dung hồ sơ cá nhân (About Me) */
 .container {
   background-color: #ffffff;
   border-radius: 8px;
   padding: 30px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* Khu vực phần đầu trang */
@@ -85,4 +115,91 @@ footer {
   color: #64748b;
   border-top: 1px solid #e2e8f0;
   padding-top: 15px;
+}
+
+
+/* ==========================================================================
+   Phần thí nghiệm Box Model với các khối div nhiều màu sắc
+   ========================================================================== */
+.box {
+  box-sizing: content-box; /* Giữ nguyên chuẩn content-box đo đạc trong bài thực hành trước */
+  width: 250px;
+  height: 150px;
+  padding: 20px;
+  border: 10px solid #333;
+  margin: 40px;
+}
+
+.box-1 {
+  background-color: lightskyblue;
+}
+
+.box-2 {
+  background-color: lightsalmon;
+}
+
+
+/* ==========================================================================
+   Component: Thẻ sản phẩm (Product Card)
+   ========================================================================== */
+.product-card {
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+.product-card h2,
+.product-card h3 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.product-card .price {
+  color: #e53935;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.product-card .btn {
+  display: block;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 20px;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.product-card .btn:hover {
+  background-color: #1d4ed8;
+  text-decoration: none;
 }
