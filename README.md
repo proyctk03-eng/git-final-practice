@@ -54,6 +54,7 @@
 | 42 | **[Case Study] Ứng dụng iNotes** | `inotes-app/` | Java Servlet 6.0, JSP 3.1, JSTL 3.0, Strategy Pattern (`NoteDBStrategy`, `NoteFileStrategy`), MySQL JDBC, Flat File, Bootstrap 5 | Hoàn thành |
 | 43 | **Mini project: Xây dựng trang "Giới thiệu bản thân" (About Me)** | `my-first-website/` | HTML5 Semantic (`h1`, `h2`, `p`, `strong`, `em`, `ul`, `ol`, `img`, `a`), a11y | Hoàn thành |
 | 44 | **[Thực hành] Tạo và liên kết file style.css đầu tiên** | `my-first-website/` | External CSS, `<link rel="stylesheet">`, CSS Rule `background-color`, Separation of Concerns | Hoàn thành |
+| 45 | **[Thực hành] Trực quan hóa Box Model với các khối div** | `visualize-box-model/` | CSS3 Box Model (Content, Padding, Border, Margin), `content-box`, `border-box` | Hoàn thành |
 
 ---
 
@@ -928,7 +929,35 @@ Thực hiện chuyển đổi từ Inline/Internal CSS sang External CSS:
 
 ---
 
-## 45. Hướng dẫn mở và kiểm tra trực tiếp
+## 45. Bài tập 45: [Thực hành] Trực quan hóa Box Model với các khối div
+
+- **Đường dẫn thư mục**: `visualize-box-model/` (và tệp `box-model.html` trong `my-first-website/`)
+- **Mục tiêu**: Trực quan hóa và làm chủ 4 lớp cấu thành mô hình hộp CSS Box Model (Content, Padding, Border, Margin) thông qua các khối thẻ `<div>` nhiều màu sắc, nắm bắt công thức tính kích thước thực tế hiển thị trên trình duyệt.
+
+### 45.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng phòng thí nghiệm trực quan hóa Box Model:
+- **Tạo các phần tử đối tượng thí nghiệm**:
+  - Tệp `box-model.html` chứa hai khối `div` với lớp định dạng chung `.box` và lớp tô màu riêng `.box-1`, `.box-2`.
+- **Thực nghiệm 4 lớp của Box Model qua các bước**:
+  - *Bước 1 (Content)*: `width: 250px`, `height: 150px` - Vùng nội dung chữ.
+  - *Bước 2 (Màu nền phân biệt)*: `.box-1` tô màu `lightskyblue`, `.box-2` tô màu `lightsalmon`.
+  - *Bước 3 (Padding)*: `padding: 20px` - Tạo vùng đệm trong suốt mang màu nền của phần tử, đẩy văn bản vào trong và tăng kích thước nhìn thấy được thêm 40px mỗi chiều.
+  - *Bước 4 (Border)*: `border: 10px solid #333` - Đường viền đen bao bọc bên ngoài padding, tiếp tục mở rộng kích thước thực tế lên $310\text{px} \times 210\text{px}$.
+  - *Bước 5 (Margin)*: `margin: 40px` - Khoảng lề trong suốt bên ngoài đường viền, đẩy các hộp cách xa nhau mà không làm thay đổi kích thước nhìn thấy được của hộp.
+- **Công thức tính kích thước chuẩn W3C (`content-box`)**:
+  - $\text{Total Width} = \text{width} + \text{padding-left} + \text{padding-right} + \text{border-left} + \text{border-right} = 250 + 20 + 20 + 10 + 10 = 310\text{px}$.
+  - $\text{Total Height} = \text{height} + \text{padding-top} + \text{padding-bottom} + \text{border-top} + \text{border-bottom} = 150 + 20 + 20 + 10 + 10 = 210\text{px}$.
+  - Khám phá mở rộng: Cơ chế `box-sizing: border-box` giúp cố định kích thước tổng bằng đúng giá trị `width` và `height`.
+
+### 45.2. Tài liệu và Mã nguồn bàn giao
+- Tệp thí nghiệm HTML: `visualize-box-model/box-model.html` và `visualize-box-model/index.html`
+- Tệp định dạng CSS: `visualize-box-model/style.css`
+- Tệp thí nghiệm tích hợp: `my-first-website/box-model.html`
+- Báo cáo kỹ thuật chi tiết: `visualize-box-model/README.md`
+
+---
+
+## 46. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -974,3 +1003,4 @@ Thực hiện chuyển đổi từ Inline/Internal CSS sang External CSS:
 42. **Mở Case Study Ứng dụng iNotes**: Triển khai file `inotes-app.war` lên Tomcat 10.1+ hoặc truy cập `http://localhost:8080/inotes-app/notes`.
 43. **Mở Mini project Giới thiệu bản thân (About Me)**: Mở file `my-first-website/index.html` trong trình duyệt.
 44. **Mở Thực hành Tạo và liên kết file style.css**: Mở file `my-first-website/index.html` trong trình duyệt để kiểm tra màu nền AliceBlue từ `my-first-website/style.css`.
+45. **Mở Thực hành Trực quan hóa Box Model**: Mở file `visualize-box-model/box-model.html` hoặc `visualize-box-model/index.html` trong trình duyệt.
