@@ -15,8 +15,30 @@ public interface IUserDAO {
 
     boolean updateUser(User user) throws SQLException;
 
-    // Phuong thuc goi MySQL Stored Procedure
+    // Search & Sort
+    List<User> searchByCountry(String country);
+
+    List<User> sortByName();
+
+    // MySQL Stored Procedure
     User getUserById(int id);
 
     void insertUserStore(User user) throws SQLException;
+
+    // Transaction Management
+    void addUserTransaction(User user, int[] permissionIds) throws SQLException;
+
+    // Test Without Transaction
+    void insertUpdateWithoutTransaction() throws SQLException;
+
+    // Test With Transaction (JDBC Transaction All-or-Nothing)
+    void insertUpdateUseTransaction();
+
+    // MySQL Stored Procedures (Exercise: List, Update, Delete)
+    List<User> selectAllUsersSP();
+
+    boolean updateUserSP(User user) throws SQLException;
+
+    boolean deleteUserSP(int id) throws SQLException;
 }
+

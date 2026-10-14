@@ -49,6 +49,7 @@
 | 37 | **[Bài tập] Tạo ứng dụng quản lý sản phẩm** | `product-management-mvc/` | Java MVC, Servlet, JSP, JSTL, CRUD (Create, Read, Update, Delete, Search) | Hoàn thành |
 | 38 | **[Thực hành] Quản lý User sử dụng JSP-Servlet-JDBC-MySQL** | `user-management/` | Java MVC, Servlet, JSP, JSTL, JDBC, MySQL Connector/J, CRUD | Hoàn thành |
 | 39 | **[Thực hành] Gọi MySQL Stored Procedures từ JDBC** | `user-management/` | Java JDBC, MySQL Stored Procedures, `CallableStatement`, `get_user_by_id`, `insert_user` | Hoàn thành |
+| 40 | **[Thực hành] Thực thi SQL có sử dụng Transaction** | `user-management/` | Java JDBC Transaction, `setAutoCommit(false)`, `commit()`, Rollback, All-or-Nothing | Hoàn thành |
 
 ---
 
@@ -763,7 +764,41 @@ Cập nhật ứng dụng quản lý User chuyển đổi từ các câu truy v�
 
 ---
 
-## 40. Hướng dẫn mở và kiểm tra trực tiếp
+## 40. Bài thực hành 40: [Thực hành] Thực thi SQL có sử dụng Transaction
+
+- **Đường dẫn thư mục**: `user-management/`
+- **Mục tiêu**: Vận dụng kỹ thuật JDBC Transaction để kiểm soát quá trình ghi dữ liệu nhiều bước theo nguyên lý ACID / All-or-Nothing (hoặc thành công toàn bộ và commit, hoặc rollback hoàn toàn khi xảy ra lỗi).
+
+### 40.1. Mục tiêu & Các kỹ thuật áp dụng
+Triển khai cơ chế Transaction Management trong tầng DAO của ứng dụng Java Web kết nối MySQL:
+- **Cấu trúc bảng Employee**:
+  - Bảng `Employee` gồm các trường `Id (INT AUTO_INCREMENT PRIMARY KEY)`, `Name (VARCHAR(100))`, `Salary (DECIMAL(15, 2))`, `Created_Date (DATETIME DEFAULT CURRENT_TIMESTAMP)`.
+- **Triển khai kỹ thuật Transaction trong JDBC**:
+  - Tắt chế độ tự động xác nhận: `conn.setAutoCommit(false)`.
+  - Thực thi tuần tự các câu lệnh DDL/DML: Thao tác tạo bảng, chèn bản ghi nhân viên, cập nhật thông tin lương.
+  - Xác nhận giao dịch: `conn.commit()` khi mọi câu lệnh thành công.
+  - Phục hồi an toàn: `conn.rollback()` trong khối `catch` khi gặp bất kỳ ngoại lệ `SQLException` nào, trả lại toàn vẹn trạng thái CSDL.
+  - Khôi phục cấu hình kết nối trong khối `finally`: `conn.setAutoCommit(true)`.
+- **Tầng giao tiếp dữ liệu (DAO Layer)**:
+  - Bổ sung phương thức `void insertUpdateUseTransaction()` trong interface `IUserDAO.java`.
+  - Triển khai cụ thể trong `UserDAO.java` với câu lệnh chuẩn bị `PreparedStatement` và kiểm soát giao dịch chặt chẽ.
+- **Tầng điều khiển (Controller)**:
+  - Bổ sung điều hướng `case "test-use-tran"` và phương thức `testUseTran(HttpServletRequest request, HttpServletResponse response)` trong `UserServlet.java`.
+  - Hiển thị thông báo kết quả giao dịch và chuyển tiếp về trang danh sách nhân viên / người dùng.
+
+### 40.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `user-management/pom.xml`
+- Kịch bản SQL khởi tạo bảng `Employee` & CSDL: `user-management/database/init.sql`
+- Kịch bản SQL kiểm thử: `user-management/sql/demo.sql`
+- Interface DAO: `user-management/src/main/java/com/codegym/dao/IUserDAO.java`
+- Cài đặt DAO có Transaction: `user-management/src/main/java/com/codegym/dao/UserDAO.java`
+- Servlet điều khiển: `user-management/src/main/java/com/codegym/controller/UserServlet.java`
+- Giao diện JSP: `user-management/src/main/webapp/user/`
+- Thuyết minh kỹ thuật chi tiết: `user-management/README.md`
+
+---
+
+## 41. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -804,3 +839,4 @@ Cập nhật ứng dụng quản lý User chuyển đổi từ các câu truy v�
 37. **Mở Bài tập Quản lý sản phẩm MVC**: Mở file `product-management-mvc/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/product-management-mvc/products`.
 38. **Mở Thực hành Quản lý User JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
 39. **Mở Thực hành Gọi MySQL Stored Procedures từ JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
+40. **Mở Thực hành Thực thi SQL có sử dụng Transaction**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users?action=test-use-tran`.
