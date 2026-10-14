@@ -53,6 +53,7 @@
 | 41 | **[Bài tập] Đóng gói thư viện giải phương trình bậc 2** | `quadratic-equation-solver/` | Java 8+, Maven JAR Packaging, OOP (`QuadraticEquation`), JUnit 5, Clean Architecture | Hoàn thành |
 | 42 | **[Case Study] Ứng dụng iNotes** | `inotes-app/` | Java Servlet 6.0, JSP 3.1, JSTL 3.0, Strategy Pattern (`NoteDBStrategy`, `NoteFileStrategy`), MySQL JDBC, Flat File, Bootstrap 5 | Hoàn thành |
 | 43 | **Mini project: Xây dựng trang "Giới thiệu bản thân" (About Me)** | `my-first-website/` | HTML5 Semantic (`h1`, `h2`, `p`, `strong`, `em`, `ul`, `ol`, `img`, `a`), a11y | Hoàn thành |
+| 44 | **[Thực hành] Tạo và liên kết file style.css đầu tiên** | `my-first-website/` | External CSS, `<link rel="stylesheet">`, CSS Rule `background-color`, Separation of Concerns | Hoàn thành |
 
 ---
 
@@ -895,7 +896,39 @@ Xây dựng trang hồ sơ cá nhân tuân thủ nghiêm ngặt các quy chuẩn
 
 ---
 
-## 44. Hướng dẫn mở và kiểm tra trực tiếp
+## 44. Bài tập 44: [Thực hành] Tạo và liên kết file style.css đầu tiên
+
+- **Đường dẫn thư mục**: `my-first-website/`
+- **Mục tiêu**: Nắm vững phương pháp **External CSS (CSS ngoài)** – phương pháp chuẩn mực công nghiệp để phân tách hoàn toàn tầng cấu trúc nội dung (HTML) và tầng phong cách trình bày (CSS), liên kết thông qua thẻ `<link rel="stylesheet" href="style.css">`.
+
+### 44.1. Mục tiêu & Các kỹ thuật áp dụng
+Thực hiện chuyển đổi từ Inline/Internal CSS sang External CSS:
+- **Tạo tệp định dạng ngoại vi (`style.css`)**:
+  - Tạo tệp `style.css` nằm cùng cấp thư mục với `index.html` theo quy ước đặt tên chuẩn của ngành.
+  - Viết quy tắc CSS kiểm tra màu nền:
+    ```css
+    body {
+      background-color: #f0f8ff; /* AliceBlue */
+    }
+    ```
+  - Chuyển toàn bộ các quy tắc định dạng giao diện (Typography, Container, Header, Sections, Tables, Lists, Links, Footer) vào `style.css`.
+- **Thiết lập cầu nối liên kết trong `index.html`**:
+  - Khai báo thẻ `<link>` bên trong phần `<head>`: `<link rel="stylesheet" href="style.css">`.
+  - Phân tích thuộc tính: `rel="stylesheet"` (xác định quan hệ bảng kiểu) và `href="style.css"` (đường dẫn tương đối cùng cấp).
+- **Lợi ích kiến trúc của External CSS**:
+  - Tuân thủ nguyên lý phân tách trách nhiệm (Separation of Concerns).
+  - Tái sử dụng bảng kiểu chung cho nhiều trang web (DRY).
+  - Tận dụng bộ nhớ đệm trình duyệt (Browser Caching) để tối ưu hóa tốc độ tải trang.
+
+### 44.2. Tài liệu và Mã nguồn bàn giao
+- Tệp trang chủ: `my-first-website/index.html`
+- Tệp định dạng External CSS: `my-first-website/style.css`
+- Thư mục hình ảnh: `my-first-website/images/avatar.jpg`
+- Báo cáo kỹ thuật chi tiết: `my-first-website/README.md`
+
+---
+
+## 45. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -940,3 +973,4 @@ Xây dựng trang hồ sơ cá nhân tuân thủ nghiêm ngặt các quy chuẩn
 41. **Mở Bài tập Đóng gói thư viện giải phương trình bậc 2**: Mở thư mục `quadratic-equation-solver/`, chạy `build.bat` hoặc thực thi lệnh Maven `mvn clean package` để tạo tệp tin `.jar` và chạy `run.bat` để xem ứng dụng demo.
 42. **Mở Case Study Ứng dụng iNotes**: Triển khai file `inotes-app.war` lên Tomcat 10.1+ hoặc truy cập `http://localhost:8080/inotes-app/notes`.
 43. **Mở Mini project Giới thiệu bản thân (About Me)**: Mở file `my-first-website/index.html` trong trình duyệt.
+44. **Mở Thực hành Tạo và liên kết file style.css**: Mở file `my-first-website/index.html` trong trình duyệt để kiểm tra màu nền AliceBlue từ `my-first-website/style.css`.
