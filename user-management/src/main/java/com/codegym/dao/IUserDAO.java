@@ -1,7 +1,6 @@
 package com.codegym.dao;
 
 import com.codegym.model.User;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -16,7 +15,8 @@ public interface IUserDAO {
 
     boolean updateUser(User user) throws SQLException;
 
-    List<User> searchByCountry(String country);
+    // Phuong thuc goi MySQL Stored Procedure
+    User getUserById(int id);
 
-    List<User> sortByName();
+    void insertUserStore(User user) throws SQLException;
 }

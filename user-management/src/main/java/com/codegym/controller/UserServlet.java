@@ -27,6 +27,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -41,8 +44,8 @@ public class UserServlet extends HttpServlet {
                 case "update":
                     updateUser(request, response);
                     break;
-                case "search":
-                    searchByCountry(request, response);
+                case "delete":
+                    deleteUser(request, response);
                     break;
                 default:
                     listUser(request, response);
@@ -56,6 +59,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+
         String action = request.getParameter("action");
         if (action == null) {
             action = "";
@@ -71,13 +77,7 @@ public class UserServlet extends HttpServlet {
                     showEditForm(request, response);
                     break;
                 case "delete":
-                    deleteUser(request, response);
-                    break;
-                case "sort":
-                    sortByName(request, response);
-                    break;
-                case "search":
-                    searchByCountry(request, response);
+                    showDeleteForm(request, response);
                     break;
                 default:
                     listUser(request, response);
@@ -102,22 +102,37 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    // 1. Sua doi chuc nang hien thi form Edit: Su dung phuong thuc moi goi Stored Procedure get_user_by_id
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        User existingUser = userDAO.selectUser(id);
+        User existingUser = userDAO.getUserById(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("user/edit.jsp");
         request.setAttribute("user", existingUser);
         dispatcher.forward(request, response);
     }
 
+    private void showDeleteForm(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        User user = userDAO.getUserById(id);
+        if (user == null) {
+            user = userDAO.selectUser(id);
+        }
+        RequestDispatcher dispatcher = request.getRequestDispatcher("user/delete.jsp");
+        request.setAttribute("user", user);
+        dispatcher.forward(request, response);
+    }
+
+    // 2. Sua doi chuc nang them moi nguoi dung: Su dung phuong thuc moi goi Stored Procedure insert_user
     private void insertUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String country = request.getParameter("country");
         User newUser = new User(name, email, country);
-        userDAO.insertUser(newUser);
+
+        userDAO.insertUserStore(newUser);
         response.sendRedirect("users");
     }
 
@@ -128,8 +143,8 @@ public class UserServlet extends HttpServlet {
         String email = request.getParameter("email");
         String country = request.getParameter("country");
 
-        User book = new User(id, name, email, country);
-        userDAO.updateUser(book);
+        User user = new User(id, name, email, country);
+        userDAO.updateUser(user);
         response.sendRedirect("users");
     }
 
@@ -138,27 +153,5 @@ public class UserServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         userDAO.deleteUser(id);
         response.sendRedirect("users");
-    }
-
-    private void searchByCountry(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        String country = request.getParameter("country");
-        if (country == null) {
-            country = "";
-        }
-        List<User> listUser = userDAO.searchByCountry(country.trim());
-        request.setAttribute("listUser", listUser);
-        request.setAttribute("countrySearch", country);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    private void sortByName(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException, ServletException {
-        List<User> listUser = userDAO.sortByName();
-        request.setAttribute("listUser", listUser);
-        request.setAttribute("isSorted", true);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user/list.jsp");
-        dispatcher.forward(request, response);
     }
 }
