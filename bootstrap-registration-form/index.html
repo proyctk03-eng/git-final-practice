@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiet Ke Trang Dang Ky Voi Bootstrap Forms</title>
+    <!-- Bootstrap 5.3.0 CDN CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-light py-5">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm border-0 rounded-3">
+                    <div class="card-header bg-primary text-white text-center py-4 rounded-top-3">
+                        <h2 class="h3 fw-bold mb-1">Dang Ky Tai Khoan</h2>
+                        <p class="text-white-50 mb-0 small">Vui long dien day du cac thong tin duoi day de khoi tao tai khoan</p>
+                    </div>
+
+                    <div class="card-body p-4 p-md-5">
+                        <form id="registerForm" novalidate>
+                            <!-- 1. Ho va ten -->
+                            <div class="mb-3">
+                                <label for="fullName" class="form-label fw-semibold">Ho va ten <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="fullName" name="fullName" placeholder="Nguyen Van A" required>
+                                <div class="invalid-feedback">Vui long nhap ho va ten cua ban.</div>
+                            </div>
+
+                            <!-- 2. Email -->
+                            <div class="mb-3">
+                                <label for="email" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="example@domain.com" required>
+                                <div class="form-text text-muted">Chung toi cam ket bao mat tuyet doi thong tin email cua ban.</div>
+                                <div class="invalid-feedback">Vui long nhap dia chi email hop le.</div>
+                            </div>
+
+                            <!-- 3. Mat khau & 4. Xac nhan mat khau -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="password" class="form-label fw-semibold">Mat khau <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Toi thieu 8 ky tu" minlength="8" required>
+                                    <div class="invalid-feedback">Mat khau phai co it nhat 8 ky tu.</div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="confirmPassword" class="form-label fw-semibold">Xac nhan mat khau <span class="text-danger">*</span></label>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Nhap lai mat khau" required>
+                                    <div class="invalid-feedback" id="confirmFeedback">Mat khau xac nhan khong trung khop.</div>
+                                </div>
+                            </div>
+
+                            <!-- 5. Gioi tinh (Radio buttons) -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold d-block">Gioi tinh <span class="text-danger">*</span></label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderMale" value="Nam" checked>
+                                    <label class="form-check-label" for="genderMale">Nam</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderFemale" value="Nu">
+                                    <label class="form-check-label" for="genderFemale">Nu</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gender" id="genderOther" value="Khac">
+                                    <label class="form-check-label" for="genderOther">Khac</label>
+                                </div>
+                            </div>
+
+                            <!-- 6. So thich (Checkboxes) -->
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold d-block">So thich</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hobbyReading" name="hobbies" value="Doc sach">
+                                    <label class="form-check-label" for="hobbyReading">Doc sach</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hobbyTravel" name="hobbies" value="Du lich">
+                                    <label class="form-check-label" for="hobbyTravel">Du lich</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hobbySports" name="hobbies" value="The thao">
+                                    <label class="form-check-label" for="hobbySports">The thao</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="hobbyMusic" name="hobbies" value="Am nhac">
+                                    <label class="form-check-label" for="hobbyMusic">Am nhac</label>
+                                </div>
+                            </div>
+
+                            <!-- 7. Quoc gia (Dropdown Select) -->
+                            <div class="mb-4">
+                                <label for="country" class="form-label fw-semibold">Quoc gia <span class="text-danger">*</span></label>
+                                <select class="form-select" id="country" name="country" required>
+                                    <option value="" selected disabled>-- Chon quoc gia --</option>
+                                    <option value="VN">Viet Nam</option>
+                                    <option value="US">Hoa Ky</option>
+                                    <option value="JP">Nhat Ban</option>
+                                    <option value="KR">Han Quoc</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="AU">Uc</option>
+                                    <option value="UK">Vuong Quoc Anh</option>
+                                </select>
+                                <div class="invalid-feedback">Vui long lua chon quoc gia cua ban.</div>
+                            </div>
+
+                            <!-- Dieu khoan dich vu -->
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label small text-muted" for="termsCheck">
+                                        Toi dong y voi cac dieu khoan su dung va chinh sach bao mat thong tin. <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="invalid-feedback">Ban can dong y voi dieu khoan de tiep tuc.</div>
+                                </div>
+                            </div>
+
+                            <!-- 8. Nut Submit -->
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary btn-lg shadow-sm">Dang Ky Tai Khoan</button>
+                            </div>
+                        </form>
+
+                        <!-- Thong bao thanh cong -->
+                        <div id="successAlert" class="alert alert-success mt-4 d-none" role="alert">
+                            <h4 class="alert-heading h5 fw-bold mb-1">Dang ky thanh cong!</h4>
+                            <p class="mb-0 small">Thong tin cua ban da duoc ghi nhan thanh cong tren he thong.</p>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light py-3 text-center border-top">
+                        <p class="small text-muted mb-0">Sinh vien thuc hien: <strong>Nguyen Tuan Dat</strong> | Bai tap: Bootstrap Forms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5.3.0 CDN JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const form = document.getElementById('registerForm');
+        const pass = document.getElementById('password');
+        const confirmPass = document.getElementById('confirmPassword');
+        const successAlert = document.getElementById('successAlert');
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            let isValid = form.checkValidity();
+
+            if (pass.value !== confirmPass.value) {
+                confirmPass.setCustomValidity('Mat khau khong trung khop');
+                isValid = false;
+            } else {
+                confirmPass.setCustomValidity('');
+            }
+
+            form.classList.add('was-validated');
+
+            if (isValid) {
+                successAlert.classList.remove('d-none');
+                form.reset();
+                form.classList.remove('was-validated');
+            } else {
+                successAlert.classList.add('d-none');
+            }
+        });
+    </script>
+</body>
+</html>

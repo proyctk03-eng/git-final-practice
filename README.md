@@ -43,6 +43,7 @@
 | 31 | **[Bài tập] Ứng dụng Product Discount Calculator** | `product-discount-calculator/` | Java Servlet, JSP Form POST, Tomcat 10.1+, Jakarta EE 10, Discount Calculation | Hoàn thành |
 | 32 | **[Thực hành] CSS | flex-flow Property** | `css-flex-flow/` | CSS3 Flexbox, `flex-flow` (`row nowrap`, `row-reverse nowrap`), Flex Container | Hoàn thành |
 | 33 | **[Thực hành] Xây dựng Landing Page với Bootstrap** | `bootstrap-landing-page/` | Bootstrap 5.3.0, Navbar, Hero Section, Responsive Grid (col-md-4), Cards, Footer | Hoàn thành |
+| 34 | **[Bài tập] Thiết kế Trang Đăng Ký với Bootstrap Forms** | `bootstrap-registration-form/` | Bootstrap 5.3.0 Forms, Form Controls, Radio, Checkbox, Dropdown Select, Validation | Hoàn thành |
 
 ---
 
@@ -608,7 +609,25 @@ Xây dựng trang đích (Landing Page) chuyên nghiệp sử dụng thư viện
 
 ---
 
-## 34. Hướng dẫn mở và kiểm tra trực tiếp
+## 34. Bài tập 34: [Bài tập] Thiết Kế Trang Đăng Ký Với Bootstrap Forms
+
+### 34.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng trang đăng ký người dùng chuyên nghiệp sử dụng đầy đủ các thành phần biểu mẫu của Bootstrap 5.3.0 theo đúng đặc tả của CodeGym:
+- **Trường nhập liệu Form Controls**: Sử dụng `.form-control` cho Họ và tên, Email, Mật khẩu và Xác nhận mật khẩu.
+- **Nút tùy chọn đơn (Radio Buttons)**: Khai báo `.form-check .form-check-inline` cho trường Giới tính (Nam, Nữ, Khác).
+- **Hộp kiểm chọn đa mục (Checkboxes)**: Khai báo `.form-check .form-check-inline` cho trường Sở thích (Đọc sách, Du lịch, Thể thao, Âm nhạc).
+- **Danh sách lựa chọn thả xuống (Dropdown Select)**: Khai báo `.form-select` cho trường Quốc gia với danh sách các nước.
+- **Nút gửi biểu mẫu (Button Submit)**: Thiết kế nút nổi bật `.btn .btn-primary .btn-lg .w-100 .shadow-sm`.
+- **Định dạng văn bản & Kiểm tra hợp lệ (Validation & Text Elements)**: Tích hợp `.text-muted`, `.form-text`, `.invalid-feedback` và kịch bản JavaScript kiểm tra tính hợp lệ và độ khớp mật khẩu theo thời gian thực.
+
+### 34.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện Form đăng ký: `bootstrap-registration-form/index.html`
+- Kiểu dáng CSS bổ trợ: `bootstrap-registration-form/styles.css`
+- Thuyết minh kỹ thuật chi tiết: `bootstrap-registration-form/README.md`
+
+---
+
+## 35. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -643,3 +662,4 @@ Xây dựng trang đích (Landing Page) chuyên nghiệp sử dụng thư viện
 31. **Mở Bài tập Product Discount Calculator**: Mở file `product-discount-calculator/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 32. **Mở Thực hành CSS flex-flow**: Mở file `css-flex-flow/index.html` trong trình duyệt.
 33. **Mở Thực hành Bootstrap Landing Page**: Mở file `bootstrap-landing-page/index.html` trong trình duyệt.
+34. **Mở Bài tập Bootstrap Registration Form**: Mở file `bootstrap-registration-form/index.html` trong trình duyệt.
