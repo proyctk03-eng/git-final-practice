@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang About Me - Cấu Trúc Semantic HTML</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        img.avatar {
+            border-radius: 8px;
+            display: block;
+            border: 2px solid #e2e8f0;
+        }
+        section {
+            margin-bottom: 25px;
+        }
+        h2 {
+            color: #1e293b;
+            margin-top: 0;
+            border-left: 4px solid #2563eb;
+            padding-left: 10px;
+        }
+        ul, ol {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 6px;
+        }
+        a {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Khu vực đầu trang: Tên và Ảnh đại diện -->
+        <header>
+            <h1>Nguyễn Thị Bê</h1>
+            <img class="avatar" src="images/avatar.jpg" alt="Ảnh chân dung của Nguyễn Thị Bê" width="200">
+        </header>
+
+        <!-- Nội dung chính của trang web -->
+        <main>
+            <!-- Phần 1: Giới thiệu bản thân -->
+            <section>
+                <h2>Giới thiệu bản thân</h2>
+                <p>
+                    Xin chào! Tôi là một <strong>lập trình viên</strong> đang trên hành trình học hỏi về thế giới phát triển web. Tôi có niềm đam mê với công nghệ và thích tạo ra những sản phẩm <em>đẹp mắt</em> và hữu ích.
+                </p>
+            </section>
+
+            <!-- Phần 2: Sở thích cá nhân -->
+            <section>
+                <h2>Sở thích</h2>
+                <ul>
+                    <li>Đọc sách khoa học viễn tưởng</li>
+                    <li>Chơi cờ vua</li>
+                    <li>Đi bộ đường dài</li>
+                </ul>
+            </section>
+
+            <!-- Phần 3: Kết nối mạng xã hội -->
+            <section>
+                <h2>Kết nối với tôi</h2>
+                <ul>
+                    <li>
+                        <a href="https://www.facebook.com/your-username" target="_blank" rel="noopener noreferrer">Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://www.linkedin.com/in/your-username" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/proyctk03-eng" target="_blank" rel="noopener noreferrer">Github</a>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- Chân trang: Thông tin bản quyền -->
+        <footer>
+            <p>&copy; 2025 Nguyễn Thị Bê. Bảo lưu mọi quyền.</p>
+        </footer>
+    </div>
+</body>
+</html>

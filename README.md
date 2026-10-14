@@ -52,6 +52,7 @@
 | 40 | **[Thực hành] Thực thi SQL có sử dụng Transaction** | `user-management/` | Java JDBC Transaction, `setAutoCommit(false)`, `commit()`, Rollback, All-or-Nothing | Hoàn thành |
 | 41 | **[Bài tập] Đóng gói thư viện giải phương trình bậc 2** | `quadratic-equation-solver/` | Java 8+, Maven JAR Packaging, OOP (`QuadraticEquation`), JUnit 5, Clean Architecture | Hoàn thành |
 | 42 | **[Case Study] Ứng dụng iNotes** | `inotes-app/` | Java Servlet 6.0, JSP 3.1, JSTL 3.0, Strategy Pattern (`NoteDBStrategy`, `NoteFileStrategy`), MySQL JDBC, Flat File, Bootstrap 5 | Hoàn thành |
+| 43 | **Mini project: Xây dựng trang "Giới thiệu bản thân" (About Me)** | `my-first-website/` | HTML5 Semantic (`h1`, `h2`, `p`, `strong`, `em`, `ul`, `ol`, `img`, `a`), a11y | Hoàn thành |
 
 ---
 
@@ -867,7 +868,34 @@ Triển khai kiến trúc Strategy Pattern và phân tầng MVC chuẩn mực:
 
 ---
 
-## 43. Hướng dẫn mở và kiểm tra trực tiếp
+## 43. Bài tập 43: Mini project: Xây dựng trang "Giới thiệu bản thân" (About Me)
+
+- **Đường dẫn thư mục**: `my-first-website/`
+- **Mục tiêu**: Tổng hợp toàn bộ kiến thức và kỹ năng nền tảng trong Module 1 để tạo danh thiếp điện tử (About Me profile) hoàn chỉnh, đáp ứng 100% tiêu chí ngữ nghĩa HTML5, cấu trúc phân cấp, khả năng tiếp cận (a11y) và bảo mật liên kết.
+
+### 43.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng trang hồ sơ cá nhân tuân thủ nghiêm ngặt các quy chuẩn:
+- **Cấu trúc dự án chuẩn quốc tế**:
+  - Tệp tin gốc `index.html` được đặt tại thư mục dự án `my-first-website/`.
+  - Thư mục con `images/` lưu trữ hình ảnh chân dung `avatar.jpg`.
+- **Cấu trúc tài liệu HTML5 chuẩn mực**:
+  - Khai báo `<!DOCTYPE html>`, thuộc tính ngôn ngữ `<html lang="vi">`, bảng mã ký tự `<meta charset="UTF-8">`, và thẻ `<title>Giới thiệu về Nguyễn Tuấn Đạt</title>`.
+- **Phân cấp ngữ nghĩa & Trải nghiệm người dùng**:
+  - Tiêu đề chính duy nhất: `<h1>Nguyễn Tuấn Đạt</h1>`.
+  - Hình ảnh đại diện: `<img>` với đường dẫn tương đối `images/avatar.jpg`, thuộc tính `alt="Ảnh chân dung đại diện của Nguyễn Tuấn Đạt"`.
+  - 4 phân đoạn nội dung rõ ràng với thẻ `<h2>`: Giới thiệu bản thân, Sở thích cá nhân, Mục tiêu và Lộ trình phát triển, Kết nối với tôi.
+  - Sử dụng chuẩn xác thẻ `<p>`, kết hợp ít nhất một lần thẻ `<strong>` để nhấn mạnh nội dung quan trọng và thẻ `<em>` để truyền tải ngữ điệu.
+  - Kết hợp linh hoạt danh sách không thứ tự `<ul>` (sở thích, liên kết) và danh sách có thứ tự `<ol>` (lộ trình 4 giai đoạn).
+  - Khối liên kết mạng xã hội với đường dẫn tuyệt đối (`https://...`), thuộc tính `target="_blank"` và chuẩn bảo mật `rel="noopener noreferrer"`.
+
+### 43.2. Tài liệu và Mã nguồn bàn giao
+- Tệp trang chủ cá nhân: `my-first-website/index.html`
+- Thư mục hình ảnh: `my-first-website/images/avatar.jpg`
+- Báo cáo kỹ thuật và đúc kết thực hành: `my-first-website/README.md`
+
+---
+
+## 44. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -911,3 +939,4 @@ Triển khai kiến trúc Strategy Pattern và phân tầng MVC chuẩn mực:
 40. **Mở Thực hành Thực thi SQL có sử dụng Transaction**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users?action=test-use-tran`.
 41. **Mở Bài tập Đóng gói thư viện giải phương trình bậc 2**: Mở thư mục `quadratic-equation-solver/`, chạy `build.bat` hoặc thực thi lệnh Maven `mvn clean package` để tạo tệp tin `.jar` và chạy `run.bat` để xem ứng dụng demo.
 42. **Mở Case Study Ứng dụng iNotes**: Triển khai file `inotes-app.war` lên Tomcat 10.1+ hoặc truy cập `http://localhost:8080/inotes-app/notes`.
+43. **Mở Mini project Giới thiệu bản thân (About Me)**: Mở file `my-first-website/index.html` trong trình duyệt.
