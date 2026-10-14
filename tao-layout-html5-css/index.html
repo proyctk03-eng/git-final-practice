@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tạo Layout Với Các Thẻ HTML5 và CSS - CodeGym</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="layout-container">
+        <!-- 1. HEADER: Tiêu đề trang web và biểu ngữ giới thiệu -->
+        <header class="site-header">
+            <div class="header-inner">
+                <h1 class="site-title">TechNews Vietnam</h1>
+                <p class="site-tagline">Tạp chí tin tức công nghệ, lập trình và đổi mới sáng tạo</p>
+            </div>
+        </header>
+
+        <!-- 2. NAV: Thanh điều hướng trang web -->
+        <nav class="site-nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link active">Trang Chủ</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Tin Công Nghệ</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Lập Trình Web</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Trí Tuệ Nhân Tạo</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Diễn Đàn</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Liên Hệ</a></li>
+            </ul>
+        </nav>
+
+        <!-- 3. MAIN CONTENT WRAPPER: Khu vực thân trang chứa Section và Aside -->
+        <main class="main-body">
+            <!-- SECTION: Phân vùng nội dung chính chứa các bài viết -->
+            <section class="articles-section">
+                <h2 class="section-heading">Bài Viết Nổi Bật</h2>
+
+                <!-- ARTICLE 1: Bài viết độc lập số 1 -->
+                <article class="post-card">
+                    <header class="post-header">
+                        <span class="category-badge">HTML5 & Web Standards</span>
+                        <h3 class="post-title">Sức Mạnh Của HTML5 Semantic: Tạm Biệt Kỷ Nguyên "Div Soup"</h3>
+                        <div class="post-meta">
+                            <span>Đăng bởi: <strong>Nguyễn Tuấn Đạt</strong></span> • 
+                            <time datetime="2026-10-09">09 Tháng 10, 2026</time>
+                        </div>
+                    </header>
+                    <div class="post-content">
+                        <p>
+                            Trước khi HTML5 ra đời, các lập trình viên thường phải lạm dụng thẻ <code>&lt;div&gt;</code> với hàng loạt class như <code>class="header"</code>, <code>class="nav"</code>, <code>class="footer"</code>. Điều này khiến mã nguồn khó đọc và các công cụ tìm kiếm (SEO) gặp khó khăn trong việc hiểu cấu trúc trang.
+                        </p>
+                        <p>
+                            Với các thẻ ngữ nghĩa chuẩn như <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code> và <code>&lt;footer&gt;</code>, trang web trở nên rõ ràng, thân thiện với trình đọc màn hình (Screen Reader) và tối ưu hóa vượt bậc cho máy chủ tìm kiếm.
+                        </p>
+                    </div>
+                </article>
+
+                <!-- ARTICLE 2: Bài viết độc lập số 2 -->
+                <article class="post-card">
+                    <header class="post-header">
+                        <span class="category-badge badge-blue">CSS Layout</span>
+                        <h3 class="post-title">Làm Chủ Bố Cục Hiện Đại Với CSS Flexbox Và CSS Grid</h3>
+                        <div class="post-meta">
+                            <span>Đăng bởi: <strong>Nguyễn Tuấn Đạt</strong></span> • 
+                            <time datetime="2026-10-08">08 Tháng 10, 2026</time>
+                        </div>
+                    </header>
+                    <div class="post-content">
+                        <p>
+                            Kỹ thuật dàn trang bằng <code>float</code> và <code>clear</code> từng thống trị nhiều năm nhưng lại tiềm ẩn nhiều lỗi sập chiều cao. CSS Flexbox (bố cục 1 chiều) và CSS Grid (bố cục 2 chiều) đã cách mạng hóa quy trình thiết kế giao diện web đáp ứng (Responsive Web Design).
+                        </p>
+                        <p>
+                            Bằng cách kết hợp linh hoạt cấu trúc thẻ ngữ nghĩa HTML5 cùng hệ thống chia cột hiện đại, giao diện trang web có thể tự động thích ứng hoàn hảo từ màn hình máy tính lớn đến điện thoại di động nhỏ gọn.
+                        </p>
+                    </div>
+                </article>
+            </section>
+
+            <!-- ASIDE: Thanh nội dung phụ / Sidebar bên cạnh -->
+            <aside class="sidebar-aside">
+                <div class="widget">
+                    <h3 class="widget-title">Chủ Đề Thịnh Hành</h3>
+                    <ul class="widget-list">
+                        <li><a href="#">Lộ trình trở thành Fullstack Developer 2026</a></li>
+                        <li><a href="#">Tối ưu hóa Core Web Vitals cho Website</a></li>
+                        <li><a href="#">Bảo mật ứng dụng web với OWASP Top 10</a></li>
+                        <li><a href="#">Tích hợp AI Chatbot vào Dashboard quản lý</a></li>
+                    </ul>
+                </div>
+
+                <div class="widget widget-callout">
+                    <h3 class="widget-title">Góc Lời Khuyên & Thực Hành</h3>
+                    <p>
+                        Luôn luôn sử dụng thẻ HTML đúng với ngữ nghĩa của nó (Semantic HTML) thay vì chỉ chọn thẻ dựa trên giao diện mặc định. Giao diện hãy để CSS đảm nhiệm!
+                    </p>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 4. FOOTER: Chân trang chứa thông tin bản quyền và liên hệ -->
+        <footer class="site-footer">
+            <div class="footer-inner">
+                <p class="copyright">&copy; 2026 TechNews Vietnam. Bài tập thiết kế Layout HTML5 & CSS - Học viên: Nguyễn Tuấn Đạt (CodeGym).</p>
+                <p class="footer-links">
+                    <a href="#">Điều khoản sử dụng</a> | 
+                    <a href="#">Chính sách bảo mật</a> | 
+                    <a href="#">Sơ đồ trang</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

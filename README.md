@@ -37,6 +37,7 @@
 | 25 | **[Bài tập] Tạo giao diện giản lược của trang chủ Facebook** | `facebook-homepage-layout/` | HTML5, CSS3 Position (`fixed`, `relative`), 3-Column Layout, Sidebars, Responsive | Hoàn thành |
 | 26 | **[Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub"** | `metricshub-layout-refactoring/` | Flexbox (1D Navbar), CSS Grid (2D Bento Dashboard), Bootstrap 5 (12-Col Pricing), Shallow DOM | Hoàn thành |
 | 27 | **[Thực hành] Sử dụng Bootstrap xây dựng form login** | `jwbd-login-bootstrap/` | Bootstrap 5.0.0-beta2, Flexbox Centering, Form Controls, CSS Input Grouping | Hoàn thành |
+| 28 | **[Bài tập] Tạo layout với các thẻ HTML5 và CSS** | `tao-layout-html5-css/` | HTML5 Semantic (header, nav, section, article, aside, footer), CSS Flexbox Responsive | Hoàn thành |
 
 ---
 
@@ -493,7 +494,25 @@ Xây dựng giao diện Form đăng nhập chuẩn mực sử dụng thư viện
 
 ---
 
-## 28. Hướng dẫn mở và kiểm tra trực tiếp
+## 28. Bài tập 28: [Bài tập] Tạo Layout Với Các Thẻ HTML5 và CSS
+
+### 28.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng bố cục trang web hoàn chỉnh bằng các thẻ ngữ nghĩa HTML5 (Semantic HTML5) kết hợp CSS Flexbox theo đúng đặc tả của CodeGym:
+- **Thẻ cấu trúc ngữ nghĩa HTML5**: Sử dụng đầy đủ 6 thẻ ngữ nghĩa layout chuẩn gồm `<header>`, `<nav>`, `<section>`, `<article>`, `<aside>` và `<footer>`.
+- **Thanh điều hướng (`<nav>`)**: Thiết kế danh sách liên kết điều hướng rõ ràng, hỗ trợ hiệu ứng chuyển trạng thái hover mượt mà.
+- **Khu vực nội dung chính và thanh bên (`<section>`, `<article>`, `<aside>`)**: Bố cục dạng 2 cột trực quan với nội dung bài viết và các tiện ích bên cạnh (aside), phân cấp thông tin mạch lạc.
+- **Bố cục linh hoạt và tương thích (Responsive Flexbox)**: Tự động co giãn phù hợp trên màn hình máy tính và thiết bị di động, đảm bảo chuẩn Web standards.
+
+### 28.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện chuẩn bài tập: `tao-layout-html5-css/index.html`
+- Kiểu dáng CSS bố cục ngữ nghĩa: `tao-layout-html5-css/styles.css`
+- Giao diện mở rộng hiện đại: `tao-layout-html5-css/modern_layout.html`
+- Kiểu dáng CSS mở rộng: `tao-layout-html5-css/modern_layout.css`
+- Thuyết minh kỹ thuật chi tiết: `tao-layout-html5-css/README.md`
+
+---
+
+## 29. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -522,3 +541,4 @@ Xây dựng giao diện Form đăng nhập chuẩn mực sử dụng thư viện
 25. **Mở Bài tập Giao diện Facebook**: Mở file `facebook-homepage-layout/index.html` hoặc `facebook-homepage-layout/demo.html` trong trình duyệt.
 26. **Mở Thực hành Tái cấu trúc MetricsHub**: Mở file `metricshub-layout-refactoring/index.html` trong trình duyệt.
 27. **Mở Thực hành Form Login Bootstrap**: Mở file `jwbd-login-bootstrap/index.html` trong trình duyệt.
+28. **Mở Bài tập Layout HTML5 và CSS**: Mở file `tao-layout-html5-css/index.html` trong trình duyệt.
