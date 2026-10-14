@@ -2,25 +2,37 @@ package com.codegym.dao;
 
 import com.codegym.model.User;
 
+import java.math.BigDecimal;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAO implements IUserDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/demo?useSSL=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "password";
+    private String jdbcPassword = "";
 
     private static final String INSERT_USERS_SQL = "INSERT INTO users (name, email, country) VALUES (?, ?, ?);";
     private static final String SELECT_USER_BY_ID = "SELECT id, name, email, country FROM users WHERE id = ?;";
     private static final String SELECT_ALL_USERS = "SELECT * FROM users ORDER BY id ASC;";
     private static final String DELETE_USERS_SQL = "DELETE FROM users WHERE id = ?;";
     private static final String UPDATE_USERS_SQL = "UPDATE users SET name = ?, email = ?, country = ? WHERE id = ?;";
+    private static final String SEARCH_USERS_BY_COUNTRY = "SELECT * FROM users WHERE country LIKE ?;";
+    private static final String SORT_USERS_BY_NAME = "SELECT * FROM users ORDER BY name ASC;";
+
+    // SQL constants for testing execution without transaction
+    private static final String SQL_INSERT = "INSERT INTO Employee (name, salary, created_Date) VALUES (?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE Employee SET salary=? WHERE name=?";
+    private static final String SQL_TABLE_CREATE = "CREATE TABLE Employee" + "(" + " id INT(11) AUTO_INCREMENT," + " name VARCHAR(100) NOT NULL," + " salary DECIMAL(15, 2) NOT NULL," + " created_Date TIMESTAMP," + " PRIMARY KEY (id)" + ")";
+    private static final String SQL_TABLE_DROP = "DROP TABLE IF EXISTS Employee";
 
     public UserDAO() {
     }
@@ -121,6 +133,47 @@ public class UserDAO implements IUserDAO {
         return rowUpdated;
     }
 
+    @Override
+    public List<User> searchByCountry(String country) {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SEARCH_USERS_BY_COUNTRY)) {
+            preparedStatement.setString(1, "%" + country + "%");
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String countryResult = rs.getString("country");
+                users.add(new User(id, name, email, countryResult));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return users;
+    }
+
+    @Override
+    public List<User> sortByName() {
+        List<User> users = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(SORT_USERS_BY_NAME)) {
+            ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                String email = rs.getString("email");
+                String country = rs.getString("country");
+                users.add(new User(id, name, email, country));
+            }
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+        return users;
+    }
+
     // Trien khai goi MySQL Stored Procedure: get_user_by_id
     @Override
     public User getUserById(int id) {
@@ -152,11 +205,153 @@ public class UserDAO implements IUserDAO {
             callableStatement.setString(1, user.getName());
             callableStatement.setString(2, user.getEmail());
             callableStatement.setString(3, user.getCountry());
-            System.out.println(callableStatement);
             callableStatement.executeUpdate();
         } catch (SQLException e) {
             printSQLException(e);
             throw e;
+        }
+    }
+
+    // Trien khai Transaction them User va gan Permission
+    @Override
+    public void addUserTransaction(User user, int[] permissionIds) throws SQLException {
+        Connection connection = null;
+        PreparedStatement pstmtUser = null;
+        PreparedStatement pstmtAssignment = null;
+        ResultSet rs = null;
+        try {
+            connection = getConnection();
+            connection.setAutoCommit(false);
+
+            String insertUserSql = "INSERT INTO users (name, email, country) VALUES (?, ?, ?)";
+            pstmtUser = connection.prepareStatement(insertUserSql, Statement.RETURN_GENERATED_KEYS);
+            pstmtUser.setString(1, user.getName());
+            pstmtUser.setString(2, user.getEmail());
+            pstmtUser.setString(3, user.getCountry());
+            pstmtUser.executeUpdate();
+
+            rs = pstmtUser.getGeneratedKeys();
+            int userId = 0;
+            if (rs.next()) {
+                userId = rs.getInt(1);
+            }
+
+            if (permissionIds != null && permissionIds.length > 0) {
+                String insertPermissionSql = "INSERT INTO user_permission (user_id, permission_id) VALUES (?, ?)";
+                pstmtAssignment = connection.prepareStatement(insertPermissionSql);
+                for (int permissionId : permissionIds) {
+                    pstmtAssignment.setInt(1, userId);
+                    pstmtAssignment.setInt(2, permissionId);
+                    pstmtAssignment.executeUpdate();
+                }
+            }
+
+            connection.commit();
+            System.out.println("Transaction đã được commit thành công!");
+        } catch (SQLException e) {
+            try {
+                if (connection != null) {
+                    connection.rollback();
+                    System.out.println("Có lỗi xảy ra! Transaction đã bị rollback.");
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+        } finally {
+            if (rs != null) rs.close();
+            if (pstmtUser != null) pstmtUser.close();
+            if (pstmtAssignment != null) pstmtAssignment.close();
+            if (connection != null) {
+                connection.setAutoCommit(true);
+                connection.close();
+            }
+        }
+    }
+
+    // Thuc thi tap lenh khong su dung Transaction (Quan sat loi commit mot nua)
+    @Override
+    public void insertUpdateWithoutTransaction() {
+        try (Connection conn = getConnection();
+             Statement statement = conn.createStatement();
+             PreparedStatement psInsert = conn.prepareStatement(SQL_INSERT);
+             PreparedStatement psUpdate = conn.prepareStatement(SQL_UPDATE)) {
+
+            // 1. Xoá bảng cũ và tạo lại bảng mới để làm sạch dữ liệu mỗi lần test
+            statement.execute(SQL_TABLE_DROP);
+            statement.execute(SQL_TABLE_CREATE);
+
+            // 2. Chạy tập lệnh Insert (Chèn 2 nhân viên)
+            psInsert.setString(1, "Quynh");
+            psInsert.setBigDecimal(2, new BigDecimal(10));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            psInsert.setString(1, "Ngan");
+            psInsert.setBigDecimal(2, new BigDecimal(20));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            // 3. Chạy tập lệnh Update (Cố tình tạo lỗi)
+            // Dòng bên dưới sẽ gây lỗi vì tham số index 1 chưa được gán giá trị
+            psUpdate.setBigDecimal(2, new BigDecimal(999.99));
+            psUpdate.setString(2, "Quynh");
+            // Lệnh execute này sẽ ném ra Exception
+            psUpdate.execute();
+
+        } catch (Exception e) {
+            System.out.println("Đã bắt được lỗi trong quá trình thực thi SQL (Without Transaction):");
+            e.printStackTrace();
+        }
+    }
+
+    // Thuc thi tap lenh co su dung Transaction (Dam bao nguyen ly All-or-Nothing)
+    @Override
+    public void insertUpdateUseTransaction() {
+        try (Connection conn = getConnection();
+             Statement statement = conn.createStatement();
+             PreparedStatement psInsert = conn.prepareStatement(SQL_INSERT);
+             PreparedStatement psUpdate = conn.prepareStatement(SQL_UPDATE)) {
+
+            statement.execute(SQL_TABLE_DROP);
+            statement.execute(SQL_TABLE_CREATE);
+
+            // ==========================================
+            // 1. BAT DAU TRANSACTION BLOCK
+            // Tat che do luu tu dong (autoCommit = false)
+            // ==========================================
+            conn.setAutoCommit(false);
+
+            // 2. Chay danh sach lenh Insert
+            psInsert.setString(1, "Quynh");
+            psInsert.setBigDecimal(2, new BigDecimal(10));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            psInsert.setString(1, "Ngan");
+            psInsert.setBigDecimal(2, new BigDecimal(20));
+            psInsert.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
+            psInsert.execute();
+
+            // 3. Chay lenh Update
+            // Da sua loi tu index 2 sang index 1 theo buoc huong dan (fix bug)
+            psUpdate.setBigDecimal(1, new BigDecimal("999.99"));
+            psUpdate.setString(2, "Quynh");
+            psUpdate.execute();
+
+            // ==========================================
+            // 4. KET THUC TRANSACTION BLOCK
+            // Ghi du lieu khi tat ca cac cau lenh deu thanh cong
+            // ==========================================
+            conn.commit();
+
+            // Bat lai che do auto-commit ve mac dinh
+            conn.setAutoCommit(true);
+
+        } catch (Exception e) {
+            System.out.println("Loi xay ra, Transaction se tu dong huy bo (rollback) khi dong ket noi!");
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
