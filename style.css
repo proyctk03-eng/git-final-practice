@@ -1,0 +1,34 @@
+/* ==========================================================================
+   Tệp style.css - Thí nghiệm trực quan hóa Box Model với các khối div
+   Sinh viên: Nguyễn Tuấn Đạt (proyctk03@gmail.com)
+   Khóa học: Module 1 - Thiết Kế Web
+   ========================================================================== */
+
+/* Định dạng cơ bản cho toàn trang */
+body {
+  background-color: #f0f8ff;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+/* Định dạng lớp chung .box thiết lập các lớp của Box Model */
+.box {
+  width: 250px;           /* Vùng Content: Chiều rộng nội dung */
+  height: 150px;          /* Vùng Content: Chiều cao nội dung */
+  padding: 20px;          /* Vùng Padding: Đệm trong suốt giữa nội dung và viền */
+  border: 10px solid #333;/* Vùng Border: Đường viền bao quanh hộp */
+  margin: 40px;           /* Vùng Margin: Khoảng cách lề bên ngoài đẩy các hộp ra xa */
+  font-size: 18px;
+  font-weight: bold;
+  color: #1e293b;
+}
+
+/* Tô màu nền để phân biệt trực quan vùng hộp */
+.box-1 {
+  background-color: lightskyblue; /* Màu xanh da trời nhạt */
+}
+
+.box-2 {
+  background-color: lightsalmon;  /* Màu cam cá hồi nhạt */
+}
