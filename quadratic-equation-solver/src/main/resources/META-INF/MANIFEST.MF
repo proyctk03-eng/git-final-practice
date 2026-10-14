@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Main-Class: com.codegym.demo.LibraryDemoApp
+Built-By: Nguyen Tuan Dat
+Implementation-Title: Quadratic Equation Solver Library
+Implementation-Version: 1.0.0
+Implementation-Vendor: CodeGym
+

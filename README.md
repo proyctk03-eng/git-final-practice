@@ -50,6 +50,7 @@
 | 38 | **[Thực hành] Quản lý User sử dụng JSP-Servlet-JDBC-MySQL** | `user-management/` | Java MVC, Servlet, JSP, JSTL, JDBC, MySQL Connector/J, CRUD | Hoàn thành |
 | 39 | **[Thực hành] Gọi MySQL Stored Procedures từ JDBC** | `user-management/` | Java JDBC, MySQL Stored Procedures, `CallableStatement`, `get_user_by_id`, `insert_user` | Hoàn thành |
 | 40 | **[Thực hành] Thực thi SQL có sử dụng Transaction** | `user-management/` | Java JDBC Transaction, `setAutoCommit(false)`, `commit()`, Rollback, All-or-Nothing | Hoàn thành |
+| 41 | **[Bài tập] Đóng gói thư viện giải phương trình bậc 2** | `quadratic-equation-solver/` | Java 8+, Maven JAR Packaging, OOP (`QuadraticEquation`), JUnit 5, Clean Architecture | Hoàn thành |
 
 ---
 
@@ -798,7 +799,42 @@ Triển khai cơ chế Transaction Management trong tầng DAO của ứng dụn
 
 ---
 
-## 41. Hướng dẫn mở và kiểm tra trực tiếp
+## 41. Bài tập 41: [Bài tập] Đóng gói thư viện giải phương trình bậc 2
+
+- **Đường dẫn thư mục**: `quadratic-equation-solver/`
+- **Mục tiêu**: Đóng gói hoàn chỉnh nghiệp vụ giải phương trình bậc hai \(ax^2 + bx + c = 0\) thành thư viện Java độc lập (.jar), phân tách rành mạch tầng tính toán toán học khỏi tầng giao diện, quản lý gói bằng Maven và kiểm thử tự động bằng JUnit 5.
+
+### 41.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng và đóng gói thư viện Java chuẩn công nghiệp:
+- **Tầng cốt lõi của thư viện (`com.codegym.equation`)**:
+  - `EquationStatus` (Enum): Định nghĩa 5 trạng thái nghiệm toán học chuẩn xác (`INFINITE_ROOTS`, `NO_SOLUTION`, `ONE_ROOT`, `DOUBLE_ROOT`, `TWO_DISTINCT_ROOTS`).
+  - `QuadraticResult`: Đối tượng bất biến (Immutable) đóng gói kết quả giải phương trình, gồm trạng thái, giá trị biệt thức \(\Delta\), hai nghiệm \(x_1, x_2\), và thông điệp diễn giải.
+  - `QuadraticEquation`: Mô hình hóa đối tượng phương trình bậc hai, cung cấp `getDiscriminant()`, `getRoot1()`, `getRoot2()`, `hasRealRoots()`, và phương thức giải toàn diện `solve()`.
+  - `QuadraticSolver`: Lớp tiện ích tĩnh (Static Utility) cung cấp các phương thức `solve(a, b, c)`, `calculateDiscriminant(a, b, c)`, `formatEquation(a, b, c)` giúp giải nhanh mà không cần khởi tạo đối tượng.
+- **Tầng minh họa và tích hợp (`com.codegym.demo`)**:
+  - `LibraryDemoApp`: Ứng dụng mẫu chứng minh khả năng tiêu thụ thư viện từ ứng dụng bên ngoài, bao quát đầy đủ 7 trường hợp kiểm thử biên của toán học.
+- **Đóng gói chuẩn Maven (`pom.xml` & `MANIFEST.MF`)**:
+  - Đóng gói chuẩn JAR (`mvn clean package`), đính kèm tệp nguồn (`attach-sources`) và JavaDoc (`attach-javadocs`).
+  - Cấu hình cài đặt vào Local Maven Repository (`mvn clean install`) với định danh `com.codegym:quadratic-equation-solver:1.0.0`.
+- **Kiểm thử tự động với JUnit 5 (`src/test/java`)**:
+  - `QuadraticEquationTest`: Kiểm thử toàn diện tất cả các trường hợp nghiệm, kiểm thử tham số hóa `@ParameterizedTest` với `@CsvSource`.
+  - `QuadraticSolverTest`: Kiểm thử các phương thức tiện ích giải nhanh và định dạng chuỗi toán học.
+
+### 41.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình đóng gói Maven: `quadratic-equation-solver/pom.xml`
+- Thuyết minh kỹ thuật chi tiết: `quadratic-equation-solver/README.md`
+- Kịch bản build và đóng gói tự động: `quadratic-equation-solver/build.bat`
+- Kịch bản chạy ứng dụng demo: `quadratic-equation-solver/run.bat`
+- Lớp đối tượng phương trình: `quadratic-equation-solver/src/main/java/com/codegym/equation/QuadraticEquation.java`
+- Enum trạng thái: `quadratic-equation-solver/src/main/java/com/codegym/equation/EquationStatus.java`
+- Đối tượng kết quả: `quadratic-equation-solver/src/main/java/com/codegym/equation/QuadraticResult.java`
+- Tiện ích tĩnh: `quadratic-equation-solver/src/main/java/com/codegym/equation/QuadraticSolver.java`
+- Ứng dụng demo: `quadratic-equation-solver/src/main/java/com/codegym/demo/LibraryDemoApp.java`
+- Bộ kiểm thử JUnit 5: `quadratic-equation-solver/src/test/java/com/codegym/equation/`
+
+---
+
+## 42. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -840,3 +876,4 @@ Triển khai cơ chế Transaction Management trong tầng DAO của ứng dụn
 38. **Mở Thực hành Quản lý User JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
 39. **Mở Thực hành Gọi MySQL Stored Procedures từ JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
 40. **Mở Thực hành Thực thi SQL có sử dụng Transaction**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users?action=test-use-tran`.
+41. **Mở Bài tập Đóng gói thư viện giải phương trình bậc 2**: Mở thư mục `quadratic-equation-solver/`, chạy `build.bat` hoặc thực thi lệnh Maven `mvn clean package` để tạo tệp tin `.jar` và chạy `run.bat` để xem ứng dụng demo.
