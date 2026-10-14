@@ -1,0 +1,88 @@
+/* ==========================================================================
+   Tệp style.css - External CSS cho trang Giới thiệu bản thân (About Me)
+   Sinh viên: Nguyễn Tuấn Đạt (proyctk03@gmail.com)
+   Khóa học: Module 1 - Thiết Kế Web
+   ========================================================================== */
+
+/* Quy tắc định dạng cho toàn bộ trang web (phần tử body) */
+body {
+  background-color: #f0f8ff; /* Mã màu xanh AliceBlue rất nhạt theo yêu cầu bài học */
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  color: #333333;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Thẻ bao bọc nội dung hồ sơ cá nhân */
+.container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Khu vực phần đầu trang */
+header {
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+/* Tiêu đề chính h1 */
+h1 {
+  color: #0f172a;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+/* Hình ảnh đại diện */
+img.avatar {
+  border-radius: 8px;
+  display: block;
+  border: 2px solid #e2e8f0;
+}
+
+/* Các phân đoạn nội dung chính */
+section {
+  margin-bottom: 25px;
+}
+
+/* Tiêu đề phụ h2 */
+h2 {
+  color: #1e293b;
+  margin-top: 0;
+  border-left: 4px solid #2563eb;
+  padding-left: 10px;
+}
+
+/* Danh sách không thứ tự và có thứ tự */
+ul, ol {
+  padding-left: 20px;
+}
+
+li {
+  margin-bottom: 6px;
+}
+
+/* Siêu liên kết */
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Chân trang */
+footer {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 0.9em;
+  color: #64748b;
+  border-top: 1px solid #e2e8f0;
+  padding-top: 15px;
+}
