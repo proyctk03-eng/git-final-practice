@@ -46,6 +46,7 @@
 | 34 | **[Bài tập] Thiết kế Trang Đăng Ký với Bootstrap Forms** | `bootstrap-registration-form/` | Bootstrap 5.3.0 Forms, Form Controls, Radio, Checkbox, Dropdown Select, Validation | Hoàn thành |
 | 35 | **[Thực hành] Ứng dụng chuyển đổi tiền tệ - JSP** | `jsp-currency-converter/` | Java JSP, Scriptlet, Expression, Tomcat 10.1+, Jakarta EE 10, USD to VND | Hoàn thành |
 | 36 | **[Bài tập] Hiển thị danh sách khách hàng** | `customer-list-jstl/` | Java JSP, JSTL Core (`<c:forEach>`), EL, Jakarta EE 10, Tomcat 10.1+, Model, Servlet | Hoàn thành |
+| 37 | **[Bài tập] Tạo ứng dụng quản lý sản phẩm** | `product-management-mvc/` | Java MVC, Servlet, JSP, JSTL, CRUD (Create, Read, Update, Delete, Search) | Hoàn thành |
 
 ---
 
@@ -673,7 +674,37 @@ Xây dựng ứng dụng hiển thị danh sách khách hàng sử dụng thư v
 
 ---
 
-## 37. Hướng dẫn mở và kiểm tra trực tiếp
+## 37. Bài tập 37: [Bài tập] Tạo Ứng Dụng Quản Lý Sản Phẩm - Kiến Trúc MVC
+
+### 37.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng quản lý sản phẩm hoàn chỉnh theo mô hình kiến trúc MVC (Model - View - Controller) theo đúng đặc tả của CodeGym:
+- **Tầng dữ liệu (Model)**: Lớp thực thể `Product.java` quản lý các thuộc tính: mã (`id`), tên sản phẩm (`name`), giá (`price`), mô tả (`description`), và nhà sản xuất (`manufacturer`).
+- **Tầng nghiệp vụ (Service Layer)**:
+  - Giao diện `ProductService.java` định nghĩa các phương thức: `findAll()`, `save()`, `findById()`, `update()`, `remove()`, `findByName()`.
+  - Lớp `ProductServiceImpl.java` cài đặt nghiệp vụ lưu trữ dữ liệu mô phỏng trong bộ nhớ với `Map<Integer, Product>` khởi tạo sẵn 6 sản phẩm mẫu phong phú.
+- **Tầng điều khiển (Controller)**: `ProductServlet.java` tiếp nhận và điều phối các yêu cầu:
+  - Hiển thị danh sách sản phẩm (`action=""`).
+  - Tìm kiếm sản phẩm theo tên hoặc nhà sản xuất (`action="search"`).
+  - Thêm mới sản phẩm (`action="create"`).
+  - Sửa thông tin sản phẩm (`action="edit"`).
+  - Xóa sản phẩm với màn hình xác nhận cảnh báo an toàn (`action="delete"`).
+  - Xem chi tiết thông số và mô tả sản phẩm (`action="view"`).
+- **Tầng hiển thị (View - JSP & JSTL)**: Các trang `list.jsp`, `create.jsp`, `edit.jsp`, `delete.jsp`, `view.jsp`, `error-404.jsp` và `index.jsp` sử dụng thẻ JSTL Core (`<c:forEach>`, `<c:choose>`, `<c:if>`) và JSTL Format (`<fmt:formatNumber>`).
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package, `jakarta.servlet.jsp.jstl`, và web-app schema 6.0.
+
+### 37.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `product-management-mvc/pom.xml`
+- Lớp Model sản phẩm: `product-management-mvc/src/main/java/com/codegym/model/Product.java`
+- Interface nghiệp vụ: `product-management-mvc/src/main/java/com/codegym/service/ProductService.java`
+- Cài đặt nghiệp vụ: `product-management-mvc/src/main/java/com/codegym/service/ProductServiceImpl.java`
+- Servlet điều khiển MVC: `product-management-mvc/src/main/java/com/codegym/controller/ProductServlet.java`
+- Bộ giao diện JSP (Views): `product-management-mvc/src/main/webapp/product/`
+- Cấu hình Web descriptor: `product-management-mvc/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `product-management-mvc/README.md`
+
+---
+
+## 38. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -711,3 +742,4 @@ Xây dựng ứng dụng hiển thị danh sách khách hàng sử dụng thư v
 34. **Mở Bài tập Bootstrap Registration Form**: Mở file `bootstrap-registration-form/index.html` trong trình duyệt.
 35. **Mở Thực hành JSP Currency Converter**: Mở file `jsp-currency-converter/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 36. **Mở Bài tập JSTL Customer List**: Mở file `customer-list-jstl/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
+37. **Mở Bài tập Quản lý sản phẩm MVC**: Mở file `product-management-mvc/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/product-management-mvc/products`.
