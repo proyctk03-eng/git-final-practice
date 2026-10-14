@@ -47,6 +47,7 @@
 | 35 | **[Thực hành] Ứng dụng chuyển đổi tiền tệ - JSP** | `jsp-currency-converter/` | Java JSP, Scriptlet, Expression, Tomcat 10.1+, Jakarta EE 10, USD to VND | Hoàn thành |
 | 36 | **[Bài tập] Hiển thị danh sách khách hàng** | `customer-list-jstl/` | Java JSP, JSTL Core (`<c:forEach>`), EL, Jakarta EE 10, Tomcat 10.1+, Model, Servlet | Hoàn thành |
 | 37 | **[Bài tập] Tạo ứng dụng quản lý sản phẩm** | `product-management-mvc/` | Java MVC, Servlet, JSP, JSTL, CRUD (Create, Read, Update, Delete, Search) | Hoàn thành |
+| 38 | **[Thực hành] Quản lý User sử dụng JSP-Servlet-JDBC-MySQL** | `user-management/` | Java MVC, Servlet, JSP, JSTL, JDBC, MySQL Connector/J, CRUD | Hoàn thành |
 
 ---
 
@@ -704,7 +705,36 @@ Xây dựng ứng dụng quản lý sản phẩm hoàn chỉnh theo mô hình ki
 
 ---
 
-## 38. Hướng dẫn mở và kiểm tra trực tiếp
+## 38. Bài thực hành 38: [Thực hành] Quản Lý User Sử Dụng JSP-Servlet-JDBC-MySQL
+
+### 38.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng quản lý người dùng kết nối cơ sở dữ liệu MySQL qua JDBC theo chuẩn kiến trúc MVC của CodeGym:
+- **Tầng dữ liệu (Model)**: Lớp thực thể `User.java` đóng gói các trường: mã định danh (`id`), họ tên (`name`), hộp thư điện tử (`email`), và quốc gia (`country`).
+- **Tầng giao tiếp dữ liệu (DAO Layer)**:
+  - Giao diện `IUserDAO.java` đặc tả các hàm CRUD cơ sở dữ liệu: `insertUser()`, `selectUser()`, `selectAllUsers()`, `deleteUser()`, `updateUser()`.
+  - Lớp `UserDAO.java` kết nối MySQL qua `DriverManager` với driver `com.mysql.cj.jdbc.Driver`, thực thi các câu truy vấn qua `PreparedStatement` và ánh xạ `ResultSet`.
+- **Tầng điều khiển (Controller)**: `UserServlet.java` tiếp nhận và điều hướng theo tham số `action`:
+  - `action=""`: Hiển thị danh sách người dùng (`list.jsp`).
+  - `action="create"`: Hiển thị form và lưu người dùng mới vào MySQL (`create.jsp`).
+  - `action="edit"`: Hiển thị form và cập nhật thông tin người dùng (`edit.jsp`).
+  - `action="delete"`: Hiển thị màn hình xác nhận và xóa người dùng (`delete.jsp`).
+- **Tầng giao diện (Views - JSP & JSTL)**: Các trang `list.jsp`, `create.jsp`, `edit.jsp`, `delete.jsp` sử dụng thư viện JSTL Core (`<c:forEach>`, `<c:out>`, `<c:choose>`) và kế thừa CSS hiện đại.
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package, `jakarta.servlet.jsp.jstl`, `mysql-connector-j` 8.3.0, và web-app schema 6.0.
+
+### 38.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `user-management/pom.xml`
+- Kịch bản SQL khởi tạo CSDL: `user-management/database/init.sql`
+- Lớp Model người dùng: `user-management/src/main/java/com/codegym/model/User.java`
+- Interface DAO: `user-management/src/main/java/com/codegym/dao/IUserDAO.java`
+- Cài đặt DAO kết nối JDBC: `user-management/src/main/java/com/codegym/dao/UserDAO.java`
+- Servlet điều khiển: `user-management/src/main/java/com/codegym/controller/UserServlet.java`
+- Bộ giao diện JSP (Views): `user-management/src/main/webapp/user/`
+- Cấu hình Web descriptor: `user-management/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `user-management/README.md`
+
+---
+
+## 39. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -743,3 +773,4 @@ Xây dựng ứng dụng quản lý sản phẩm hoàn chỉnh theo mô hình ki
 35. **Mở Thực hành JSP Currency Converter**: Mở file `jsp-currency-converter/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 36. **Mở Bài tập JSTL Customer List**: Mở file `customer-list-jstl/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 37. **Mở Bài tập Quản lý sản phẩm MVC**: Mở file `product-management-mvc/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/product-management-mvc/products`.
+38. **Mở Thực hành Quản lý User JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
