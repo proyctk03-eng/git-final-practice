@@ -106,6 +106,8 @@
             <a href="users?action=create">+ Add New User</a>
             <a href="users?action=sort" class="btn-sort">Sort by Name (A-Z)</a>
             <a href="users" class="btn-all">Show All Users</a>
+            <a href="users?action=test-without-tran" style="background-color: #fd7e14; color: white;">Test Without Transaction</a>
+            <a href="users?action=test-use-tran" style="background-color: #28a745; color: white;">Test Use Transaction</a>
         </div>
         <form action="users" method="get" class="search-box">
             <input type="hidden" name="action" value="search" />
@@ -114,12 +116,19 @@
         </form>
     </div>
 
+    <c:if test="${not empty message}">
+        <div style="background-color: #fff3cd; color: #856404; padding: 12px; border: 1px solid #ffeeba; border-radius: 4px; margin-bottom: 15px;">
+            <strong>Thông báo:</strong> <c:out value="${message}"/>
+        </div>
+    </c:if>
+
     <c:if test="${not empty countrySearch}">
         <p>Search results for country: <strong>"${countrySearch}"</strong> (<a href="users">Clear search</a>)</p>
     </c:if>
     <c:if test="${isSorted}">
         <p><span class="badge">Sorted by Name (A-Z)</span> (<a href="users">Reset default order</a>)</p>
     </c:if>
+
 
     <table>
         <thead>

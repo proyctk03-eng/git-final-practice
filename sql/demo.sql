@@ -40,29 +40,11 @@ BEGIN
 END$$
 DELIMITER ;
 
--- ============================================
--- PHẦN BỔ SUNG: BẢNG PHÂN QUYỀN VÀ TRANSACTION
--- ============================================
-
--- 1. Tạo bảng Permission
-CREATE TABLE IF NOT EXISTS permission (
-    id INT(11) PRIMARY KEY,
-    name VARCHAR(50)
+-- 3. Bang Employee cho thuc hanh Transaction
+CREATE TABLE IF NOT EXISTS Employee (
+    id INT(11) AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    salary DECIMAL(15, 2) NOT NULL,
+    created_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
-
--- 2. Tạo bảng trung gian User_Permission
-CREATE TABLE IF NOT EXISTS user_permission (
-    user_id INT(11),
-    permission_id INT(11),
-    PRIMARY KEY(user_id, permission_id),
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    FOREIGN KEY (permission_id) REFERENCES permission(id) ON DELETE CASCADE
-);
-
--- 3. Thêm dữ liệu mẫu cho bảng Permission
-INSERT IGNORE INTO permission(id, name) VALUES 
-(1, 'add'),
-(2, 'edit'),
-(3, 'delete'),
-(4, 'view');
-

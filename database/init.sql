@@ -40,3 +40,12 @@ BEGIN
     INSERT INTO users(name, email, country) VALUES(user_name, user_email, user_country);
 END$$
 DELIMITER ;
+
+-- 3. Tao bang Employee phuc vu thuc hanh JDBC Transaction
+CREATE TABLE IF NOT EXISTS Employee (
+    id INT(11) AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    salary DECIMAL(15, 2) NOT NULL,
+    created_Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
+);
