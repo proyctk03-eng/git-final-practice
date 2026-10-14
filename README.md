@@ -48,6 +48,7 @@
 | 36 | **[Bài tập] Hiển thị danh sách khách hàng** | `customer-list-jstl/` | Java JSP, JSTL Core (`<c:forEach>`), EL, Jakarta EE 10, Tomcat 10.1+, Model, Servlet | Hoàn thành |
 | 37 | **[Bài tập] Tạo ứng dụng quản lý sản phẩm** | `product-management-mvc/` | Java MVC, Servlet, JSP, JSTL, CRUD (Create, Read, Update, Delete, Search) | Hoàn thành |
 | 38 | **[Thực hành] Quản lý User sử dụng JSP-Servlet-JDBC-MySQL** | `user-management/` | Java MVC, Servlet, JSP, JSTL, JDBC, MySQL Connector/J, CRUD | Hoàn thành |
+| 39 | **[Thực hành] Gọi MySQL Stored Procedures từ JDBC** | `user-management/` | Java JDBC, MySQL Stored Procedures, `CallableStatement`, `get_user_by_id`, `insert_user` | Hoàn thành |
 
 ---
 
@@ -734,7 +735,35 @@ Xây dựng ứng dụng quản lý người dùng kết nối cơ sở dữ li�
 
 ---
 
-## 39. Hướng dẫn mở và kiểm tra trực tiếp
+## 39. Bài thực hành 39: [Thực hành] Gọi MySQL Stored Procedures từ JDBC
+
+### 39.1. Mục tiêu & Các kỹ thuật áp dụng
+Cập nhật ứng dụng quản lý User chuyển đổi từ các câu truy vấn tĩnh (`PreparedStatement`) sang các thủ tục lưu trữ MySQL (`Stored Procedures`) qua giao diện `CallableStatement`:
+- **Định nghĩa Stored Procedures trong MySQL**:
+  - `get_user_by_id(IN user_id INT)`: Thủ tục lấy thông tin tên, email, quốc gia của người dùng theo mã định danh.
+  - `insert_user(IN user_name VARCHAR, IN user_email VARCHAR, IN user_country VARCHAR)`: Thủ tục thêm mới bản ghi người dùng vào bảng `users`.
+- **Tầng giao tiếp dữ liệu (DAO Layer)**:
+  - Bổ sung 2 phương thức mới trong `IUserDAO.java`: `User getUserById(int id)` và `void insertUserStore(User user) throws SQLException`.
+  - Triển khai trong `UserDAO.java` sử dụng đối tượng `CallableStatement` với cú pháp `{CALL procedure_name(?, ...)}`.
+- **Tầng điều khiển (Controller)**:
+  - Cập nhật hàm `showEditForm()` trong `UserServlet.java` gọi `userDAO.getUserById(id)`.
+  - Cập nhật hàm `insertUser()` trong `UserServlet.java` gọi `userDAO.insertUserStore(newUser)` kết hợp mẫu PRG (`response.sendRedirect("users")`) tránh lặp dữ liệu khi F5.
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` package, `jakarta.servlet.jsp.jstl`, `mysql-connector-j` 8.3.0, và web-app schema 6.0.
+
+### 39.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `user-management/pom.xml`
+- Kịch bản SQL khởi tạo CSDL & Stored Procedures: `user-management/database/init.sql`
+- Lớp Model người dùng: `user-management/src/main/java/com/codegym/model/User.java`
+- Interface DAO: `user-management/src/main/java/com/codegym/dao/IUserDAO.java`
+- Cài đặt DAO gọi CallableStatement: `user-management/src/main/java/com/codegym/dao/UserDAO.java`
+- Servlet điều khiển: `user-management/src/main/java/com/codegym/controller/UserServlet.java`
+- Bộ giao diện JSP (Views): `user-management/src/main/webapp/user/`
+- Cấu hình Web descriptor: `user-management/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `user-management/README.md`
+
+---
+
+## 40. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -774,3 +803,4 @@ Xây dựng ứng dụng quản lý người dùng kết nối cơ sở dữ li�
 36. **Mở Bài tập JSTL Customer List**: Mở file `customer-list-jstl/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 37. **Mở Bài tập Quản lý sản phẩm MVC**: Mở file `product-management-mvc/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/product-management-mvc/products`.
 38. **Mở Thực hành Quản lý User JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
+39. **Mở Thực hành Gọi MySQL Stored Procedures từ JDBC**: Mở file `user-management/src/main/webapp/index.jsp` trong trình duyệt hoặc truy cập `http://localhost:8080/user-management/users`.
