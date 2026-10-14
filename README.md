@@ -42,6 +42,7 @@
 | 30 | **[Thực hành] Tạo trang web hiển thị thời gian hệ thống** | `jsp-servlet-demo/` | Maven Webapp, Jakarta Servlet API 6.0, Jakarta JSP 3.1, Tomcat 10.1+, Scriptlet | Hoàn thành |
 | 31 | **[Bài tập] Ứng dụng Product Discount Calculator** | `product-discount-calculator/` | Java Servlet, JSP Form POST, Tomcat 10.1+, Jakarta EE 10, Discount Calculation | Hoàn thành |
 | 32 | **[Thực hành] CSS | flex-flow Property** | `css-flex-flow/` | CSS3 Flexbox, `flex-flow` (`row nowrap`, `row-reverse nowrap`), Flex Container | Hoàn thành |
+| 33 | **[Thực hành] Xây dựng Landing Page với Bootstrap** | `bootstrap-landing-page/` | Bootstrap 5.3.0, Navbar, Hero Section, Responsive Grid (col-md-4), Cards, Footer | Hoàn thành |
 
 ---
 
@@ -590,7 +591,24 @@ Luyện tập sử dụng thuộc tính viết tắt `flex-flow` trong CSS Flexb
 
 ---
 
-## 33. Hướng dẫn mở và kiểm tra trực tiếp
+## 33. Bài thực hành 33: [Thực hành] Xây Dựng Landing Page Với Bootstrap
+
+### 33.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng trang đích (Landing Page) chuyên nghiệp sử dụng thư viện Bootstrap 5.3.0 theo đúng đặc tả của CodeGym:
+- **Tích hợp Bootstrap 5.3.0 qua CDN**: Sử dụng Bootstrap CSS và JS Bundle mới nhất.
+- **Thanh điều hướng (`Navbar`)**: Khai báo `.navbar .navbar-expand-lg .navbar-dark .bg-dark`, tích hợp menu thu gọn responsive (`.navbar-toggler`) và các liên kết Home, About, Services, Contact.
+- **Khu vực mở đầu (`Hero Section`)**: Thiết kế khối giới thiệu nổi bật với lớp nền `.bg-primary`, màu chữ trắng, nút kêu gọi hành động `.btn .btn-light .btn-lg`.
+- **Hệ thống lưới dịch vụ (`Grid System - Services`)**: Bố cục 3 cột cân đối (`.row .col-md-4`) hiển thị các thẻ `.card` chứa thông tin Thiết kế Web, SEO & Marketing và Hỗ trợ 24/7.
+- **Chân trang (`Footer`)**: Khối `.bg-dark .text-white` căn giữa hiển thị bản quyền và tác giả.
+
+### 33.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện Landing Page: `bootstrap-landing-page/index.html`
+- Kiểu dáng CSS bổ trợ: `bootstrap-landing-page/styles.css`
+- Thuyết minh kỹ thuật chi tiết: `bootstrap-landing-page/README.md`
+
+---
+
+## 34. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -624,3 +642,4 @@ Luyện tập sử dụng thuộc tính viết tắt `flex-flow` trong CSS Flexb
 30. **Mở Thực hành JSP Thời gian hệ thống**: Mở file `jsp-servlet-demo/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 31. **Mở Bài tập Product Discount Calculator**: Mở file `product-discount-calculator/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
 32. **Mở Thực hành CSS flex-flow**: Mở file `css-flex-flow/index.html` trong trình duyệt.
+33. **Mở Thực hành Bootstrap Landing Page**: Mở file `bootstrap-landing-page/index.html` trong trình duyệt.
