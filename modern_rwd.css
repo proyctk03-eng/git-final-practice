@@ -1,0 +1,310 @@
+/* =============================================================================
+   PHIÊN BẢN NÂNG CẤP CAO CẤP: MODERN RESPONSIVE SHOWCASE
+   Tệp: modern_rwd.css
+   Phong cách: Modern CSS Grid & Flexbox, Viewport Simulator, High-End UI/UX
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --bg-page: #0f172a;
+    --card-bg: #1e293b;
+    --accent-primary: #6366f1;
+    --accent-teal: #06b6d4;
+    --text-white: #f8fafc;
+    --text-muted: #94a3b8;
+    --border-color: rgba(255, 255, 255, 0.08);
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --shadow-card: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f172a 75%);
+    color: var(--text-white);
+    line-height: 1.6;
+    padding: 30px 16px;
+    min-height: 100vh;
+}
+
+.simulator-header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+}
+
+.pill-badge {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.simulator-header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+}
+
+.simulator-header p {
+    color: var(--text-muted);
+    font-size: 15px;
+}
+
+.nav-links-bar {
+    margin-top: 14px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    font-size: 13px;
+}
+
+.nav-links-bar a {
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.nav-links-bar a:hover {
+    text-decoration: underline;
+}
+
+/* KHUNG VIEWPORT TƯƠNG TÁC (RESIZABLE CONTAINER) */
+.viewport-frame {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #090d16;
+    border: 2px solid #334155;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+    overflow: hidden;
+    transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* THANH ĐIỀU KHIỂN VIEWPORT TABS */
+.viewport-toolbar {
+    background: #1e293b;
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dots {
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.dot-red { background: #ef4444; }
+.dot-yellow { background: #f59e0b; }
+.dot-green { background: #10b981; }
+
+.btn-group {
+    display: flex;
+    gap: 6px;
+}
+
+.btn-size {
+    background: #334155;
+    color: #cbd5e1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-size:hover,
+.btn-size.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: #818cf8;
+}
+
+/* NỘI DUNG GIAO DIỆN CHANIA HIỆN ĐẠI */
+.app-header {
+    background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+    padding: 30px 24px;
+    text-align: center;
+}
+
+.app-header h2 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+}
+
+.app-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+}
+
+/* LƯỚI GRID BỐ CỤC 3 CỘT (MODERN CSS GRID) */
+.app-grid {
+    display: grid;
+    grid-template-columns: 220px 1fr 240px;
+    gap: 20px;
+    padding: 24px;
+}
+
+/* CỘT MENU */
+.app-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.app-menu li {
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    color: #e2e8f0;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.app-menu li:hover,
+.app-menu li.active {
+    background: var(--accent-primary);
+    color: #ffffff;
+    transform: translateX(4px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+}
+
+/* CỘT NỘI DUNG CHÍNH */
+.app-main {
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 26px;
+}
+
+.app-main h3 {
+    font-size: 22px;
+    color: #ffffff;
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.app-main p {
+    color: #cbd5e1;
+    font-size: 14px;
+    margin-bottom: 14px;
+    line-height: 1.7;
+}
+
+.stat-pills {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+}
+
+.stat-pill {
+    background: rgba(6, 182, 212, 0.15);
+    color: #22d3ee;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* CỘT ASIDE */
+.app-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.info-card {
+    background: #1e293b;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px;
+}
+
+.info-card h4 {
+    font-size: 14px;
+    color: #38bdf8;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.info-card p {
+    color: #94a3b8;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* FOOTER */
+.app-footer {
+    background: #0f172a;
+    border-top: 1px solid var(--border-color);
+    padding: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+/* MEDIA QUERIES RESPONSIVE */
+@media (max-width: 900px) {
+    .app-grid {
+        grid-template-columns: 200px 1fr;
+    }
+    .app-aside {
+        grid-column: span 2;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 650px) {
+    .app-grid {
+        grid-template-columns: 1fr;
+    }
+    .app-aside {
+        grid-column: span 1;
+        grid-template-columns: 1fr;
+    }
+    .stat-pills {
+        flex-direction: column;
+    }
+}
