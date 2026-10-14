@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <!-- Viewport Meta Tag: Yếu tố cốt lõi của Responsive Web Design (RWD) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài Tập Tạo Layout Với RWD - CodeGym</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- 1. HEADER BANNER -->
+    <div class="header">
+        <h1>Chania</h1>
+        <p class="header-sub">Thành phố du lịch nổi tiếng vùng Crete, Hy Lạp</p>
+    </div>
+
+    <!-- 2. HÀNG BỐ CỤC CHÍNH (GRID ROW 3 CỘT) -->
+    <div class="row">
+        <!-- CỘT TRÁI: Menu điều hướng (Chiếm 25% trên Desktop, 25% trên Tablet, 100% trên Mobile) -->
+        <div class="col-3 col-s-3 menu">
+            <ul>
+                <li class="active">The Flight</li>
+                <li>The City</li>
+                <li>The Island</li>
+                <li>The Food</li>
+            </ul>
+        </div>
+
+        <!-- CỘT GIỮA: Nội dung chính (Chiếm 50% trên Desktop, 75% trên Tablet, 100% trên Mobile) -->
+        <div class="col-6 col-s-9 main">
+            <h1>The City</h1>
+            <p>
+                Chania là thành phố thủ phủ của vùng Chania trên đảo Crete. Thành phố được chia thành hai phần riêng biệt: khu phố cổ mang đậm dấu ấn lịch sử kiến trúc Venetian và khu phố mới hiện đại sầm uất.
+            </p>
+            <p>
+                Khu phố cổ được xây dựng xung quanh bến cảng lịch sử, với những con hẻm quanh co quyến rũ, những ngôi nhà kiến trúc cổ và các quán cà phê ngắm hoàng hôn tuyệt đẹp bên ngọn hải đăng nổi tiếng.
+            </p>
+            <div class="tip-box">
+                <strong>Thử nghiệm Responsive:</strong> Bạn hãy thử co giãn chiều rộng của cửa sổ trình duyệt (hoặc bật F12 chọn chế độ di động) để quan sát các cột tự động thích ứng mượt mà từ 3 cột sang 2 cột và 1 cột.
+            </div>
+        </div>
+
+        <!-- CỘT PHẢI: Thông tin tóm tắt Aside (Chiếm 25% trên Desktop, 100% trên Tablet & Mobile) -->
+        <div class="col-3 col-s-12 right">
+            <div class="aside">
+                <h2>What?</h2>
+                <p>Chania là một trong những thành phố ven biển cổ kính và quyến rũ nhất của Hy Lạp.</p>
+
+                <h2>Where?</h2>
+                <p>Nằm ở bờ biển phía tây bắc của hòn đảo Crete, giữa biển Địa Trung Hải.</p>
+
+                <h2>How?</h2>
+                <p>Bạn có thể dễ dàng đến sân bay quốc tế Chania (CHQ) từ các thủ đô lớn của châu Âu.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. FOOTER CHÂN TRANG -->
+    <div class="footer">
+        <p>Resize the browser window to see how the content responds to the resizing.</p>
+        <p class="copyright">&copy; 2026 Nguyễn Tuấn Đạt - Bài tập Tạo Layout Với RWD (Responsive Web Design).</p>
+    </div>
+
+</body>
+</html>

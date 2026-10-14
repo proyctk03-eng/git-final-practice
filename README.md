@@ -38,6 +38,7 @@
 | 26 | **[Thực hành] Tái Cấu Trúc Giao Diện "MetricsHub"** | `metricshub-layout-refactoring/` | Flexbox (1D Navbar), CSS Grid (2D Bento Dashboard), Bootstrap 5 (12-Col Pricing), Shallow DOM | Hoàn thành |
 | 27 | **[Thực hành] Sử dụng Bootstrap xây dựng form login** | `jwbd-login-bootstrap/` | Bootstrap 5.0.0-beta2, Flexbox Centering, Form Controls, CSS Input Grouping | Hoàn thành |
 | 28 | **[Bài tập] Tạo layout với các thẻ HTML5 và CSS** | `tao-layout-html5-css/` | HTML5 Semantic (header, nav, section, article, aside, footer), CSS Flexbox Responsive | Hoàn thành |
+| 29 | **[Bài tập] Tạo layout với RWD** | `tao-layout-voi-rwd/` | HTML5 DIV, CSS Fluid Grid 12 cột, `box-sizing: border-box`, Media Queries (Breakpoints 600px, 768px) | Hoàn thành |
 
 ---
 
@@ -512,7 +513,25 @@ Xây dựng bố cục trang web hoàn chỉnh bằng các thẻ ngữ nghĩa HT
 
 ---
 
-## 29. Hướng dẫn mở và kiểm tra trực tiếp
+## 29. Bài tập 29: [Bài tập] Tạo Layout Với RWD
+
+### 29.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng bố cục trang web có khả năng đáp ứng đa màn hình (Responsive Web Design - RWD) bằng thẻ `<div>` và CSS theo đúng đặc tả của CodeGym:
+- **Thẻ meta Viewport**: Khai báo `<meta name="viewport" content="width=device-width, initial-scale=1.0">` để kiểm soát tỷ lệ hiển thị chuẩn trên mọi thiết bị di động.
+- **Thuộc tính `box-sizing: border-box`**: Đảm bảo kích thước lề đệm (`padding`) và viền (`border`) không làm biến dạng hoặc vỡ cấu trúc lưới phần trăm.
+- **Hệ thống lưới 12 cột tỷ lệ phần trăm (Fluid Grid)**: Phân bổ linh hoạt các cột với lớp `.col-*` (Desktop) và `.col-s-*` (Tablet) kết hợp kỹ thuật Clearfix.
+- **Truy vấn đa phương tiện (CSS Media Queries)**: Thiết lập các điểm ngắt (Breakpoints) tại `600px` (Tablet) và `768px` (Desktop) để chuyển đổi mượt mà giữa bố cục 3 cột (Desktop), 2 cột (Tablet) và 1 cột (Mobile).
+
+### 29.2. Tài liệu và Mã nguồn bàn giao
+- Giao diện chuẩn bài tập: `tao-layout-voi-rwd/index.html`
+- Kiểu dáng CSS hệ thống lưới: `tao-layout-voi-rwd/styles.css`
+- Giao diện mở rộng hiện đại: `tao-layout-voi-rwd/modern_rwd.html`
+- Kiểu dáng CSS mở rộng: `tao-layout-voi-rwd/modern_rwd.css`
+- Thuyết minh kỹ thuật chi tiết: `tao-layout-voi-rwd/README.md`
+
+---
+
+## 30. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -542,3 +561,4 @@ Xây dựng bố cục trang web hoàn chỉnh bằng các thẻ ngữ nghĩa HT
 26. **Mở Thực hành Tái cấu trúc MetricsHub**: Mở file `metricshub-layout-refactoring/index.html` trong trình duyệt.
 27. **Mở Thực hành Form Login Bootstrap**: Mở file `jwbd-login-bootstrap/index.html` trong trình duyệt.
 28. **Mở Bài tập Layout HTML5 và CSS**: Mở file `tao-layout-html5-css/index.html` trong trình duyệt.
+29. **Mở Bài tập Layout RWD**: Mở file `tao-layout-voi-rwd/index.html` trong trình duyệt.
