@@ -1,0 +1,188 @@
+/* ==========================================================================
+   Tệp style.css - Component Thẻ sản phẩm (Product Card)
+   Sinh viên: Nguyễn Tuấn Đạt (proyctk03@gmail.com)
+   Khóa học: Module 1 - Thiết Kế Web
+   Mô tả: Ứng dụng Box Model và thuộc tính display xây dựng Product Card
+   ========================================================================== */
+
+/* 1. Thiết lập CSS chung: Reset box-sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 2. Thiết lập nền trang nhạt làm nổi bật thẻ sản phẩm */
+body {
+  background-color: #f4f6f8;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  color: #333333;
+  padding: 40px 20px;
+}
+
+/* Tiêu đề trang */
+.page-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.page-header h1 {
+  font-size: 2rem;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.page-header p {
+  color: #64748b;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   3. Định dạng Thẻ sản phẩm (.product-card)
+   ========================================================================== */
+.product-card {
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 50px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hiệu ứng nổi nhẹ khi rê chuột (Thử thách nâng cao) */
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   4. Định dạng các Phần tử bên trong
+   ========================================================================== */
+
+/* Hình ảnh sản phẩm */
+.product-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+/* Tên sản phẩm */
+.product-card h2,
+.product-card h3 {
+  font-size: 1.25rem;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+/* Giá sản phẩm */
+.product-card .price {
+  color: #e53935;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* Nút bấm mua hàng */
+.product-card .btn {
+  display: block;
+  background-color: #2563eb;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 12px 20px;
+  text-align: center;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.product-card .btn:hover {
+  background-color: #1d4ed8;
+  text-decoration: none;
+}
+
+.product-card .btn:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Khu vực hiển thị danh mục tái sử dụng (Product Showcase Grid)
+   ========================================================================== */
+.showcase-section {
+  max-width: 1000px;
+  margin: 60px auto 40px auto;
+  border-top: 2px dashed #cbd5e1;
+  padding-top: 40px;
+}
+
+.showcase-title {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.showcase-subtitle {
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 30px;
+}
+
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+/* Đảm bảo các thẻ trong lưới hiển thị đồng đều */
+.product-grid .product-card {
+  margin: 0;
+}
+
+/* Bảng phân tích Box Model */
+.analysis-box {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.analysis-box h3 {
+  color: #1e293b;
+  margin-bottom: 12px;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 6px;
+}
+
+.analysis-box table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.analysis-box th,
+.analysis-box td {
+  border: 1px solid #e2e8f0;
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.analysis-box th {
+  background-color: #f8fafc;
+  font-weight: bold;
+}

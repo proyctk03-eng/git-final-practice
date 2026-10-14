@@ -55,6 +55,7 @@
 | 43 | **Mini project: Xây dựng trang "Giới thiệu bản thân" (About Me)** | `my-first-website/` | HTML5 Semantic (`h1`, `h2`, `p`, `strong`, `em`, `ul`, `ol`, `img`, `a`), a11y | Hoàn thành |
 | 44 | **[Thực hành] Tạo và liên kết file style.css đầu tiên** | `my-first-website/` | External CSS, `<link rel="stylesheet">`, CSS Rule `background-color`, Separation of Concerns | Hoàn thành |
 | 45 | **[Thực hành] Trực quan hóa Box Model với các khối div** | `visualize-box-model/` | CSS3 Box Model (Content, Padding, Border, Margin), `content-box`, `border-box` | Hoàn thành |
+| 46 | **[Mini project] Xây dựng Component "Thẻ sản phẩm" (Product Card)** | `product-card/` | HTML5, CSS3 Box Model (`border-box`, `padding`, `border`, `margin`), `display: block`, `box-shadow` | Hoàn thành |
 
 ---
 
@@ -957,7 +958,33 @@ Xây dựng phòng thí nghiệm trực quan hóa Box Model:
 
 ---
 
-## 46. Hướng dẫn mở và kiểm tra trực tiếp
+## 46. Bài tập 46: [Mini project] Xây dựng Component "Thẻ sản phẩm" (Product Card)
+
+### 46.1. Mục tiêu và Kiến trúc giải pháp
+- **Vận dụng toàn diện CSS Box Model**:
+  - `* { box-sizing: border-box; }`: Kiểm soát kích thước thực tế chính xác bằng giá trị `width: 300px` được khai báo, loại bỏ hoàn toàn nguy cơ phình to kích thước khi thêm padding và border.
+  - Vùng nội dung (Content Width): Tính toán tự động bằng $300\text{px} - (20\text{px} \times 2) - (1\text{px} \times 2) = 258\text{px}$.
+  - Khoảng đệm `padding: 20px`: Tạo không gian an toàn, thoáng đãng cho hình ảnh, tiêu đề, giá tiền và nút bấm bên trong thẻ.
+  - Đường viền `border: 1px solid #ddd`: Định hình ranh giới khối card, kết hợp `border-radius: 8px` hiện đại.
+  - Căn giữa trang với `margin: 50px auto`: Tự động phân bổ đều khoảng cách lề trái/phải, đưa thẻ vào chính giữa trục ngang màn hình.
+  - Hiệu ứng đổ bóng nâng cao `box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1)` và chuyển động `:hover` (`translateY(-4px)`).
+- **Vận dụng thuộc tính `display: block`**:
+  - Chuyển đổi thẻ liên kết `<a>` (vốn là phần tử inline) thành khối block (`display: block;`), chiếm trọn 100% chiều rộng vùng chứa, tạo diện tích chạm/bấm lớn trực quan và dễ sử dụng.
+  - Căn giữa nhãn nút bằng `text-align: center;`, loại bỏ gạch chân mặc định (`text-decoration: none;`), tạo hiệu ứng tương tác `:hover` và `:active`.
+- **Khả năng tái sử dụng (Reusability Showcase)**:
+  - Component `.product-card` được thiết kế theo tiêu chuẩn module độc lập, sẵn sàng áp dụng cho hàng ngàn sản phẩm trong danh mục thương mại điện tử (minh họa với Tai nghe Sony, Apple Watch, Máy ảnh Fujifilm).
+
+### 46.2. Tài liệu và Mã nguồn bàn giao
+- Tệp component đơn lẻ: `product-card/product-card.html`
+- Tệp trưng bày tổng thể & phân tích Box Model: `product-card/index.html`
+- Tệp định dạng CSS: `product-card/style.css`
+- Tệp tích hợp trong dự án my-first-website: `my-first-website/product-card.html`
+- Báo cáo kỹ thuật chi tiết: `product-card/README.md`
+- Thư mục hình ảnh sản phẩm: `product-card/images/`
+
+---
+
+## 47. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -1004,3 +1031,4 @@ Xây dựng phòng thí nghiệm trực quan hóa Box Model:
 43. **Mở Mini project Giới thiệu bản thân (About Me)**: Mở file `my-first-website/index.html` trong trình duyệt.
 44. **Mở Thực hành Tạo và liên kết file style.css**: Mở file `my-first-website/index.html` trong trình duyệt để kiểm tra màu nền AliceBlue từ `my-first-website/style.css`.
 45. **Mở Thực hành Trực quan hóa Box Model**: Mở file `visualize-box-model/box-model.html` hoặc `visualize-box-model/index.html` trong trình duyệt.
+46. **Mở Mini project Thẻ sản phẩm (Product Card)**: Mở file `product-card/product-card.html` hoặc `product-card/index.html` trong trình duyệt.

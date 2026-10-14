@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dự án Thẻ sản phẩm (Product Card Component) - Nguyễn Tuấn Đạt</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Thẻ sản phẩm (Product Card Component)</h1>
+    <p>Sinh viên: <strong>Nguyễn Tuấn Đạt</strong> | Mã bài học: <strong>Mini Project CSS Layout &amp; Box Model</strong></p>
+  </header>
+
+  <!-- Component Thẻ sản phẩm chính (Căn giữa trang bằng margin: 50px auto) -->
+  <main>
+    <div class="product-card">
+      <img src="images/product.jpg" alt="Tai nghe không dây chống ồn Sony WH-1000XM5">
+      <h3>Tai nghe Sony WH-1000XM5</h3>
+      <p class="price">8.490.000 đ</p>
+      <a href="#" class="btn">Thêm vào giỏ hàng</a>
+    </div>
+
+    <!-- Bảng phân tích Box Model chi tiết -->
+    <section class="analysis-box">
+      <h3>Bảng phân tích cấu trúc Box Model của Thẻ sản phẩm</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Thành phần Box Model</th>
+            <th>Giá trị CSS</th>
+            <th>Chiều rộng tính toán (Width)</th>
+            <th>Ý nghĩa trong giao diện</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>box-sizing</strong></td>
+            <td><code>border-box</code></td>
+            <td>-</td>
+            <td>Khóa kích thước tổng đúng bằng thuộc tính width khai báo</td>
+          </tr>
+          <tr>
+            <td><strong>width</strong></td>
+            <td><code>300px</code></td>
+            <td>300px</td>
+            <td>Kích thước tổng toàn bộ khối thẻ bao gồm cả padding và border</td>
+          </tr>
+          <tr>
+            <td><strong>border</strong></td>
+            <td><code>1px solid #ddd</code></td>
+            <td>1px trái + 1px phải = 2px</td>
+            <td>Tạo đường khung viền phân định ranh giới thẻ</td>
+          </tr>
+          <tr>
+            <td><strong>padding</strong></td>
+            <td><code>20px</code></td>
+            <td>20px trái + 20px phải = 40px</td>
+            <td>Khoảng đệm giúp ảnh, chữ và nút không bị dính vào viền</td>
+          </tr>
+          <tr>
+            <td><strong>Vùng nội dung (Content)</strong></td>
+            <td>Tự động co giãn</td>
+            <td>300 - 40 - 2 = <strong>258px</strong></td>
+            <td>Vùng không gian thực tế hiển thị hình ảnh, tiêu đề, giá tiền và nút</td>
+          </tr>
+          <tr>
+            <td><strong>margin</strong></td>
+            <td><code>50px auto</code></td>
+            <td>50px trên/dưới, tự động căn giữa ngang</td>
+            <td>Tạo khoảng cách với mép trên/dưới và căn giữa thẻ trên màn hình</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Khu vực chứng minh khả năng tái sử dụng (Reusability Showcase) -->
+    <section class="showcase-section">
+      <h2 class="showcase-title">Thử nghiệm tái sử dụng Component với nhiều sản phẩm</h2>
+      <p class="showcase-subtitle">Minh họa việc component .product-card có thể áp dụng cho hàng ngàn sản phẩm trong hệ thống thương mại điện tử</p>
+      
+      <div class="product-grid">
+        <!-- Sản phẩm 1 -->
+        <div class="product-card">
+          <img src="images/headphone.jpg" alt="Tai nghe Sony WH-1000XM5">
+          <h3>Tai nghe Sony WH-1000XM5</h3>
+          <p class="price">8.490.000 đ</p>
+          <a href="#" class="btn">Thêm vào giỏ hàng</a>
+        </div>
+
+        <!-- Sản phẩm 2 -->
+        <div class="product-card">
+          <img src="images/smartwatch.jpg" alt="Apple Watch Series 9 GPS 45mm">
+          <h3>Apple Watch Series 9</h3>
+          <p class="price">10.290.000 đ</p>
+          <a href="#" class="btn">Thêm vào giỏ hàng</a>
+        </div>
+
+        <!-- Sản phẩm 3 -->
+        <div class="product-card">
+          <img src="images/camera.jpg" alt="Máy ảnh Fujifilm X-T5 Mirrorless">
+          <h3>Fujifilm X-T5 Mirrorless</h3>
+          <p class="price">39.990.000 đ</p>
+          <a href="#" class="btn">Thêm vào giỏ hàng</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+</body>
+</html>
