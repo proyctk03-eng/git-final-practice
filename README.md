@@ -44,6 +44,7 @@
 | 32 | **[Thực hành] CSS | flex-flow Property** | `css-flex-flow/` | CSS3 Flexbox, `flex-flow` (`row nowrap`, `row-reverse nowrap`), Flex Container | Hoàn thành |
 | 33 | **[Thực hành] Xây dựng Landing Page với Bootstrap** | `bootstrap-landing-page/` | Bootstrap 5.3.0, Navbar, Hero Section, Responsive Grid (col-md-4), Cards, Footer | Hoàn thành |
 | 34 | **[Bài tập] Thiết kế Trang Đăng Ký với Bootstrap Forms** | `bootstrap-registration-form/` | Bootstrap 5.3.0 Forms, Form Controls, Radio, Checkbox, Dropdown Select, Validation | Hoàn thành |
+| 35 | **[Thực hành] Ứng dụng chuyển đổi tiền tệ - JSP** | `jsp-currency-converter/` | Java JSP, Scriptlet, Expression, Tomcat 10.1+, Jakarta EE 10, USD to VND | Hoàn thành |
 
 ---
 
@@ -627,7 +628,27 @@ Xây dựng trang đăng ký người dùng chuyên nghiệp sử dụng đầy 
 
 ---
 
-## 35. Hướng dẫn mở và kiểm tra trực tiếp
+## 35. Bài thực hành 35: [Thực hành] Ứng Dụng Chuyển Đổi Tiền Tệ - JSP
+
+### 35.1. Mục tiêu & Các kỹ thuật áp dụng
+Xây dựng ứng dụng chuyển đổi tiền tệ từ USD sang VND sử dụng hoàn toàn mã JSP (Scriptlet & Expression) theo đúng đặc tả của CodeGym:
+- **Trang biểu mẫu nhập liệu (`index.jsp`)**: Xây dựng form nhập liệu tỉ giá (`rate`) và lượng USD cần đổi (`usd`), sử dụng phương thức `POST` gửi tới trang `converter.jsp`.
+- **Trang xử lý tính toán (`converter.jsp`)**:
+  - Sử dụng thẻ JSP Scriptlet `<% ... %>` nhận tham số từ request, ép kiểu sang số thực (`Float.parseFloat`).
+  - Thực hiện công thức tính toán: $\text{VND} = \text{Rate} \times \text{USD}$.
+  - Hiển thị trực tiếp kết quả ra màn hình bằng thẻ JSP Expression `<%= ... %>` với định dạng tiền tệ chuyên nghiệp.
+- **Tương thích hoàn toàn với Tomcat 10.1+ & Jakarta EE 10**: Sử dụng `jakarta.servlet` và web-app schema 6.0.
+
+### 35.2. Tài liệu và Mã nguồn bàn giao
+- Cấu hình Maven: `jsp-currency-converter/pom.xml`
+- Giao diện form nhập liệu: `jsp-currency-converter/src/main/webapp/index.jsp`
+- Giao diện và logic tính toán: `jsp-currency-converter/src/main/webapp/converter.jsp`
+- Cấu hình Web descriptor: `jsp-currency-converter/src/main/webapp/WEB-INF/web.xml`
+- Thuyết minh kỹ thuật chi tiết: `jsp-currency-converter/README.md`
+
+---
+
+## 36. Hướng dẫn mở và kiểm tra trực tiếp
 
 1. **Mở Bài tập Phối màu Newsletter**: Mở file `index.html` tại thư mục gốc.
 2. **Mở Landing Page CodeGym Career**: Mở file `landing-page/index.html` trong trình duyệt.
@@ -663,3 +684,4 @@ Xây dựng trang đăng ký người dùng chuyên nghiệp sử dụng đầy 
 32. **Mở Thực hành CSS flex-flow**: Mở file `css-flex-flow/index.html` trong trình duyệt.
 33. **Mở Thực hành Bootstrap Landing Page**: Mở file `bootstrap-landing-page/index.html` trong trình duyệt.
 34. **Mở Bài tập Bootstrap Registration Form**: Mở file `bootstrap-registration-form/index.html` trong trình duyệt.
+35. **Mở Thực hành JSP Currency Converter**: Mở file `jsp-currency-converter/src/main/webapp/index.jsp` trong trình duyệt hoặc triển khai file WAR lên Tomcat 10.1+.
